@@ -1,0 +1,127 @@
+import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { Mail, Linkedin, Github, Send } from "lucide-react";
+import { toast } from "sonner";
+
+const ContactSection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast.success("Message sent! I'll get back to you soon.");
+    setForm({ name: "", email: "", message: "" });
+  };
+
+  return (
+    <section id="contact" className="py-24 relative" ref={ref}>
+      <div className="absolute inset-0 grid-pattern opacity-20" />
+      <div className="container mx-auto px-6 relative">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <span className="text-sm font-semibold text-primary tracking-widest uppercase">Contact</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-3">
+            Let's <span className="gold-text">Connect</span>
+          </h2>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          {/* Social links */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-6"
+          >
+            <p className="text-muted-foreground leading-relaxed">
+              I'm always open to discussing AI projects, consulting opportunities, or just chatting about technology. Feel free to reach out!
+            </p>
+
+            <div className="space-y-4">
+              {[
+                { icon: Mail, label: "Email", value: "your@email.com", href: "mailto:your@email.com" },
+                { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/yourprofile", href: "#" },
+                { icon: Github, label: "GitHub", value: "github.com/yourprofile", href: "#" },
+              ].map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-xl glass-card hover:border-primary/30 transition-all group"
+                >
+                  <div className="w-10 h-10 rounded-lg gold-gradient flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <item.icon className="w-5 h-5 text-primary-foreground" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">{item.label}</p>
+                    <p className="font-medium text-sm">{item.value}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Contact form */}
+          <motion.form
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="glass-card rounded-2xl p-8 space-y-5"
+          >
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">Name</label>
+              <input
+                type="text"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                required
+                maxLength={100}
+                className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors text-sm"
+                placeholder="Your name"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">Email</label>
+              <input
+                type="email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                required
+                maxLength={255}
+                className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors text-sm"
+                placeholder="your@email.com"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">Message</label>
+              <textarea
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                required
+                maxLength={1000}
+                rows={4}
+                className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors text-sm resize-none"
+                placeholder="Tell me about your project..."
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full py-3 rounded-xl gold-gradient text-primary-foreground font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <Send className="w-4 h-4" /> Send Message
+            </button>
+          </motion.form>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ContactSection;
