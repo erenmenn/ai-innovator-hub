@@ -3,6 +3,12 @@ import { motion, useInView } from "framer-motion";
 import { Mail, Linkedin, Github, Send } from "lucide-react";
 import { toast } from "sonner";
 
+const socials = [
+  { icon: Mail, label: "Email", value: "your@email.com", href: "mailto:your@email.com", color: "from-[hsl(var(--color-orange))] to-[hsl(var(--color-pink))]" },
+  { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/yourprofile", href: "#", color: "from-[hsl(var(--color-blue))] to-[hsl(var(--color-cyan))]" },
+  { icon: Github, label: "GitHub", value: "github.com/yourprofile", href: "#", color: "from-[hsl(var(--color-purple))] to-[hsl(var(--primary))]" },
+];
+
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -17,6 +23,9 @@ const ContactSection = () => {
   return (
     <section id="contact" className="py-24 relative" ref={ref}>
       <div className="absolute inset-0 grid-pattern opacity-20" />
+      <div className="absolute top-10 right-10 w-[300px] h-[300px] rounded-full opacity-10" style={{ background: "radial-gradient(circle, hsl(260 85% 60%), transparent 70%)" }} />
+      <div className="absolute bottom-10 left-10 w-[250px] h-[250px] rounded-full opacity-10" style={{ background: "radial-gradient(circle, hsl(330 80% 60%), transparent 70%)" }} />
+
       <div className="container mx-auto px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -31,7 +40,6 @@ const ContactSection = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          {/* Social links */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -43,19 +51,15 @@ const ContactSection = () => {
             </p>
 
             <div className="space-y-4">
-              {[
-                { icon: Mail, label: "Email", value: "your@email.com", href: "mailto:your@email.com" },
-                { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/yourprofile", href: "#" },
-                { icon: Github, label: "GitHub", value: "github.com/yourprofile", href: "#" },
-              ].map((item) => (
+              {socials.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-xl glass-card hover:border-primary/30 transition-all group"
+                  className="flex items-center gap-4 p-4 rounded-xl glass-card hover:border-primary/30 transition-all group hover:-translate-y-1"
                 >
-                  <div className="w-10 h-10 rounded-lg gold-gradient flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg`}>
                     <item.icon className="w-5 h-5 text-primary-foreground" />
                   </div>
                   <div>
@@ -67,7 +71,6 @@ const ContactSection = () => {
             </div>
           </motion.div>
 
-          {/* Contact form */}
           <motion.form
             onSubmit={handleSubmit}
             initial={{ opacity: 0, x: 30 }}

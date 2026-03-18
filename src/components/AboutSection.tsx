@@ -4,10 +4,10 @@ import { useRef } from "react";
 import { Lightbulb, Target, Users, BrainCircuit } from "lucide-react";
 
 const traits = [
-  { icon: Lightbulb, title: "Innovative Leader", desc: "Strong communication skills with a passion for driving impactful solutions." },
-  { icon: Target, title: "Solution-Oriented", desc: "Analytical and creative, translating real-world problems into AI-powered solutions." },
-  { icon: BrainCircuit, title: "AI Builder", desc: "Experienced in NLP, Computer Vision, and Predictive Systems across multiple domains." },
-  { icon: Users, title: "AI Consultant", desc: "Helping businesses understand where AI fits and how to implement it effectively." },
+  { icon: Lightbulb, title: "Innovative Leader", desc: "Strong communication skills with a passion for driving impactful solutions.", color: "from-[hsl(var(--color-orange))] to-[hsl(var(--color-pink))]" },
+  { icon: Target, title: "Solution-Oriented", desc: "Analytical and creative, translating real-world problems into AI-powered solutions.", color: "from-[hsl(var(--color-blue))] to-[hsl(var(--color-cyan))]" },
+  { icon: BrainCircuit, title: "AI Builder", desc: "Experienced in NLP, Computer Vision, and Predictive Systems across multiple domains.", color: "from-[hsl(var(--color-purple))] to-[hsl(var(--primary))]" },
+  { icon: Users, title: "AI Consultant", desc: "Helping businesses understand where AI fits and how to implement it effectively.", color: "from-[hsl(var(--color-green))] to-[hsl(var(--color-cyan))]" },
 ];
 
 const AboutSection = () => {
@@ -41,9 +41,9 @@ const AboutSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="glass-card rounded-2xl p-6 hover:border-primary/30 transition-all duration-300 group hover:-translate-y-1"
+              className="glass-card rounded-2xl p-6 hover:border-primary/30 transition-all duration-300 group hover:-translate-y-2 hover:shadow-xl"
             >
-              <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${trait.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg`}>
                 <trait.icon className="w-6 h-6 text-primary-foreground" />
               </div>
               <h3 className="font-display font-semibold text-lg mb-2">{trait.title}</h3>
