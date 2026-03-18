@@ -206,7 +206,4 @@ const SkillsSection = () => {
   );
 };
 
-// Need to import AnimatePresence
-import { AnimatePresence } from "framer-motion";
-
 export default SkillsSection;
