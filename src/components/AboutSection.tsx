@@ -15,8 +15,22 @@ const AboutSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="py-24 relative" ref={ref}>
-      <div className="container mx-auto px-6">
+    <section id="about" className="py-24 relative overflow-hidden" ref={ref}>
+      {/* Smoke */}
+      <motion.div
+        animate={{ x: [0, 30, -20, 0], y: [0, -20, 25, 0], scale: [1, 1.15, 0.9, 1] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[10%] left-[5%] w-[400px] h-[400px] rounded-full opacity-[0.07]"
+        style={{ background: "radial-gradient(circle, hsl(25 95% 58%), transparent 70%)" }}
+      />
+      <motion.div
+        animate={{ x: [0, -20, 30, 0], y: [0, 25, -15, 0], scale: [1, 0.9, 1.1, 1] }}
+        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        className="absolute bottom-[10%] right-[5%] w-[450px] h-[450px] rounded-full opacity-[0.07]"
+        style={{ background: "radial-gradient(circle, hsl(270 80% 65%), transparent 70%)" }}
+      />
+
+      <div className="container mx-auto px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
