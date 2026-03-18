@@ -21,10 +21,28 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative" ref={ref}>
+    <section id="contact" className="py-24 relative overflow-hidden" ref={ref}>
+      {/* Smoke */}
+      <motion.div
+        animate={{ x: [0, 25, -15, 0], y: [0, -20, 25, 0], scale: [1, 1.1, 0.95, 1] }}
+        transition={{ duration: 19, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[5%] right-[10%] w-[400px] h-[400px] rounded-full opacity-[0.07]"
+        style={{ background: "radial-gradient(circle, hsl(260 85% 60%), transparent 70%)" }}
+      />
+      <motion.div
+        animate={{ x: [0, -20, 30, 0], y: [0, 30, -15, 0], scale: [1, 0.95, 1.1, 1] }}
+        transition={{ duration: 23, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+        className="absolute bottom-[5%] left-[5%] w-[350px] h-[350px] rounded-full opacity-[0.07]"
+        style={{ background: "radial-gradient(circle, hsl(330 80% 60%), transparent 70%)" }}
+      />
+      <motion.div
+        animate={{ x: [0, 15, -25, 0], y: [0, -15, 20, 0] }}
+        transition={{ duration: 21, repeat: Infinity, ease: "easeInOut", delay: 6 }}
+        className="absolute top-[50%] left-[40%] w-[300px] h-[300px] rounded-full opacity-[0.05]"
+        style={{ background: "radial-gradient(circle, hsl(185 85% 50%), transparent 70%)" }}
+      />
+
       <div className="absolute inset-0 grid-pattern opacity-20" />
-      <div className="absolute top-10 right-10 w-[300px] h-[300px] rounded-full opacity-10" style={{ background: "radial-gradient(circle, hsl(260 85% 60%), transparent 70%)" }} />
-      <div className="absolute bottom-10 left-10 w-[250px] h-[250px] rounded-full opacity-10" style={{ background: "radial-gradient(circle, hsl(330 80% 60%), transparent 70%)" }} />
 
       <div className="container mx-auto px-6 relative">
         <motion.div
@@ -80,44 +98,17 @@ const ContactSection = () => {
           >
             <div>
               <label className="text-sm font-medium mb-1.5 block">Name</label>
-              <input
-                type="text"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                required
-                maxLength={100}
-                className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors text-sm"
-                placeholder="Your name"
-              />
+              <input type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required maxLength={100} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors text-sm" placeholder="Your name" />
             </div>
             <div>
               <label className="text-sm font-medium mb-1.5 block">Email</label>
-              <input
-                type="email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                required
-                maxLength={255}
-                className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors text-sm"
-                placeholder="your@email.com"
-              />
+              <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required maxLength={255} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors text-sm" placeholder="your@email.com" />
             </div>
             <div>
               <label className="text-sm font-medium mb-1.5 block">Message</label>
-              <textarea
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                required
-                maxLength={1000}
-                rows={4}
-                className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors text-sm resize-none"
-                placeholder="Tell me about your project..."
-              />
+              <textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required maxLength={1000} rows={4} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors text-sm resize-none" placeholder="Tell me about your project..." />
             </div>
-            <button
-              type="submit"
-              className="w-full py-3 rounded-xl gold-gradient text-primary-foreground font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98]"
-            >
+            <button type="submit" className="w-full py-3 rounded-xl gold-gradient text-primary-foreground font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98]">
               <Send className="w-4 h-4" /> Send Message
             </button>
           </motion.form>
