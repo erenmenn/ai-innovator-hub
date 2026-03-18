@@ -56,6 +56,12 @@ export default {
           light: "hsl(var(--gold-light))",
           dark: "hsl(var(--gold-dark))",
         },
+        pink: "hsl(var(--color-pink))",
+        blue: "hsl(var(--color-blue))",
+        cyan: "hsl(var(--color-cyan))",
+        green: "hsl(var(--color-green))",
+        orange: "hsl(var(--color-orange))",
+        purple: "hsl(var(--color-purple))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

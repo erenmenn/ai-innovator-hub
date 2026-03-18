@@ -11,84 +11,31 @@ interface Project {
   category: Category;
   icon: typeof Brain;
   github: string;
+  color: string;
 }
 
 const projects: Project[] = [
-  {
-    title: "WangkuAI-FinanceBot",
-    description: "AI chatbot for financial insights powered by LLMs",
-    tech: ["NLP", "LLM", "Python"],
-    category: "NLP",
-    icon: Brain,
-    github: "#",
-  },
-  {
-    title: "ImageClassification-PlantCare",
-    description: "Classifies plant health from leaf images",
-    tech: ["CNN", "TensorFlow"],
-    category: "Computer Vision",
-    icon: Eye,
-    github: "#",
-  },
-  {
-    title: "RekomendasiFILM",
-    description: "Movie recommendation with collaborative filtering",
-    tech: ["Collaborative Filtering"],
-    category: "Recommendation",
-    icon: Film,
-    github: "#",
-  },
-  {
-    title: "ImageClassification-EmosiMU",
-    description: "Emotion detection from facial images",
-    tech: ["Deep Learning", "CNN"],
-    category: "Computer Vision",
-    icon: Eye,
-    github: "#",
-  },
-  {
-    title: "SemanticSearch-Lyrics",
-    description: "Search lyrics by meaning using semantic embeddings",
-    tech: ["NLP", "Embeddings"],
-    category: "NLP",
-    icon: Brain,
-    github: "#",
-  },
-  {
-    title: "IntentClass-CustomerServiceBOT",
-    description: "Intent classification for customer service chatbots",
-    tech: ["NLP", "Classification"],
-    category: "NLP",
-    icon: Brain,
-    github: "#",
-  },
-  {
-    title: "SentimenAnalisis-TaylorOphelia",
-    description: "Sentiment analysis system for text data",
-    tech: ["NLP"],
-    category: "NLP",
-    icon: Brain,
-    github: "#",
-  },
-  {
-    title: "PrediksiHarga-MADUW",
-    description: "Price prediction model using regression",
-    tech: ["Regression", "ML"],
-    category: "Prediction",
-    icon: BarChart3,
-    github: "#",
-  },
-  {
-    title: "ChungkingStrategy-FirstAIDbook",
-    description: "Strategy-based knowledge model system",
-    tech: ["ML", "Knowledge System"],
-    category: "AI System",
-    icon: Cpu,
-    github: "#",
-  },
+  { title: "WangkuAI-FinanceBot", description: "AI chatbot for financial insights powered by LLMs", tech: ["NLP", "LLM", "Python"], category: "NLP", icon: Brain, github: "#", color: "from-[hsl(var(--color-purple))] to-[hsl(var(--color-blue))]" },
+  { title: "ImageClassification-PlantCare", description: "Classifies plant health from leaf images", tech: ["CNN", "TensorFlow"], category: "Computer Vision", icon: Eye, github: "#", color: "from-[hsl(var(--color-green))] to-[hsl(var(--color-cyan))]" },
+  { title: "RekomendasiFILM", description: "Movie recommendation with collaborative filtering", tech: ["Collaborative Filtering"], category: "Recommendation", icon: Film, github: "#", color: "from-[hsl(var(--color-pink))] to-[hsl(var(--color-orange))]" },
+  { title: "ImageClassification-EmosiMU", description: "Emotion detection from facial images", tech: ["Deep Learning", "CNN"], category: "Computer Vision", icon: Eye, github: "#", color: "from-[hsl(var(--color-orange))] to-[hsl(var(--color-pink))]" },
+  { title: "SemanticSearch-Lyrics", description: "Search lyrics by meaning using semantic embeddings", tech: ["NLP", "Embeddings"], category: "NLP", icon: Brain, github: "#", color: "from-[hsl(var(--color-blue))] to-[hsl(var(--color-purple))]" },
+  { title: "IntentClass-CustomerServiceBOT", description: "Intent classification for customer service chatbots", tech: ["NLP", "Classification"], category: "NLP", icon: Brain, github: "#", color: "from-[hsl(var(--color-cyan))] to-[hsl(var(--color-blue))]" },
+  { title: "SentimenAnalisis-TaylorOphelia", description: "Sentiment analysis system for text data", tech: ["NLP"], category: "NLP", icon: Brain, github: "#", color: "from-[hsl(var(--primary))] to-[hsl(var(--color-pink))]" },
+  { title: "PrediksiHarga-MADUW", description: "Price prediction model using regression", tech: ["Regression", "ML"], category: "Prediction", icon: BarChart3, github: "#", color: "from-[hsl(var(--color-orange))] to-[hsl(var(--gold))]" },
+  { title: "ChungkingStrategy-FirstAIDbook", description: "Strategy-based knowledge model system", tech: ["ML", "Knowledge System"], category: "AI System", icon: Cpu, github: "#", color: "from-[hsl(var(--color-green))] to-[hsl(var(--color-blue))]" },
 ];
 
 const categories: Category[] = ["All", "NLP", "Computer Vision", "Recommendation", "Prediction", "AI System"];
+
+const catColors: Record<Category, string> = {
+  All: "gold-gradient",
+  NLP: "bg-gradient-to-r from-[hsl(var(--color-purple))] to-[hsl(var(--color-blue))]",
+  "Computer Vision": "bg-gradient-to-r from-[hsl(var(--color-green))] to-[hsl(var(--color-cyan))]",
+  Recommendation: "bg-gradient-to-r from-[hsl(var(--color-pink))] to-[hsl(var(--color-orange))]",
+  Prediction: "bg-gradient-to-r from-[hsl(var(--color-orange))] to-[hsl(var(--gold))]",
+  "AI System": "bg-gradient-to-r from-[hsl(var(--color-cyan))] to-[hsl(var(--color-blue))]",
+};
 
 const ProjectsSection = () => {
   const [active, setActive] = useState<Category>("All");
@@ -99,7 +46,11 @@ const ProjectsSection = () => {
 
   return (
     <section id="projects" className="py-24 relative" ref={ref}>
-      <div className="container mx-auto px-6">
+      {/* Color blobs */}
+      <div className="absolute top-20 left-0 w-[300px] h-[300px] rounded-full opacity-10" style={{ background: "radial-gradient(circle, hsl(330 80% 60%), transparent 70%)" }} />
+      <div className="absolute bottom-20 right-0 w-[350px] h-[350px] rounded-full opacity-10" style={{ background: "radial-gradient(circle, hsl(210 95% 58%), transparent 70%)" }} />
+
+      <div className="container mx-auto px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -112,7 +63,6 @@ const ProjectsSection = () => {
           </h2>
         </motion.div>
 
-        {/* Filter buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -125,7 +75,7 @@ const ProjectsSection = () => {
               onClick={() => setActive(cat)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 active === cat
-                  ? "gold-gradient text-primary-foreground shadow-lg"
+                  ? `${catColors[cat]} text-primary-foreground shadow-lg`
                   : "glass-card text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -134,7 +84,6 @@ const ProjectsSection = () => {
           ))}
         </motion.div>
 
-        {/* Project grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
             {filtered.map((project) => (
@@ -145,12 +94,10 @@ const ProjectsSection = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
-                className="glass-card rounded-2xl overflow-hidden group hover:border-primary/30 transition-all duration-300 hover:-translate-y-2"
+                className="glass-card rounded-2xl overflow-hidden group hover:border-primary/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
               >
-                {/* Card header */}
-                <div className="h-40 bg-muted/40 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 gold-gradient opacity-5 group-hover:opacity-10 transition-opacity" />
-                  <project.icon className="w-16 h-16 text-primary/30 group-hover:text-primary/50 transition-colors group-hover:scale-110 transform duration-300" />
+                <div className={`h-40 bg-gradient-to-br ${project.color} opacity-80 group-hover:opacity-100 transition-opacity flex items-center justify-center relative overflow-hidden`}>
+                  <project.icon className="w-16 h-16 text-primary-foreground/60 group-hover:text-primary-foreground/80 transition-colors group-hover:scale-110 transform duration-300" />
                 </div>
 
                 <div className="p-6 space-y-4">

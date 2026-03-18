@@ -8,6 +8,8 @@ import {
 const skillCategories = [
   {
     title: "AI & Tech Skills",
+    gradient: "from-[hsl(var(--color-purple))] to-[hsl(var(--primary))]",
+    dot: "bg-[hsl(var(--color-purple))]",
     items: [
       { icon: BrainCircuit, name: "Machine Learning" },
       { icon: Layers, name: "Deep Learning" },
@@ -19,6 +21,8 @@ const skillCategories = [
   },
   {
     title: "Programming & Tools",
+    gradient: "from-[hsl(var(--color-blue))] to-[hsl(var(--color-cyan))]",
+    dot: "bg-[hsl(var(--color-blue))]",
     items: [
       { icon: Code2, name: "Python" },
       { icon: Database, name: "TensorFlow / PyTorch" },
@@ -29,6 +33,8 @@ const skillCategories = [
   },
   {
     title: "Soft Skills",
+    gradient: "from-[hsl(var(--color-pink))] to-[hsl(var(--color-orange))]",
+    dot: "bg-[hsl(var(--color-pink))]",
     items: [
       { icon: Lightbulb, name: "Innovative Thinking" },
       { icon: Lightbulb, name: "Problem Solving" },
@@ -38,6 +44,8 @@ const skillCategories = [
   },
   {
     title: "Languages",
+    gradient: "from-[hsl(var(--color-green))] to-[hsl(var(--color-cyan))]",
+    dot: "bg-[hsl(var(--color-green))]",
     items: [
       { icon: Languages, name: "Advanced English" },
       { icon: Languages, name: "Basic French" },
@@ -52,6 +60,10 @@ const SkillsSection = () => {
   return (
     <section id="skills" className="py-24 relative" ref={ref}>
       <div className="absolute inset-0 grid-pattern opacity-30" />
+      {/* Colorful smoke blobs */}
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full opacity-15" style={{ background: "radial-gradient(circle, hsl(260 85% 60% / 0.5), transparent 70%)" }} />
+      <div className="absolute bottom-0 left-0 w-[350px] h-[350px] rounded-full opacity-15" style={{ background: "radial-gradient(circle, hsl(185 85% 50% / 0.5), transparent 70%)" }} />
+
       <div className="container mx-auto px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -72,20 +84,20 @@ const SkillsSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: ci * 0.15 }}
-              className="glass-card rounded-2xl p-6"
+              className="glass-card rounded-2xl p-6 hover:shadow-xl transition-shadow"
             >
               <h3 className="font-display font-semibold text-lg mb-5 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full gold-gradient" />
+                <span className={`w-2.5 h-2.5 rounded-full ${cat.dot}`} />
                 {cat.title}
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 {cat.items.map((skill) => (
                   <div
                     key={skill.name}
-                    className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/60 transition-colors group cursor-default"
+                    className="flex items-center gap-3 p-3 rounded-xl hover:bg-primary/5 transition-colors group cursor-default"
                   >
-                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <skill.icon className="w-4 h-4 text-primary" />
+                    <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${cat.gradient} opacity-80 flex items-center justify-center group-hover:opacity-100 group-hover:scale-110 transition-all`}>
+                      <skill.icon className="w-4 h-4 text-primary-foreground" />
                     </div>
                     <span className="text-sm font-medium">{skill.name}</span>
                   </div>
