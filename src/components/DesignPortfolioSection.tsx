@@ -13,21 +13,29 @@ interface DesignWork {
   badge: string;
   asset: string;
   images: string[];  // slideshow images
+  imageFit?: "contain" | "cover";
 }
 
 const designWorks: DesignWork[] = [
   {
-    title: "Aesthetic UI/UX Design System",
-    subtitle: "Figma · Canva · Web Design",
+    title: "EcoLink UI/UX Dashboard",
+    subtitle: "Figma · Design System · Web Dashboard",
     description:
-      "A holistic digital product design built on colour psychology and pixel-perfect design systems. Every component tells a visual story — focused on emotion, harmony, and interaction.",
-    tags: ["Figma", "Design System", "Colour Theory", "UI/UX"],
+      "A pixel-perfect UI/UX design for a professional environmental management dashboard. Built on deep hierarchical information architecture and modern design systems, focusing on clarity, data visualization, and accessibility.",
+    tags: ["Figma", "Web Design", "UI/UX", "Dashboard"],
     icon: Monitor,
     accent: "#6366f1",
     gradient: "linear-gradient(135deg, #6366f1, #8b5cf6)",
     badge: "WEB DESIGN",
-    asset: "/asset/box.png",
-    images: ["/asset/box.png", "/asset/sparkle.png", "/asset/bintang.png"],
+    asset: "/asset/web_design/web0.png",
+    images: [
+      "/asset/web_design/web0.png",
+      "/asset/web_design/web1.png",
+      "/asset/web_design/web2.png",
+      "/asset/web_design/web3.png",
+      "/asset/web_design/web4.png",
+      "/asset/web_design/web5.png"
+    ],
   },
   {
     title: "Colour Theory & Branding Kit",
@@ -53,17 +61,27 @@ const designWorks: DesignWork[] = [
     ],
   },
   {
-    title: "Fine Art & Illustration Portfolio",
-    subtitle: "Seni Terapan · Painting · Sketching",
+    title: "Bloodline Fine Art & Illustration",
+    subtitle: "Manual Painting · Sketching · Line Art",
     description:
-      "A personal collection rooted in bloodline artistry — manual illustration, detailed line art, acrylic & watercolour paintings reflecting deep sensitivity to form, contrast, and colour emotion.",
-    tags: ["Melukis", "Drawing", "Seni Terapan", "Illustration"],
+      "A personal collection rooted in artistic heritage — manual illustration, detailed line art, acrylic and watercolour paintings. Each piece reflects deep sensitivity to form, contrast, and colour emotion, carrying forward a legacy of artistic instinct.",
+    tags: ["Melukis", "Manual Art", "Seni Terapan", "Illustration"],
     icon: Brush,
     accent: "#8b5cf6",
     gradient: "linear-gradient(135deg, #8b5cf6, #d946ef)",
     badge: "FINE ART",
-    asset: "/asset/bintang.png",
-    images: ["/asset/bintang.png", "/asset/rocket.png", "/asset/love.png"],
+    asset: "/asset/art/WhatsApp Image 2026-03-19 at 23.52.35.jpeg",
+    images: [
+      "/asset/art/WhatsApp Image 2026-03-19 at 23.52.35.jpeg",
+      "/asset/art/WhatsApp Image 2026-03-19 at 23.52.36 (1).jpeg",
+      "/asset/art/WhatsApp Image 2026-03-19 at 23.52.36.jpeg",
+      "/asset/art/WhatsApp Image 2026-03-19 at 23.52.37 (1).jpeg",
+      "/asset/art/WhatsApp Image 2026-03-19 at 23.52.37.jpeg",
+      "/asset/art/WhatsApp Image 2026-03-19 at 23.52.38 (1).jpeg",
+      "/asset/art/WhatsApp Image 2026-03-19 at 23.52.38 (2).jpeg",
+      "/asset/art/WhatsApp Image 2026-03-19 at 23.52.38.jpeg"
+    ],
+    imageFit: "cover",
   },
 ];
 
@@ -132,7 +150,7 @@ const DesignModal = ({ work, onClose }: { work: DesignWork; onClose: () => void 
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -60, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="absolute inset-0 w-full h-full object-contain p-6"
+              className={`absolute inset-0 w-full h-full ${work.imageFit === 'cover' ? 'object-cover' : 'object-contain p-6'}`}
             />
           </AnimatePresence>
 
@@ -192,14 +210,35 @@ const DesignPortfolioSection = () => {
   const [selected, setSelected] = useState<DesignWork | null>(null);
 
   return (
-    <section id="design" className="py-28 relative overflow-hidden pixel-grid">
-      {/* Background */}
+    <section id="design" className="py-28 relative overflow-hidden bg-slate-50/50">
+      {/* Dynamic Background Elements */}
       <div className="absolute inset-0 pointer-events-none -z-10">
-
-        <div className="absolute top-1/3 left-[5%] w-[400px] h-[400px] rounded-full blur-[130px] bg-pink-300/10" />
-        <div className="absolute bottom-1/3 right-[5%] w-[400px] h-[400px] rounded-full blur-[130px] bg-violet-300/10" />
-        <img src="/asset/love.png"    className="absolute top-16 right-24 w-10 h-10 opacity-20" alt="" />
-        <img src="/asset/sparkle.png" className="absolute bottom-20 left-16 w-10 h-10 opacity-20" alt="" />
+        <div className="absolute top-[10%] left-[-5%] w-[500px] h-[500px] rounded-full blur-[120px] bg-indigo-500/10 animate-pulse" />
+        <div className="absolute top-1/2 right-[-10%] w-[600px] h-[600px] rounded-full blur-[150px] bg-fuchsia-500/10" />
+        <div className="absolute bottom-[-10%] left-[10%] w-[450px] h-[450px] rounded-full blur-[130px] bg-rose-500/10 animate-pulse" style={{ animationDuration: '4s' }} />
+        
+        {/* Floating Icons with subtle float animation */}
+        <motion.img 
+            src="/asset/love.png" 
+            animate={{ y: [0, -15, 0], rotate: [0, 10, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-32 right-[15%] w-12 h-12 opacity-30 select-none" 
+            alt="" 
+        />
+        <motion.img 
+            src="/asset/sparkle.png" 
+            animate={{ y: [0, 20, 0], scale: [1, 1.1, 1] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-40 left-[10%] w-14 h-14 opacity-30 select-none" 
+            alt="" 
+        />
+        <motion.img 
+            src="/asset/bintang.png" 
+            animate={{ rotate: 360 }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            className="absolute top-[40%] left-[5%] w-10 h-10 opacity-20 select-none" 
+            alt="" 
+        />
       </div>
 
       <div className="container mx-auto px-6 relative">
@@ -208,102 +247,106 @@ const DesignPortfolioSection = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-24"
         >
-          <div className="inline-flex items-center gap-2 px-5 py-2 bg-white border-2 border-pink-300 shadow-[3px_3px_0px_#ec4899] rounded-xl mb-5">
-            <Heart className="w-3.5 h-3.5 text-pink-500 fill-pink-500" />
-            <span className="text-[10px] font-pixel text-pink-600 tracking-widest uppercase">ART_BLOODLINE</span>
+          <div className="inline-flex items-center gap-2 px-5 py-2 bg-white border-2 border-indigo-200 shadow-[4px_4px_0px_rgba(99,102,241,0.2)] rounded-2xl mb-6">
+            <Sparkles className="w-4 h-4 text-indigo-500 fill-indigo-500/20" />
+            <span className="text-[10px] font-pixel text-indigo-600 tracking-widest uppercase">CREATIVE_UNIVERSE</span>
           </div>
-          <h2 className="text-5xl md:text-6xl font-black tracking-tight">
+          <h2 className="text-6xl md:text-7xl font-black tracking-tight leading-none">
             DESIGN{" "}
-            <span className="text-transparent bg-clip-text italic pr-2" style={{ backgroundImage: "linear-gradient(to right, #ec4899, #d946ef, #8b5cf6)" }}>
+            <span className="text-transparent bg-clip-text italic pr-3" style={{ backgroundImage: "linear-gradient(to right, #6366f1, #d946ef, #fb7185)" }}>
               PORTFOLIO
             </span>
           </h2>
-          <p className="text-muted-foreground text-sm mt-3 font-medium max-w-md mx-auto">
-            Where AI meets artistic bloodline — designs rooted in colour theory, aesthetic sensibility, and pure creativity.
-          </p>
-          <p className="text-[10px] font-pixel text-pink-400 tracking-widest uppercase mt-3">
-            ✦ Click any card to view the gallery ✦
+          <div className="h-1.5 w-32 bg-indigo-500/20 mx-auto mt-6 rounded-full overflow-hidden">
+             <motion.div 
+                initial={{ x: "-100%" }}
+                whileInView={{ x: "100%" }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                className="h-full w-full bg-indigo-500/60" 
+             />
+          </div>
+          <p className="text-slate-500 text-sm mt-8 font-medium max-w-lg mx-auto leading-relaxed">
+            A fusion of code and creativity — exploring digital aesthetics through color theory, 
+            interactive systems, and purely manual artistic instinct.
           </p>
         </motion.div>
 
         {/* Horizontal Cards */}
-        <div className="flex flex-col gap-10 max-w-5xl mx-auto">
-          {designWorks.map((work, i) => (
-            <motion.div
-              key={work.title}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              onClick={() => setSelected(work)}
-              className={`group relative flex flex-col md:flex-row ${i % 2 !== 0 ? "md:flex-row-reverse" : ""} bg-white rounded-3xl border-4 border-slate-100 hover:border-slate-200 cursor-pointer hover:-translate-y-1.5 transition-all duration-300 overflow-hidden`}
-              style={{ boxShadow: "6px 6px 0px #e2e8f0" }}
-            >
-              {/* Coloured Side Panel */}
-              <div
-                className="relative w-full md:w-56 min-h-[180px] flex flex-col items-center justify-center gap-4 p-6 shrink-0"
-                style={{ background: work.gradient }}
+        <div className="flex flex-col gap-12 max-w-5xl mx-auto">
+            {designWorks.map((work, i) => (
+              <motion.div
+                key={work.title}
+                layout
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                onClick={() => setSelected(work)}
+                className={`group relative flex flex-col md:flex-row ${i % 2 !== 0 ? "md:flex-row-reverse" : ""} bg-white rounded-[2rem] border-2 border-slate-100 hover:border-slate-200 cursor-pointer transition-all duration-500 overflow-hidden`}
+                style={{ boxShadow: `10px 10px 0px ${work.accent}15` }}
+                whileHover={{ y: -8, boxShadow: `15px 15px 0px ${work.accent}25` }}
               >
-                {/* Badge top-left */}
-                <span className="absolute top-3 left-3 text-[8px] font-pixel text-white bg-black/30 px-2 py-1 rounded border border-white/20 tracking-widest">
-                  {work.badge}
-                </span>
-                {/* Click hint */}
-                <div className="absolute top-3 right-3 bg-white/20 border border-white/30 rounded-lg px-2 py-1 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Image className="w-3 h-3 text-white" />
-                  <span className="text-[8px] font-pixel text-white">GALLERY</span>
+                {/* Full-width Cover Image */}
+                <div className="relative z-10 w-full md:w-64 min-h-[220px] shrink-0 overflow-hidden border-b-4 md:border-b-0 md:border-r-4 border-slate-50">
+                  <img
+                    src={work.asset}
+                    alt={work.title}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  
+                  {/* Overlay on hover only */}
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center backdrop-blur-[1px]">
+                     <div className="bg-white/20 border border-white/40 rounded-2xl px-4 py-2 flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                       <Image className="w-4 h-4 text-white" />
+                       <span className="text-[10px] font-pixel text-white">VIEW GALLERY</span>
+                     </div>
+                  </div>
+
+                  {/* Badge top-left */}
+                  <span className="absolute top-4 left-4 z-20 text-[8px] font-pixel text-white px-3 py-2 rounded-xl border border-white/20 tracking-widest shadow-xl" style={{ background: work.gradient }}>
+                    {work.badge}
+                  </span>
                 </div>
-                {/* Asset floating image */}
-                <img
-                  src={work.asset}
-                  alt=""
-                  className="w-16 h-16 object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-300"
-                />
-                {/* Icon box */}
-                <div className="w-14 h-14 bg-white/20 border-2 border-white/40 rounded-2xl flex items-center justify-center shadow-inner">
-                  <work.icon className="w-7 h-7 text-white drop-shadow-md" />
-                </div>
-              </div>
 
               {/* Text Body */}
-              <div className="flex flex-col justify-between p-7 md:p-9 flex-1 gap-5">
-                <div className="space-y-3">
+              <div className="flex flex-col justify-between p-8 md:p-10 flex-1 gap-6">
+                <div className="space-y-4">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <h3 className="font-black text-xl text-slate-800 leading-tight">{work.title}</h3>
-                      <p className="text-[10px] font-pixel text-slate-400 uppercase tracking-widest mt-1">{work.subtitle}</p>
+                      <h3 className="font-black text-2xl text-slate-800 leading-tight">{work.title}</h3>
+                      <p className="text-[10px] font-pixel text-slate-400 uppercase tracking-widest mt-1.5">{work.subtitle}</p>
                     </div>
                     {/* Pixel Number Badge */}
                     <div
-                      className="w-12 h-12 rounded-2xl flex items-center justify-center font-pixel text-white text-lg border-2 border-white/50 shadow-md shrink-0"
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center font-pixel text-white text-xl border-2 border-white/50 shadow-lg shrink-0"
                       style={{ background: work.gradient }}
                     >
                       0{i + 1}
                     </div>
                   </div>
-                  <p className="text-slate-600 text-sm leading-relaxed font-medium">{work.description}</p>
+                  <p className="text-slate-600 text-[15px] leading-relaxed font-medium">{work.description}</p>
                 </div>
 
                 {/* Tags + CTA */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
-                  <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-50">
+                  <div className="flex flex-wrap gap-2.5">
                     {work.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-[9px] font-pixel px-3 py-1.5 rounded-xl border-2 uppercase tracking-widest text-white"
-                        style={{ background: work.accent + "cc", borderColor: work.accent }}
+                        className="text-[9px] font-pixel px-4 py-2 rounded-xl border border-white/30 uppercase tracking-widest text-white shadow-sm"
+                        style={{ background: work.gradient }}
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
                   <span
-                    className="inline-flex items-center gap-2 text-[10px] font-pixel uppercase tracking-widest text-white px-5 py-2.5 rounded-xl border-2 border-white/50 shadow-md"
-                    style={{ background: work.accent }}
+                    className="inline-flex items-center gap-2 text-[10px] font-pixel uppercase tracking-widest text-white px-6 py-3 rounded-xl border-2 border-white/30 shadow-lg hover:scale-105 transition-transform"
+                    style={{ background: work.gradient }}
                   >
-                    <Image className="w-3 h-3" /> VIEW GALLERY
+                    <Image className="w-3.5 h-3.5" /> VIEW GALLERY
                   </span>
                 </div>
               </div>
