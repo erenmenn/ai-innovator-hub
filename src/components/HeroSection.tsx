@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Download, Briefcase, Folder, Cpu, GraduationCap, Trophy, Rocket, Star } from "lucide-react";
+import { ArrowRight, Download, Briefcase, Folder, Cpu, GraduationCap, Trophy, Rocket, Star, Sparkles, Terminal, Heart, Code2, Zap } from "lucide-react";
 
 const stickers = [
   { 
@@ -66,71 +66,87 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           
           {/* ═════════ LEFT CONTENT ═════════ */}
-          <div className="space-y-7 z-10 w-full xl:pl-8">
+          <div className="space-y-8 z-10 w-full xl:pl-8 relative">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
               whileHover={{ scale: 1.05, rotate: -2 }}
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-xl glass-card text-[9px] font-pixel text-primary border-2 border-primary/20 shadow-[4px_4px_0px_rgba(139,92,246,0.3)] mb-2 cursor-pointer"
+              className="inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-white border-2 border-indigo-200 shadow-[4px_4px_0px_#818cf8] cursor-pointer group"
             >
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              STATUS: INNOVATING...
+              <div className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+              </div>
+              <span className="text-[10px] font-pixel text-indigo-600 tracking-widest uppercase mt-0.5">STATUS: INNOVATING...</span>
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="text-4xl md:text-5xl lg:text-7xl font-black leading-[0.9] tracking-tighter"
+              className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tighter relative"
             >
-              Hi, I'm <br />
+              <motion.img 
+                 src="/asset/sparkle.png" alt="" 
+                 aria-hidden="true"
+                 animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                 className="absolute -top-6 -left-8 w-10 h-10 opacity-80" 
+              />
+              Hi, I'm <br className="hidden md:block" />
               <motion.span 
-                 whileHover={{ scale: 1.05, textShadow: "0px 0px 20px rgba(139,92,246,0.8)" }}
-                 className="gold-text italic inline-block transition-all duration-300 cursor-default pr-2"
+                 whileHover={{ scale: 1.01, textShadow: "4px 4px 0px rgba(139,92,246,0.3)" }}
+                 className="inline-block transition-all duration-300 cursor-default text-transparent bg-clip-text bg-gradient-to-r from-violet-700 via-fuchsia-600 to-rose-600 relative pr-4 pb-2"
               >
-                Emirsyah
-              </motion.span>
-              <br />
-              <motion.span 
-                 whileHover={{ scale: 1.05, textShadow: "0px 0px 20px rgba(236,72,153,0.8)" }}
-                 className="gold-text italic inline-block transition-all duration-300 cursor-default pr-2"
-              >
-                Rafsanjani
+                Emirsyah <br className="hidden md:block" /> Rafsanjani
+                <motion.img 
+                  src="/asset/love.png" alt="" 
+                  aria-hidden="true"
+                  animate={{ y: [0, -10, 0], scale: [1, 1.1, 1] }} transition={{ duration: 3, repeat: Infinity }}
+                  className="absolute -right-8 bottom-2 w-10 h-10 object-contain drop-shadow-md hidden md:block"
+                />
               </motion.span>
             </motion.h1>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex flex-wrap gap-3"
+              className="flex flex-wrap gap-4"
             >
-              {["AI Engineer", "AI Consultant", "Tech Lover"].map((tag, i) => (
-                <motion.span 
-                  key={tag} 
-                  whileHover={{ scale: 1.1, rotate: i % 2 === 0 ? 3 : -3 }}
-                  className="px-4 py-1.5 rounded-full text-[10px] font-silkscreen bg-white/5 backdrop-blur-md border border-white/20 text-primary uppercase tracking-widest shadow-xl cursor-crosshair transition-colors hover:bg-white/10"
+              {[
+                { name: "AI Engineer", color: "text-blue-600", border: "border-blue-300", shadow: "shadow-[3px_3px_0px_#93c5fd]", icon: <Cpu className="w-4 h-4" /> },
+                { name: "AI Consultant", color: "text-violet-600", border: "border-violet-300", shadow: "shadow-[3px_3px_0px_#c4b5fd]", icon: <Briefcase className="w-4 h-4" /> },
+                { name: "Tech Lover", color: "text-pink-600", border: "border-pink-300", shadow: "shadow-[3px_3px_0px_#f9a8d4]", icon: <Heart className="w-4 h-4" /> }
+              ].map((tag, i) => (
+                <motion.div 
+                  key={tag.name} 
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl bg-white border-2 ${tag.border} ${tag.shadow} cursor-default transition-transform`}
                 >
-                  {tag}
-                </motion.span>
+                  <div className={`${tag.color} animate-pulse`}>
+                    {tag.icon}
+                  </div>
+                  <span className={`text-[10px] font-pixel ${tag.color} tracking-widest uppercase mt-0.5`}>{tag.name}</span>
+                </motion.div>
               ))}
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
+              className="space-y-6"
             >
-              <div className="glass-card rounded-[2rem] p-6 border-2 border-white/20 shadow-xl relative overflow-hidden group">
-                <div className="absolute top-0 left-0 w-8 h-8 rounded-br-2xl bg-primary/20" />
-                <p className="text-muted-foreground leading-relaxed text-sm md:text-base relative z-10 font-medium">
-                  I am deeply fascinated by the continuous evolution of <span className="text-primary font-bold">Artificial Intelligence</span> and its potential to solve complex real-world problems. My core focus lies in architecting intelligent systems, specializing in <span className="font-black" style={{ backgroundImage: 'linear-gradient(to right, #10b981, #16a34a)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', color: 'transparent' }}>Generative AI, LLMs, and modular RAG (Retrieval-Augmented Generation) pipelines</span>. I don't just write code; I design data-driven solutions and cognitive architectures that actively learn, adapt, and drive impactful innovations.
+              {/* Cute Neo-Brutalist About Card with Gradient & New Content */}
+              <div className="relative bg-gradient-to-br from-indigo-100 via-white to-pink-100 rounded-3xl p-7 md:p-8 border-4 border-indigo-200 shadow-[8px_8px_0px_#c7d2fe] hover:shadow-[12px_12px_0px_#a5b4fc] transition-all duration-300">
+                <p className="text-slate-800 leading-relaxed text-sm md:text-base font-medium relative z-10">
+                  <span className="font-bold text-indigo-700">I am an innovative leader who understands real-world problems</span> and identifies where <span className="inline-block bg-purple-100 text-purple-700 font-bold px-2 py-0.5 rounded-lg border-2 border-purple-300 transform -rotate-1 shadow-sm">AI</span> can be applied effectively. Creative, analytical, and solution-oriented — I build <strong className="text-emerald-700 font-black border-b-2 border-emerald-400 border-dashed pb-0.5">intelligent systems</strong> and act as a light AI consultant, helping translate problems into impactful AI solutions.
                 </p>
               </div>
 
-              {/* Motivation Quote Box Redesign */}
-              <div className="mt-6 inline-flex items-center gap-4 bg-gradient-to-r from-primary/10 to-transparent pr-8 pl-4 py-4 rounded-2xl border-l-4 border-primary shadow-sm hover:translate-x-2 transition-transform cursor-default">
-                <div className="p-2 bg-primary/20 rounded-full">
-                  <Star className="w-5 h-5 text-primary fill-current animate-pulse" />
+              {/* Motivation Quote Box Redesign - Cute Bubble */}
+              <div className="inline-flex items-center gap-4 bg-yellow-50 rounded-2xl border-2 border-yellow-400 p-4 shadow-[5px_5px_0px_#facc15] hover:-translate-y-1 transition-transform group">
+                <div className="p-2 bg-yellow-300 rounded-xl group-hover:rotate-12 transition-transform">
+                  <Zap className="w-5 h-5 text-yellow-700 fill-yellow-700" />
                 </div>
-                <p className="text-sm md:text-base font-bold italic text-foreground tracking-wide">
-                  "If you never <span className="text-red-400">bleed</span>, you never gonna <span className="text-green-500 font-black">grow.</span>"
+                <p className="text-sm font-bold text-yellow-900 tracking-wide">
+                  "If you never <span className="text-rose-500 font-pixel text-xs bg-rose-100 px-1 py-0.5 rounded border border-rose-300">bleed</span>, you never gonna <span className="text-emerald-600 font-black text-lg">grow.</span>"
                 </p>
               </div>
             </motion.div>
@@ -138,13 +154,20 @@ const HeroSection = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-wrap gap-4 pt-4"
+              className="flex flex-wrap gap-5 pt-2"
             >
-              <a href="#contact" className="inline-flex items-center gap-3 px-10 py-5 rounded-[2.5rem] bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-black hover:brightness-110 transition-all hover:scale-105 active:scale-95 shadow-[0_20px_40px_-10px_rgba(124,58,237,0.5)] border-2 border-white/20 group">
-                 HIRE ME <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+              {/* Cute Gradient HIRE ME Button with Pixel Font & Rocket Asset */}
+              <a href="#contact" className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white rounded-2xl font-pixel text-xs uppercase tracking-widest border-2 border-violet-800 shadow-[6px_6px_0px_#4c1d95] hover:shadow-[2px_2px_0px_#4c1d95] hover:translate-x-1 hover:translate-y-1 transition-all">
+                 <img src="/asset/rocket.png" className="w-6 h-6 group-hover:-translate-y-2 group-hover:translate-x-2 transition-transform drop-shadow-md" alt="rocket" />
+                 HIRE ME
               </a>
-              <a href="/asset/cv.pdf" download className="inline-flex items-center gap-3 px-10 py-5 rounded-[2.5rem] bg-white/5 backdrop-blur-xl font-bold text-foreground transition-all hover:bg-white/10 hover:scale-105 shadow-xl border-2 border-white/10 group">
-                <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform text-primary" /> MY CV
+
+              {/* Cute Download CV Button */}
+              <a href="/asset/cv.pdf" download className="group px-8 py-4 rounded-2xl bg-white border-2 border-slate-200 text-slate-700 font-bold text-sm tracking-wide shadow-[6px_6px_0px_#e2e8f0] hover:shadow-[2px_2px_0px_#e2e8f0] hover:translate-x-1 hover:translate-y-1 transition-all flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 group-hover:bg-slate-200 transition-colors">
+                  <Download className="w-4 h-4" />
+                </div>
+                Download CV
               </a>
             </motion.div>
           </div>
@@ -183,11 +206,15 @@ const HeroSection = () => {
                   style={{ objectPosition: "center 56%" }} 
                 />
                 
-                {/* Bubbly Gradient Overlay at Bottom */}
-                <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end items-center pb-10 px-6">
-                   <h3 className="text-white font-black text-2xl tracking-tighter mb-1 font-sans">Emirsyah Rafsanjani</h3>
-                   <div className="flex gap-2">
-                     <span className="text-[10px] text-white/90 font-bold bg-primary/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">AI ENGINEER</span>
+                {/* Advanced Bubbly Gradient Overlay at Bottom */}
+                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-indigo-950/90 via-indigo-900/50 to-transparent flex flex-col justify-end items-center pb-8 px-6 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                   <div className="backdrop-blur-xl bg-white/10 px-6 py-3 rounded-2xl border border-white/20 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] flex flex-col items-center">
+                     <h3 className="text-white font-black text-lg tracking-tight mb-1 font-sans drop-shadow-lg flex items-center gap-2">
+                       <Sparkles className="w-4 h-4 text-yellow-300" /> Emirsyah Rafsanjani
+                     </h3>
+                     <div className="flex gap-2">
+                       <span className="text-[9px] text-white font-black bg-gradient-to-r from-violet-500 to-fuchsia-500 px-3 py-1 rounded-full border border-white/30 shadow-inner uppercase tracking-widest flex items-center gap-1"><Cpu className="w-2.5 h-2.5"/> AI ENGINEER</span>
+                     </div>
                    </div>
                 </div>
               </motion.div>
@@ -225,15 +252,16 @@ const HeroSection = () => {
                   <div className="text-[9px] font-bold text-blue-500 uppercase tracking-widest mt-1">INNOVATION</div>
               </motion.div>
               
-              {/* 3. Open To Work Flag (Bottom Right) */}
+              {/* 3. Open To Work Flag (Bottom Right) REDESIGN */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
+                whileHover={{ scale: 1.1, rotate: -5 }}
                 transition={{ delay: 1, type: "spring" }}
-                className="absolute z-30 bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-full shadow-xl flex items-center gap-2 border border-green-500/20"
-                style={{ bottom: 30, right: 60 }}
+                className="absolute z-30 bg-gradient-to-br from-emerald-400 to-teal-600 px-5 py-3 rounded-2xl shadow-[0_20px_40px_-10px_rgba(16,185,129,0.5)] flex items-center gap-2 border border-white/40 cursor-pointer"
+                style={{ bottom: 20, right: 40 }}
               >
-                <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-[11px] font-pixel text-green-700">HIRE_ME</span>
+                <div className="w-3 h-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)] animate-pulse" />
+                <span className="text-xs font-black text-white uppercase tracking-widest drop-shadow-md">HIRE ME</span>
               </motion.div>
 
 

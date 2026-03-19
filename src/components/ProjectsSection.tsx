@@ -29,7 +29,7 @@ const projects: Project[] = [
     icon: Brain,
     image: "/asset_proyek/wangku.png",
     github: "#",
-    bgGradient: "linear-gradient(135deg, #a855f7, #4f46e5)",
+    bgGradient: "linear-gradient(135deg, #ef4444, #b91c1c)",
     fullDescription: "An intelligent financial chatbot that leverages Large Language Models to provide real-time financial insights, answer complex financial questions, and help users make informed decisions about their finances.",
     problem: "People struggle to understand complex financial data and need quick, reliable answers to financial questions without consulting expensive advisors.",
     solution: "Built an LLM-powered chatbot that processes financial queries using NLP, retrieves relevant data, and generates clear, actionable financial insights in natural language.",
@@ -293,82 +293,220 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
     </motion.div>
   );
 };
-
 const ProjectsSection = () => {
   const [active, setActive] = useState<Category>("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
 
+  const categoryMeta: Record<string, { emoji: string; color: string; grad: string }> = {
+    "All":              { emoji: "✦", color: "#6366f1", grad: "linear-gradient(135deg,#6366f1,#a855f7)" },
+    "NLP":              { emoji: "🧠", color: "#ef4444", grad: "linear-gradient(135deg,#ef4444,#f97316)" },
+    "Computer Vision":  { emoji: "👁️", color: "#10b981", grad: "linear-gradient(135deg,#10b981,#06b6d4)" },
+    "Recommendation":   { emoji: "🎬", color: "#ec4899", grad: "linear-gradient(135deg,#ec4899,#f43f5e)" },
+    "Prediction":       { emoji: "📈", color: "#f59e0b", grad: "linear-gradient(135deg,#f59e0b,#ea580c)" },
+    "Time Series":      { emoji: "⏱️", color: "#8b5cf6", grad: "linear-gradient(135deg,#8b5cf6,#6366f1)" },
+  };
+
   return (
-    <section id="projects" className="py-24 relative pixel-grid">
-      <div className="container mx-auto px-6 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="text-center mb-16">
-          <span className="text-[10px] font-pixel text-primary tracking-tighter bg-primary/10 px-4 py-2 rounded-full border border-primary/20">PORTFOLIO_EXPLORER_V2</span>
-          <h2 className="text-4xl md:text-6xl font-black mt-6 tracking-tight">FEATURED <span className="gold-text italic pr-2">WORKS</span></h2>
+    <section id="projects" className="py-24 relative pixel-grid overflow-hidden">
+      {/* Background smokes */}
+      <div className="absolute inset-0 pointer-events-none -z-10">
+        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full blur-[140px] bg-indigo-400/10" />
+        <div className="absolute bottom-1/3 left-0 w-[500px] h-[500px] rounded-full blur-[140px] bg-pink-300/10" />
+      </div>
+
+      <div className="container max-w-6xl mx-auto px-6 relative z-10">
+        {/* ── Section Header ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.6 }}
+          className="mb-14"
+        >
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
+            <div>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border-2 border-indigo-300 shadow-[3px_3px_0px_#6366f1] rounded-xl mb-4">
+                <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                <span className="text-[9px] font-pixel text-indigo-600 tracking-widest uppercase">PORTFOLIO_EXPLORER_V3</span>
+              </div>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight">
+                FEATURED<br className="hidden xs:inline" />{" "}
+                <span className="text-transparent bg-clip-text italic pr-2" style={{ backgroundImage: "linear-gradient(to right, #6366f1, #ec4899, #f59e0b)" }}>
+                  WORKS
+                </span>
+              </h2>
+              <p className="text-muted-foreground text-sm mt-2 font-medium">
+                {filtered.length} project{filtered.length !== 1 ? "s" : ""} — click to explore
+              </p>
+            </div>
+
+            {/* ── Creative Sticker Filter Bar ── */}
+            <div className="flex flex-wrap gap-2 max-w-lg">
+              {categories.map((cat) => {
+                const meta = categoryMeta[cat] ?? { emoji: "●", color: "#94a3b8", grad: "linear-gradient(135deg,#94a3b8,#64748b)" };
+                const isActive = active === cat;
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => setActive(cat)}
+                    className="relative flex items-center gap-1.5 px-4 py-2.5 rounded-2xl font-pixel text-[9px] uppercase tracking-widest border-2 transition-all duration-200 hover:scale-105 active:scale-95"
+                    style={
+                      isActive
+                        ? { background: meta.grad, color: "#fff", borderColor: meta.color, boxShadow: `4px 4px 0px ${meta.color}88` }
+                        : { background: "#fff", color: "#64748b", borderColor: "#e2e8f0", boxShadow: "3px 3px 0px #f1f5f9" }
+                    }
+                  >
+                    <span className="text-sm leading-none">{meta.emoji}</span>
+                    {cat}
+                    {isActive && (
+                      <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full bg-white border-2 flex items-center justify-center"
+                        style={{ borderColor: meta.color }}>
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: meta.color }} />
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </motion.div>
 
-        {/* Cute Filter Navigation */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
-          {categories.map((cat) => (
-            <button
-              key={cat} onClick={() => setActive(cat)}
-              className={`px-6 py-3 rounded-full text-[10px] font-pixel transition-colors duration-300 ${
-                active === cat ? `gold-gradient text-white shadow-xl scale-105 z-10` : "glass-card text-muted-foreground border-white/10 hover:border-white/30"
-              }`}
-            >
-              {cat.toUpperCase()}
-            </button>
-          ))}
-        </div>
-
-        {/* Super Aesthetic Full-Card Colored Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filtered.map((project, i) => (
-            <motion.div
-              key={project.title} 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              onClick={() => setSelectedProject(project)}
-              className="relative rounded-[2.5rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer h-full flex flex-col group border-4 border-white/20"
-              style={{ background: project.bgGradient }} // Apply full colorful gradient to entire card!
-            >
-              <div className="absolute inset-0 bg-black/10 mix-blend-overlay pointer-events-none" /> {/* Subtle darkening for better contrast */}
+        {/* ── Creative Bento Grid ── */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px] lg:auto-rows-[320px]"
+          >
+            {filtered.map((project, i) => {
+              const isFeatured = i === 0;
+              const meta = categoryMeta[project.category] || categoryMeta["All"];
               
-              {/* Image Area with Zoom effect on Hover (Inside Card Header) */}
-              <div className="h-44 flex items-center justify-center relative bg-black/20 overflow-hidden shadow-inner">
-                 <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover z-0 opacity-70 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700" />
-                 
-                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center z-20 backdrop-blur-sm">
-                    <project.icon className="w-10 h-10 text-white drop-shadow-md mb-2 transform -translate-y-4 group-hover:translate-y-0 transition-transform duration-500" />
-                    <span className="text-white font-pixel text-[8px] transform -rotate-2 bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/30 shadow-lg uppercase">OPEN_FILE</span>
-                 </div>
-              </div>
+              return (
+                <motion.div
+                  key={project.title}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.85 }}
+                  transition={{ duration: 0.35, delay: i * 0.04, type: "spring", bounce: 0.2 }}
+                  onClick={() => setSelectedProject(project)}
+                  className={`relative group ${isFeatured ? "col-span-1 md:col-span-2 row-span-2" : "col-span-1 row-span-1"}`}
+                >
+                  {/* Subtle Glow/Smoke Effect Behind Card (Always visible like profile shadow) */}
+                  <div 
+                    className="absolute -inset-1 blur-2xl opacity-20 group-hover:opacity-50 transition-all duration-700 z-0 scale-95 group-hover:scale-100 pointer-events-none"
+                    style={{ background: meta.grad }}
+                  />
 
-              {/* Text body area with White text to guarantee contrast over gradient */}
-              <div className="p-8 space-y-4 flex-1 flex flex-col relative z-10 text-white">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-black text-xl leading-tight drop-shadow-sm">{project.title}</h3>
-                </div>
+                  {/* Actual Card Body - Cute Motivation Style */}
+                  <div 
+                    className="relative z-10 h-full w-full rounded-3xl overflow-hidden cursor-pointer border-[3px] flex flex-col transition-all duration-300 group-hover:-translate-y-1.5 group-hover:scale-[1.02]"
+                    style={{ 
+                      borderColor: meta.color,
+                      backgroundColor: "#fff",
+                      boxShadow: `6px 6px 0px ${meta.color}`, 
+                    }}
+                  >
+                    {/* Image container inside the card */}
+                    <div className={`relative w-full ${isFeatured ? "h-64 md:h-80" : "h-[140px]"} shrink-0 border-b-[3px] bg-slate-50 overflow-hidden`} style={{ borderColor: meta.color }}>
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-90 group-hover:opacity-100"
+                      />
+                      
+                      {/* Colorful soft overlay ALWAYS ON (30% to 60%) */}
+                      <div 
+                        className="absolute inset-0 opacity-40 group-hover:opacity-70 transition-opacity duration-300 mix-blend-overlay"
+                        style={{ background: meta.grad }}
+                      />
+                      
+                      {/* Interactive Smoke on Image */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none mix-blend-screen overflow-hidden">
+                        <div className="absolute -bottom-10 -left-10 w-40 h-40 blur-[40px] rounded-full animate-pulse opacity-80" style={{ background: meta.color }} />
+                        <div className="absolute top-10 -right-10 w-48 h-48 blur-[50px] rounded-full animate-pulse opacity-60" style={{ background: meta.color }} />
+                        <div className="absolute -top-10 left-20 w-32 h-32 blur-[30px] rounded-full animate-pulse opacity-40 delay-150" style={{ background: meta.color }} />
+                      </div>
+                      
+                      {/* Dark gradient overlay covering the image from the bottom (like profile!) */}
+                      <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-30 group-hover:opacity-90 transition-opacity duration-500 flex flex-col items-center justify-center backdrop-blur-[1px] group-hover:backdrop-blur-sm z-10">
+                        <div className="opacity-0 group-hover:opacity-100 flex flex-col items-center transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                          <project.icon className="w-8 h-8 text-white drop-shadow-md mb-2" />
+                          <span className="text-white font-pixel text-[9px] px-3 py-1.5 rounded-xl uppercase tracking-widest mt-1 border border-white/40 shadow-sm" style={{ background: meta.color }}>
+                            [ EXPLORE ]
+                          </span>
+                        </div>
+                      </div>
 
-                <p className="text-sm text-white/90 leading-relaxed font-semibold line-clamp-2 drop-shadow-sm">{project.description}</p>
+                      {/* Meta top bar on top of image */}
+                      <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-20">
+                        {/* Colored Category Tag */}
+                        <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border-2 bg-white/95 backdrop-blur-sm shadow-sm" style={{ borderColor: meta.color }}>
+                          <span className="text-sm leading-none">{meta.emoji}</span>
+                          <span 
+                            className="text-[8px] font-pixel tracking-widest uppercase font-bold"
+                            style={{ color: meta.color }}
+                          >
+                            {project.category}
+                          </span>
+                        </div>
+                        
+                        {/* Number counter */}
+                        <span className="font-pixel text-[10px] bg-white/95 px-2 py-1 rounded-xl shadow-sm border-2" style={{ color: meta.color, borderColor: meta.color }}>
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                      </div>
+                    </div>
 
-                <div className="flex flex-wrap gap-2 pt-2 mt-auto">
-                  {project.tech.map(t => (
-                    <span key={t} className="text-[9px] font-silkscreen px-3 py-1.5 rounded-xl bg-black/20 text-white border border-white/20 shadow-inner backdrop-blur-md">{t}</span>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Category Floating Label */}
-              <span className="absolute top-4 left-6 px-4 py-1.5 rounded-full bg-black/30 backdrop-blur-md text-white/90 text-[9px] font-pixel border border-white/30 z-30 shadow-md">
-                 {project.category}
-              </span>
-            </motion.div>
-          ))}
-        </div>
+                    {/* Bottom content area (Clean White) */}
+                    <div className="p-5 md:p-6 flex flex-col flex-grow relative bg-white">
+                      
+                      {/* Title and cute dots */}
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="flex gap-1 bg-slate-100 px-2 py-1 rounded-lg border border-slate-200">
+                            <div className="w-2 h-2 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.5)]" style={{ background: "#f87171" }} />
+                            <div className="w-2 h-2 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.5)]" style={{ background: "#facc15" }} />
+                            <div className="w-2 h-2 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.5)]" style={{ background: "#4ade80" }} />
+                          </div>
+                          <span className="text-[8px] font-pixel px-2 py-1 rounded-lg border uppercase font-bold opacity-80" style={{ color: meta.color, borderColor: meta.color, backgroundColor: `${meta.color}15` }}>
+                            {meta.emoji} PROJECT.EXE
+                          </span>
+                        </div>
+
+                        <h3 className={`font-black text-slate-800 leading-tight mb-2 ${isFeatured ? "text-2xl mt-4" : "text-sm sm:text-base"} group-hover:text-[${meta.color}] transition-colors`}>
+                          {project.title}
+                        </h3>
+                      </div>
+
+                      {/* Bottom Tags */}
+                      <div className="mt-auto pt-2">
+                        {isFeatured && (
+                          <p className="text-sm text-slate-500 font-medium line-clamp-2 md:line-clamp-3 mb-4 leading-relaxed">{project.description}</p>
+                        )}
+                        <div className="flex flex-wrap gap-2">
+                          {project.tech.slice(0, isFeatured ? 5 : 3).map((t) => (
+                            <span 
+                              key={t} 
+                              className="text-[9px] font-pixel px-2 py-1 rounded-full border border-slate-200 text-slate-600 bg-slate-50 font-bold tracking-wide"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       <AnimatePresence>
