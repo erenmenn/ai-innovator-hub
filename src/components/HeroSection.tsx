@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Download, Briefcase, Folder, Cpu, GraduationCap, Trophy, Rocket } from "lucide-react";
+import { ArrowRight, Download, Briefcase, Folder, Cpu, GraduationCap, Trophy, Rocket, Star } from "lucide-react";
 
 const stickers = [
   { 
@@ -33,7 +33,7 @@ const stickers = [
   { 
     src: "/asset/rocket.png", 
     size: 80, 
-    pos: { bottom: 150, left: 30 }, 
+    pos: { bottom: 170, left: 40 }, 
     glow: "rgba(116, 143, 252, 0.5)",
     animation: { x: [0, -10, 0], y: [0, -20, 0] }, duration: 6 
   },
@@ -113,24 +113,38 @@ const HeroSection = () => {
               ))}
             </motion.div>
 
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-lg text-muted-foreground max-w-md leading-relaxed font-medium bg-white/5 p-4 rounded-2xl glass-card border border-white/10"
             >
-              I design intelligent systems that solve real‑world problems using AI, data, and creativity.
-            </motion.p>
+              <div className="glass-card rounded-[2rem] p-6 border-2 border-white/20 shadow-xl relative overflow-hidden group">
+                <div className="absolute top-0 left-0 w-8 h-8 rounded-br-2xl bg-primary/20" />
+                <p className="text-muted-foreground leading-relaxed text-sm md:text-base relative z-10 font-medium">
+                  I am deeply fascinated by the continuous evolution of <span className="text-primary font-bold">Artificial Intelligence</span> and its potential to solve complex real-world problems. My core focus lies in architecting intelligent systems, specializing in <span className="font-black" style={{ backgroundImage: 'linear-gradient(to right, #10b981, #16a34a)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', color: 'transparent' }}>Generative AI, LLMs, and modular RAG (Retrieval-Augmented Generation) pipelines</span>. I don't just write code; I design data-driven solutions and cognitive architectures that actively learn, adapt, and drive impactful innovations.
+                </p>
+              </div>
+
+              {/* Motivation Quote Box Redesign */}
+              <div className="mt-6 inline-flex items-center gap-4 bg-gradient-to-r from-primary/10 to-transparent pr-8 pl-4 py-4 rounded-2xl border-l-4 border-primary shadow-sm hover:translate-x-2 transition-transform cursor-default">
+                <div className="p-2 bg-primary/20 rounded-full">
+                  <Star className="w-5 h-5 text-primary fill-current animate-pulse" />
+                </div>
+                <p className="text-sm md:text-base font-bold italic text-foreground tracking-wide">
+                  "If you never <span className="text-red-400">bleed</span>, you never gonna <span className="text-green-500 font-black">grow.</span>"
+                </p>
+              </div>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="flex flex-wrap gap-4 pt-4"
             >
-              <a href="#projects" className="inline-flex items-center gap-2 px-8 py-4 rounded-[2rem] gold-gradient text-white font-black hover:brightness-110 transition-all hover:scale-110 active:scale-95 shadow-[0_15px_30px_-5px_rgba(139,92,246,0.5)] border border-white/20">
-                GET STARTED <ArrowRight className="w-5 h-5 animate-bounce" />
+              <a href="#contact" className="inline-flex items-center gap-3 px-10 py-5 rounded-[2.5rem] bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-black hover:brightness-110 transition-all hover:scale-105 active:scale-95 shadow-[0_20px_40px_-10px_rgba(124,58,237,0.5)] border-2 border-white/20 group">
+                 HIRE ME <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
               </a>
-              <a href="#" className="inline-flex items-center gap-2 px-8 py-4 rounded-[2rem] bg-white/5 backdrop-blur-md font-bold text-foreground transition-all hover:bg-white/10 hover:scale-105 shadow-sm border border-white/10 group">
-                <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform" /> MY_CV
+              <a href="/asset/cv.pdf" download className="inline-flex items-center gap-3 px-10 py-5 rounded-[2.5rem] bg-white/5 backdrop-blur-xl font-bold text-foreground transition-all hover:bg-white/10 hover:scale-105 shadow-xl border-2 border-white/10 group">
+                <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform text-primary" /> MY CV
               </a>
             </motion.div>
           </div>
@@ -165,8 +179,8 @@ const HeroSection = () => {
                 <img
                   src="/asset/profile2.jpg"
                   alt="Emir Profile"
-                  className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
-                  style={{ objectPosition: "center 15%" }} 
+                  className="w-full h-full object-cover scale-125 transition-all duration-1000 group-hover:scale-140"
+                  style={{ objectPosition: "center 56%" }} 
                 />
                 
                 {/* Bubbly Gradient Overlay at Bottom */}
@@ -180,7 +194,7 @@ const HeroSection = () => {
 
               {/* ── NEW CUTE STAT BADGES (Replacing 3+ Projects) ── */}
               
-              {/* 1. GPA 3.80+ (Top Right) */}
+              {/* 1. IPK 3.90+ (Top Right) */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.6, type: "spring" }}
@@ -190,8 +204,8 @@ const HeroSection = () => {
                   <div className="p-3 bg-gradient-to-br from-yellow-300 to-amber-500 rounded-full shadow-lg group-hover:rotate-12 transition-transform">
                      <GraduationCap className="w-6 h-6 text-white" />
                   </div>
-                  <div className="text-xl font-black text-foreground mt-2 leading-none">3.80+</div>
-                  <div className="text-[9px] font-pixel text-primary uppercase tracking-tight">GPA_Score</div>
+                  <div className="text-xl font-black text-foreground mt-2 leading-none">3.90+</div>
+                  <div className="text-[9px] font-pixel text-primary uppercase tracking-tight">IPK_Score</div>
               </motion.div>
 
               {/* 2. Innovation Leader (Bottom Left) */}

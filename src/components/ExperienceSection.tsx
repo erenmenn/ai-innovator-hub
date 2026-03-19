@@ -5,7 +5,7 @@ import { BrainCircuit, Leaf, Mic, Calendar, MapPin, Sparkles, LayoutList } from 
 const experiences = [
   {
     id: "ai-coordinator",
-    company: "Jurusan Informatika",
+    company: "Sistem Informasi",
     role: "Academic Coordinator — Sistem Cerdas",
     date: "University Period",
     location: "Campus",

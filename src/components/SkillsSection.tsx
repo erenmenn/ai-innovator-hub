@@ -73,35 +73,19 @@ const SkillsSection = () => {
   return (
     <section id="skills" className="py-24 relative overflow-hidden pixel-grid">
       
-      {/* ── Innovative Smoke Background ── */}
+      {/* ── Innovative Static Smoke Background (Animasi Dihapus Agar Tidak Lag) ── */}
       <div className="absolute inset-x-0 top-0 h-full w-full pointer-events-none -z-10">
-        <motion.div
-          animate={{ x: [0, 40, -40, 0], y: [0, -40, 40, 0], scale: [1, 1.2, 0.8, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 right-[5%] w-[600px] h-[600px] smoke-glow bg-purple-600/10 blur-[120px]"
-        />
-        <motion.div
-          animate={{ x: [0, -30, 30, 0], y: [0, 50, -50, 0], scale: [1, 0.9, 1.1, 1] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-          className="absolute bottom-1/4 left-[5%] w-[550px] h-[550px] smoke-glow bg-blue-500/10 blur-[120px]"
-        />
+        <div className="absolute top-1/4 right-[5%] w-[600px] h-[600px] bg-purple-600/10 blur-[120px]" />
+        <div className="absolute bottom-1/4 left-[5%] w-[550px] h-[550px] bg-blue-500/10 blur-[120px]" />
         
-        {/* Floating Asset Objects */}
-        <motion.div 
-           animate={{ y: [0, -20, 0], rotate: [0, 10, 0], scale: [1, 1.1, 1] }} 
-           transition={{ duration: 5, repeat: Infinity }}
-           className="absolute top-32 left-10 opacity-60"
-        >
+        {/* Floating Asset Objects (Static/Hover only) */}
+        <div className="absolute top-32 left-10 opacity-60 hover:scale-110 transition-transform">
            <img src="/asset/sparkle.png" alt="Sparkle" width={80} height={80} className="drop-shadow-xl" />
-        </motion.div>
+        </div>
         
-        <motion.div 
-           animate={{ y: [0, -30, 0], rotate: [-10, 10, -10], scale: [1, 1.2, 1] }} 
-           transition={{ duration: 6, repeat: Infinity, delay: 1 }}
-           className="absolute bottom-20 right-10 opacity-50"
-        >
+        <div className="absolute bottom-20 right-10 opacity-50 hover:rotate-12 transition-transform">
            <img src="/asset/bintang.png" alt="Star Object" width={100} height={100} className="drop-shadow-xl" />
-        </motion.div>
+        </div>
       </div>
 
       <div className="container mx-auto px-6 relative">
@@ -168,7 +152,7 @@ const SkillsSection = () => {
                   className="w-20 h-20 rounded-[1.5rem] flex items-center justify-center text-4xl shadow-inner border-2 border-white/40 group relative overflow-hidden"
                   style={{ backgroundColor: activeCat.glow }}
                 >
-                   <motion.div animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} className="absolute inset-0 opacity-20"><Sparkles className="w-full h-full text-white" /></motion.div>
+                   <div className="absolute inset-0 opacity-20"><Sparkles className="w-full h-full text-white" /></div>
                    <span className="relative z-10 drop-shadow-xl">{activeCat.emoji}</span>
                 </div>
                 <div>
