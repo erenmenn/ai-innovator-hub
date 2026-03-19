@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BrainCircuit, Leaf, Mic, Calendar, MapPin, Sparkles, LayoutList, Palette } from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
 
 const experiences = [
   {
@@ -10,12 +10,11 @@ const experiences = [
     date: "Continuous",
     location: "Workspace",
     image: "/asset/exp_notion.png",
-    color: "#f59e0b", // amber
-    bgGradient: "linear-gradient(135deg, #fbbf24, #ea580c)",
+    color: "#d97706",
     description: [
-      "Merancang ruang kerja produktivitas (Second Brain) di Notion untuk mengatur kalender akademis dan melacak kebiasaan (habit) harian.",
-      "Menyusun kerangka Timeline riset AI dan timeline proyek aplikasi agar selalu tereksekusi rapi sesuai target.",
-      "Membangun ekosistem database terintegrasi yang menyimpan sekumpulan resource materi belajar, ide inovasi, dan jejak progres koding secara terpusat."
+      "Merancang ruang kerja produktivitas (Second Brain) di Notion untuk mengatur kalender akademis dan melacak kebiasaan harian secara sistematis.",
+      "Menyusun kerangka Timeline riset AI dan timeline proyek aplikasi agar selalu tereksekusi rapi sesuai target yang ditetapkan.",
+      "Membangun ekosistem database terintegrasi yang menyimpan resource materi belajar, ide inovasi, dan jejak progres koding secara terpusat.",
     ],
   },
   {
@@ -25,12 +24,11 @@ const experiences = [
     date: "Life-long Passion",
     location: "Digital Space",
     image: "/asset/exp_artist.png",
-    color: "#ec4899", // pink
-    bgGradient: "linear-gradient(135deg, #ec4899, #8b5cf6)",
+    color: "#db2777",
     description: [
-      "Mengeksplorasi garis keturunan (bloodline) seni secara mendalam melalui menggambar manual dan melukis (seni terapan) dengan teknik estetika tingkat tinggi.",
-      "Menguasai penuh Colour Theory dan psikologi warna untuk menciptakan harmoni visual yang unik, cute, aesthetic, dan membangkitkan emosi.",
-      "Menerapkan insting seni organik ke dunia digital (Figma & Canva) melalui UI/UX Web Design dan perancangan Design System pixel-perfect."
+      "Mengeksplorasi seni secara mendalam melalui menggambar manual dan melukis dengan teknik estetika tingkat tinggi.",
+      "Menguasai Colour Theory dan psikologi warna untuk menciptakan harmoni visual yang unik dan membangkitkan emosi positif.",
+      "Menerapkan insting seni organik ke dunia digital melalui UI/UX Web Design dan perancangan Design System pixel-perfect di Figma.",
     ],
   },
   {
@@ -40,200 +38,269 @@ const experiences = [
     date: "Sedang Berlangsung",
     location: "Campus",
     image: "/asset/exp_ai.png",
-    color: "#a855f7", // purple
-    bgGradient: "linear-gradient(135deg, #a855f7, #3b82f6)",
+    color: "#7c3aed",
     description: [
       "Bertanggung jawab atas penjadwalan rutin kelas dan distribusi silabus untuk mata kuliah Sistem Cerdas.",
-      "Bertindak sebagai jembatan informasi utama yang sigap mencatat dan meneruskan intisari materi dari pengampu kepada seluruh mahasiswa kelas.",
-      "Mendukung progres belajar kelas secara kolaboratif, yang sukses berkontribusi pada peningkatan median nilai rata-rata rekan sekelas secara positif."
+      "Bertindak sebagai jembatan informasi utama yang mencatat dan meneruskan intisari materi kepada seluruh mahasiswa kelas.",
+      "Mendukung progres belajar kelas secara kolaboratif, berkontribusi pada peningkatan median nilai rata-rata rekan sekelas secara positif.",
     ],
   },
   {
     id: "biology-peer",
     company: "Kelas Biologi",
     role: "Course Coordinator & Tutor",
-    date: "2022 - 2023",
+    date: "2022 – 2023",
     location: "High School",
     image: "/asset/exp_biology.png",
-    color: "#22c55e", // green
-    bgGradient: "linear-gradient(135deg, #22c55e, #06b6d4)",
+    color: "#16a34a",
     description: [
-      "Secara aktif berkolaborasi dengan guru mata pelajaran untuk merumuskan teknik simulasi pembelajaran Biologi agar lebih mudah dipahami siswa.",
-      "Membangun dan memimpin forum belajar ekstra (Peer Tutoring) sebelum jadwal ujian dimulai guna membongkar konsep biologis yang dirasa rumit.",
-      "Diberi tingkat kepercayaan penuh untuk sesekali menggantikan peran guru mengajar utuh di depan kelas, termasuk membawakan pemaparan kisi-kisi krusial penentu ujian."
+      "Berkolaborasi dengan guru untuk merumuskan teknik simulasi pembelajaran Biologi agar lebih mudah dipahami siswa.",
+      "Membangun dan memimpin forum belajar ekstra (Peer Tutoring) sebelum ujian untuk membongkar konsep yang dirasa rumit.",
+      "Diberi kepercayaan untuk menggantikan peran guru mengajar di depan kelas, termasuk membawakan kisi-kisi krusial ujian.",
     ],
   },
   {
     id: "english-club",
     company: "English Club",
     role: "Pemateri Inti & Organizer",
-    date: "2022 - 2023",
+    date: "2022 – 2023",
     location: "High School",
     image: "/asset/exp_english.png",
-    color: "#f97316", // orange
-    bgGradient: "linear-gradient(135deg, #f97316, #ec4899)",
+    color: "#ea580c",
     description: [
-      "Menghidupkan atmosfer ekskul bahasa Inggris dengan mengemas kurikulum Public Speaking layaknya sebuah Game yang seru untuk dieksplorasi.",
-      "Menjadi penggerak utama suksesnya latihan debat antar-sekolah secara inklusif, rutin mengelola dan menjaga retensi 50+ peserta mendaftar agar tetap aktif.",
-      "Memainkan peran sebagai pembicara kunci (Core Speaker) yang sukses mendorong rasa percaya diri, keberanian public speaking, serta kebersamaan erat antar siswa."
+      "Menghidupkan ekskul bahasa Inggris dengan mengemas kurikulum Public Speaking layaknya sebuah Game yang seru untuk dieksplorasi.",
+      "Menjadi penggerak utama suksesnya latihan debat antar-sekolah, mengelola dan menjaga retensi 50+ peserta agar tetap aktif.",
+      "Berperan sebagai Core Speaker yang mendorong rasa percaya diri, keberanian public speaking, dan kebersamaan antar siswa.",
     ],
   },
 ];
 
 const ExperienceSection = () => {
   const [activeId, setActiveId] = useState(experiences[0].id);
-
-  const activeExp = experiences.find((e) => e.id === activeId)!;
+  const exp = experiences.find((e) => e.id === activeId)!;
 
   return (
-    <section id="experience" className="py-24 relative overflow-hidden pixel-grid">
-      
-      <div className="container mx-auto px-6 relative z-10">
-        
-        {/* Header Section */}
+    <section id="experience" className="py-32 relative overflow-hidden">
+
+      {/* ── Ambient Background ── */}
+      <div className="absolute inset-0 pointer-events-none -z-10">
+        <AnimatePresence>
+          <motion.div
+            key={exp.id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.9 }}
+            className="absolute top-0 left-0 w-full h-full"
+            style={{
+              background: `radial-gradient(ellipse 60% 60% at 70% 30%, ${exp.color}18, transparent)`,
+            }}
+          />
+        </AnimatePresence>
+
+        {/* Floating assets */}
+        <motion.img
+          src="/asset/rocket.png" alt="" aria-hidden="true"
+          animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-20 right-16 w-16 h-16 opacity-15 select-none"
+        />
+        <motion.img
+          src="/asset/sparkle.png" alt="" aria-hidden="true"
+          animate={{ rotate: [0, 360] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-28 left-12 w-10 h-10 opacity-20 select-none"
+        />
+        <motion.img
+          src="/asset/love.png" alt="" aria-hidden="true"
+          animate={{ y: [0, -12, 0], scale: [1, 1.1, 1] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute top-2/3 right-[8%] w-12 h-12 opacity-15 select-none"
+        />
+      </div>
+
+      <div className="container mx-auto px-6">
+
+        {/* ── Section Header ── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="mb-20"
         >
-          <span className="text-[10px] font-pixel text-slate-500 tracking-widest bg-white px-4 py-2 rounded-xl border-2 border-slate-200 shadow-[2px_2px_0px_#e2e8f0]">
-            MY_JOURNEY.EXE
-          </span>
-          <h2 className="text-4xl md:text-6xl font-black mt-8 tracking-tight relative inline-block text-slate-800">
-            MY <span className="text-transparent bg-clip-text italic block md:inline pr-2" style={{ backgroundImage: "linear-gradient(to right, #6366f1, #ec4899, #f59e0b)" }}>EXPERIENCE</span>
-            <motion.div animate={{ rotate: 360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute -top-10 -right-16 opacity-50">
-               <Sparkles className="w-12 h-12 text-yellow-400 fill-yellow-400" />
-            </motion.div>
+          <p className="text-xs font-mono tracking-[0.3em] uppercase text-slate-400 mb-4">
+            / JOURNEY
+          </p>
+          <h2 className="text-5xl md:text-6xl font-black tracking-tight text-slate-800 leading-none">
+            My{" "}
+            <span
+              className="text-transparent bg-clip-text"
+              style={{ backgroundImage: `linear-gradient(120deg, ${exp.color}, #a855f7)` }}
+            >
+              Experience
+            </span>
           </h2>
         </motion.div>
 
-        <div className="max-w-5xl mx-auto flex flex-col items-center relative">
-          
-          {/* Top Filter Buttons / Tabs (Cute Pixel UI) */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12 w-full relative z-20">
-            {experiences.map((exp) => (
+        {/* ── Main Layout: Timeline Rail + Detail Card ── */}
+        <div className="flex flex-col lg:flex-row gap-12 items-start max-w-6xl mx-auto">
+
+          {/* ── Left: Vertical Timeline Rail ── */}
+          <div className="relative flex flex-row lg:flex-col gap-0 lg:gap-0 w-full lg:w-72 shrink-0">
+            {/* Vertical line (desktop) */}
+            <div className="hidden lg:block absolute left-[18px] top-8 bottom-8 w-px bg-slate-200" />
+
+            {experiences.map((e, i) => (
               <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                key={exp.id}
-                onClick={() => setActiveId(exp.id)}
-                className={`relative px-4 py-3 md:px-5 md:py-3.5 rounded-2xl font-bold text-xs md:text-sm transition-all duration-300 flex items-center gap-3 border-[3px] overflow-hidden ${
-                  activeId === exp.id
-                    ? "bg-white z-10"
-                    : "bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-500"
-                }`}
-                style={activeId === exp.id ? { 
-                  borderColor: exp.color, 
-                  boxShadow: `4px 4px 0px ${exp.color}`,
-                  color: exp.color
-                } : {}}
+                key={e.id}
+                onClick={() => setActiveId(e.id)}
+                className="relative flex items-center gap-4 py-4 lg:py-5 pr-4 text-left group w-full"
+                whileHover={{ x: 4 }}
               >
-                <div className={`shrink-0 relative w-8 h-8 md:w-10 md:h-10 rounded-lg border-2 overflow-hidden ${activeId === exp.id ? 'border-slate-900 shadow-[2px_2px_0_rgba(0,0,0,1)] scale-110' : 'border-transparent'}`} style={{ background: exp.color }}>
-                  <img src={exp.image} alt={exp.company} className="w-full h-full object-cover mix-blend-screen" />
+                {/* Circle node on timeline */}
+                <div className="relative shrink-0 z-10">
+                  <motion.div
+                    animate={activeId === e.id
+                      ? { scale: [1, 1.2, 1], boxShadow: `0 0 0 6px ${e.color}30` }
+                      : { scale: 1, boxShadow: "none" }
+                    }
+                    transition={{ duration: 0.5, repeat: activeId === e.id ? Infinity : 0 }}
+                    className="w-9 h-9 rounded-full border-2 bg-white overflow-hidden shadow-sm transition-all duration-300"
+                    style={{
+                      borderColor: activeId === e.id ? e.color : "#e2e8f0",
+                    }}
+                  >
+                    <img
+                      src={e.image}
+                      alt={e.company}
+                      className="w-full h-full object-cover"
+                      style={{ mixBlendMode: "multiply" }}
+                    />
+                  </motion.div>
                 </div>
-                <span className="hidden sm:inline-block max-w-[150px] truncate text-left">{exp.company}</span>
+
+                {/* Text label */}
+                <div className="hidden lg:block">
+                  <p
+                    className={`text-sm font-bold transition-colors leading-tight ${
+                      activeId === e.id ? "text-slate-800" : "text-slate-400"
+                    }`}
+                  >
+                    {e.company}
+                  </p>
+                  <p className="text-[10px] font-mono text-slate-400 mt-0.5 truncate max-w-[160px]">
+                    {e.role}
+                  </p>
+                </div>
+
+                {/* Active marker */}
+                {activeId === e.id && (
+                  <motion.div
+                    layoutId="exp-marker"
+                    className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-8 rounded-l-full"
+                    style={{ background: e.color }}
+                  />
+                )}
               </motion.button>
             ))}
           </div>
 
-          {/* Bottom Card Content (Cute Colorful Pixel Motivation Style) */}
-          <div className="w-full relative">
+          {/* ── Right: Detail Card ── */}
+          <div className="flex-1">
             <AnimatePresence mode="wait">
               <motion.div
-                key={activeExp.id}
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -30, scale: 0.95 }}
-                transition={{ duration: 0.4, type: "spring", bounce: 0.4 }}
-                className="w-full relative bg-white rounded-[2.5rem] p-6 md:p-12 border-[4px] flex flex-col group overflow-hidden"
-                style={{ 
-                  borderColor: activeExp.color, 
-                  boxShadow: `8px 8px 0px ${activeExp.color}` 
-                }}
+                key={exp.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="relative bg-white rounded-3xl overflow-hidden"
+                style={{ boxShadow: `0 0 0 1px ${exp.color}30, 0 24px 60px ${exp.color}18` }}
               >
-                
-                {/* Background Subtle Color Glow Overlay */}
-                <div 
-                  className="absolute inset-0 opacity-[0.03] rounded-[2.5rem] pointer-events-none"
-                  style={{ background: activeExp.bgGradient }}
-                />
+                {/* Top accent strip */}
+                <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${exp.color}, transparent)` }} />
 
-                {/* Card Header Section */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-10 relative z-10 border-b-[3px] border-slate-100 pb-8">
-                   
-                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                      {/* Huge Pixel Avatar generated image */}
-                      <motion.div 
-                        initial={{ rotate: -10, scale: 0.5 }} animate={{ rotate: 0, scale: 1 }} transition={{ type: "spring", bounce: 0.6 }}
-                        className="w-24 h-24 md:w-32 md:h-32 shrink-0 rounded-[1.5rem] overflow-hidden border-4 border-slate-900 shadow-[6px_6px_0px_rgba(0,0,0,1)] group-hover:-translate-y-2 transition-transform duration-300"
-                        style={{ background: activeExp.color }}
+                <div className="p-8 md:p-10">
+
+                  {/* Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-8">
+                    {/* Avatar */}
+                    <motion.div
+                      initial={{ scale: 0.7, rotate: -8 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ type: "spring", bounce: 0.5 }}
+                      className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-lg"
+                      style={{ background: `${exp.color}20`, border: `2px solid ${exp.color}40` }}
+                    >
+                      <img
+                        src={exp.image}
+                        alt={exp.company}
+                        className="w-full h-full object-cover"
+                        style={{ mixBlendMode: "multiply" }}
+                      />
+                    </motion.div>
+
+                    {/* Title area */}
+                    <div className="space-y-2">
+                      <h3 className="text-2xl md:text-3xl font-black text-slate-800 leading-tight">
+                        {exp.company}
+                      </h3>
+                      <p
+                        className="inline-block text-sm font-semibold px-3 py-1 rounded-full"
+                        style={{ color: exp.color, background: `${exp.color}15` }}
                       >
-                         <img src={activeExp.image} alt={activeExp.company} className="w-[120%] h-[120%] -ml-[10%] -mt-[10%] object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 mix-blend-screen" />
+                        {exp.role}
+                      </p>
+                    </div>
+
+                    {/* Meta tags */}
+                    <div className="sm:ml-auto flex flex-wrap sm:flex-col gap-2 text-xs">
+                      <div className="flex items-center gap-2 font-mono text-slate-500">
+                        <Calendar className="w-3.5 h-3.5" style={{ color: exp.color }} />
+                        {exp.date}
+                      </div>
+                      <div className="flex items-center gap-2 font-mono text-slate-500">
+                        <MapPin className="w-3.5 h-3.5" style={{ color: exp.color }} />
+                        {exp.location}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="w-full h-px mb-8" style={{ background: `linear-gradient(90deg, ${exp.color}40, transparent)` }} />
+
+                  {/* Description points */}
+                  <div className="space-y-5">
+                    {exp.description.map((point, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: -12 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 + i * 0.1, duration: 0.4 }}
+                        className="flex gap-4 items-start group/point"
+                      >
+                        {/* Bullet */}
+                        <div
+                          className="mt-2 w-5 h-5 shrink-0 rounded-full flex items-center justify-center"
+                          style={{ background: `${exp.color}15`, border: `1.5px solid ${exp.color}50` }}
+                        >
+                          <div
+                            className="w-1.5 h-1.5 rounded-full"
+                            style={{ background: exp.color }}
+                          />
+                        </div>
+                        <p className="text-slate-600 leading-relaxed text-sm md:text-base">
+                          {point}
+                        </p>
                       </motion.div>
-                      
-                      {/* Titles */}
-                      <div>
-                         <h3 className="text-3xl md:text-4xl font-black mb-3 tracking-tight transition-colors duration-300 text-slate-800">
-                            {activeExp.company}
-                         </h3>
-                         
-                         <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-xl border-[3px] bg-white text-sm md:text-base font-black tracking-wide shadow-[3px_3px_0_rgba(0,0,0,0.1)]" style={{ borderColor: activeExp.color, color: activeExp.color }}>
-                            <div className="w-2.5 h-2.5 rounded-full animate-pulse border border-slate-900" style={{ background: activeExp.color }}/>
-                            {activeExp.role}
-                         </div>
-                      </div>
-                   </div>
-                   
-                   {/* Info tags */}
-                   <div className="flex flex-row md:flex-col flex-wrap gap-4 text-xs md:text-sm font-bold bg-slate-50 border-[3px] border-slate-200 p-5 rounded-2xl shadow-inner shrink-0">
-                      <div className="flex items-center gap-3 text-slate-700">
-                         <div className="p-1.5 rounded-lg bg-white border-2 border-slate-200 shadow-sm">
-                           <Calendar className="w-4 h-4" style={{ color: activeExp.color }} /> 
-                         </div>
-                         <span>{activeExp.date}</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-slate-700">
-                         <div className="p-1.5 rounded-lg bg-white border-2 border-slate-200 shadow-sm">
-                           <MapPin className="w-4 h-4" style={{ color: activeExp.color }} /> 
-                         </div>
-                         <span className="font-pixel text-[10px] uppercase pt-1">{activeExp.location}</span>
-                      </div>
-                   </div>
+                    ))}
+                  </div>
 
                 </div>
-
-                {/* Bullet Points */}
-                <div className="space-y-4 md:space-y-5 relative z-10 w-full">
-                   {activeExp.description.map((point, index) => (
-                      <motion.div 
-                         key={index}
-                         initial={{ opacity: 0, x: -20 }}
-                         animate={{ opacity: 1, x: 0 }}
-                         transition={{ delay: 0.1 + (index * 0.1), type: "spring" }}
-                         className="flex items-start gap-4 p-5 rounded-2xl border-[3px] border-transparent hover:border-slate-200 hover:bg-slate-50 transition-colors group/point"
-                      >
-                         <div className="shrink-0 mt-1.5">
-                            <motion.div 
-                              whileHover={{ scale: 1.2, rotate: 90 }}
-                              className="w-4 h-4 md:w-5 md:h-5 rounded-md border-[3px] shadow-[2px_2px_0_rgba(0,0,0,0.2)] flex items-center justify-center transition-transform" 
-                              style={{ borderColor: activeExp.color, background: "#fff" }} 
-                            >
-                               <div className="w-1.5 h-1.5 rounded-sm" style={{ background: activeExp.color }} />
-                            </motion.div>
-                         </div>
-                         <p className="text-slate-600 font-semibold leading-relaxed transition-colors text-sm md:text-base pt-0.5">
-                            {point}
-                         </p>
-                      </motion.div>
-                   ))}
-                </div>
-
               </motion.div>
             </AnimatePresence>
           </div>
-          
+
         </div>
       </div>
     </section>

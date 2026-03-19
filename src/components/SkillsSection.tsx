@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import {
   BrainCircuit, Eye, BarChart3, Layers, Code2, Database,
@@ -6,332 +6,253 @@ import {
   Palette, Monitor, Brush
 } from "lucide-react";
 
-/* ── Data ────────────────────────────────────────────────────────────── */
 const skillCategories = [
   {
     id: "ai",
-    title: "AI & TECH",
-    class: "INTELLIGENCE",
-    emoji: "🤖",
-    gradient: "linear-gradient(135deg, #a855f7, #4f46e5)",
-    accent: "#a855f7",
-    glow: "rgba(168,85,247,0.25)",
-    count: 6,
+    label: "AI & Tech",
+    accent: "#7c3aed",
+    glow: "rgba(124,58,237,0.3)",
+    dot: "bg-violet-500",
     items: [
-      { icon: BrainCircuit,  name: "Machine Learning", level: 90, xp: 9000, tag: "CORE" },
-      { icon: Layers,        name: "Deep Learning",    level: 85, xp: 8500, tag: "CORE" },
-      { icon: Cpu,           name: "LLMs & RAG",       level: 88, xp: 8800, tag: "RARE" },
-      { icon: MessageSquare, name: "NLP",              level: 88, xp: 8800, tag: "RARE" },
-      { icon: Eye,           name: "Computer Vision",  level: 80, xp: 8000, tag: "SKILL" },
-      { icon: BarChart3,     name: "Data Analysis",    level: 92, xp: 9200, tag: "PRO"  },
+      { icon: BrainCircuit,  name: "Machine Learning", level: 90, tag: "CORE" },
+      { icon: Layers,        name: "Deep Learning",    level: 85, tag: "CORE" },
+      { icon: Cpu,           name: "LLMs & RAG",       level: 88, tag: "RARE" },
+      { icon: MessageSquare, name: "NLP",              level: 88, tag: "RARE" },
+      { icon: Eye,           name: "Computer Vision",  level: 80, tag: "SKILL" },
+      { icon: BarChart3,     name: "Data Analysis",    level: 92, tag: "PRO"  },
     ],
   },
   {
     id: "dev",
-    title: "TOOLS & DEV",
-    class: "ENGINEER",
-    emoji: "💻",
-    gradient: "linear-gradient(135deg, #3b82f6, #06b6d4)",
-    accent: "#3b82f6",
-    glow: "rgba(59,130,246,0.25)",
-    count: 6,
+    label: "Tools & Dev",
+    accent: "#2563eb",
+    glow: "rgba(37,99,235,0.3)",
+    dot: "bg-blue-500",
     items: [
-      { icon: Code2,    name: "Python",               level: 95, xp: 9500, tag: "MASTER" },
-      { icon: Code2,    name: "LangChain & AI Tools", level: 85, xp: 8500, tag: "RARE"   },
-      { icon: Database, name: "TensorFlow/PyTorch",   level: 85, xp: 8500, tag: "CORE"   },
-      { icon: Code2,    name: "Scikit-learn",         level: 90, xp: 9000, tag: "PRO"    },
-      { icon: Database, name: "Pandas / NumPy",       level: 92, xp: 9200, tag: "PRO"    },
-      { icon: Globe,    name: "API Integration",      level: 82, xp: 8200, tag: "SKILL"  },
+      { icon: Code2,    name: "Python",             level: 95, tag: "MASTER" },
+      { icon: Code2,    name: "LangChain",          level: 85, tag: "RARE"   },
+      { icon: Database, name: "TensorFlow/PyTorch", level: 85, tag: "CORE"   },
+      { icon: Code2,    name: "Scikit-learn",       level: 90, tag: "PRO"    },
+      { icon: Database, name: "Pandas / NumPy",     level: 92, tag: "PRO"    },
+      { icon: Globe,    name: "API Integration",    level: 82, tag: "SKILL"  },
     ],
   },
   {
     id: "art",
-    title: "CREATIVE ART",
-    class: "ARTIST",
-    emoji: "🎨",
-    gradient: "linear-gradient(135deg, #ec4899, #d946ef)",
-    accent: "#ec4899",
-    glow: "rgba(236,72,153,0.25)",
-    count: 6,
+    label: "Creative Art",
+    accent: "#db2777",
+    glow: "rgba(219,39,119,0.3)",
+    dot: "bg-pink-500",
     items: [
-      { icon: Palette,  name: "Colour Theory",     level: 95, xp: 9500, tag: "MASTER" },
-      { icon: Monitor,  name: "UI/UX & Figma",     level: 90, xp: 9000, tag: "PRO"    },
-      { icon: Brush,    name: "Canva Design",      level: 92, xp: 9200, tag: "PRO"    },
-      { icon: Palette,  name: "Drawing & Sketch",  level: 88, xp: 8800, tag: "RARE"   },
-      { icon: Brush,    name: "Fine Art Painting", level: 85, xp: 8500, tag: "RARE"   },
-      { icon: Monitor,  name: "Web Design",        level: 90, xp: 9000, tag: "PRO"    },
+      { icon: Palette, name: "Colour Theory",    level: 95, tag: "MASTER" },
+      { icon: Monitor, name: "UI/UX & Figma",    level: 90, tag: "PRO"    },
+      { icon: Brush,   name: "Canva Design",     level: 92, tag: "PRO"    },
+      { icon: Palette, name: "Drawing & Sketch", level: 88, tag: "RARE"   },
+      { icon: Brush,   name: "Fine Art",         level: 85, tag: "RARE"   },
+      { icon: Monitor, name: "Web Design",       level: 90, tag: "PRO"    },
     ],
   },
   {
     id: "soft",
-    title: "SOFT SKILLS",
-    class: "LEADER",
-    emoji: "🌟",
-    gradient: "linear-gradient(135deg, #f59e0b, #ea580c)",
-    accent: "#f59e0b",
-    glow: "rgba(245,158,11,0.25)",
-    count: 4,
+    label: "Soft Skills",
+    accent: "#d97706",
+    glow: "rgba(217,119,6,0.3)",
+    dot: "bg-amber-500",
     items: [
-      { icon: Lightbulb,     name: "Innovative Thinking", level: 95, xp: 9500, tag: "MASTER" },
-      { icon: Lightbulb,     name: "Problem Solving",     level: 93, xp: 9300, tag: "PRO"    },
-      { icon: Crown,         name: "Leadership",          level: 88, xp: 8800, tag: "RARE"   },
-      { icon: MessageSquare, name: "Communication",       level: 90, xp: 9000, tag: "PRO"    },
+      { icon: Lightbulb,     name: "Innovative Thinking", level: 95, tag: "MASTER" },
+      { icon: Lightbulb,     name: "Problem Solving",     level: 93, tag: "PRO"    },
+      { icon: Crown,         name: "Leadership",          level: 88, tag: "RARE"   },
+      { icon: MessageSquare, name: "Communication",       level: 90, tag: "PRO"    },
     ],
   },
 ];
 
-const tagColors: Record<string, string> = {
-  MASTER: "#f43f5e",
-  RARE:   "#a855f7",
-  PRO:    "#3b82f6",
-  CORE:   "#10b981",
-  SKILL:  "#64748b",
+const tagStyle: Record<string, string> = {
+  MASTER: "bg-rose-100 text-rose-600 border-rose-200",
+  RARE:   "bg-purple-100 text-purple-600 border-purple-200",
+  PRO:    "bg-blue-100 text-blue-600 border-blue-200",
+  CORE:   "bg-emerald-100 text-emerald-600 border-emerald-200",
+  SKILL:  "bg-slate-100 text-slate-500 border-slate-200",
 };
 
-/* ── Skill Card Component ────────────────────────────────────────────── */
-const SkillCard = ({
-  skill, accent, gradient, delay,
-}: {
-  skill: (typeof skillCategories)[0]["items"][0];
-  accent: string;
-  gradient: string;
-  delay: number;
-}) => {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.94 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -10, scale: 0.94 }}
-      transition={{ delay, duration: 0.35, type: "spring", bounce: 0.25 }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="relative rounded-3xl overflow-hidden cursor-default border-2 transition-all duration-300"
-      style={{
-        borderColor: hovered ? accent : "#e2e8f0",
-        background: hovered ? `linear-gradient(135deg, white, ${accent}10)` : "white",
-        boxShadow: hovered ? `0 8px 28px ${accent}33` : "0 2px 8px rgba(0,0,0,0.06)",
-      }}
-    >
-      {/* Card top color band */}
-      <div className="h-1.5 w-full" style={{ background: gradient }} />
-
-      {/* Inside glow on hover */}
-      <div
-        className="absolute bottom-0 right-0 w-24 h-24 rounded-full blur-2xl pointer-events-none transition-opacity duration-300"
-        style={{ background: accent, opacity: hovered ? 0.12 : 0 }}
-      />
-
-      <div className="p-4 relative z-10">
-        {/* Top row: icon + tag */}
-        <div className="flex items-center justify-between mb-3">
-          <div
-            className="w-10 h-10 rounded-2xl flex items-center justify-center text-white shadow-md"
-            style={{ background: gradient }}
-          >
-            <skill.icon className="w-5 h-5" />
-          </div>
-          <span
-            className="text-[8px] font-pixel px-2 py-1 rounded-lg text-white border border-white/30"
-            style={{ background: tagColors[skill.tag] ?? "#64748b" }}
-          >
-            ★ {skill.tag}
-          </span>
-        </div>
-
-        {/* Skill name */}
-        <h4 className="font-black text-slate-800 text-sm leading-tight mb-1">{skill.name}</h4>
-
-        {/* XP */}
-        <p className="text-[9px] font-pixel text-slate-400 mb-3">XP {skill.xp.toLocaleString()}</p>
-
-        {/* Bubbly progress bar */}
-        <div className="w-full h-3 rounded-full bg-slate-100 border border-slate-200 overflow-hidden p-0.5">
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: `${skill.level}%` }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.1, ease: "easeOut", delay }}
-            className="h-full rounded-full relative"
-            style={{ background: gradient }}
-          >
-            <div className="absolute inset-0 bg-white/30 rounded-full" style={{ height: "50%", top: 0 }} />
-          </motion.div>
-        </div>
-
-        {/* Level badge */}
-        <div className="flex items-center justify-between mt-2.5">
-          <div className="flex gap-0.5">
-            {[...Array(5)].map((_, i) => (
-              <div
-                key={i}
-                className="w-2.5 h-2.5 rounded-sm transition-all duration-300"
-                style={{
-                  background: i < Math.round(skill.level / 20) ? accent : "#e2e8f0",
-                  transform: hovered && i < Math.round(skill.level / 20) ? "scaleY(1.2)" : "scaleY(1)",
-                }}
-              />
-            ))}
-          </div>
-          <span
-            className="text-[10px] font-pixel font-black text-white px-2 py-0.5 rounded-lg"
-            style={{ background: accent }}
-          >
-            LV.{Math.round(skill.level / 10)}
-          </span>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
-/* ── Main Section ────────────────────────────────────────────────────── */
 const SkillsSection = () => {
   const [active, setActive] = useState(0);
   const cat = skillCategories[active];
 
   return (
-    <section id="skills" className="py-28 relative overflow-hidden pixel-grid">
-      {/* Static smoke blobs */}
+    <section id="skills" className="py-32 relative overflow-hidden">
+
+      {/* ── Ambient background ── */}
       <div className="absolute inset-0 pointer-events-none -z-10">
-        <div
-          className="absolute top-1/4 right-[5%] w-[500px] h-[500px] rounded-full blur-[140px] opacity-20 transition-all duration-700"
-          style={{ background: cat.accent }}
+        <motion.div
+          key={cat.id}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full blur-[160px]"
+          style={{ background: cat.glow }}
         />
-        <div className="absolute bottom-1/4 left-[5%] w-[400px] h-[400px] rounded-full blur-[130px] bg-slate-300/30" />
-        <img src="/asset/sparkle.png" className="absolute top-12 left-10 w-10 h-10 opacity-30" alt="" />
-        <img src="/asset/bintang.png" className="absolute bottom-14 right-14 w-12 h-12 opacity-25" alt="" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-[140px] bg-slate-200/50" />
+
+        {/* Floating PNG decorations */}
+        <motion.img
+          src="/asset/sparkle.png" alt="" aria-hidden="true"
+          animate={{ y: [0, -18, 0], rotate: [0, 15, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-16 left-12 w-12 h-12 opacity-25 select-none"
+        />
+        <motion.img
+          src="/asset/bintang.png" alt="" aria-hidden="true"
+          animate={{ y: [0, 14, 0], rotate: [0, -20, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute bottom-20 right-16 w-14 h-14 opacity-20 select-none"
+        />
+        <motion.img
+          src="/asset/api.png" alt="" aria-hidden="true"
+          animate={{ x: [0, 12, 0], y: [0, -10, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute top-1/2 left-[5%] w-16 h-16 opacity-10 select-none"
+        />
       </div>
 
       <div className="container mx-auto px-6">
-        {/* ── Header ── */}
+
+        {/* ── Section Header ── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-5 py-2 bg-white border-2 border-violet-300 shadow-[3px_3px_0px_#a855f7] rounded-xl mb-5">
-            <span className="w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
-            <span className="text-[9px] font-pixel text-violet-600 tracking-widest uppercase">SKILL_CARD_COLLECTION</span>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-black tracking-tight">
-            MY{" "}
+          <p className="text-xs font-mono tracking-[0.3em] uppercase text-slate-400 mb-4">
+            / CAPABILITIES
+          </p>
+          <h2 className="text-5xl md:text-6xl font-black tracking-tight text-slate-800 leading-none">
+            My{" "}
             <span
-              className="text-transparent bg-clip-text italic pr-2"
-              style={{ backgroundImage: "linear-gradient(to right, #7c3aed, #d946ef, #ec4899)" }}
+              className="text-transparent bg-clip-text"
+              style={{ backgroundImage: `linear-gradient(120deg, ${cat.accent}, #ec4899)` }}
             >
-              TOOLKIT
+              Toolkit
             </span>
           </h2>
-          <p className="text-muted-foreground mt-2 text-sm font-medium">
-            Hover cards to see glow · Click class to switch deck
-          </p>
         </motion.div>
 
-        {/* ── Class Selector — Big game-card style ── */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
-          {skillCategories.map((c, i) => (
-            <button
-              key={c.id}
-              onClick={() => setActive(i)}
-              className="relative rounded-3xl border-2 p-4 text-left transition-all duration-300 overflow-hidden"
-              style={
-                active === i
-                  ? {
-                      background: c.gradient,
-                      borderColor: c.accent,
-                      boxShadow: `0 8px 24px ${c.glow}`,
-                      color: "white",
-                    }
-                  : {
-                      background: "white",
-                      borderColor: "#e2e8f0",
-                      boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-                      color: "#475569",
-                    }
-              }
-            >
-              {/* Glow blob inside active button */}
-              {active === i && (
-                <div className="absolute -right-4 -bottom-4 w-20 h-20 rounded-full blur-xl bg-white/20 pointer-events-none" />
-              )}
-              {/* Pixel corner indicator */}
-              {active === i && (
-                <div
-                  className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-white animate-pulse"
-                />
-              )}
-              <div className="text-3xl mb-2">{c.emoji}</div>
-              <div
-                className="text-[9px] font-pixel mb-1 opacity-80"
-                style={{ color: active === i ? "rgba(255,255,255,0.8)" : "#94a3b8" }}
+        {/* ── Main Layout: Sidebar Tabs + Skill Grid ── */}
+        <div className="flex flex-col lg:flex-row gap-10 items-start">
+
+          {/* ── Left: Vertical Tab Selector ── */}
+          <div className="flex lg:flex-col gap-3 w-full lg:w-56 shrink-0">
+            {skillCategories.map((c, i) => (
+              <motion.button
+                key={c.id}
+                onClick={() => setActive(i)}
+                whileHover={{ x: 4 }}
+                className={`
+                  relative flex items-center gap-3 px-5 py-4 rounded-2xl text-left
+                  transition-all duration-300 border text-sm font-semibold w-full
+                  ${active === i
+                    ? "bg-white border-transparent shadow-lg"
+                    : "bg-transparent border-slate-200 text-slate-500 hover:bg-white/60 hover:border-slate-300"
+                  }
+                `}
+                style={active === i ? { boxShadow: `0 4px 24px ${c.glow}` } : {}}
               >
-                CLASS: {c.class}
-              </div>
-              <div className="font-black text-sm leading-tight">{c.title}</div>
-              <div
-                className="text-[8px] font-pixel mt-1.5"
-                style={{ color: active === i ? "rgba(255,255,255,0.7)" : "#94a3b8" }}
-              >
-                {c.count} SKILLS
-              </div>
-            </button>
-          ))}
-        </div>
-
-        {/* ── Skill Card Grid ── */}
-        <div className="max-w-5xl mx-auto relative">
-          {/* Section smoke glow behind the grid */}
-          <div
-            className="absolute inset-0 rounded-3xl blur-[80px] pointer-events-none -z-10 transition-all duration-700"
-            style={{ background: cat.glow, opacity: 0.6 }}
-          />
-
-          {/* Active category header pill */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={cat.id + "-header"}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="flex items-center gap-4 mb-6 px-6 py-4 rounded-2xl border-2"
-              style={{ background: cat.gradient, borderColor: cat.accent }}
-            >
-              <div className="text-3xl">{cat.emoji}</div>
-              <div className="text-white">
-                <div className="font-black text-xl leading-none">{cat.title}</div>
-                <div className="text-[9px] font-pixel opacity-75 mt-0.5 uppercase tracking-widest">CLASS: {cat.class}</div>
-              </div>
-              <div className="ml-auto hidden md:flex items-center gap-2 bg-black/20 px-4 py-2 rounded-xl border border-white/20">
-                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-[8px] font-pixel text-white">{cat.count} CARDS UNLOCKED</span>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Cards Grid */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={cat.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
-            >
-              {cat.items.map((skill, i) => (
-                <SkillCard
-                  key={skill.name}
-                  skill={skill}
-                  accent={cat.accent}
-                  gradient={cat.gradient}
-                  delay={i * 0.06}
+                {/* Active indicator line */}
+                {active === i && (
+                  <motion.div
+                    layoutId="tab-indicator"
+                    className="absolute left-0 top-3 bottom-3 w-1 rounded-r-full"
+                    style={{ background: c.accent }}
+                  />
+                )}
+                <span
+                  className={`w-2.5 h-2.5 rounded-full shrink-0 transition-all ${
+                    active === i ? "scale-125" : "opacity-40"
+                  }`}
+                  style={{ background: c.accent }}
                 />
-              ))}
-            </motion.div>
-          </AnimatePresence>
+                <span className={active === i ? "text-slate-800" : ""}>{c.label}</span>
+                {active === i && (
+                  <span
+                    className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded-full text-white"
+                    style={{ background: c.accent }}
+                  >
+                    {c.items.length}
+                  </span>
+                )}
+              </motion.button>
+            ))}
+          </div>
+
+          {/* ── Right: Skill Cards ── */}
+          <div className="flex-1 relative min-h-[400px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={cat.id}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.3 }}
+                className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4"
+              >
+                {cat.items.map((skill, i) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, scale: 0.92, y: 12 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ delay: i * 0.07, type: "spring", bounce: 0.3 }}
+                    whileHover={{ y: -5, boxShadow: `0 16px 40px ${cat.glow}` }}
+                    className="group relative bg-white rounded-2xl p-5 border border-slate-100 cursor-default transition-all duration-300"
+                    style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
+                  >
+                    {/* Inner glow on hover */}
+                    <div
+                      className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                      style={{ background: `radial-gradient(circle at 80% 20%, ${cat.glow}, transparent 70%)` }}
+                    />
+
+                    {/* Top Row */}
+                    <div className="flex items-start justify-between mb-4 relative z-10">
+                      <div
+                        className="w-11 h-11 rounded-xl flex items-center justify-center text-white shadow-sm"
+                        style={{ background: `linear-gradient(135deg, ${cat.accent}dd, ${cat.accent}88)` }}
+                      >
+                        <skill.icon className="w-5 h-5" />
+                      </div>
+                      <span className={`text-[9px] font-mono font-bold px-2.5 py-1 rounded-lg border ${tagStyle[skill.tag]}`}>
+                        {skill.tag}
+                      </span>
+                    </div>
+
+                    {/* Skill Name */}
+                    <h4 className="font-bold text-slate-800 text-sm mb-4 leading-snug relative z-10">
+                      {skill.name}
+                    </h4>
+
+                    {/* Level Bar */}
+                    <div className="relative z-10">
+                      <div className="flex justify-between items-center mb-1.5">
+                        <span className="text-[10px] text-slate-400 font-mono">Proficiency</span>
+                        <span className="text-[10px] font-bold" style={{ color: cat.accent }}>{skill.level}%</span>
+                      </div>
+                      <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${skill.level}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1.2, ease: "easeOut", delay: i * 0.08 }}
+                          className="h-full rounded-full"
+                          style={{ background: `linear-gradient(90deg, ${cat.accent}, ${cat.accent}88)` }}
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
         </div>
       </div>
     </section>
