@@ -133,6 +133,28 @@
     background-size: 60px 60px;
   }
 
+  /* Pixel & Retro Utilities */
+  .font-pixel {
+    font-family: 'Press Start 2P', cursive;
+    letter-spacing: -1px;
+  }
+
+  .font-silkscreen {
+    font-family: 'Silkscreen', cursive;
+  }
+
+  .pixel-grid {
+    background-size: 4px 4px;
+    background-image: radial-gradient(circle, hsl(var(--foreground) / 0.05) 1px, transparent 0);
+  }
+
+  .smoke-glow {
+    filter: blur(60px);
+    border-radius: 100%;
+    mix-blend-mode: screen;
+    opacity: 0.6;
+  }
+
   .floating {
     animation: float 6s ease-in-out infinite;
   }

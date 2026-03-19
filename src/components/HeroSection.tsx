@@ -1,205 +1,255 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Download, Brain, Cpu, Zap, Sparkles, User, Heart, Star, Rocket, Coffee, Music, Gamepad2, Code2, Flame } from "lucide-react";
+import { ArrowRight, Download, Briefcase, Folder, Cpu, GraduationCap, Trophy, Rocket } from "lucide-react";
 
-const badges = [
-  { text: "3+ AI Projects", icon: Brain, delay: 0.3 },
-  { text: "AI Enthusiast", icon: Sparkles, delay: 0.5 },
-  { text: "Problem Solver", icon: Zap, delay: 0.7 },
-  { text: "Innovation Driven", icon: Cpu, delay: 0.9 },
-];
-
-const floatingStickers = [
-  { emoji: "🤖", x: -60, y: -40, size: "text-4xl", delay: 0.4, duration: 5 },
-  { emoji: "🧠", x: 70, y: -60, size: "text-3xl", delay: 0.8, duration: 6 },
-  { emoji: "✨", x: -80, y: 40, size: "text-3xl", delay: 1.0, duration: 4.5 },
-  { emoji: "🔥", x: 90, y: 30, size: "text-4xl", delay: 0.6, duration: 5.5 },
-  { emoji: "💡", x: -50, y: 100, size: "text-3xl", delay: 1.2, duration: 7 },
-  { emoji: "🎯", x: 80, y: 90, size: "text-3xl", delay: 0.9, duration: 5 },
-  { emoji: "😎", x: -90, y: -80, size: "text-5xl", delay: 0.3, duration: 6 },
-  { emoji: "🚀", x: 100, y: -90, size: "text-4xl", delay: 0.7, duration: 4 },
-  { emoji: "💜", x: 0, y: 130, size: "text-2xl", delay: 1.4, duration: 6.5 },
-  { emoji: "⚡", x: -100, y: 70, size: "text-3xl", delay: 1.1, duration: 5 },
-  { emoji: "🎨", x: 110, y: 60, size: "text-3xl", delay: 0.5, duration: 7 },
-  { emoji: "☕", x: -30, y: -100, size: "text-2xl", delay: 1.3, duration: 5.5 },
+const stickers = [
+  { 
+    src: "/asset/love.png", 
+    size: 110, 
+    pos: { top: 90, left: 45 }, 
+    glow: "rgba(255, 107, 138, 0.5)",
+    animation: { y: [0, -15, 0], rotate: [-8, 8, -8] }, duration: 4.5 
+  },
+  { 
+    src: "/asset/sparkle.png", 
+    size: 70, 
+    pos: { top: 220, left: 50 }, 
+    glow: "rgba(255, 215, 71, 0.5)",
+    animation: { scale: [1, 1.2, 1], rotate: [0, 20, 0] }, duration: 4 
+  },
+  { 
+    src: "/asset/smile emoji.png", 
+    size: 90, 
+    pos: { top: 190, right: 40 }, 
+    glow: "rgba(64, 201, 127, 0.4)",
+    animation: { rotate: [-15, 15, -15], y: [0, -10, 0] }, duration: 5.5 
+  },
+  { 
+    src: "/asset/api.png", 
+    size: 130, 
+    pos: { bottom: 85, right: 45 },
+    glow: "rgba(247, 103, 7, 0.5)",
+    animation: { scale: [1, 1.15, 1], y: [0, -12, 0] }, duration: 3.5 
+  },
+  { 
+    src: "/asset/rocket.png", 
+    size: 80, 
+    pos: { bottom: 150, left: 30 }, 
+    glow: "rgba(116, 143, 252, 0.5)",
+    animation: { x: [0, -10, 0], y: [0, -20, 0] }, duration: 6 
+  },
 ];
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Animated smoke / gradient blobs */}
-      <div className="absolute inset-0 overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden pixel-grid pt-10">
+      
+      {/* ── Mystical AI Smoke / Glow Clouds ── */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <motion.div
-          animate={{ x: [0, 30, -20, 0], y: [0, -20, 30, 0], scale: [1, 1.2, 0.9, 1] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-10 left-[10%] w-[500px] h-[500px] rounded-full opacity-30"
-          style={{ background: "radial-gradient(circle, hsl(280 80% 70% / 0.4), transparent 70%)" }}
+           animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.5, 0.3], x: [0, 80, 0] }}
+           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+           className="absolute top-[10%] left-[15%] w-[600px] h-[600px] smoke-glow bg-purple-500/30 blur-[100px]"
         />
         <motion.div
-          animate={{ x: [0, -40, 20, 0], y: [0, 30, -30, 0], scale: [1, 0.9, 1.15, 1] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute top-[20%] right-[5%] w-[600px] h-[600px] rounded-full opacity-25"
-          style={{ background: "radial-gradient(circle, hsl(200 90% 65% / 0.4), transparent 70%)" }}
+           animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2], x: [0, -70, 0] }}
+           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+           className="absolute bottom-[20%] right-[10%] w-[700px] h-[700px] smoke-glow bg-blue-500/20 blur-[100px]"
         />
         <motion.div
-          animate={{ x: [0, 50, -30, 0], y: [0, -40, 20, 0], scale: [1, 1.1, 0.95, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-          className="absolute bottom-[10%] left-[20%] w-[450px] h-[450px] rounded-full opacity-25"
-          style={{ background: "radial-gradient(circle, hsl(43 80% 60% / 0.35), transparent 70%)" }}
-        />
-        <motion.div
-          animate={{ x: [0, -20, 40, 0], y: [0, 50, -20, 0], scale: [1, 1.05, 1.15, 1] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 6 }}
-          className="absolute top-[50%] left-[50%] w-[400px] h-[400px] rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle, hsl(330 70% 65% / 0.3), transparent 70%)" }}
-        />
-        <motion.div
-          animate={{ x: [0, 30, -50, 0], y: [0, -30, 40, 0] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          className="absolute bottom-[30%] right-[15%] w-[350px] h-[350px] rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle, hsl(160 70% 55% / 0.3), transparent 70%)" }}
+           animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.4, 0.2] }}
+           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+           className="absolute top-[30%] right-[20%] w-[450px] h-[450px] smoke-glow bg-pink-500/15 blur-[90px]"
         />
       </div>
 
-      {/* Subtle grid */}
-      <div className="absolute inset-0 grid-pattern opacity-20" />
-
-      <div className="container mx-auto px-6 pt-24 pb-16 relative">
+      <div className="container mx-auto px-6 relative z-10 py-24">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left */}
-          <div className="space-y-8">
+          
+          {/* ═════════ LEFT CONTENT ═════════ */}
+          <div className="space-y-7 z-10 w-full xl:pl-8">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-medium text-muted-foreground"
+              initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.05, rotate: -2 }}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-xl glass-card text-[9px] font-pixel text-primary border-2 border-primary/20 shadow-[4px_4px_0px_rgba(139,92,246,0.3)] mb-2 cursor-pointer"
             >
-              <span className="w-2 h-2 rounded-full gold-gradient animate-pulse-gold" />
-              Available for opportunities
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              STATUS: INNOVATING...
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-5xl md:text-7xl font-bold leading-tight"
+              initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              className="text-4xl md:text-5xl lg:text-7xl font-black leading-[0.9] tracking-tighter"
             >
-              Hi, I'm{" "}
-              <span className="gold-text">[Your Name]</span>
+              Hi, I'm <br />
+              <motion.span 
+                 whileHover={{ scale: 1.05, textShadow: "0px 0px 20px rgba(139,92,246,0.8)" }}
+                 className="gold-text italic inline-block transition-all duration-300 cursor-default pr-2"
+              >
+                Emirsyah
+              </motion.span>
+              <br />
+              <motion.span 
+                 whileHover={{ scale: 1.05, textShadow: "0px 0px 20px rgba(236,72,153,0.8)" }}
+                 className="gold-text italic inline-block transition-all duration-300 cursor-default pr-2"
+              >
+                Rafsanjani
+              </motion.span>
             </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg md:text-xl font-display font-medium text-muted-foreground"
+              className="flex flex-wrap gap-3"
             >
-              AI Engineer · AI Consultant · Innovative Leader
-            </motion.p>
+              {["AI Engineer", "AI Consultant", "Tech Lover"].map((tag, i) => (
+                <motion.span 
+                  key={tag} 
+                  whileHover={{ scale: 1.1, rotate: i % 2 === 0 ? 3 : -3 }}
+                  className="px-4 py-1.5 rounded-full text-[10px] font-silkscreen bg-white/5 backdrop-blur-md border border-white/20 text-primary uppercase tracking-widest shadow-xl cursor-crosshair transition-colors hover:bg-white/10"
+                >
+                  {tag}
+                </motion.span>
+              ))}
+            </motion.div>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-base text-muted-foreground max-w-lg leading-relaxed"
+              className="text-lg text-muted-foreground max-w-md leading-relaxed font-medium bg-white/5 p-4 rounded-2xl glass-card border border-white/10"
             >
-              I design intelligent systems that solve real-world problems using AI, data, and creativity.
+              I design intelligent systems that solve real‑world problems using AI, data, and creativity.
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap gap-4 pt-4"
             >
-              <a
-                href="#projects"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl gold-gradient text-primary-foreground font-semibold hover:opacity-90 transition-all hover:scale-105 active:scale-95"
-              >
-                View Projects <ArrowRight className="w-4 h-4" />
+              <a href="#projects" className="inline-flex items-center gap-2 px-8 py-4 rounded-[2rem] gold-gradient text-white font-black hover:brightness-110 transition-all hover:scale-110 active:scale-95 shadow-[0_15px_30px_-5px_rgba(139,92,246,0.5)] border border-white/20">
+                GET STARTED <ArrowRight className="w-5 h-5 animate-bounce" />
               </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-foreground/20 font-semibold hover:border-primary hover:text-primary transition-all hover:scale-105 active:scale-95"
-              >
-                Contact Me
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass-card font-semibold text-muted-foreground hover:text-foreground transition-all hover:scale-105 active:scale-95"
-              >
-                <Download className="w-4 h-4" /> Resume
+              <a href="#" className="inline-flex items-center gap-2 px-8 py-4 rounded-[2rem] bg-white/5 backdrop-blur-md font-bold text-foreground transition-all hover:bg-white/10 hover:scale-105 shadow-sm border border-white/10 group">
+                <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform" /> MY_CV
               </a>
             </motion.div>
           </div>
 
-          {/* Right - Profile card with floating stickers */}
-          <div className="relative flex justify-center">
-            {/* Floating emoji stickers */}
-            {floatingStickers.map((sticker, i) => (
+          {/* ═════════ RIGHT CONTENT (CUTE PHOTO + NEW STATS) ═════════ */}
+          <div className="relative flex justify-center items-center w-full min-h-[680px] z-10">
+            
+            <div className="relative" style={{ width: 520, height: 600 }}>
+              
+              {/* Profile Glow Area */}
               <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: sticker.delay }}
-                className="absolute z-10 cursor-pointer select-none"
+                animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.7, 0.5] }}
+                transition={{ duration: 6, repeat: Infinity }}
+                className="absolute inset-x-0 top-20 mx-auto rounded-full blur-[100px] pointer-events-none"
                 style={{
-                  left: `calc(50% + ${sticker.x}px)`,
-                  top: `calc(50% + ${sticker.y}px)`,
-                }}
-                whileHover={{ scale: 1.4, rotate: [0, -10, 10, 0] }}
-                whileTap={{ scale: 0.8 }}
-              >
-                <motion.span
-                  animate={{ y: [0, -12, 0], rotate: [0, 5, -5, 0] }}
-                  transition={{ duration: sticker.duration, repeat: Infinity, ease: "easeInOut", delay: sticker.delay }}
-                  className={`${sticker.size} drop-shadow-lg block`}
-                >
-                  {sticker.emoji}
-                </motion.span>
-              </motion.div>
-            ))}
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className="relative"
-            >
-              {/* Colorful glow ring behind profile */}
-              <div className="absolute -inset-4 rounded-[2rem] opacity-40 blur-xl animate-spin-slow"
-                style={{
-                  background: "conic-gradient(from 0deg, hsl(280 80% 65%), hsl(200 90% 60%), hsl(43 80% 55%), hsl(330 70% 60%), hsl(160 70% 50%), hsl(280 80% 65%))"
+                  width: 360, height: 360,
+                  background: "conic-gradient(from 0deg, #8B5CF6, #3B82F6, #EC4899, #8B5CF6)",
                 }}
               />
 
-              <div className="relative w-72 h-72 md:w-80 md:h-80 rounded-3xl glass-card overflow-hidden border-2 border-primary/20 flex items-center justify-center">
-                <User className="w-32 h-32 text-muted-foreground/30" />
-              </div>
-            </motion.div>
-
-            {/* Floating badges */}
-            {badges.map((badge, i) => (
+              {/* ── Center Photo Background (Modern Bubbly Theme) ── */}
               <motion.div
-                key={badge.text}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: badge.delay }}
-                whileHover={{ scale: 1.1 }}
-                className={`absolute glass-card rounded-full px-4 py-2 flex items-center gap-2 text-xs font-semibold shadow-lg z-20 ${
-                  i === 0
-                    ? "top-4 -left-4 md:left-0"
-                    : i === 1
-                    ? "top-1/4 -right-4 md:right-0"
-                    : i === 2
-                    ? "bottom-1/4 -left-4 md:left-0"
-                    : "bottom-4 -right-4 md:right-0"
-                } ${i % 2 === 0 ? "floating" : "floating-delayed"}`}
+                initial={{ opacity: 0, scale: 0.8, rotate: -5 }} animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+                className="absolute rounded-[3.5rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] border-4 border-white/40 z-10 group"
+                style={{
+                  width: 330, height: 440,
+                  top: 80, left: 95,
+                  backgroundColor: "rgba(255,255,255,0.05)"
+                }}
               >
-                <badge.icon className="w-3.5 h-3.5 text-primary" />
-                {badge.text}
+                <img
+                  src="/asset/profile2.jpg"
+                  alt="Emir Profile"
+                  className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+                  style={{ objectPosition: "center 15%" }} 
+                />
+                
+                {/* Bubbly Gradient Overlay at Bottom */}
+                <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end items-center pb-10 px-6">
+                   <h3 className="text-white font-black text-2xl tracking-tighter mb-1 font-sans">Emirsyah Rafsanjani</h3>
+                   <div className="flex gap-2">
+                     <span className="text-[10px] text-white/90 font-bold bg-primary/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">AI ENGINEER</span>
+                   </div>
+                </div>
               </motion.div>
-            ))}
+
+              {/* ── NEW CUTE STAT BADGES (Replacing 3+ Projects) ── */}
+              
+              {/* 1. GPA 3.80+ (Top Right) */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6, type: "spring" }}
+                className="absolute z-20 glass-card px-5 py-4 rounded-[2rem] shadow-2xl border-2 border-white/50 backdrop-blur-2xl flex flex-col items-center gap-1 group"
+                style={{ top: 40, right: 10 }}
+              >
+                  <div className="p-3 bg-gradient-to-br from-yellow-300 to-amber-500 rounded-full shadow-lg group-hover:rotate-12 transition-transform">
+                     <GraduationCap className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="text-xl font-black text-foreground mt-2 leading-none">3.80+</div>
+                  <div className="text-[9px] font-pixel text-primary uppercase tracking-tight">GPA_Score</div>
+              </motion.div>
+
+              {/* 2. Innovation Leader (Bottom Left) */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8, type: "spring" }}
+                className="absolute z-20 glass-card px-6 py-4 rounded-[2rem] shadow-2xl border-2 border-white/50 backdrop-blur-2xl flex flex-col items-center gap-1 group"
+                style={{ bottom: 60, left: -20 }}
+              >
+                  <div 
+                    className="p-3 rounded-full shadow-lg group-hover:-rotate-12 transition-transform"
+                    style={{ background: 'linear-gradient(to bottom right, #a855f7, #ec4899)' }}
+                  >
+                     <Trophy className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="text-sm font-pixel text-foreground mt-2 leading-none">LEADER</div>
+                  <div className="text-[9px] font-bold text-blue-500 uppercase tracking-widest mt-1">INNOVATION</div>
+              </motion.div>
+              
+              {/* 3. Open To Work Flag (Bottom Right) */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, type: "spring" }}
+                className="absolute z-30 bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-full shadow-xl flex items-center gap-2 border border-green-500/20"
+                style={{ bottom: 30, right: 60 }}
+              >
+                <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-[11px] font-pixel text-green-700">HIRE_ME</span>
+              </motion.div>
+
+
+              {/* ── Raw PNG Stickers (Untouched as requested) ── */}
+              {stickers.map((s, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1, ...s.animation }}
+                  transition={{ 
+                    opacity: { delay: 0.3 + i * 0.1, duration: 0.5 },
+                    scale:   { delay: 0.3 + i * 0.1, type: "spring", stiffness: 200 },
+                    y:       { duration: s.duration, repeat: Infinity, ease: "easeInOut", delay: i * 0.1 },
+                    rotate:  s.animation.rotate ? { duration: s.duration * 1.5, repeat: Infinity, ease: "easeInOut" } : undefined,
+                  }}
+                  className="absolute z-30 pointer-events-none select-none flex items-center justify-center p-2"
+                  style={{ ...s.pos }}
+                >
+                  <div 
+                    className="absolute inset-0 rounded-full blur-2xl opacity-50"
+                    style={{ backgroundColor: s.glow, transform: "scale(0.8)" }}
+                  />
+                  <img src={s.src} alt="Sticker" width={s.size} height={s.size} className="relative z-10 object-contain drop-shadow-2xl" />
+                </motion.div>
+              ))}
+
+            </div>
           </div>
+          {/* end RIGHT */}
+
         </div>
       </div>
     </section>
