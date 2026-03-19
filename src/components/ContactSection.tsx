@@ -1,12 +1,13 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { Mail, Linkedin, Github, Send } from "lucide-react";
+import { Mail, Linkedin, Github, Send, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 
 const socials = [
-  { icon: Mail, label: "Email", value: "your@email.com", href: "mailto:your@email.com", color: "from-[hsl(var(--color-orange))] to-[hsl(var(--color-pink))]" },
-  { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/yourprofile", href: "#", color: "from-[hsl(var(--color-blue))] to-[hsl(var(--color-cyan))]" },
-  { icon: Github, label: "GitHub", value: "github.com/yourprofile", href: "#", color: "from-[hsl(var(--color-purple))] to-[hsl(var(--primary))]" },
+  { icon: Mail, label: "Email", value: "emirune2@com", href: "mailto:emirune2@com", color: "from-rose-400 to-pink-600" },
+  { icon: MessageCircle, label: "WhatsApp", value: "0859-5415-1718", href: "https://wa.me/6285954151718", color: "from-green-400 to-emerald-600" },
+  { icon: Linkedin, label: "LinkedIn", value: "emirsyah-rafsanjani", href: "https://www.linkedin.com/in/emirsyah-rafsanjani-bab663371/", color: "from-blue-400 to-cyan-600" },
+  { icon: Github, label: "GitHub", value: "erenmenn", href: "https://github.com/erenmenn", color: "from-violet-500 to-purple-600" },
 ];
 
 const ContactSection = () => {
@@ -51,9 +52,9 @@ const ContactSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-sm font-semibold text-primary tracking-widest uppercase">Contact</span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-3">
-            Let's <span className="gold-text">Connect</span>
+          <span className="text-[10px] font-pixel text-primary tracking-widest bg-primary/10 px-4 py-2 rounded-full border border-primary/20">LET'S_TALK</span>
+          <h2 className="text-4xl md:text-6xl font-black mt-6 tracking-tight">
+            LET'S <span className="gold-text italic">CONNECT!</span> 💌
           </h2>
         </motion.div>
 
@@ -64,8 +65,8 @@ const ContactSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-6"
           >
-            <p className="text-muted-foreground leading-relaxed">
-              I'm always open to discussing AI projects, consulting opportunities, or just chatting about technology. Feel free to reach out!
+            <p className="text-muted-foreground leading-relaxed text-lg font-medium">
+              Saya sangat terbuka untuk berdiskusi seputar literasi AI, rekayasa data, berkolaborasi inovasi, atau sekadar berbagi koneksi IT. Kirim pesan sekarang! 🚀
             </p>
 
             <div className="space-y-4">
