@@ -382,7 +382,6 @@ const ProjectsSection = () => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px] lg:auto-rows-[320px]"
           >
             {filtered.map((project, i) => {
-              const isFeatured = i === 0;
               const meta = categoryMeta[project.category] || categoryMeta["All"];
               
               return (
@@ -394,7 +393,7 @@ const ProjectsSection = () => {
                   exit={{ opacity: 0, scale: 0.85 }}
                   transition={{ duration: 0.35, delay: i * 0.04, type: "spring", bounce: 0.2 }}
                   onClick={() => setSelectedProject(project)}
-                  className={`relative group ${isFeatured ? "col-span-1 md:col-span-2 row-span-2" : "col-span-1 row-span-1"}`}
+                  className="relative group col-span-1 row-span-1"
                 >
                   {/* Subtle Glow/Smoke Effect Behind Card (Always visible like profile shadow) */}
                   <div 
@@ -412,7 +411,7 @@ const ProjectsSection = () => {
                     }}
                   >
                     {/* Image container inside the card */}
-                    <div className={`relative w-full ${isFeatured ? "h-64 md:h-80" : "h-[140px]"} shrink-0 border-b-[3px] bg-slate-50 overflow-hidden`} style={{ borderColor: meta.color }}>
+                    <div className="relative w-full h-[150px] shrink-0 border-b-[3px] bg-slate-50 overflow-hidden" style={{ borderColor: meta.color }}>
                       <img
                         src={project.image}
                         alt={project.title}
@@ -463,33 +462,31 @@ const ProjectsSection = () => {
                     </div>
 
                     {/* Bottom content area (Clean White) */}
-                    <div className="p-5 md:p-6 flex flex-col flex-grow relative bg-white">
+                    <div className="p-5 flex flex-col flex-grow justify-between relative bg-white">
                       
                       {/* Title and cute dots */}
                       <div>
                         <div className="flex items-center gap-2 mb-2">
                           <div className="flex gap-1 bg-slate-100 px-2 py-1 rounded-lg border border-slate-200">
-                            <div className="w-2 h-2 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.5)]" style={{ background: "#f87171" }} />
-                            <div className="w-2 h-2 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.5)]" style={{ background: "#facc15" }} />
-                            <div className="w-2 h-2 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.5)]" style={{ background: "#4ade80" }} />
+                            <div className="w-2 h-2 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.5)] bg-red-400" />
+                            <div className="w-2 h-2 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.5)] bg-yellow-400" />
+                            <div className="w-2 h-2 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.5)] bg-green-400" />
                           </div>
                           <span className="text-[8px] font-pixel px-2 py-1 rounded-lg border uppercase font-bold opacity-80" style={{ color: meta.color, borderColor: meta.color, backgroundColor: `${meta.color}15` }}>
                             {meta.emoji} PROJECT.EXE
                           </span>
                         </div>
 
-                        <h3 className={`font-black text-slate-800 leading-tight mb-2 ${isFeatured ? "text-2xl mt-4" : "text-sm sm:text-base"} group-hover:text-[${meta.color}] transition-colors`}>
+                        <h3 className="font-black text-slate-800 leading-tight mb-2 text-base sm:text-lg transition-colors">
                           {project.title}
                         </h3>
                       </div>
 
                       {/* Bottom Tags */}
                       <div className="mt-auto pt-2">
-                        {isFeatured && (
-                          <p className="text-sm text-slate-500 font-medium line-clamp-2 md:line-clamp-3 mb-4 leading-relaxed">{project.description}</p>
-                        )}
+                        <p className="text-xs text-slate-500 font-medium line-clamp-2 md:line-clamp-3 mb-3 leading-relaxed">{project.description}</p>
                         <div className="flex flex-wrap gap-2">
-                          {project.tech.slice(0, isFeatured ? 5 : 3).map((t) => (
+                          {project.tech.slice(0, 3).map((t) => (
                             <span 
                               key={t} 
                               className="text-[9px] font-pixel px-2 py-1 rounded-full border border-slate-200 text-slate-600 bg-slate-50 font-bold tracking-wide"
@@ -499,8 +496,8 @@ const ProjectsSection = () => {
                           ))}
                         </div>
                       </div>
-
                     </div>
+
                   </div>
                 </motion.div>
               );

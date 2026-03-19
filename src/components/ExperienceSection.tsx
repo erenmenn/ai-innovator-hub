@@ -130,8 +130,8 @@ const ExperienceSection = () => {
                   color: exp.color
                 } : {}}
               >
-                <div className={`shrink-0 relative w-8 h-8 md:w-10 md:h-10 rounded-lg border-2 overflow-hidden bg-black ${activeId === exp.id ? 'border-slate-900 shadow-[2px_2px_0_rgba(0,0,0,1)] scale-110' : 'border-transparent'}`}>
-                  <img src={exp.image} alt={exp.company} className="w-full h-full object-cover" />
+                <div className={`shrink-0 relative w-8 h-8 md:w-10 md:h-10 rounded-lg border-2 overflow-hidden ${activeId === exp.id ? 'border-slate-900 shadow-[2px_2px_0_rgba(0,0,0,1)] scale-110' : 'border-transparent'}`} style={{ background: exp.color }}>
+                  <img src={exp.image} alt={exp.company} className="w-full h-full object-cover mix-blend-screen" />
                 </div>
                 <span className="hidden sm:inline-block max-w-[150px] truncate text-left">{exp.company}</span>
               </motion.button>
@@ -167,9 +167,10 @@ const ExperienceSection = () => {
                       {/* Huge Pixel Avatar generated image */}
                       <motion.div 
                         initial={{ rotate: -10, scale: 0.5 }} animate={{ rotate: 0, scale: 1 }} transition={{ type: "spring", bounce: 0.6 }}
-                        className="w-24 h-24 md:w-32 md:h-32 shrink-0 rounded-[1.5rem] overflow-hidden border-4 border-slate-900 bg-black shadow-[6px_6px_0px_rgba(0,0,0,1)] group-hover:-translate-y-2 transition-transform duration-300"
+                        className="w-24 h-24 md:w-32 md:h-32 shrink-0 rounded-[1.5rem] overflow-hidden border-4 border-slate-900 shadow-[6px_6px_0px_rgba(0,0,0,1)] group-hover:-translate-y-2 transition-transform duration-300"
+                        style={{ background: activeExp.color }}
                       >
-                         <img src={activeExp.image} alt={activeExp.company} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
+                         <img src={activeExp.image} alt={activeExp.company} className="w-[120%] h-[120%] -ml-[10%] -mt-[10%] object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 mix-blend-screen" />
                       </motion.div>
                       
                       {/* Titles */}
