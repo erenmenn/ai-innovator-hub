@@ -33,14 +33,24 @@ const designWorks: DesignWork[] = [
     title: "Colour Theory & Branding Kit",
     subtitle: "Canva · Brand Guidelines · Poster Design",
     description:
-      "Brand identity and poster design leveraging deep knowledge of colour harmonies — split-complementary, triadic, and monochromatic palettes — to craft memorable visual experiences.",
+      "Brand identity and poster design leveraging deep knowledge of colour harmonies — split-complementary, triadic, and monochromatic palettes — to craft memorable visual experiences with branding kits like Satu Tani and creative visual layouts.",
     tags: ["Canva", "Branding", "Colour Harmony", "Poster Design"],
     icon: Palette,
     accent: "#f43f5e",
     gradient: "linear-gradient(135deg, #f43f5e, #fb7185)",
     badge: "GRAPHIC DESIGN",
-    asset: "/asset/sparkle.png",
-    images: ["/asset/sparkle.png", "/asset/love.png", "/asset/bintang.png"],
+    asset: "/asset/poster/logo_satutani.png",
+    images: [
+      "/asset/poster/logo_satutani.png",
+      "/asset/poster/wa_main.jpeg",
+      "/asset/poster/wa_1.jpeg",
+      "/asset/poster/wa_2.jpeg",
+      "/asset/poster/wa_3.jpeg",
+      "/asset/poster/wa_4.jpeg",
+      "/asset/poster/wa_5.jpeg",
+      "/asset/poster/screenshot_704.png",
+      "/asset/poster/wallpaper_tab.png"
+    ],
   },
   {
     title: "Fine Art & Illustration Portfolio",
