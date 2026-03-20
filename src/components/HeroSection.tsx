@@ -106,6 +106,18 @@ const HeroSection = () => {
             </motion.h1>
 
             <motion.div
+              initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="flex flex-wrap items-center gap-2.5 text-slate-500 font-semibold text-sm md:text-base mb-6 mt-2"
+            >
+              <span>Universitas Singaperbangsa</span>
+              <span className="text-slate-300">|</span>
+              <span>Sistem Informasi</span>
+              <span className="text-slate-300">|</span>
+              <span className="text-indigo-500 font-bold bg-indigo-50 px-2 py-0.5 rounded-md">Active Student</span>
+            </motion.div>
+
+            <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="flex flex-wrap gap-4"
