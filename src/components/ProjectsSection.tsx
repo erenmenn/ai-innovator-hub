@@ -1,14 +1,19 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, Brain, Eye, Film, BarChart3, Cpu, X, Lightbulb, Target, Wrench, AlertTriangle, Sparkles, Star, MessageSquare, ChevronLeft, ChevronRight, Gamepad2, ScrollText, Swords, Shield } from "lucide-react";
+import {
+  ExternalLink, Brain, Eye, Film, BarChart3, X, Target, Wrench,
+  Star, MessageSquare, ChevronLeft, ChevronRight, Gamepad2,
+  ScrollText, Swords, Shield
+} from "lucide-react";
 
-type Category = "All" | "NLP" | "Computer Vision" | "Recommendation" | "Prediction" | "Time Series";
+type Category = "All" | "Professional" | "NLP" | "Computer Vision" | "Recommendation" | "Prediction" | "Time Series";
 
 interface Project {
   title: string;
   description: string;
   tech: string[];
   category: Category;
+  subcategory?: string;
   icon: typeof Brain;
   image: string;
   github: string;
@@ -25,7 +30,8 @@ const projects: Project[] = [
     title: "WangkuAI: Intelligent Financial Chatbot",
     description: "AI chatbot for financial insights powered by LLMs",
     tech: ["NLP", "LLM", "Python"],
-    category: "NLP",
+    category: "Professional",
+    subcategory: "NLP",
     icon: Brain,
     image: "/asset_proyek/wangku.png",
     github: "#",
@@ -115,7 +121,8 @@ const projects: Project[] = [
     title: "FirstAid.ID: Medical Search RAG",
     description: "Semantic chunking pipeline for Indonesian First Aid manuals",
     tech: ["NLP", "RAG", "LLM"],
-    category: "NLP",
+    category: "Professional",
+    subcategory: "NLP",
     icon: Brain,
     image: "/asset_proyek/firstaid.png",
     github: "#",
@@ -158,23 +165,25 @@ const projects: Project[] = [
   },
 ];
 
-const categories: Category[] = ["All", "NLP", "Computer Vision", "Recommendation", "Prediction", "Time Series"];
+const categories: Category[] = ["All", "Professional", "NLP", "Computer Vision", "Recommendation", "Prediction", "Time Series"];
 
+const categoryMeta: Record<string, { emoji: string; color: string; grad: string; isSpecial?: boolean }> = {
+  "All":             { emoji: "✦",  color: "#6366f1", grad: "linear-gradient(135deg,#6366f1,#a855f7)" },
+  "Professional":    { emoji: "⚡", color: "#f59e0b", grad: "linear-gradient(135deg,#f59e0b,#ef4444,#a855f7)", isSpecial: true },
+  "NLP":             { emoji: "🧠", color: "#ef4444", grad: "linear-gradient(135deg,#ef4444,#f97316)" },
+  "Computer Vision": { emoji: "👁️", color: "#10b981", grad: "linear-gradient(135deg,#10b981,#06b6d4)" },
+  "Recommendation":  { emoji: "🎬", color: "#ec4899", grad: "linear-gradient(135deg,#ec4899,#f43f5e)" },
+  "Prediction":      { emoji: "📈", color: "#f59e0b", grad: "linear-gradient(135deg,#f59e0b,#ea580c)" },
+  "Time Series":     { emoji: "⏱️", color: "#8b5cf6", grad: "linear-gradient(135deg,#8b5cf6,#6366f1)" },
+};
+
+// ── Project Modal — clean white inside ────────────────────────────────────────
 const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => void }) => {
   const [imgIdx, setImgIdx] = useState(0);
-  
-  // Array 3 gambar untuk slider (Sengaja kita duplicate sebagai template/placeholder agar bisa digeser)
-  // Anda dapat mengganti indeks ke-2 dan ke-3 dengan url photo lain dari dataset nantinya.
-  const images = [project.image, project.image, project.image]; 
+  const images = [project.image, project.image, project.image];
 
-  const nextImg = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setImgIdx((prev) => (prev + 1) % images.length);
-  };
-  const prevImg = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setImgIdx((prev) => (prev - 1 + images.length) % images.length);
-  };
+  const nextImg = (e: React.MouseEvent) => { e.stopPropagation(); setImgIdx((p) => (p + 1) % images.length); };
+  const prevImg = (e: React.MouseEvent) => { e.stopPropagation(); setImgIdx((p) => (p - 1 + images.length) % images.length); };
 
   return (
     <motion.div
@@ -182,131 +191,153 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
       className="fixed inset-0 z-[200] flex items-center justify-center p-3 md:p-8"
       onClick={onClose}
     >
-      <div className="absolute inset-0 bg-background/90 backdrop-blur-xl" />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-xl" />
 
       <motion.div
         initial={{ opacity: 0, scale: 0.9, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 30 }}
-        transition={{ duration: 0.4, type: "spring", bounce: 0.5 }}
+        transition={{ duration: 0.4, type: "spring", bounce: 0.4 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-3xl max-h-[95vh] overflow-y-auto text-white rounded-[1.5rem] shadow-[0_0_80px_rgba(0,0,0,0.8)] border-4 border-white/30 flex flex-col"
-        style={{ background: project.bgGradient }}
+        className="relative w-full max-w-3xl max-h-[95vh] overflow-y-auto rounded-3xl shadow-2xl flex flex-col bg-white"
       >
-        {/* Game Boy Top Bar */}
-        <div className="w-full bg-black/30 backdrop-blur-md border-b-2 border-white/20 px-6 py-3 flex justify-between items-center sticky top-0 z-50">
-           <div className="flex items-center gap-3">
-             <Gamepad2 className="w-5 h-5 text-white drop-shadow-md" />
-             <span className="font-pixel text-[10px] tracking-widest text-white drop-shadow-md">EXPLORER_OS_V2.1</span>
-           </div>
-           <button onClick={onClose} className="w-8 h-8 rounded-full bg-red-500/80 backdrop-blur-sm hover:bg-red-400 flex items-center justify-center shadow-[inset_0_-2px_4px_rgba(0,0,0,0.5)] border-2 border-white/40 transition-all active:scale-95"><X className="w-4 h-4 text-white font-black" /></button>
+        {/* Gradient top bar — keeps the project's color identity */}
+        <div
+          className="w-full px-6 py-4 flex justify-between items-center sticky top-0 z-50 rounded-t-3xl"
+          style={{ background: project.bgGradient }}
+        >
+          <div className="flex items-center gap-3">
+            <project.icon className="w-5 h-5 text-white drop-shadow" />
+            <span className="font-pixel text-[9px] tracking-widest text-white uppercase">
+              {project.category}{project.subcategory ? ` · ${project.subcategory}` : ""}
+            </span>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-full bg-white/20 border border-white/40 flex items-center justify-center hover:bg-white/40 transition-colors active:scale-95"
+          >
+            <X className="w-4 h-4 text-white" />
+          </button>
         </div>
 
-        {/* Carousel Header */}
-        <div className="relative h-64 md:h-80 flex-shrink-0 flex items-center justify-center overflow-hidden bg-zinc-900 group">
+        {/* Image Carousel */}
+        <div className="relative h-60 md:h-72 flex-shrink-0 bg-slate-900 overflow-hidden group">
           <AnimatePresence mode="wait">
-            <motion.img 
+            <motion.img
               key={imgIdx}
-              src={images[imgIdx]} 
-              alt={project.title} 
-              initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -100, opacity: 0 }}
+              src={images[imgIdx]}
+              alt={project.title}
+              initial={{ x: 80, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -80, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen" 
+              className="absolute inset-0 w-full h-full object-cover opacity-80"
             />
           </AnimatePresence>
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-0" />
-          
-          <project.icon className="w-20 h-20 text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.8)] z-10" />
-          
-          {/* Controls */}
-          <button onClick={prevImg} className="absolute left-4 z-20 w-12 h-12 rounded-full bg-black/50 backdrop-blur border border-white/20 flex items-center justify-center hover:bg-black/80 hover:scale-110 active:scale-95 transition-all opacity-0 group-hover:opacity-100"><ChevronLeft className="w-7 h-7" /></button>
-          <button onClick={nextImg} className="absolute right-4 z-20 w-12 h-12 rounded-full bg-black/50 backdrop-blur border border-white/20 flex items-center justify-center hover:bg-black/80 hover:scale-110 active:scale-95 transition-all opacity-0 group-hover:opacity-100"><ChevronRight className="w-7 h-7" /></button>
-          
-          {/* Dots */}
-          <div className="absolute bottom-4 flex gap-2 z-20 bg-black/30 px-4 py-2 rounded-full backdrop-blur-md">
-             {images.map((_, i) => (
-               <div key={i} className={`w-2.5 h-2.5 rounded-full border border-white/50 transition-all ${imgIdx === i ? 'bg-white scale-125' : 'bg-transparent'}`} />
-             ))}
-          </div>
-          
-          <div className="absolute top-4 left-4 px-3 py-1.5 rounded bg-purple-600/80 backdrop-blur-md text-white text-[9px] font-pixel border border-purple-400 uppercase z-20 shadow-md">
-            Lvl. {imgIdx + 1} / {images.length}
+          {/* Subtle gradient tint from card color */}
+          <div className="absolute inset-0 opacity-15" style={{ background: project.bgGradient }} />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+          <button onClick={prevImg} className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 border border-white/20 flex items-center justify-center hover:bg-black/70 opacity-0 group-hover:opacity-100 transition-all">
+            <ChevronLeft className="w-5 h-5 text-white" />
+          </button>
+          <button onClick={nextImg} className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 border border-white/20 flex items-center justify-center hover:bg-black/70 opacity-0 group-hover:opacity-100 transition-all">
+            <ChevronRight className="w-5 h-5 text-white" />
+          </button>
+
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20 bg-black/30 px-3 py-1.5 rounded-full backdrop-blur-md">
+            {images.map((_, i) => (
+              <div key={i} className={`w-2 h-2 rounded-full border border-white/50 transition-all ${imgIdx === i ? "bg-white scale-125" : "bg-transparent"}`} />
+            ))}
           </div>
         </div>
 
-        {/* Main Content Formatted like a Quest Log */}
-        <div className="p-6 md:p-10 space-y-8 relative flex-grow bg-black/10">
+        {/* ── Clean White Body ── */}
+        <div className="p-7 md:p-9 space-y-6">
+
+          {/* Title + tech tags */}
           <div>
-            <h3 className="text-3xl md:text-4xl font-black tracking-tight text-white mb-2 drop-shadow-lg">{project.title}</h3>
-            
-            <div className="flex items-center gap-2 mb-6">
-              <span className="px-3 py-1 bg-white/20 text-white rounded-md text-[10px] font-pixel uppercase border border-white/30 shadow-inner backdrop-blur-sm drop-shadow-sm">{project.category}</span>
-            </div>
-            
-            <div className="bg-black/20 p-5 md:p-6 rounded-2xl border border-white/20 relative overflow-hidden shadow-inner backdrop-blur-md">
-               <div className="flex items-center gap-3 text-white font-pixel text-xs mb-3"><ScrollText className="w-5 h-5 drop-shadow-md scale-110" /> QUEST_LORE</div>
-               <p className="text-white/95 leading-relaxed font-medium text-sm md:text-base drop-shadow-sm">{project.fullDescription}</p>
+            <h3 className="text-2xl md:text-3xl font-black text-slate-800 leading-tight mb-3">{project.title}</h3>
+            <div className="flex flex-wrap gap-2">
+              {project.tech.map((t) => (
+                <span key={t} className="text-[9px] font-pixel px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50 text-slate-600">{t}</span>
+              ))}
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-5">
-            <div className="bg-black/20 rounded-2xl p-6 border-l-4 border-red-400 hover:bg-black/40 transition-colors shadow-lg backdrop-blur-md border-[1px] border-white/10">
-              <div className="flex items-center gap-3 text-white font-pixel text-[10px] mb-3"><Swords className="w-5 h-5 drop-shadow-md text-red-300 scale-110" /> OBSTACLE</div>
-              <p className="text-sm text-white/90 leading-relaxed italic drop-shadow-sm">"{project.problem}"</p>
+          {/* Overview */}
+          <div className="rounded-2xl p-5 bg-slate-50 border border-slate-100">
+            <div className="flex items-center gap-2 text-slate-400 font-pixel text-[9px] mb-3">
+              <ScrollText className="w-4 h-4" /> OVERVIEW
             </div>
-            <div className="bg-black/20 rounded-2xl p-6 border-l-4 border-emerald-400 hover:bg-black/40 transition-colors shadow-lg backdrop-blur-md border-[1px] border-white/10">
-              <div className="flex items-center gap-3 text-white font-pixel text-[10px] mb-3"><Shield className="w-5 h-5 drop-shadow-md text-emerald-300 scale-110" /> STRATEGY</div>
-              <p className="text-sm text-white/90 leading-relaxed drop-shadow-sm">{project.solution}</p>
+            <p className="text-slate-700 text-sm leading-relaxed">{project.fullDescription}</p>
+          </div>
+
+          {/* Problem / Solution */}
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="rounded-2xl p-5 bg-red-50 border border-red-100 border-l-4" style={{ borderLeftColor: "#ef4444" }}>
+              <div className="flex items-center gap-2 text-red-500 font-pixel text-[9px] mb-2">
+                <Swords className="w-4 h-4" /> PROBLEM
+              </div>
+              <p className="text-sm text-slate-700 leading-relaxed italic">"{project.problem}"</p>
+            </div>
+            <div className="rounded-2xl p-5 bg-emerald-50 border border-emerald-100 border-l-4" style={{ borderLeftColor: "#10b981" }}>
+              <div className="flex items-center gap-2 text-emerald-600 font-pixel text-[9px] mb-2">
+                <Shield className="w-4 h-4" /> SOLUTION
+              </div>
+              <p className="text-sm text-slate-700 leading-relaxed">{project.solution}</p>
             </div>
           </div>
 
-          <div className="bg-black/20 p-6 rounded-2xl border border-white/20 shadow-inner backdrop-blur-md">
-             <div className="text-[10px] font-pixel text-white mb-4 flex items-center gap-3"><Wrench className="w-5 h-5 drop-shadow-md scale-110" /> INVENTORY (Tech Stack)</div>
-             <div className="flex flex-wrap gap-2">
-                {project.skills.map(skill => (
-                  <span key={skill} className="px-4 py-2 rounded-md bg-white/20 text-white text-xs font-bold border border-white/30 hover:bg-white/30 transition-colors cursor-default shadow-sm drop-shadow-sm">
-                    {skill}
-                  </span>
-                ))}
-             </div>
-          </div>
-
+          {/* Tech Stack */}
           <div>
-             <div className="text-[10px] font-pixel text-white mb-4 flex items-center gap-3"><Target className="w-5 h-5 drop-shadow-md scale-110" /> ACHIEVEMENTS UNLOCKED</div>
-             <div className="grid md:grid-cols-2 gap-3">
-                {project.highlights.map(h => (
-                  <div key={h} className="flex items-center gap-4 px-5 py-4 rounded-xl bg-black/20 border border-white/20 group hover:bg-black/40 transition-colors shadow-md backdrop-blur-sm">
-                    <Star className="w-6 h-6 text-yellow-300 fill-current animate-pulse drop-shadow-lg scale-110" />
-                    <span className="text-sm text-white font-medium group-hover:drop-shadow-md transition-colors">{h}</span>
-                  </div>
-                ))}
-             </div>
+            <div className="flex items-center gap-2 text-slate-400 font-pixel text-[9px] mb-3">
+              <Wrench className="w-4 h-4" /> TECH STACK
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {project.skills.map((s) => (
+                <span key={s} className="px-3 py-1.5 rounded-xl text-xs font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 cursor-default transition-colors">
+                  {s}
+                </span>
+              ))}
+            </div>
           </div>
 
-          <div className="pt-4 pb-2">
-            <a href={project.github} className="flex items-center justify-center gap-3 w-full py-5 rounded-xl bg-white/20 border-2 border-white/50 text-white font-pixel text-[11px] hover:translate-y-[-4px] active:translate-y-[2px] shadow-[0_8px_0_rgba(255,255,255,0.2)] hover:shadow-[0_12px_0_rgba(255,255,255,0.2)] active:shadow-[0_0px_0_rgba(255,255,255,0.2)] transition-all uppercase backdrop-blur-sm hover:bg-white/30">
-              [ENTER_SOURCE_REPOSITORY] <ExternalLink className="w-4 h-4 ml-2" />
-            </a>
+          {/* Key Highlights */}
+          <div>
+            <div className="flex items-center gap-2 text-slate-400 font-pixel text-[9px] mb-3">
+              <Target className="w-4 h-4" /> KEY HIGHLIGHTS
+            </div>
+            <div className="grid md:grid-cols-3 gap-3">
+              {project.highlights.map((h) => (
+                <div key={h} className="flex items-center gap-2 p-3 rounded-xl bg-slate-50 border border-slate-100">
+                  <Star className="w-4 h-4 text-amber-400 fill-amber-400 shrink-0" />
+                  <span className="text-xs text-slate-700 font-medium">{h}</span>
+                </div>
+              ))}
+            </div>
           </div>
+
+          {/* CTA */}
+          <a
+            href={project.github}
+            className="flex items-center justify-center gap-3 w-full py-4 rounded-2xl text-white font-pixel text-[10px] uppercase tracking-widest hover:-translate-y-1 transition-all shadow-lg"
+            style={{ background: project.bgGradient }}
+          >
+            View Source Repository <ExternalLink className="w-4 h-4" />
+          </a>
         </div>
       </motion.div>
     </motion.div>
   );
 };
+
+// ── Main Section ───────────────────────────────────────────────────────────────
 const ProjectsSection = () => {
   const [active, setActive] = useState<Category>("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
-
-  const categoryMeta: Record<string, { emoji: string; color: string; grad: string }> = {
-    "All":              { emoji: "✦", color: "#6366f1", grad: "linear-gradient(135deg,#6366f1,#a855f7)" },
-    "NLP":              { emoji: "🧠", color: "#ef4444", grad: "linear-gradient(135deg,#ef4444,#f97316)" },
-    "Computer Vision":  { emoji: "👁️", color: "#10b981", grad: "linear-gradient(135deg,#10b981,#06b6d4)" },
-    "Recommendation":   { emoji: "🎬", color: "#ec4899", grad: "linear-gradient(135deg,#ec4899,#f43f5e)" },
-    "Prediction":       { emoji: "📈", color: "#f59e0b", grad: "linear-gradient(135deg,#f59e0b,#ea580c)" },
-    "Time Series":      { emoji: "⏱️", color: "#8b5cf6", grad: "linear-gradient(135deg,#8b5cf6,#6366f1)" },
-  };
+  const filtered = active === "All"
+    ? projects
+    : projects.filter((p) => p.category === active || p.subcategory === active);
 
   return (
     <section id="projects" className="py-24 relative pixel-grid overflow-hidden">
@@ -340,21 +371,29 @@ const ProjectsSection = () => {
               </p>
             </div>
 
-            {/* ── Creative Sticker Filter Bar ── */}
-            <div className="flex flex-wrap gap-2 max-w-lg">
+            {/* ── Filter Bar ── */}
+            <div className="flex flex-wrap gap-2 max-w-xl">
               {categories.map((cat) => {
                 const meta = categoryMeta[cat] ?? { emoji: "●", color: "#94a3b8", grad: "linear-gradient(135deg,#94a3b8,#64748b)" };
                 const isActive = active === cat;
+                const isSpecial = !!meta.isSpecial;
+
                 return (
-                  <button
+                  <motion.button
                     key={cat}
                     onClick={() => setActive(cat)}
-                    className="relative flex items-center gap-1.5 px-4 py-2.5 rounded-2xl font-pixel text-[9px] uppercase tracking-widest border-2 transition-all duration-200 hover:scale-105 active:scale-95"
-                    style={
-                      isActive
-                        ? { background: meta.grad, color: "#fff", borderColor: meta.color, boxShadow: `4px 4px 0px ${meta.color}88` }
-                        : { background: "#fff", color: "#64748b", borderColor: "#e2e8f0", boxShadow: "3px 3px 0px #f1f5f9" }
-                    }
+                    whileHover={{ y: -2, scale: 1.04 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="relative flex items-center gap-1.5 px-4 py-2.5 font-pixel text-[9px] uppercase tracking-widest border-2 transition-all duration-200"
+                    style={{
+                      borderRadius: isSpecial ? "999px" : "1rem",
+                      ...(isActive
+                        ? { background: meta.grad, color: "#fff", borderColor: "transparent", boxShadow: `0 4px 16px ${meta.color}50` }
+                        : isSpecial
+                          ? { background: meta.grad, color: "#fff", borderColor: "transparent", boxShadow: `0 2px 10px ${meta.color}30`, opacity: 0.85 }
+                          : { background: "#fff", color: "#64748b", borderColor: "#e2e8f0", boxShadow: "3px 3px 0px #f1f5f9" }
+                      )
+                    }}
                   >
                     <span className="text-sm leading-none">{meta.emoji}</span>
                     {cat}
@@ -364,14 +403,14 @@ const ProjectsSection = () => {
                         <span className="w-1.5 h-1.5 rounded-full" style={{ background: meta.color }} />
                       </span>
                     )}
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
           </div>
         </motion.div>
 
-        {/* ── Creative Bento Grid ── */}
+        {/* ── Creative Bento Grid — card fronts UNCHANGED ── */}
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
@@ -383,7 +422,7 @@ const ProjectsSection = () => {
           >
             {filtered.map((project, i) => {
               const meta = categoryMeta[project.category] || categoryMeta["All"];
-              
+
               return (
                 <motion.div
                   key={project.title}
@@ -395,43 +434,43 @@ const ProjectsSection = () => {
                   onClick={() => setSelectedProject(project)}
                   className="relative group col-span-1 row-span-1"
                 >
-                  {/* Subtle Glow/Smoke Effect Behind Card (Always visible like profile shadow) */}
-                  <div 
+                  {/* Subtle Glow Behind Card */}
+                  <div
                     className="absolute -inset-1 blur-2xl opacity-20 group-hover:opacity-50 transition-all duration-700 z-0 scale-95 group-hover:scale-100 pointer-events-none"
                     style={{ background: meta.grad }}
                   />
 
-                  {/* Actual Card Body - Cute Motivation Style */}
-                  <div 
+                  {/* Actual Card Body — identical to original */}
+                  <div
                     className="relative z-10 h-full w-full rounded-3xl overflow-hidden cursor-pointer border-[3px] flex flex-col transition-all duration-300 group-hover:-translate-y-1.5 group-hover:scale-[1.02]"
-                    style={{ 
+                    style={{
                       borderColor: meta.color,
                       backgroundColor: "#fff",
-                      boxShadow: `6px 6px 0px ${meta.color}`, 
+                      boxShadow: `6px 6px 0px ${meta.color}`,
                     }}
                   >
-                    {/* Image container inside the card */}
+                    {/* Image area */}
                     <div className="relative w-full h-[150px] shrink-0 border-b-[3px] bg-slate-50 overflow-hidden" style={{ borderColor: meta.color }}>
                       <img
                         src={project.image}
                         alt={project.title}
                         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-90 group-hover:opacity-100"
                       />
-                      
-                      {/* Colorful soft overlay ALWAYS ON (30% to 60%) */}
-                      <div 
+
+                      {/* Colorful soft overlay */}
+                      <div
                         className="absolute inset-0 opacity-40 group-hover:opacity-70 transition-opacity duration-300 mix-blend-overlay"
                         style={{ background: meta.grad }}
                       />
-                      
-                      {/* Interactive Smoke on Image */}
+
+                      {/* Smoke on hover */}
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none mix-blend-screen overflow-hidden">
                         <div className="absolute -bottom-10 -left-10 w-40 h-40 blur-[40px] rounded-full animate-pulse opacity-80" style={{ background: meta.color }} />
                         <div className="absolute top-10 -right-10 w-48 h-48 blur-[50px] rounded-full animate-pulse opacity-60" style={{ background: meta.color }} />
                         <div className="absolute -top-10 left-20 w-32 h-32 blur-[30px] rounded-full animate-pulse opacity-40 delay-150" style={{ background: meta.color }} />
                       </div>
-                      
-                      {/* Dark gradient overlay covering the image from the bottom (like profile!) */}
+
+                      {/* Dark gradient overlay */}
                       <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-30 group-hover:opacity-90 transition-opacity duration-500 flex flex-col items-center justify-center backdrop-blur-[1px] group-hover:backdrop-blur-sm z-10">
                         <div className="opacity-0 group-hover:opacity-100 flex flex-col items-center transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                           <project.icon className="w-8 h-8 text-white drop-shadow-md mb-2" />
@@ -441,63 +480,49 @@ const ProjectsSection = () => {
                         </div>
                       </div>
 
-                      {/* Meta top bar on top of image */}
+                      {/* Top meta bar */}
                       <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-20">
-                        {/* Colored Category Tag */}
                         <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border-2 bg-white/95 backdrop-blur-sm shadow-sm" style={{ borderColor: meta.color }}>
                           <span className="text-sm leading-none">{meta.emoji}</span>
-                          <span 
-                            className="text-[8px] font-pixel tracking-widest uppercase font-bold"
-                            style={{ color: meta.color }}
-                          >
+                          <span className="text-[8px] font-pixel tracking-widest uppercase font-bold" style={{ color: meta.color }}>
                             {project.category}
                           </span>
                         </div>
-                        
-                        {/* Number counter */}
                         <span className="font-pixel text-[10px] bg-white/95 px-2 py-1 rounded-xl shadow-sm border-2" style={{ color: meta.color, borderColor: meta.color }}>
                           {String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
                     </div>
 
-                    {/* Bottom content area (Clean White) */}
+                    {/* Bottom white area */}
                     <div className="p-5 flex flex-col flex-grow justify-between relative bg-white">
-                      
-                      {/* Title and cute dots */}
                       <div>
                         <div className="flex items-center gap-2 mb-2">
                           <div className="flex gap-1 bg-slate-100 px-2 py-1 rounded-lg border border-slate-200">
-                            <div className="w-2 h-2 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.5)] bg-red-400" />
-                            <div className="w-2 h-2 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.5)] bg-yellow-400" />
-                            <div className="w-2 h-2 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.5)] bg-green-400" />
+                            <div className="w-2 h-2 rounded-full bg-red-400" />
+                            <div className="w-2 h-2 rounded-full bg-yellow-400" />
+                            <div className="w-2 h-2 rounded-full bg-green-400" />
                           </div>
                           <span className="text-[8px] font-pixel px-2 py-1 rounded-lg border uppercase font-bold opacity-80" style={{ color: meta.color, borderColor: meta.color, backgroundColor: `${meta.color}15` }}>
                             {meta.emoji} PROJECT.EXE
                           </span>
                         </div>
-
-                        <h3 className="font-black text-slate-800 leading-tight mb-2 text-base sm:text-lg transition-colors">
+                        <h3 className="font-black text-slate-800 leading-tight mb-2 text-base sm:text-lg">
                           {project.title}
                         </h3>
                       </div>
 
-                      {/* Bottom Tags */}
                       <div className="mt-auto pt-2">
                         <p className="text-xs text-slate-500 font-medium line-clamp-2 md:line-clamp-3 mb-3 leading-relaxed">{project.description}</p>
                         <div className="flex flex-wrap gap-2">
                           {project.tech.slice(0, 3).map((t) => (
-                            <span 
-                              key={t} 
-                              className="text-[9px] font-pixel px-2 py-1 rounded-full border border-slate-200 text-slate-600 bg-slate-50 font-bold tracking-wide"
-                            >
+                            <span key={t} className="text-[9px] font-pixel px-2 py-1 rounded-full border border-slate-200 text-slate-600 bg-slate-50 font-bold tracking-wide">
                               {t}
                             </span>
                           ))}
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </motion.div>
               );

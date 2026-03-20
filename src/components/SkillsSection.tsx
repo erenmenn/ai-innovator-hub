@@ -3,35 +3,28 @@ import { useState } from "react";
 import {
   BrainCircuit, Eye, BarChart3, Layers, Code2, Database,
   Lightbulb, MessageSquare, Crown, Globe, Cpu,
-  Palette, Monitor, Brush
+  Palette, Monitor, Brush, Zap, Users, ChevronDown, Sparkles
 } from "lucide-react";
 
-const skillCategories = [
+// ── Hard Skills ───────────────────────────────────────────────────────────────
+const hardSkillCategories = [
   {
-    id: "ai",
-    label: "AI & Tech",
-    accent: "#7c3aed",
-    gradFrom: "#7c3aed",
-    gradTo: "#4f46e5",
-    glow: "rgba(124,58,237,0.18)",
-    smokeColor: "bg-violet-400/10",
+    id: "ai", label: "AI & Tech", emoji: "🤖",
+    accent: "#7c3aed", gradFrom: "#7c3aed", gradTo: "#4f46e5",
+    glow: "rgba(124,58,237,0.08)", smokeColor: "bg-violet-400/5",
     items: [
-      { icon: BrainCircuit,  name: "Machine Learning", level: 90, tag: "CORE" },
-      { icon: Layers,        name: "Deep Learning",    level: 85, tag: "CORE" },
-      { icon: Cpu,           name: "LLMs & RAG",       level: 88, tag: "RARE" },
-      { icon: MessageSquare, name: "NLP",              level: 88, tag: "RARE" },
-      { icon: Eye,           name: "Computer Vision",  level: 80, tag: "SKILL" },
-      { icon: BarChart3,     name: "Data Analysis",    level: 92, tag: "PRO"  },
+      { icon: BrainCircuit,  name: "Machine Learning", level: 90, tag: "CORE"   },
+      { icon: Layers,        name: "Deep Learning",    level: 85, tag: "CORE"   },
+      { icon: Cpu,           name: "LLMs & RAG",       level: 88, tag: "RARE"   },
+      { icon: MessageSquare, name: "NLP",              level: 88, tag: "RARE"   },
+      { icon: Eye,           name: "Computer Vision",  level: 80, tag: "SKILL"  },
+      { icon: BarChart3,     name: "Data Analysis",    level: 92, tag: "PRO"    },
     ],
   },
   {
-    id: "dev",
-    label: "Tools & Dev",
-    accent: "#2563eb",
-    gradFrom: "#2563eb",
-    gradTo: "#06b6d4",
-    glow: "rgba(37,99,235,0.15)",
-    smokeColor: "bg-blue-400/10",
+    id: "dev", label: "Tools & Dev", emoji: "⚙️",
+    accent: "#2563eb", gradFrom: "#2563eb", gradTo: "#06b6d4",
+    glow: "rgba(37,99,235,0.08)", smokeColor: "bg-blue-400/5",
     items: [
       { icon: Code2,    name: "Python",             level: 95, tag: "MASTER" },
       { icon: Code2,    name: "LangChain",          level: 85, tag: "RARE"   },
@@ -42,13 +35,9 @@ const skillCategories = [
     ],
   },
   {
-    id: "art",
-    label: "Creative Art",
-    accent: "#db2777",
-    gradFrom: "#db2777",
-    gradTo: "#d946ef",
-    glow: "rgba(219,39,119,0.15)",
-    smokeColor: "bg-pink-400/10",
+    id: "art", label: "Creative Art", emoji: "🎨",
+    accent: "#db2777", gradFrom: "#db2777", gradTo: "#d946ef",
+    glow: "rgba(219,39,119,0.08)", smokeColor: "bg-pink-400/5",
     items: [
       { icon: Palette, name: "Colour Theory",    level: 95, tag: "MASTER" },
       { icon: Monitor, name: "UI/UX & Figma",    level: 90, tag: "PRO"    },
@@ -58,225 +47,376 @@ const skillCategories = [
       { icon: Monitor, name: "Web Design",       level: 90, tag: "PRO"    },
     ],
   },
+];
+
+// ── Soft Skills with expandable experience detail ─────────────────────────────
+const softSkills = [
   {
-    id: "soft",
-    label: "Soft Skills",
-    accent: "#d97706",
-    gradFrom: "#d97706",
-    gradTo: "#ea580c",
-    glow: "rgba(217,119,6,0.15)",
-    smokeColor: "bg-amber-400/10",
-    items: [
-      { icon: Lightbulb,     name: "Innovative Thinking", level: 95, tag: "MASTER" },
-      { icon: Lightbulb,     name: "Problem Solving",     level: 93, tag: "PRO"    },
-      { icon: Crown,         name: "Leadership",          level: 88, tag: "RARE"   },
-      { icon: MessageSquare, name: "Communication",       level: 90, tag: "PRO"    },
+    icon: Lightbulb, name: "Innovative Thinking", emoji: "💡", color: "#f59e0b",
+    tagline: "Turning ideas into tangible solutions",
+    experience: [
+      "Conceptualized WangkuAI — an LLM-powered financial chatbot — from scratch, designing both the NLP pipeline and product experience.",
+      "Proposed the semantic chunking strategy for FirstAid.ID that dramatically improved retrieval accuracy for emergency medical queries.",
+      "Known for reframing problems creatively, often finding non-obvious approaches that reduce complexity by half.",
+    ],
+  },
+  {
+    icon: Zap, name: "Problem Solving", emoji: "⚡", color: "#3b82f6",
+    tagline: "Breaking ambiguity into clear action steps",
+    experience: [
+      "Debugged and resolved multi-layer data pipeline failures in sentiment analysis projects under tight deadlines.",
+      "Resolved cold-start problems in the MovieRec system by combining content metadata with collaborative signals.",
+      "Consistently decomposes complex challenges into manageable sprints with defined success metrics.",
+    ],
+  },
+  {
+    icon: Crown, name: "Leadership", emoji: "👑", color: "#ec4899",
+    tagline: "Guiding teams to impactful outcomes",
+    experience: [
+      "Led a cross-functional team to deliver a web-based AI dashboard from ideation to deployment within 3 weeks.",
+      "Mentored peers on NLP fundamentals, facilitated weekly knowledge-sharing sessions for junior team members.",
+      "Drove alignment between technical and non-technical stakeholders by translating ML outputs into business insights.",
+    ],
+  },
+  {
+    icon: MessageSquare, name: "Communication", emoji: "💬", color: "#10b981",
+    tagline: "Translating complex ideas into clear narratives",
+    experience: [
+      "Presented AI product demos and research findings to non-technical audiences at academic & industry events.",
+      "Documented all ML experiments with clear methodology write-ups, enabling team replication and peer review.",
+      "Crafted compelling pitch decks and project proposals that secured stakeholder buy-in for AI initiatives.",
+    ],
+  },
+  {
+    icon: Users, name: "Collaboration", emoji: "🤝", color: "#8b5cf6",
+    tagline: "Thriving in cross-functional environments",
+    experience: [
+      "Collaborated with designers, backend developers, and product managers across multiple end-to-end AI projects.",
+      "Contributed to open-source discussions and actively participated in team code reviews and sprint planning.",
+      "Consistently praised for being a reliable, communicative, and delivering-first team member.",
     ],
   },
 ];
 
-const tagStyle: Record<string, string> = {
-  MASTER: "bg-rose-100 text-rose-600 border-rose-200",
-  RARE:   "bg-purple-100 text-purple-600 border-purple-200",
-  PRO:    "bg-blue-100 text-blue-600 border-blue-200",
-  CORE:   "bg-emerald-100 text-emerald-600 border-emerald-200",
-  SKILL:  "bg-slate-100 text-slate-500 border-slate-200",
+const tagStyle: Record<string, { bg: string; text: string; border: string }> = {
+  MASTER: { bg: "#fff1f2", text: "#e11d48", border: "#fecdd3" },
+  RARE:   { bg: "#f5f3ff", text: "#7c3aed", border: "#e9d5ff" },
+  PRO:    { bg: "#eff6ff", text: "#2563eb", border: "#bfdbfe" },
+  CORE:   { bg: "#f0fdf4", text: "#15803d", border: "#bbf7d0" },
+  SKILL:  { bg: "#f8fafc", text: "#64748b", border: "#e2e8f0" },
 };
 
+// ── Component ─────────────────────────────────────────────────────────────────
 const SkillsSection = () => {
-  const [active, setActive] = useState(0);
-  const cat = skillCategories[active];
+  const [activeTab, setActiveTab] = useState(0);
+  const [openSoft, setOpenSoft] = useState<number | null>(null);
+  const cat = hardSkillCategories[activeTab];
 
   return (
     <section id="skills" className="py-32 relative overflow-hidden pixel-grid">
 
-      {/* ── Soft smoke background — matching other sections ── */}
+      {/* Ambient smoke — dikurangi banget */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <motion.div
-          key={cat.id + "-smoke1"}
-          animate={{ x: [0, 30, -20, 0], y: [0, -20, 25, 0], scale: [1, 1.15, 0.92, 1] }}
+          key={cat.id + "-s1"}
+          animate={{ x: [0, 30, -20, 0], y: [0, -20, 25, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className={`absolute top-[10%] right-[8%] w-[450px] h-[450px] rounded-full blur-[110px] ${cat.smokeColor}`}
+          className={`absolute top-[8%] right-[6%] w-[420px] h-[420px] rounded-full blur-[140px] ${cat.smokeColor}`}
         />
         <motion.div
-          key={cat.id + "-smoke2"}
-          animate={{ x: [0, -25, 30, 0], y: [0, 30, -20, 0], scale: [1, 0.9, 1.1, 1] }}
+          animate={{ x: [0, -25, 30, 0], y: [0, 30, -20, 0] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          className="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] rounded-full blur-[120px] bg-slate-300/15"
+          className="absolute bottom-[8%] left-[4%] w-[380px] h-[380px] rounded-full blur-[140px] bg-slate-300/5"
         />
       </div>
 
-      {/* ── Floating PNG Decorations ── */}
-      <motion.img
-        src="/asset/api.png" alt="" aria-hidden="true"
-        animate={{ y: [0, -16, 0], rotate: [0, 10, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-16 right-12 w-16 h-16 opacity-20 pointer-events-none select-none drop-shadow-lg"
-      />
-      <motion.img
-        src="/asset/rocket.png" alt="" aria-hidden="true"
-        animate={{ y: [0, 18, 0], x: [0, -10, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-        className="absolute bottom-20 left-10 w-14 h-14 opacity-15 pointer-events-none select-none drop-shadow-lg"
-      />
-      <motion.img
-        src="/asset/sparkle.png" alt="" aria-hidden="true"
-        animate={{ rotate: [0, 360] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-        className="absolute top-1/2 left-[4%] w-8 h-8 opacity-25 pointer-events-none select-none"
-      />
+      {/* Floating PNGs — opacity diturunin dikit */}
+      <motion.img src="/asset/api.png" alt="" aria-hidden
+        animate={{ y: [0, -14, 0], rotate: [0, 10, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-12 right-10 w-14 h-14 opacity-10 pointer-events-none select-none drop-shadow-sm" />
+      <motion.img src="/asset/rocket.png" alt="" aria-hidden
+        animate={{ y: [0, 16, 0], x: [0, -8, 0] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        className="absolute bottom-16 left-8 w-12 h-12 opacity-10 pointer-events-none select-none drop-shadow-sm" />
+      <motion.img src="/asset/sparkle.png" alt="" aria-hidden
+        animate={{ rotate: [0, 360] }} transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+        className="absolute top-1/2 left-[3%] w-7 h-7 opacity-15 pointer-events-none select-none" />
 
       <div className="container mx-auto px-6">
 
-        {/* ── Section Header ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/70 backdrop-blur border border-primary/20 shadow-sm rounded-full mb-5">
-            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: cat.accent }} />
-            <span className="text-[9px] font-pixel text-primary tracking-widest uppercase">SKILL_COLLECTION</span>
-          </div>
+        {/* ── Header ── */}
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-black tracking-tight leading-none">
             My{" "}
-            <span
-              className="text-transparent bg-clip-text italic pr-2"
-              style={{ backgroundImage: `linear-gradient(120deg, ${cat.gradFrom}, ${cat.gradTo})` }}
-            >
+            <span className="text-transparent bg-clip-text italic pr-2"
+              style={{ backgroundImage: `linear-gradient(120deg, ${cat.gradFrom}, ${cat.gradTo})` }}>
               Toolkit
             </span>
           </h2>
-          <p className="text-muted-foreground mt-3 text-sm">
-            Hover cards to explore · Click tab to switch category
-          </p>
+          <p className="text-muted-foreground mt-3 text-sm">Hard skills · Soft skills · Click to explore experience</p>
         </motion.div>
 
-        {/* ── Layout: Sidebar + Grid ── */}
-        <div className="flex flex-col lg:flex-row gap-10 items-start max-w-6xl mx-auto">
+        {/* ── Merged two-column layout ── */}
+        <div className="max-w-6xl mx-auto grid grid-cols-1 xl:grid-cols-2 gap-10 items-start">
 
-          {/* ── Vertical Tab Selector ── */}
-          <div className="flex flex-row lg:flex-col gap-3 w-full lg:w-56 shrink-0 lg:sticky lg:top-28">
-            {skillCategories.map((c, i) => (
-              <motion.button
-                key={c.id}
-                onClick={() => setActive(i)}
-                whileHover={{ x: 4 }}
-                className={`
-                  relative flex items-center gap-3 px-5 py-4 rounded-2xl text-left
-                  transition-all duration-300 border text-sm font-semibold w-full
-                  ${active === i
-                    ? "bg-white/80 backdrop-blur border-transparent shadow-lg"
-                    : "bg-white/30 border-white/40 text-slate-500 hover:bg-white/60"
+          {/* ══ LEFT: Hard Skills ══ */}
+          <div>
+            {/* Section label */}
+            <div className="flex items-center gap-3 mb-5">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-200" />
+              <span className="text-[9px] font-pixel text-slate-400 uppercase tracking-widest whitespace-nowrap">⚙ Technical Skills</span>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-slate-200" />
+            </div>
+
+            {/* Tab buttons */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {hardSkillCategories.map((c, i) => (
+                <button
+                  key={c.id} onClick={() => setActiveTab(i)}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold border-2 transition-colors duration-300"
+                  style={activeTab === i
+                    ? { background: `linear-gradient(135deg, ${c.gradFrom}, ${c.gradTo})`, color: "#fff", borderColor: "transparent", boxShadow: `0 2px 8px ${c.glow}` }
+                    : { background: "rgba(255,255,255,0.75)", color: "#64748b", borderColor: "#e2e8f0", boxShadow: "none" }
                   }
-                `}
-                style={active === i ? { boxShadow: `0 4px 20px ${c.glow}, 0 1px 3px rgba(0,0,0,0.06)` } : {}}
-              >
-                {active === i && (
-                  <motion.div
-                    layoutId="skills-tab-indicator"
-                    className="absolute left-0 top-3 bottom-3 w-1 rounded-r-full"
-                    style={{ background: `linear-gradient(180deg, ${c.gradFrom}, ${c.gradTo})` }}
-                  />
-                )}
-                <span
-                  className={`w-2.5 h-2.5 rounded-full shrink-0 transition-all ${active === i ? "scale-125" : "opacity-40"}`}
-                  style={{ background: c.accent }}
-                />
-                <span className={active === i ? "text-slate-800" : ""}>{c.label}</span>
-                {active === i && (
-                  <span
-                    className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded-full text-white"
-                    style={{ background: `linear-gradient(135deg, ${c.gradFrom}, ${c.gradTo})` }}
-                  >
-                    {c.items.length}
-                  </span>
-                )}
-              </motion.button>
-            ))}
-          </div>
+                >
+                  <span className="text-base leading-none">{c.emoji}</span>
+                  {c.label}
+                </button>
+              ))}
+            </div>
 
-          {/* ── Skill Cards Grid ── */}
-          <div className="flex-1">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={cat.id}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.28 }}
-                className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4"
-              >
-                {cat.items.map((skill, i) => (
-                  <motion.div
-                    key={skill.name}
-                    initial={{ opacity: 0, scale: 0.93, y: 14 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ delay: i * 0.07, type: "spring", bounce: 0.3 }}
-                    whileHover={{ y: -6 }}
-                    className="group relative rounded-2xl p-5 cursor-default transition-all duration-300 overflow-hidden"
-                    style={{
-                      background: "rgba(255,255,255,0.7)",
-                      backdropFilter: "blur(16px)",
-                      border: "1px solid rgba(255,255,255,0.6)",
-                      boxShadow: "0 2px 12px rgba(0,0,0,0.05)"
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.boxShadow = `0 12px 32px ${cat.glow}, 0 2px 8px rgba(0,0,0,0.06)`;
-                      (e.currentTarget as HTMLElement).style.border = `1px solid ${cat.accent}30`;
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 12px rgba(0,0,0,0.05)";
-                      (e.currentTarget as HTMLElement).style.border = "1px solid rgba(255,255,255,0.6)";
-                    }}
-                  >
-                    {/* Gradient hint in corner on hover */}
-                    <div
-                      className="absolute -top-10 -right-10 w-32 h-32 rounded-full blur-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none"
-                      style={{ background: `radial-gradient(circle, ${cat.gradFrom}40, transparent)` }}
-                    />
-
-                    {/* Top Row */}
-                    <div className="flex items-start justify-between mb-4 relative z-10">
-                      <div
-                        className="w-11 h-11 rounded-xl flex items-center justify-center text-white shadow-md group-hover:shadow-lg transition-shadow"
-                        style={{ background: `linear-gradient(135deg, ${cat.gradFrom}, ${cat.gradTo})` }}
-                      >
-                        <skill.icon className="w-5 h-5" />
-                      </div>
-                      <span className={`text-[9px] font-mono font-bold px-2.5 py-1 rounded-lg border ${tagStyle[skill.tag]}`}>
-                        {skill.tag}
-                      </span>
-                    </div>
-
-                    {/* Skill Name */}
-                    <h4 className="font-bold text-slate-800 text-sm mb-4 leading-snug relative z-10">
-                      {skill.name}
-                    </h4>
-
-                    {/* Level Bar */}
-                    <div className="relative z-10">
-                      <div className="flex justify-between items-center mb-1.5">
-                        <span className="text-[10px] text-slate-400 font-mono">Proficiency</span>
-                        <span className="text-[10px] font-bold" style={{ color: cat.accent }}>{skill.level}%</span>
-                      </div>
-                      <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1.2, ease: "easeOut", delay: i * 0.08 }}
-                          className="h-full rounded-full"
-                          style={{ background: `linear-gradient(90deg, ${cat.gradFrom}, ${cat.gradTo})` }}
-                        />
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+            {/* Cards grid */}
+            <div className="relative">
+              {/* Orbiting stickers — blur dan opacity dikurangi */}
+              <motion.div className="absolute -top-6 -right-5 z-30 pointer-events-none"
+                animate={{ y: [0, -10, 0], rotate: [-6, 8, -6] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}>
+                <div className="relative">
+                  <div className="absolute inset-0 rounded-full blur-2xl opacity-20" style={{ backgroundColor: cat.gradFrom, transform: "scale(0.8)" }} />
+                  <img src="/asset/rocket.png" alt="" width={52} height={52} className="relative z-10 drop-shadow-sm" />
+                </div>
               </motion.div>
-            </AnimatePresence>
+              <motion.div className="absolute -top-4 -left-6 z-30 pointer-events-none"
+                animate={{ rotate: [0, 20, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}>
+                <div className="relative">
+                  <div className="absolute inset-0 rounded-full blur-2xl opacity-20" style={{ backgroundColor: "#fcd34d", transform: "scale(0.8)" }} />
+                  <img src="/asset/sparkle.png" alt="" width={40} height={40} className="relative z-10 drop-shadow-sm" />
+                </div>
+              </motion.div>
+              <motion.div className="absolute -bottom-6 -left-4 z-30 pointer-events-none"
+                animate={{ y: [0, 10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}>
+                <div className="relative">
+                  <div className="absolute inset-0 rounded-full blur-2xl opacity-20" style={{ backgroundColor: cat.gradTo, transform: "scale(0.7)" }} />
+                  <img src="/asset/api.png" alt="" width={80} height={80} className="relative z-10" />
+                </div>
+              </motion.div>
+              <motion.div className="absolute -bottom-4 -right-3 z-30 pointer-events-none"
+                animate={{ rotate: [-10, 10, -10] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}>
+                <div className="relative">
+                  <div className="absolute inset-0 rounded-full blur-2xl opacity-20" style={{ backgroundColor: "#818cf8", transform: "scale(0.7)" }} />
+                  <img src="/asset/bintang.png" alt="" width={44} height={44} className="relative z-10 drop-shadow-sm" />
+                </div>
+              </motion.div>
+
+              <AnimatePresence mode="wait">
+                <motion.div key={cat.id}
+                  initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.25 }}
+                  className="grid grid-cols-2 gap-3">
+                  {cat.items.map((skill, i) => {
+                    const ts = tagStyle[skill.tag];
+                    return (
+                      <motion.div
+                        key={skill.name}
+                        initial={{ opacity: 0, scale: 0.95, y: 8 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        transition={{ delay: i * 0.05, type: "spring", bounce: 0.2 }}
+                        className="group relative rounded-2xl p-4 cursor-default overflow-hidden transition-colors duration-300"
+                        style={{
+                          background: "rgba(255,255,255,0.75)",
+                          backdropFilter: "blur(4px)",
+                          border: "1px solid rgba(255,255,255,0.6)",
+                          boxShadow: "0 1px 4px rgba(0,0,0,0.02)"
+                        }}
+                        onMouseEnter={(e) => {
+                          (e.currentTarget as HTMLElement).style.border = `1px solid ${cat.accent}30`;
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLElement).style.border = "1px solid rgba(255,255,255,0.6)";
+                        }}
+                      >
+                        <div className="flex items-start justify-between mb-3 relative z-10">
+                          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm"
+                            style={{ background: `linear-gradient(135deg, ${cat.gradFrom}, ${cat.gradTo})` }}>
+                            <skill.icon className="w-5 h-5" />
+                          </div>
+                          <span className="text-[8px] font-pixel font-bold px-2 py-1 rounded-lg border"
+                            style={{ background: ts.bg, color: ts.text, borderColor: ts.border }}>
+                            {skill.tag}
+                          </span>
+                        </div>
+                        <h4 className="font-bold text-slate-800 text-sm mb-3 relative z-10 leading-snug">{skill.name}</h4>
+                        <div className="relative z-10">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="text-[10px] text-slate-400 font-mono">Proficiency</span>
+                            <span className="text-[10px] font-bold" style={{ color: cat.accent }}>{skill.level}%</span>
+                          </div>
+                          <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                            <motion.div
+                              initial={{ width: 0 }} whileInView={{ width: `${skill.level}%` }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 1.2, ease: "easeOut", delay: i * 0.05 }}
+                              className="h-full rounded-full"
+                              style={{ background: `linear-gradient(90deg, ${cat.gradFrom}, ${cat.gradTo})` }}
+                            />
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
+
+          {/* ══ RIGHT: Soft Skills — cute pastel shelf ══ */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.55, delay: 0.15 }}
+          >
+            {/* Section label */}
+            <div className="flex items-center gap-3 mb-5">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-200" />
+              <span className="text-[9px] font-pixel text-slate-400 uppercase tracking-widest whitespace-nowrap">✦ Soft Skills</span>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-slate-200" />
+            </div>
+
+            {/* Panel — cute dashed wrapper */}
+            <div className="relative rounded-3xl p-6"
+              style={{
+                background: "rgba(255,255,255,0.6)",
+                border: "2px dashed rgba(148,163,184,0.25)",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.02)",
+                backdropFilter: "blur(12px)"
+              }}
+            >
+              {/* Panel header */}
+              <div className="flex items-center gap-4 mb-6 relative z-10">
+                <div className="w-12 h-12 rounded-[1.2rem] flex items-center justify-center text-white shadow-md relative"
+                  style={{ background: "linear-gradient(135deg, #f59e0b, #ec4899, #8b5cf6)" }}>
+                  <Sparkles className="w-6 h-6" />
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white" style={{ background: "#10b981" }} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-pixel text-slate-400 uppercase tracking-widest mb-0.5">beyond the code</p>
+                  <h3 className="font-black text-slate-800 text-lg leading-tight">Click to explore</h3>
+                </div>
+              </div>
+
+              {/* Accordion shelf */}
+              <div className="flex flex-col gap-3 relative z-10">
+                {softSkills.map((skill, i) => {
+                  const isOpen = openSoft === i;
+                  return (
+                    <div key={skill.name}>
+                      {/* Shelf row — cute pill style for unclicked state */}
+                      <button
+                        onClick={() => setOpenSoft(isOpen ? null : i)}
+                        className="relative w-full flex items-center gap-4 p-3.5 rounded-2xl text-left group overflow-hidden transition-all duration-300"
+                        style={{
+                          background: isOpen
+                            ? `linear-gradient(135deg, ${skill.color}25, ${skill.color}10)`
+                            : `${skill.color}15`, // Bold pastel tint when idle!
+                          border: isOpen ? `2px solid ${skill.color}60` : `2px solid ${skill.color}30`,
+                          boxShadow: isOpen ? `0 6px 20px ${skill.color}20` : "none"
+                        }}
+                      >
+                        {/* Icon Bubble - gradient solid just like left side */}
+                        <div
+                          className="w-12 h-12 rounded-[1rem] flex items-center justify-center text-white shrink-0 transition-all duration-300 shadow-md"
+                          style={{
+                            background: `linear-gradient(135deg, ${skill.color}, ${skill.color}aa)`,
+                            boxShadow: isOpen ? `0 6px 16px ${skill.color}50` : `0 2px 8px ${skill.color}40`,
+                          }}
+                        >
+                          <skill.icon className="w-5 h-5" />
+                        </div>
+
+                        {/* Name + tagline */}
+                        <div className="flex-1 min-w-0 ml-1.5">
+                          <p className="font-bold text-slate-800 text-[15px] leading-tight transition-colors duration-300">
+                            {skill.name}
+                          </p>
+                          <p className="text-[11px] font-medium leading-snug mt-1 truncate transition-colors duration-300"
+                            style={{ color: isOpen ? `${skill.color}dd` : `${skill.color}bb` }}>
+                            {skill.tagline}
+                          </p>
+                        </div>
+
+                        {/* Chevron dot */}
+                        <div
+                          className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 bg-white"
+                          style={{
+                            border: `1.5px solid ${skill.color}40`,
+                            transform: `rotate(${isOpen ? "180deg" : "0deg"})`,
+                            boxShadow: isOpen ? `0 2px 8px ${skill.color}30` : "none"
+                          }}
+                        >
+                          <ChevronDown className="w-4 h-4 transition-colors duration-300" style={{ color: skill.color }} />
+                        </div>
+                      </button>
+
+                      {/* Expandable experience card */}
+                      <AnimatePresence>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.28, ease: "easeInOut" }}
+                            className="overflow-hidden"
+                          >
+                            <div className="mx-2 mb-2 mt-2 rounded-[1.2rem] overflow-hidden bg-white"
+                              style={{ border: `2px solid ${skill.color}25`, boxShadow: `0 8px 24px ${skill.color}15` }}>
+                              {/* Colored header strip */}
+                              <div className="px-5 py-3.5 flex items-center gap-2.5"
+                                style={{ background: `linear-gradient(135deg, ${skill.color}15, ${skill.color}05)` }}>
+                                <div className="w-1.5 h-4 rounded-full" style={{ background: skill.color }} />
+                                <span className="text-[10px] font-pixel uppercase tracking-widest font-bold" style={{ color: skill.color }}>
+                                  My Experience
+                                </span>
+                              </div>
+
+                              {/* Bullets */}
+                              <div className="p-5 pt-4 space-y-3.5">
+                                {skill.experience.map((exp, ei) => (
+                                  <motion.div key={ei}
+                                    initial={{ opacity: 0, x: -8 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: ei * 0.07, duration: 0.28 }}
+                                    className="flex items-start gap-3"
+                                  >
+                                    <div className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: skill.color }} />
+                                    <p className="text-sm text-slate-600 leading-relaxed font-medium">{exp}</p>
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Fun tagline */}
+              <div className="mt-5 p-4 rounded-2xl text-center relative z-10 bg-white"
+                style={{ border: "2px dashed rgba(148,163,184,0.25)" }}>
+                <p className="text-[10px] font-pixel tracking-widest text-slate-400">
+                  ✦ skills that can't be measured, but always felt ✦
+                </p>
+              </div>
+            </div> {/* end panel wrapper */}
+          </motion.div>
 
         </div>
       </div>

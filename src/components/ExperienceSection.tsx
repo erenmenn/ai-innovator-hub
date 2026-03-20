@@ -207,8 +207,54 @@ const ExperienceSection = () => {
             ))}
           </div>
 
-          {/* ── Right: Detail Card ── */}
-          <div className="flex-1">
+          {/* ── Right: Detail Card (with floating stickers orbiting it) ── */}
+          <div className="flex-1 relative">
+
+            {/* ── Floating stickers around the card ── */}
+            <motion.div
+              className="absolute -top-8 -right-8 z-30 pointer-events-none select-none"
+              animate={{ y: [0, -16, 0], rotate: [-8, 8, -8] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <div className="relative">
+                <div className="absolute inset-0 rounded-full blur-xl opacity-60" style={{ backgroundColor: `${exp.gradFrom}80`, transform: "scale(0.9)" }} />
+                <img src="/asset/rocket.png" alt="" width={72} height={72} className="relative z-10 drop-shadow-2xl" />
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="absolute -top-4 -left-8 z-30 pointer-events-none select-none"
+              animate={{ scale: [1, 1.18, 1], rotate: [0, 18, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+            >
+              <div className="relative">
+                <div className="absolute inset-0 rounded-full blur-xl opacity-50" style={{ backgroundColor: "rgba(255,215,71,0.7)", transform: "scale(0.9)" }} />
+                <img src="/asset/sparkle.png" alt="" width={50} height={50} className="relative z-10 drop-shadow-2xl" />
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="absolute -bottom-10 -left-6 z-30 pointer-events-none select-none"
+              animate={{ y: [0, 14, 0], x: [0, -8, 0] }}
+              transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            >
+              <div className="relative">
+                <div className="absolute inset-0 rounded-full blur-xl opacity-55" style={{ backgroundColor: `${exp.gradTo}80`, transform: "scale(0.85)" }} />
+                <img src="/asset/api.png" alt="" width={78} height={78} className="relative z-10 drop-shadow-2xl" />
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="absolute -bottom-6 -right-4 z-30 pointer-events-none select-none"
+              animate={{ rotate: [-10, 10, -10], y: [0, -12, 0] }}
+              transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1.8 }}
+            >
+              <div className="relative">
+                <div className="absolute inset-0 rounded-full blur-xl opacity-45" style={{ backgroundColor: "rgba(255,107,138,0.5)", transform: "scale(0.85)" }} />
+                <img src="/asset/love.png" alt="" width={130} height={130} className="relative z-10 drop-shadow-2xl" />
+              </div>
+            </motion.div>
+
             <AnimatePresence mode="wait">
               <motion.div
                 key={exp.id}
