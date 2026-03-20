@@ -23,145 +23,155 @@ interface Project {
   solution: string;
   skills: string[];
   highlights: string[];
+  dataset: string;
 }
 
 const projects: Project[] = [
   {
-    title: "WangkuAI: Intelligent Financial Chatbot",
-    description: "AI chatbot for financial insights powered by LLMs",
-    tech: ["NLP", "LLM", "Python"],
+    title: "WangkuAI: Asisten Keuangan Pintar",
+    description: "Finance tracker dengan NLP pipeline untuk chat sehari-hari",
+    tech: ["Next.js", "IndoBERT", "Prisma"],
     category: "Professional",
     subcategory: "NLP",
     icon: Brain,
     image: "/asset_proyek/wangku.png",
-    github: "#",
+    github: "https://github.com/erenmenn/WangkuAI-FinanceBot",
     bgGradient: "linear-gradient(135deg, #ef4444, #b91c1c)",
-    fullDescription: "An intelligent financial chatbot that leverages Large Language Models to provide real-time financial insights, answer complex financial questions, and help users make informed decisions about their finances.",
-    problem: "People struggle to understand complex financial data and need quick, reliable answers to financial questions without consulting expensive advisors.",
-    solution: "Built an LLM-powered chatbot that processes financial queries using NLP, retrieves relevant data, and generates clear, actionable financial insights in natural language.",
-    skills: ["Natural Language Processing", "Large Language Models", "Python", "API Integration", "Prompt Engineering"],
-    highlights: ["Real-time financial data processing", "Context-aware conversations", "Multi-turn dialogue support"],
+    fullDescription: "Asisten keuangan pribadi berbasis percakapan yang memungkinkan pencatatan dan pemantauan transaksi hanya dengan mengetik kalimat biasa. Dibangun dengan Next.js dan pipeline NLP dua lapis: IndoBERT (Zero-Shot) dan Regex Fallback.",
+    problem: "Aplikasi konvensional terlalu banyak gesekan (klik tambah, pilih kategori, isi nominal) yang membuat pengguna malas dan tidak konsisten mencatat keuangan.",
+    solution: "Cukup ketik transaksi (misal: 'beli baju 80rb & kopi 15rb'), sistem NLP akan memecah kalimat jadi 2 transaksi, mendeteksi uang, kategori, dan memperbarui saldo seketika tanpa form manual.",
+    skills: ["HuggingFace IndoBERT", "Regex Pipeline", "Next.js", "Prisma", "TypeScript"],
+    highlights: ["Satu pesan untuk multi-transaksi otomatis", "NLP berlapis anti-offline layaknya regex", "Pendeteksi harga & 25+ jenis kategori instan"],
+    dataset: "Custom dataset berisi 106 test case kalimat transaksi keuangan harian orang Indonesia.",
   },
   {
-    title: "PlantCare: Leaf Disease Detection",
-    description: "Classifies plant health from leaf images",
-    tech: ["CNN", "TensorFlow"],
-    category: "Computer Vision",
-    icon: Eye,
-    image: "/asset_proyek/plantdesease.png",
-    github: "#",
-    bgGradient: "linear-gradient(135deg, #22c55e, #0d9488)",
-    fullDescription: "A deep learning system that analyzes plant leaf images to detect diseases and assess plant health, helping farmers and gardeners take proactive care of their plants.",
-    problem: "Early detection of plant diseases is crucial for agriculture, but manual inspection is time-consuming and requires expert knowledge.",
-    solution: "Developed a CNN-based image classifier trained on thousands of plant leaf images to accurately identify common plant diseases and health issues.",
-    skills: ["Convolutional Neural Networks", "TensorFlow", "Image Processing", "Data Augmentation", "Transfer Learning"],
-    highlights: ["95%+ classification accuracy", "Supports multiple plant species", "Mobile-friendly inference"],
-  },
-  {
-    title: "MovieRec: Hybrid Recommendation",
-    description: "Movie recommendation with collaborative filtering",
-    tech: ["Collaborative Filtering"],
+    title: "MovieRec: Sistem Rekomendasi Film",
+    description: "Hybrid recommendation model memakai 25 juta rating",
+    tech: ["TensorFlow", "Scikit", "NMF"],
     category: "Recommendation",
     icon: Film,
     image: "/asset_proyek/recomendation.png",
-    github: "#",
+    github: "https://github.com/erenmenn/RekomendasiFILM-collaborative-content",
     bgGradient: "linear-gradient(135deg, #ec4899, #f43f5e)",
-    fullDescription: "A hybrid movie recommendation engine that combines collaborative and content-based filtering to suggest personalized movies based on user preferences and viewing history.",
-    problem: "Users face decision fatigue when choosing movies from thousands of options, leading to poor viewing experiences.",
-    solution: "Implemented a hybrid recommendation system combining collaborative filtering (user-user and item-item) with content-based features for accurate, personalized suggestions.",
-    skills: ["Collaborative Filtering", "Content-Based Filtering", "Matrix Factorization", "Python", "Similarity Metrics"],
-    highlights: ["Hybrid approach for better accuracy", "Cold-start handling", "Scalable architecture"],
+    fullDescription: "Sistem rekomendasi berskala besar dengan dua paradigma. Content-Based berbasis cosine-similarity untuk mengatasi cold start, dipadu dengan Collaborative Filtering (Neural Matrix Factorization) untuk mempelajari history dari 25 juta iterasi rating.",
+    problem: "Tanpa personalisasi yang tepat, penonton membuang waktu hanya untuk mencari film (scroll fatigue) yang berdampak negatif pada retensi platform.",
+    solution: "Mengkombinasikan Cosine Similarity (19-dimensi vektor genre) untuk pengguna baru, dengan embedding NMF (64-dimensi) yang menggali pola laten secara presisi optimal untuk pengguna aktif jangka panjang.",
+    skills: ["Neural Matrix Factorization", "Cosine Similarity", "TensorFlow", "Pandas", "Cold-Start Handling"],
+    highlights: ["Memproses 25 Juta dataset secara efisien", "Penyelesaian cold-start problem secara native", "Prediksi NDCG@5 mencapai tingkat akurasi 1.000"],
+    dataset: "Kaggle: Movie Recommendation System (62.423 film, 25 Juta rating dari 162.541 pengguna).",
   },
   {
-    title: "EmosiMU: Facial Expression AI",
-    description: "Emotion detection from facial images",
-    tech: ["Deep Learning", "CNN"],
-    category: "Computer Vision",
-    icon: Eye,
-    image: "/asset_proyek/emotion.png",
-    github: "#",
-    bgGradient: "linear-gradient(135deg, #f97316, #e11d48)",
-    fullDescription: "A facial emotion recognition system that detects and classifies human emotions from images using deep learning, applicable in UX research, mental health, and interactive systems.",
-    problem: "Understanding human emotions in real-time is essential for many applications but traditionally requires manual observation and expert interpretation.",
-    solution: "Built a deep CNN model trained on facial expression datasets to classify emotions like happiness, sadness, anger, surprise, and more from static images.",
-    skills: ["Deep Learning", "CNN", "Face Detection", "Emotion Analysis", "OpenCV"],
-    highlights: ["7 emotion categories", "Real-time capable", "Robust to lighting variations"],
-  },
-  {
-    title: "LyricsSearch: Semantic Vector Finder",
-    description: "Search lyrics by meaning using semantic embeddings",
-    tech: ["NLP", "Embeddings"],
-    category: "NLP",
-    icon: Brain,
-    image: "/asset_proyek/lyrics.png",
-    github: "#",
-    bgGradient: "linear-gradient(135deg, #3b82f6, #6366f1)",
-    fullDescription: "A semantic search engine for song lyrics that goes beyond keyword matching — users can search by meaning, mood, or theme to find songs that match their feelings.",
-    problem: "Traditional keyword-based lyric search fails when users want to find songs by theme or emotion rather than exact words.",
-    solution: "Implemented semantic embeddings (sentence transformers) to encode lyrics into vector space, enabling meaning-based similarity search across a large lyrics database.",
-    skills: ["Sentence Transformers", "Vector Embeddings", "Semantic Search", "NLP", "FAISS"],
-    highlights: ["Meaning-based search", "Mood & theme discovery", "Fast vector similarity"],
-  },
-  {
-    title: "MADUW: Honey Market Predictor",
-    description: "Price prediction model using regression",
-    tech: ["Regression", "ML"],
+    title: "MADUW: Prediksi Harga Madu",
+    description: "Memprediksi harga madu dengan pemodelan Regresi",
+    tech: ["Scikit-Learn", "Regression", "Data Viz"],
     category: "Prediction",
     icon: BarChart3,
     image: "/asset_proyek/honeyprice.png",
-    github: "#",
+    github: "https://github.com/erenmenn/PrediksiHarga-MADUW",
     bgGradient: "linear-gradient(135deg, #eab308, #ea580c)",
-    fullDescription: "A machine learning model that predicts honey (madu) prices based on various features like quality, origin, season, and market conditions using regression techniques.",
-    problem: "Honey price fluctuations are hard to predict, causing challenges for both producers and buyers in pricing and purchasing decisions.",
-    solution: "Developed regression models (Linear, Random Forest, Gradient Boosting) to predict honey prices with feature engineering on quality and market data.",
-    skills: ["Regression Analysis", "Feature Engineering", "Scikit-learn", "Pandas", "Model Evaluation"],
-    highlights: ["Multiple model comparison", "Feature importance analysis", "Cross-validation"],
+    fullDescription: "Proyek komparatif dari empat skema model regresi untuk memprediksi harga pasar madu berdasarkan variabel fisik & kimia hasil uji lab—seperti viskositas, gula, kemurnian air, hingga konduktivitas elektrik.",
+    problem: "Madu murni seringkali dicampur bahan aditif untuk memperkecil modal produksi. Ini membuat harga jadi subjektif dan sulit diukur transparansinya oleh konsumen maupun peternak.",
+    solution: "Melatih 4 model berbeda (Linear, KNN, AdaBoost, Random Forest). Secara mengejutkan, Linear Regression menjadi sistem terefektif (MAPE 0.93%) setelah diterapkan Inverse Log Scale terhadap prediksi model advanced lainnya.",
+    skills: ["Linear Regression", "AdaBoost", "Random Forest", "Data Inference Analysis", "Pandas"],
+    highlights: ["Kompetisi 4 model evaluasi beda paradigma", "Linear membengkali algortima Ensemble pd skala Inverse", "Model ditraining atas > 240 Ribu data parameter madu"],
+    dataset: "Kaggle: Predict Purity and Price of Honey oleh Stealth Technologies (247.903 baris data, 11 fitur kimia).",
   },
   {
-    title: "FirstAid.ID: Medical Search RAG",
-    description: "Semantic chunking pipeline for Indonesian First Aid manuals",
-    tech: ["NLP", "RAG", "LLM"],
+    title: "TayloR: Semantic Lyrics Search",
+    description: "Temukan lagu Taylor Swift pake sentimen emosimu",
+    tech: ["SBERT", "FAISS", "Flask"],
+    category: "NLP",
+    icon: Brain,
+    image: "/asset_proyek/lyrics.png",
+    github: "https://github.com/erenmenn/SemanticSearch-Lyrics",
+    bgGradient: "linear-gradient(135deg, #3b82f6, #6366f1)",
+    fullDescription: "Mesin pencari semantik canggih yang dirancang mengeksplor diskografi musik dengan konteks perasaan asli manusia ketimbang keyword. Mengandalkan metode Dual-Field Adaptive Hybrid Search yang melewati 9 flow NLP pipeline komprehensif.",
+    problem: "Pendengar sering kesulitan mencari lagu karena tidak tau keyword judul/lirik aslinya. Ketika merasa 'sedih di kamar', keyword 'sad bed' tak membawa makna filosofis lagu.",
+    solution: "Mentransformasikan setiap lirik & mood lagu dalam basis vector. Memungkinkan search via slang ekspresi lokal spt 'galau', 'bucin', lalu disimilaritasi lewat indeks SBERT dan FAISS search ke 164 dataset anotasi mandiri.",
+    skills: ["Sentence Transformers", "Vector FAISS", "Semantic Tuning", "Slang Translator", "React.js"],
+    highlights: ["Bilingual query (Support slang indo + EN native)", "Menampung 50+ variasi kondisi/emosi", "Diversity injection fallback bila filter ketat"],
+    dataset: "164 lagu dari 8 album utama Taylor Swift yang dianotasi secara manual dengan label situasi & intensitas (10+ label/lagu).",
+  },
+  {
+    title: "FirstAid.ID: NLP Chunking Strategy",
+    description: "Analisis riset strategik RAG di buku Panduan P3K",
+    tech: ["RAG", "IndoBERT", "Python"],
     category: "Professional",
     subcategory: "NLP",
     icon: Brain,
     image: "/asset_proyek/firstaid.png",
-    github: "#",
+    github: "https://github.com/erenmenn/ChungkingStrategy-FirstAIDbook",
     bgGradient: "linear-gradient(135deg, #ef4444, #991b1b)",
-    fullDescription: "A specialized data processing pipeline using advanced semantic chunking techniques to convert the comprehensive Indonesian First Aid Protocol (Buku Panduan Pertolongan Pertama) into an AI-ready vector database.",
-    problem: "During emergencies, reading through dense PDF manuals to find immediate, life-saving answers is slow and impractical.",
-    solution: "Designed an intelligent document chunking system that perfectly isolates discrete medical procedures, symptoms, and actions into retrievable vectors for an emergency RAG Chatbot.",
-    skills: ["LangChain", "Text Chunking", "Vector Databases", "Embeddings", "Information Retrieval"],
-    highlights: ["Context-aware text splitting", "High retrieval accuracy", "Optimized for Indonesian Medical NLP"],
+    fullDescription: "Proyek R&D krusial yang meninjau algoritma Chunking Text pada teknologi RAG (Retrieval Augmented Generation) di lingkup domain resiko tinggi, yakni dokumen darurat Medis-P3K. Dibangun untuk menganalisa split-pattern mana yang minim halusinasi.",
+    problem: "Pada kecelakaan darurat RAG tak boleh salah memberi instruksi sedikitpun. Jika pemotongan paragraf teks jelek bertengah kalimat (noise / lepas konteks), pengguna bisa bahaya fatal.",
+    solution: "Melakukan head-to-head strategi chunking: Sentence, Semantic, Fixed-Size. Berkat natur instruksional P3K (1 kalimat = 1 aksi), Sentence-based Chunking keluar juara dgn F1 BERTScore fantastis.",
+    skills: ["LangChain", "Text Chunking", "BERTScore Evaluation", "IndoBERT Vector", "R&D Analysis"],
+    highlights: ["Skenario validasi ketat manual ground truth", "Perbandingan Metrik pakai BERTScore semantic", "Mengoptimalisasi chunking domain prosedural medis"],
+    dataset: "Buku PDF 'Panduan Pertolongan Pertama pada Kecelakaan Jalan' (Kemenkes 2019) dengan 20 QnA Ground Truth.",
   },
   {
-    title: "YouTube Sentiment: Mass Comment Classifier",
-    description: "Deep sentiment analysis on massive YouTube comments",
-    tech: ["NLP", "Scraping", "Deep Learning"],
+    title: "EMIR: Emotion Image Classifier",
+    description: "Deteksi ekspresi human dari foto dalam 200 milisekon",
+    tech: ["TFLite", "MTCNN", "Flask"],
+    category: "Computer Vision",
+    icon: Eye,
+    image: "/asset_proyek/emotion.png",
+    github: "https://github.com/erenmenn/ImageClassification-EmosiMU",
+    bgGradient: "linear-gradient(135deg, #f97316, #e11d48)",
+    fullDescription: "Web platform computer-vision dengan Pipeline 5-Tahap interaktif untuk membaca muka & mood partisipan ke dalam kategori Angry, Fear, Happy, Sad, & Surprise bermodalkan upload gambar foto biasa berbackground apapun.",
+    problem: "Analisa emosional subjek butuh validasi visual yang netral tanpa bias perantara. Pengidentifikasian via wajah seringkali meleset dan sistem lamban ketika dibebani resolusi foto.",
+    solution: "Menggabungkan arsitektur Face Crop (MTCNN / Haar Cascade fallback) untuk crop paras detail secara presisi, lalu menjatuhkannya ke sistem TFLite Deep Learning yang terkompresi dari 27mb menjadi 4-Megabyte super cepat.",
+    skills: ["Face Detection MTCNN", "TensorFlow Lite", "Flask REST API", "OpenCV Image Preprocess", "UI Layouting"],
+    highlights: ["Akurasi inferensi < 200ms di CPU standar", "Dual API Endpoints untuk integrasi Front-End", "Terkondisi optimal dalam web interface partikel UX"],
+    dataset: "Kaggle: Emotion Image Dataset (5 Kelas: Angry, Fear, Happy, Sad, Surprise).",
+  },
+  {
+    title: "PlantCare: Scan Penyakit Daun",
+    description: "Klasifikasi 35 tipe penyakit tanaman secara akurat",
+    tech: ["CNN", "Keras", "Flask"],
+    category: "Computer Vision",
+    icon: Eye,
+    image: "/asset_proyek/plantdesease.png",
+    github: "https://github.com/erenmenn/ImageClassification-PlantCare",
+    bgGradient: "linear-gradient(135deg, #22c55e, #0d9488)",
+    fullDescription: "Sebuah program Computer Vision diagnostik andalan berbasis CNN Sequential. Platform PlantCare membantu petani mengatasi problematika identifikasi hama & defisiensi elemen pada 11 jenis spesies tumbuhan cukup dengan selembar foto dedaunan.",
+    problem: "Sebagian besar petani lokal kekurangan ahli botani profesional. Evaluasi tanaman visual berjam-jam memakan operasional, bahkan sering telat mendiagnosa penyakit merugikan.",
+    solution: "Men-deploy Deep Neural Network 5.3 juta parameter berlapis MaxPooling yang di-train menggunakan augmentasi PlantVillage. Petani difasilitasi return top-3 predictions bersama confidence rating tiap fotonya.",
+    skills: ["Convolutional Neural Networks", "Image Augmentation", "TensorFlow Backend", "Pillow (PIL)", "REST Architecture"],
+    highlights: ["Mencapai Precision > 94% secara stabil", "Model di-export portable dengan size cuma 5.3 MB", "Akomodasi 35 klasifikasi berbeda per sekali deteksi"],
+    dataset: "Kaggle: PlantVillage Dataset (35 kategori penyakit dari 11 jenis tanaman dengan rasio split 80:20).",
+  },
+  {
+    title: "Taylor Ophelia: Mass Sentiment",
+    description: "Membedah emosi belasan ribu komen via API Scraping",
+    tech: ["NLP", "SVM", "YouTube API"],
     category: "NLP",
     icon: MessageSquare,
     image: "/asset_proyek/sentimen.png",
-    github: "#",
+    github: "https://github.com/erenmenn/SentimenAnalisis-TaylorOphelia",
     bgGradient: "linear-gradient(135deg, #10b981, #047857)",
-    fullDescription: "An end-to-end analytical tool tailored to extract, process, and classify the sentiment of thousands of YouTube comments in real-time, helping creators understand audience reception instantly.",
-    problem: "Content creators and brands struggle to gauge authentic audience feedback hidden within thousands of noisy, unstructured YouTube comments.",
-    solution: "Built an automated extraction pipeline using YouTube APIs and applied deep learning models to predict comment sentiments (Positive, Neutral, Negative) accurately.",
-    skills: ["YouTube Data API", "Sentiment Classification", "Data Cleaning", "Text Preprocessing", "NLP Models"],
-    highlights: ["API-based real-time scraping", "Robust text normalization", "Interactive distribution dashboards"],
+    fullDescription: "Bot scraper automasi digabung NLP canggih yang berhasil menyedot & mensintesasi impresi terhadap sebuah Music Video secara kuantitatif. Menganalisis total kompilasi 15,000 baris komen youtube utuh menjadi sentimen terstruktur.",
+    problem: "Produksi jutaan komen fans setiap detik merupakan rahim analitik emas, tapi amat sangat noise untuk dipilah baca satu per satu demi mengetes rasio rating positif/negatif perilisan.",
+    solution: "Rancang bangun scraper dari public YouTube API -> Text Cleaning NLP -> Klasifikasi SVM dengan ekstraksi TF-IDF. Mampu menyaring komen berkelas, membantai performa Random Forest maupun representasi semantik Word2Vec.",
+    skills: ["YouTube Data API", "Word2Vec / TF-IDF", "Support Vector Machine", "Tqdm Scraper", "Seaborn Viz"],
+    highlights: ["TF-IDF merebut takhta juara akurasi (>91%)", "Koleksi auto 15rb komentar ter-scrap kilat", "Pengelompokan identitas komentar lokal vs global (langdetect)"],
+    dataset: "Live Scraping via YouTube Data API v3 (15.000 komentar mentah dari video Taylor Swift - The Fate of Ophelia).",
   },
   {
-    title: "CS Intent: Intelligent Support Routing",
-    description: "Intent classification engine for Customer Service chatbots",
-    tech: ["NLP", "Classification"],
+    title: "CS Intent: Intelligent Router",
+    description: "Benchmark Intent-Router bot pake 3 paradigma ML",
+    tech: ["DistilBERT", "BiLSTM", "Naive Bayes"],
     category: "NLP",
     icon: Wrench,
     image: "/asset_proyek/customerchatbot.png",
-    github: "#",
+    github: "https://github.com/erenmenn/IntentClass-CustomerServiceBOT",
     bgGradient: "linear-gradient(135deg, #6366f1, #312e81)",
-    fullDescription: "A machine learning pipeline designed to train and deploy highly accurate intent classification models, automatically interpreting user queries to route them inside a complex customer service environment.",
-    problem: "Standard rule-based chatbots frustrate users because they fail to understand the true intent behind varied, conversational customer inquiries.",
-    solution: "Trained advanced NLP classification algorithms on historical chat logs to accurately map diverse user expressions into clear, actionable intent categories.",
-    skills: ["Intent Classification", "Supervised Learning", "TF-IDF / Word2Vec", "Scikit-Learn", "Model Training"],
-    highlights: ["High precision routing", "Supports messy, unstructured text", "Scalable CS architecture"],
+    fullDescription: "Evaluator head-to-head terhadap Tiga Zaman AI—Classical ML (Naive Bayes), Deep Learning (BiLSTM), dan Transformer (DistilBERT)—untuk mencari the best architecture memecahkan pola 27 jenis komplain CS berbasis 21rb percakapan real.",
+    problem: "Chatbot pasaran yg serba rule-based langsung blank saat user komplain ngetik panjang dengan typo atau bahasa membingungkan, imbasnya kepuasan merugi & agen manusia tekor beban kerja.",
+    solution: "Mengekstrak model klasifikasi multi-kelas untuk mapping keluhan otomatis. Riset membuktikan gap Naive Bayes & BERT yg terpaut tipis 0.53% membawa revolusioner: 'Pilih Naive Bayes buat kecepatan Edge (2000x lebih cepat) & Bert utk komputasi awan kuat.'",
+    skills: ["Transformer Fine-Tuning", "TF-IDF + Multinomial", "BiLSTM Neural Network", "Intent Mapping", "Comparative ML"],
+    highlights: ["DistilBERT mencapai nilai absolut 99.8% Perfect", "Naive Bayes secepat kilat inference (0.001ms)", "Memiliki insight deployment paling aksi dan efisien"],
+    dataset: "Kaggle: Bitext Customer Support Dataset (21.534 utterance Bahasa Inggris dengan 27 label intent berbeda).",
   },
 ];
 
@@ -287,6 +297,16 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
             </div>
           </div>
 
+          {/* Dataset */}
+          {project.dataset && (
+            <div className="rounded-2xl p-5 bg-indigo-50 border border-indigo-100 border-l-4" style={{ borderLeftColor: "#6366f1" }}>
+              <div className="flex items-center gap-2 text-indigo-600 font-pixel text-[9px] mb-2">
+                <Brain className="w-4 h-4" /> DATASET SOURCE
+              </div>
+              <p className="text-sm text-slate-700 leading-relaxed font-medium">{project.dataset}</p>
+            </div>
+          )}
+
           {/* Tech Stack */}
           <div>
             <div className="flex items-center gap-2 text-slate-400 font-pixel text-[9px] mb-3">
@@ -306,12 +326,18 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
             <div className="flex items-center gap-2 text-slate-400 font-pixel text-[9px] mb-3">
               <Target className="w-4 h-4" /> KEY HIGHLIGHTS
             </div>
-            <div className="grid md:grid-cols-3 gap-3">
-              {project.highlights.map((h) => (
-                <div key={h} className="flex items-center gap-2 p-3 rounded-xl bg-slate-50 border border-slate-100">
-                  <Star className="w-4 h-4 text-amber-400 fill-amber-400 shrink-0" />
-                  <span className="text-xs text-slate-700 font-medium">{h}</span>
-                </div>
+            <div className="grid md:grid-cols-1 gap-3">
+              {project.highlights.map((h, idx) => (
+                <motion.div 
+                  key={idx} 
+                  whileHover={{ scale: 1.01, x: 4 }}
+                  className="flex items-start gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all cursor-default group"
+                >
+                  <div className="flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-amber-50 text-amber-500 group-hover:bg-amber-400 group-hover:text-white transition-colors">
+                    <Star className="w-4 h-4" />
+                  </div>
+                  <p className="text-sm text-slate-700 font-semibold leading-relaxed pt-1">{h}</p>
+                </motion.div>
               ))}
             </div>
           </div>

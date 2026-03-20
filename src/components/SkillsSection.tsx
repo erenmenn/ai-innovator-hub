@@ -52,48 +52,39 @@ const hardSkillCategories = [
 // ── Soft Skills with expandable experience detail ─────────────────────────────
 const softSkills = [
   {
-    icon: Lightbulb, name: "Innovative Thinking", emoji: "💡", color: "#f59e0b",
-    tagline: "Turning ideas into tangible solutions",
+    icon: Crown, name: "Gaya Kepemimpinan", emoji: "👑", color: "#ec4899",
+    tagline: "Partisipatif, tegas, dan hadir sebagai penggerak tim",
     experience: [
-      "Conceptualized WangkuAI — an LLM-powered financial chatbot — from scratch, designing both the NLP pipeline and product experience.",
-      "Proposed the semantic chunking strategy for FirstAid.ID that dramatically improved retrieval accuracy for emergency medical queries.",
-      "Known for reframing problems creatively, often finding non-obvious approaches that reduce complexity by half.",
+      "Bukan sekadar tentang posisi, melainkan kesadaran untuk hadir membaca situasi, menggerakkan tim, dan memastikan setiap suara didengar tanpa kehilangan arah tujuan.",
+      "Menerapkan Adaptive Participative Leadership — tahu kapan harus melibatkan tim dalam diskusi dan kapan harus bergerak mandiri secara efisien.",
+      "Berperan sebagai jembatan pembagi tugas berdasarkan kekuatan masing-masing kala tim menghadapi kebuntuan. Kepemimpinan adalah tentang konsistensi dampak nyata."
+    ],
+  },
+  {
+    icon: Lightbulb, name: "Inovasi & Kreativitas", emoji: "💡", color: "#f59e0b",
+    tagline: "Berani mempertanyakan dan tidak puas dengan yang biasa",
+    experience: [
+      "Melihat apa yang dilewatkan orang lain dan terus terdorong untuk mencari pendekatan yang lebih cerdas, efisien, serta berdampak.",
+      "Kreativitas bukan tujuan melainkan alat. Setiap inovasi berawal dari pertanyaan fundamental: 'Apakah sistem ini benar-benar menjawab masalahnya?'",
+      "Tidak takut mencoba jalan yang belum lazim dari nol. Ide terbaik seringkali lahir dari keberanian mempertanyakan hal yang sudah dianggap pakem."
     ],
   },
   {
     icon: Zap, name: "Problem Solving", emoji: "⚡", color: "#3b82f6",
-    tagline: "Breaking ambiguity into clear action steps",
+    tagline: "Wondering by default: Menelusuri masalah hingga ke akar",
     experience: [
-      "Debugged and resolved multi-layer data pipeline failures in sentiment analysis projects under tight deadlines.",
-      "Resolved cold-start problems in the MovieRec system by combining content metadata with collaborative signals.",
-      "Consistently decomposes complex challenges into manageable sprints with defined success metrics.",
+      "Selalu mencari pertanyaan yang tepat sebelum menjawab: tidak mudah menerima asumsi sebelum menelusuri sumber masalah sesungguhnya.",
+      "Terbiasa bertanya 'mengapa' sebelum 'bagaimana' dengan pemikiran yang terbuka, memastikan pendekatan tidak hanya mengobati gejala.",
+      "Memecah masalah menjadi kepingan yang logis lalu merangkainya kembali menjadi solusi utuh. Solusi terbaik adalah buah dari pemahaman terdalam."
     ],
   },
   {
-    icon: Crown, name: "Leadership", emoji: "👑", color: "#ec4899",
-    tagline: "Guiding teams to impactful outcomes",
+    icon: Users, name: "Kolaborasi & Komunikasi", emoji: "🤝", color: "#10b981",
+    tagline: "Membangun kepercayaan sebelum membangun output",
     experience: [
-      "Led a cross-functional team to deliver a web-based AI dashboard from ideation to deployment within 3 weeks.",
-      "Mentored peers on NLP fundamentals, facilitated weekly knowledge-sharing sessions for junior team members.",
-      "Drove alignment between technical and non-technical stakeholders by translating ML outputs into business insights.",
-    ],
-  },
-  {
-    icon: MessageSquare, name: "Communication", emoji: "💬", color: "#10b981",
-    tagline: "Translating complex ideas into clear narratives",
-    experience: [
-      "Presented AI product demos and research findings to non-technical audiences at academic & industry events.",
-      "Documented all ML experiments with clear methodology write-ups, enabling team replication and peer review.",
-      "Crafted compelling pitch decks and project proposals that secured stakeholder buy-in for AI initiatives.",
-    ],
-  },
-  {
-    icon: Users, name: "Collaboration", emoji: "🤝", color: "#8b5cf6",
-    tagline: "Thriving in cross-functional environments",
-    experience: [
-      "Collaborated with designers, backend developers, and product managers across multiple end-to-end AI projects.",
-      "Contributed to open-source discussions and actively participated in team code reviews and sprint planning.",
-      "Consistently praised for being a reliable, communicative, and delivering-first team member.",
+      "Tim solid lahir dari rasa saling percaya. Hadir dan berperan memastikan aliran komunikasi memadai dan semua peran terbagi secara adil.",
+      "Terbiasa berkomunikasi elegan lintas hierarki (melakukan lobi ide dengan guru/dosen secara profesional) untuk melahirkan keputusan partisipatif bersama.",
+      "Melatih intuisi untuk membaca konteks & memilih perlakuan pendekatan, membuat ide yang diajukan tidak cuma didengar, tapi senantiasa diyakini & diterima."
     ],
   },
 ];
@@ -149,7 +140,7 @@ const SkillsSection = () => {
             My{" "}
             <span className="text-transparent bg-clip-text italic pr-2"
               style={{ backgroundImage: `linear-gradient(120deg, ${cat.gradFrom}, ${cat.gradTo})` }}>
-              Toolkit
+              Playground
             </span>
           </h2>
           <p className="text-muted-foreground mt-3 text-sm">Hard skills · Soft skills · Click to explore experience</p>

@@ -4,10 +4,10 @@ import { Mail, Linkedin, Github, Send, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 
 const socials = [
-  { icon: Mail, label: "Email", value: "emirune2@com", href: "mailto:emirune2@com", color: "from-rose-400 to-pink-600" },
-  { icon: MessageCircle, label: "WhatsApp", value: "0859-5415-1718", href: "https://wa.me/6285954151718", color: "from-green-400 to-emerald-600" },
-  { icon: Linkedin, label: "LinkedIn", value: "emirsyah-rafsanjani", href: "https://www.linkedin.com/in/emirsyah-rafsanjani-bab663371/", color: "from-blue-400 to-cyan-600" },
-  { icon: Github, label: "GitHub", value: "erenmenn", href: "https://github.com/erenmenn", color: "from-violet-500 to-purple-600" },
+  { icon: Mail, label: "Email", value: "emirune2@com", href: "mailto:emirune2@com", bgGrad: "linear-gradient(135deg, #fb7185, #e11d48)" },
+  { icon: MessageCircle, label: "WhatsApp", value: "0859-5415-1718", href: "https://wa.me/6285954151718", bgGrad: "linear-gradient(135deg, #4ade80, #059669)" },
+  { icon: Linkedin, label: "LinkedIn", value: "emirsyah-rafsanjani", href: "https://www.linkedin.com/in/emirsyah-rafsanjani-bab663371/", bgGrad: "linear-gradient(135deg, #60a5fa, #0891b2)" },
+  { icon: Github, label: "GitHub", value: "erenmenn", href: "https://github.com/erenmenn", bgGrad: "linear-gradient(135deg, #8b5cf6, #9333ea)" },
 ];
 
 const ContactSection = () => {
@@ -78,8 +78,11 @@ const ContactSection = () => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 p-4 rounded-xl glass-card hover:border-primary/30 transition-all group hover:-translate-y-1"
                 >
-                  <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg`}>
-                    <item.icon className="w-5 h-5 text-primary-foreground" />
+                  <div 
+                    className="w-10 h-10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg"
+                    style={{ background: item.bgGrad }}
+                  >
+                    <item.icon className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">{item.label}</p>

@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# User specifics to ignore
+Emirsyah_Rafsanjani_CV.pdf
+ringkasan_9proyek.docx
+web design/
+asset_proyek/
+art/
