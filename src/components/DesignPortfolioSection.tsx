@@ -95,76 +95,138 @@ const designWorks: DesignWork[] = [
   },
 ];
 
-// ── Modal ─────────────────────────────────────────────────────────────────────
+// ── Elegant Modal with Dynamic Background & Fullscreen Zoom ────────────────────────
 const DesignModal = ({ work, onClose }: { work: DesignWork; onClose: () => void }) => {
   const [idx, setIdx] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  
   const prev = (e: React.MouseEvent) => { e.stopPropagation(); setIdx((p) => (p - 1 + work.images.length) % work.images.length); };
   const next = (e: React.MouseEvent) => { e.stopPropagation(); setIdx((p) => (p + 1) % work.images.length); };
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[300] flex items-center justify-center p-4" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-xl" />
-      <motion.div
-        initial={{ scale: 0.88, y: 36, opacity: 0 }}
-        animate={{ scale: 1, y: 0, opacity: 1 }}
-        exit={{ scale: 0.88, y: 36, opacity: 0 }}
-        transition={{ type: "spring", bounce: 0.28, duration: 0.5 }}
-        onClick={(e) => e.stopPropagation()}
-        className="relative bg-white rounded-3xl overflow-hidden shadow-2xl w-full max-w-2xl"
-        style={{ border: `3px solid ${work.accent}20` }}
+    <>
+      <motion.div 
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[500] flex items-center justify-center p-4 md:p-8" 
+        onClick={onClose}
       >
-        <div className="flex items-center justify-between px-7 py-4 text-white"
-          style={{ background: `linear-gradient(135deg, ${work.gradFrom}, ${work.gradTo})` }}>
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">{work.sticker}</span>
-            <span className="font-pixel text-[10px] tracking-widest uppercase">{work.badge}</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="text-[10px] font-pixel opacity-70">{idx + 1} / {work.images.length}</span>
-            <button onClick={onClose} className="w-8 h-8 rounded-full bg-white/20 border border-white/40 flex items-center justify-center hover:bg-white/30 transition-colors">
-              <X className="w-4 h-4" />
+        <div className="absolute inset-0 bg-white/90 backdrop-blur-3xl" />
+        
+        {/* Static Background Glow (No animation for performance) */}
+        <div 
+          className="absolute w-full h-full rounded-full blur-[180px] pointer-events-none opacity-20"
+          style={{ backgroundColor: work.accent }}
+        />
+
+        <motion.div
+          initial={{ scale: 0.9, y: 20, opacity: 0 }}
+          animate={{ scale: 1, y: 0, opacity: 1 }}
+          exit={{ scale: 0.9, y: 20, opacity: 0 }}
+          transition={{ type: "spring", damping: 30, stiffness: 300 }}
+          onClick={(e) => e.stopPropagation()}
+          className="relative w-full max-w-5xl bg-white rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] border-4 border-white flex flex-col overflow-hidden max-h-[90vh] z-10"
+        >
+          {/* Header Strip */}
+          <div className="flex items-center justify-between px-8 py-5 border-b border-slate-50">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-white text-2xl"
+                style={{ background: `linear-gradient(135deg, ${work.gradFrom}, ${work.gradTo})` }}>
+                <work.icon className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-black text-slate-800 text-lg leading-tight">{work.title}</h3>
+                <p className="text-[10px] font-pixel text-slate-400 uppercase tracking-widest mt-1">
+                  {idx + 1} of {work.images.length} • {work.badge}
+                </p>
+              </div>
+            </div>
+            <button onClick={onClose} className="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-slate-100 transition-colors">
+              <X className="w-6 h-6" />
             </button>
           </div>
-        </div>
-        <div className="relative h-72 md:h-96 bg-slate-50 group overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.img key={idx} src={work.images[idx]} alt={`slide ${idx + 1}`}
-              initial={{ x: 60, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -60, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className={`absolute inset-0 w-full h-full ${work.imageFit === "cover" ? "object-cover" : "object-contain p-6"}`} />
-          </AnimatePresence>
-          <button onClick={prev} className="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white border-2 border-slate-200 shadow-md flex items-center justify-center hover:scale-110 transition-all opacity-0 group-hover:opacity-100">
-            <ChevronLeft className="w-5 h-5 text-slate-700" />
-          </button>
-          <button onClick={next} className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white border-2 border-slate-200 shadow-md flex items-center justify-center hover:scale-110 transition-all opacity-0 group-hover:opacity-100">
-            <ChevronRight className="w-5 h-5 text-slate-700" />
-          </button>
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            {work.images.map((_, i) => (
-              <button key={i} onClick={(e) => { e.stopPropagation(); setIdx(i); }}
-                className="w-2.5 h-2.5 rounded-full border-2 border-white transition-all"
-                style={{ background: i === idx ? work.accent : "rgba(255,255,255,0.4)" }} />
-            ))}
+
+          {/* Fixed Height Image Display — NO SCROLL */}
+          <div className="relative flex-1 min-h-[350px] md:min-h-[450px] bg-slate-50/50 group flex items-center justify-center overflow-hidden">
+             <div className="w-full h-full flex items-center justify-center p-4 md:p-10 pointer-events-none">
+               <AnimatePresence mode="wait">
+                 <div
+                   key={idx}
+                   className="relative w-full h-full pointer-events-auto cursor-zoom-in"
+                   onClick={() => setIsFullscreen(true)}
+                 >
+                   <img 
+                     src={work.images[idx]} 
+                     alt="" 
+                     className="max-w-full max-h-full w-auto h-auto object-contain mx-auto drop-shadow-2xl"
+                   />
+                   {/* Hint for fullscreen */}
+                   <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                     <div className="bg-black/60 backdrop-blur-md text-white px-5 py-2.5 rounded-2xl text-[10px] font-pixel uppercase tracking-widest flex items-center gap-2">
+                       < ImageIcon className="w-4 h-4" /> Click to Zoom
+                     </div>
+                   </div>
+                 </div>
+               </AnimatePresence>
+             </div>
+
+             {/* Nav Arrows */}
+             <button onClick={prev} className="absolute left-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/90 backdrop-blur shadow-xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all border border-slate-100 z-20">
+               <ChevronLeft className="w-8 h-8 text-slate-800" />
+             </button>
+             <button onClick={next} className="absolute right-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/90 backdrop-blur shadow-xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all border border-slate-100 z-20">
+               <ChevronRight className="w-8 h-8 text-slate-800" />
+             </button>
           </div>
-        </div>
-        <div className="p-7 space-y-4">
-          <div>
-            <h3 className="font-black text-xl text-slate-800">{work.title}</h3>
-            <p className="text-[10px] font-pixel text-slate-400 uppercase tracking-widest mt-0.5">{work.subtitle}</p>
+
+          {/* Footer Info & Progress */}
+          <div className="px-8 py-6 bg-white border-t border-slate-50 flex flex-col md:flex-row gap-6 items-center">
+             <div className="flex-1 text-center md:text-left">
+               <p className="text-slate-600 text-sm md:text-base font-medium leading-relaxed max-w-2xl line-clamp-2 md:line-clamp-none">
+                 {work.description}
+               </p>
+             </div>
+             <div className="flex gap-2">
+               {work.images.map((_, i) => (
+                 <button key={i} onClick={(e) => { e.stopPropagation(); setIdx(i); }}
+                   className="transition-all duration-300 rounded-full h-1.5"
+                   style={{ 
+                     width: i === idx ? 24 : 6, 
+                     backgroundColor: i === idx ? work.accent : "rgba(0,0,0,0.1)" 
+                   }} />
+               ))}
+             </div>
           </div>
-          <p className="text-slate-600 text-sm leading-relaxed">{work.description}</p>
-          <div className="flex flex-wrap gap-2 pt-1">
-            {work.tags.map((tag) => (
-              <span key={tag} className="text-[9px] font-pixel px-3 py-1.5 rounded-xl text-white tracking-widest"
-                style={{ background: `linear-gradient(135deg, ${work.gradFrom}, ${work.gradTo})` }}>
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
+        </motion.div>
       </motion.div>
-    </motion.div>
+
+      {/* Fullscreen High-Fidelity Overlay */}
+      <AnimatePresence>
+        {isFullscreen && (
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[600] bg-black/95 flex items-center justify-center p-4 cursor-zoom-out"
+            onClick={() => setIsFullscreen(false)}
+          >
+            <motion.button 
+              className="absolute top-8 right-8 w-14 h-14 rounded-2xl bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-all"
+              onClick={() => setIsFullscreen(false)}
+            >
+              <X className="w-8 h-8" />
+            </motion.button>
+            <motion.img 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              src={work.images[idx]} 
+              className="max-w-full max-h-full object-contain shadow-2xl" 
+            />
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 font-pixel text-[10px] tracking-widest uppercase">
+              Original View • {idx + 1} / {work.images.length}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
@@ -174,20 +236,17 @@ const DesignPortfolioSection = () => {
 
   return (
     <section id="design" className="py-28 relative overflow-hidden pixel-grid">
-      {/* Ambient blobs */}
+      {/* Ambient blobs (Static for performance) */}
       <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="absolute top-[10%] left-[-5%] w-[400px] h-[400px] rounded-full blur-[120px] bg-indigo-300/12 animate-pulse" />
-        <div className="absolute bottom-[5%] right-[-8%] w-[450px] h-[450px] rounded-full blur-[130px] bg-rose-300/10" />
-        {/* Floating cute stickers */}
-        <motion.img src="/asset/love.png" alt="" aria-hidden
-          animate={{ y: [0, -12, 0], rotate: [-5, 5, -5] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-28 right-[14%] w-11 h-11 opacity-30 select-none pointer-events-none drop-shadow-lg" />
-        <motion.img src="/asset/sparkle.png" alt="" aria-hidden
-          animate={{ rotate: [0, 360] }} transition={{ duration: 13, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-32 left-[8%] w-10 h-10 opacity-25 select-none pointer-events-none drop-shadow-lg" />
-        <motion.img src="/asset/bintang.png" alt="" aria-hidden
-          animate={{ y: [0, 14, 0], scale: [1, 1.15, 1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute top-1/2 right-[5%] w-8 h-8 opacity-20 select-none pointer-events-none drop-shadow-lg" />
+        <div className="absolute top-[10%] left-[-5%] w-[400px] h-[400px] rounded-full blur-[120px] bg-indigo-300/10" />
+        <div className="absolute bottom-[5%] right-[-8%] w-[450px] h-[450px] rounded-full blur-[130px] bg-rose-300/08" />
+        {/* Static cute stickers */}
+        <img src="/asset/love.png" alt="" aria-hidden
+          className="absolute top-28 right-[14%] w-11 h-11 opacity-20 select-none pointer-events-none drop-shadow-lg" />
+        <img src="/asset/sparkle.png" alt="" aria-hidden
+          className="absolute bottom-32 left-[8%] w-10 h-10 opacity-15 select-none pointer-events-none drop-shadow-lg" />
+        <img src="/asset/bintang.png" alt="" aria-hidden
+          className="absolute top-1/2 right-[5%] w-8 h-8 opacity-15 select-none pointer-events-none drop-shadow-lg" />
       </div>
 
       <div className="container mx-auto px-6 relative">
@@ -217,8 +276,8 @@ const DesignPortfolioSection = () => {
           {designWorks.map((work, i) => (
             <motion.div
               key={work.title}
-              initial={{ opacity: 0, y: 40, rotate: i === 1 ? 0 : i === 0 ? -1 : 1 }}
-              whileInView={{ opacity: 1, y: 0, rotate: i === 1 ? 0 : i === 0 ? -1 : 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               onClick={() => setSelected(work)}
