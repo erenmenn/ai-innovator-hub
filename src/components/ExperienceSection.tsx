@@ -4,6 +4,23 @@ import { Calendar, MapPin } from "lucide-react";
 
 const experiences = [
   {
+    id: "ai-engineer-path",
+    company: "Dicoding Academy",
+    role: "AI Engineer Path Graduate",
+    date: "Selesai",
+    location: "Online",
+    image: "/asset/exp_ai.png",
+    color: "#0ea5e9",
+    gradFrom: "#0ea5e9",
+    gradTo: "#3b82f6",
+    description: [
+      "Memulai perjalanan dari dasar Python hingga pengenalan library tools esensial untuk pengembangan Machine Learning dan AI.",
+      "Mengeksplorasi berbagai domain AI tingkat lanjut seperti NLP, Recommendation System, Time Series Forecasting, hingga Image Classification.",
+      "Menghadapi tantangan penggunaan tools Deep Learning baru, membangun custom layer untuk model Time Series, dan menulis laporan ilmiah komprehensif dari hasil proyek.",
+      "Berhasil menyelesaikan seluruh rangkaian pelatihan dan meraih sertifikasi kompetensi untuk Machine Learning Terapan serta Deep Learning Mahir."
+    ],
+  },
+  {
     id: "notion-productivity",
     company: "Personal Productivity",
     role: "Notion Architect & Time Planner",
