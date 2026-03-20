@@ -53,6 +53,7 @@ const hardSkillCategories = [
 const softSkills = [
   {
     icon: Crown, name: "Gaya Kepemimpinan", emoji: "👑", color: "#ec4899",
+    bgGrad: "linear-gradient(135deg, #ec4899 0%, #a855f7 100%)",
     tagline: "Partisipatif, tegas, dan hadir sebagai penggerak tim",
     experience: [
       "Bukan sekadar tentang posisi, melainkan kesadaran untuk hadir membaca situasi, menggerakkan tim, dan memastikan setiap suara didengar tanpa kehilangan arah tujuan.",
@@ -62,6 +63,7 @@ const softSkills = [
   },
   {
     icon: Lightbulb, name: "Inovasi & Kreativitas", emoji: "💡", color: "#f59e0b",
+    bgGrad: "linear-gradient(135deg, #f97316 0%, #eab308 100%)",
     tagline: "Berani mempertanyakan dan tidak puas dengan yang biasa",
     experience: [
       "Melihat apa yang dilewatkan orang lain dan terus terdorong untuk mencari pendekatan yang lebih cerdas, efisien, serta berdampak.",
@@ -71,6 +73,7 @@ const softSkills = [
   },
   {
     icon: Zap, name: "Problem Solving", emoji: "⚡", color: "#3b82f6",
+    bgGrad: "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
     tagline: "Wondering by default: Menelusuri masalah hingga ke akar",
     experience: [
       "Selalu mencari pertanyaan yang tepat sebelum menjawab: tidak mudah menerima asumsi sebelum menelusuri sumber masalah sesungguhnya.",
@@ -80,6 +83,7 @@ const softSkills = [
   },
   {
     icon: Users, name: "Kolaborasi & Komunikasi", emoji: "🤝", color: "#10b981",
+    bgGrad: "linear-gradient(135deg, #10b981 0%, #14b8a6 100%)",
     tagline: "Membangun kepercayaan sebelum membangun output",
     experience: [
       "Tim solid lahir dari rasa saling percaya. Hadir dan berperan memastikan aliran komunikasi memadai dan semua peran terbagi secara adil.",
@@ -308,50 +312,48 @@ const SkillsSection = () => {
                   const isOpen = openSoft === i;
                   return (
                     <div key={skill.name}>
-                      {/* Shelf row — cute pill style for unclicked state */}
+                      {/* Shelf row — Thick Solid Gradient Button! */}
                       <button
                         onClick={() => setOpenSoft(isOpen ? null : i)}
                         className="relative w-full flex items-center gap-4 p-3.5 rounded-2xl text-left group overflow-hidden transition-all duration-300"
                         style={{
-                          background: isOpen
-                            ? `linear-gradient(135deg, ${skill.color}25, ${skill.color}10)`
-                            : `${skill.color}15`, // Bold pastel tint when idle!
-                          border: isOpen ? `2px solid ${skill.color}60` : `2px solid ${skill.color}30`,
-                          boxShadow: isOpen ? `0 6px 20px ${skill.color}20` : "none"
+                          background: skill.bgGrad, 
+                          border: `2px solid ${skill.color}`,
+                          boxShadow: isOpen ? `0 8px 25px ${skill.color}60` : `0 4px 12px ${skill.color}40`,
                         }}
                       >
-                        {/* Icon Bubble - gradient solid just like left side */}
+                        {/* Icon Bubble - Glassy white over the thick gradient background */}
                         <div
-                          className="w-12 h-12 rounded-[1rem] flex items-center justify-center text-white shrink-0 transition-all duration-300 shadow-md"
+                          className="w-12 h-12 rounded-[1rem] flex items-center justify-center text-white shrink-0 transition-all duration-300 shadow-sm"
                           style={{
-                            background: `linear-gradient(135deg, ${skill.color}, ${skill.color}aa)`,
-                            boxShadow: isOpen ? `0 6px 16px ${skill.color}50` : `0 2px 8px ${skill.color}40`,
+                            background: "rgba(255, 255, 255, 0.2)",
+                            backdropFilter: "blur(4px)"
                           }}
                         >
-                          <skill.icon className="w-5 h-5" />
+                          <skill.icon className="w-5 h-5 drop-shadow-sm" />
                         </div>
 
                         {/* Name + tagline */}
                         <div className="flex-1 min-w-0 ml-1.5">
-                          <p className="font-bold text-slate-800 text-[15px] leading-tight transition-colors duration-300">
+                          <p className="font-extrabold text-white text-[15px] leading-tight transition-colors duration-300 drop-shadow-md">
                             {skill.name}
                           </p>
-                          <p className="text-[11px] font-medium leading-snug mt-1 truncate transition-colors duration-300"
-                            style={{ color: isOpen ? `${skill.color}dd` : `${skill.color}bb` }}>
+                          <p className="text-[11px] font-medium leading-snug mt-1 truncate transition-colors duration-300 text-white/95">
                             {skill.tagline}
                           </p>
                         </div>
 
                         {/* Chevron dot */}
                         <div
-                          className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 bg-white"
+                          className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
                           style={{
-                            border: `1.5px solid ${skill.color}40`,
+                            background: "rgba(255, 255, 255, 0.25)",
+                            backdropFilter: "blur(4px)",
                             transform: `rotate(${isOpen ? "180deg" : "0deg"})`,
-                            boxShadow: isOpen ? `0 2px 8px ${skill.color}30` : "none"
+                            boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
                           }}
                         >
-                          <ChevronDown className="w-4 h-4 transition-colors duration-300" style={{ color: skill.color }} />
+                          <ChevronDown className="w-4 h-4 text-white drop-shadow-sm transition-colors duration-300" />
                         </div>
                       </button>
 
