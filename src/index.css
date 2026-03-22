@@ -144,15 +144,20 @@
   }
 
   .pixel-grid {
-    background-size: 4px 4px;
-    background-image: radial-gradient(circle, hsl(var(--foreground) / 0.05) 1px, transparent 0);
+    background-size: 80px 80px;
+    background-image: 
+      linear-gradient(to right, hsl(var(--foreground) / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--foreground) / 0.05) 1px, transparent 1px);
+    background-color: transparent;
+    background-position: center;
   }
 
   .smoke-glow {
-    filter: blur(60px);
-    border-radius: 100%;
-    mix-blend-mode: screen;
-    opacity: 0.6;
+    filter: blur(80px);
+    border-radius: 50%;
+    opacity: 0.25;
+    pointer-events: none;
+    will-change: transform, opacity;
   }
 
   .floating {

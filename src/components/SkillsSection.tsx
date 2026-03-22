@@ -110,18 +110,18 @@ const SkillsSection = () => {
   return (
     <section id="skills" className="py-32 relative overflow-hidden pixel-grid">
 
-      {/* Ambient smoke — dikurangi banget */}
+      {/* Ambient smoke — dikurangi banget (ANIMASI DIMATIKAN UNTUK ANTI LAG) */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <motion.div
           key={cat.id + "-s1"}
-          animate={{ x: [0, 30, -20, 0], y: [0, -20, 25, 0] }}
+          animate={{ opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
           className={`absolute top-[8%] right-[6%] w-[420px] h-[420px] rounded-full blur-[140px] ${cat.smokeColor}`}
         />
         <motion.div
-          animate={{ x: [0, -25, 30, 0], y: [0, 30, -20, 0] }}
+          animate={{ opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          className="absolute bottom-[8%] left-[4%] w-[380px] h-[380px] rounded-full blur-[140px] bg-slate-300/5"
+          className="absolute bottom-[8%] left-[4%] w-[380px] h-[380px] rounded-full blur-[140px] bg-slate-400/10"
         />
       </div>
 
@@ -181,35 +181,31 @@ const SkillsSection = () => {
 
             {/* Cards grid */}
             <div className="relative">
-              {/* Orbiting stickers — blur dan opacity dikurangi */}
-              <motion.div className="absolute -top-6 -right-5 z-30 pointer-events-none"
-                animate={{ y: [0, -10, 0], rotate: [-6, 8, -6] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}>
+              {/* Orbiting stickers — ANIMASI BLUR DIMATIKAN AGAR TIDAK LAG */}
+              <div className="absolute -top-6 -right-5 z-30 pointer-events-none">
                 <div className="relative">
-                  <div className="absolute inset-0 rounded-full blur-2xl opacity-20" style={{ backgroundColor: cat.gradFrom, transform: "scale(0.8)" }} />
+                  <div className="absolute inset-0 rounded-full blur-2xl opacity-15" style={{ backgroundColor: cat.gradFrom, transform: "scale(0.8)" }} />
                   <img src="/asset/rocket.png" alt="" width={52} height={52} className="relative z-10 drop-shadow-sm" />
                 </div>
-              </motion.div>
-              <motion.div className="absolute -top-4 -left-6 z-30 pointer-events-none"
-                animate={{ rotate: [0, 20, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}>
+              </div>
+              <div className="absolute -top-4 -left-6 z-30 pointer-events-none">
                 <div className="relative">
-                  <div className="absolute inset-0 rounded-full blur-2xl opacity-20" style={{ backgroundColor: "#fcd34d", transform: "scale(0.8)" }} />
+                  <div className="absolute inset-0 rounded-full blur-2xl opacity-15" style={{ backgroundColor: "#fcd34d", transform: "scale(0.8)" }} />
                   <img src="/asset/sparkle.png" alt="" width={40} height={40} className="relative z-10 drop-shadow-sm" />
                 </div>
-              </motion.div>
-              <motion.div className="absolute -bottom-6 -left-4 z-30 pointer-events-none"
-                animate={{ y: [0, 10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}>
+              </div>
+              <div className="absolute -bottom-6 -left-4 z-30 pointer-events-none">
                 <div className="relative">
-                  <div className="absolute inset-0 rounded-full blur-2xl opacity-20" style={{ backgroundColor: cat.gradTo, transform: "scale(0.7)" }} />
+                  <div className="absolute inset-0 rounded-full blur-2xl opacity-15" style={{ backgroundColor: cat.gradTo, transform: "scale(0.7)" }} />
                   <img src="/asset/api.png" alt="" width={80} height={80} className="relative z-10" />
                 </div>
-              </motion.div>
-              <motion.div className="absolute -bottom-4 -right-3 z-30 pointer-events-none"
-                animate={{ rotate: [-10, 10, -10] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}>
+              </div>
+              <div className="absolute -bottom-4 -right-3 z-30 pointer-events-none">
                 <div className="relative">
-                  <div className="absolute inset-0 rounded-full blur-2xl opacity-20" style={{ backgroundColor: "#818cf8", transform: "scale(0.7)" }} />
+                  <div className="absolute inset-0 rounded-full blur-2xl opacity-15" style={{ backgroundColor: "#818cf8", transform: "scale(0.7)" }} />
                   <img src="/asset/bintang.png" alt="" width={44} height={44} className="relative z-10 drop-shadow-sm" />
                 </div>
-              </motion.div>
+              </div>
 
               <AnimatePresence mode="wait">
                 <motion.div key={cat.id}

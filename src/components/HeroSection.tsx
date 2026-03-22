@@ -46,17 +46,17 @@ const HeroSection = () => {
       {/* ── Mystical AI Smoke / Glow Clouds ── */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <motion.div
-           animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.5, 0.3], x: [0, 80, 0] }}
+           animate={{ opacity: [0.2, 0.4, 0.2] }}
            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
            className="absolute top-[10%] left-[15%] w-[600px] h-[600px] smoke-glow bg-purple-500/30 blur-[100px]"
         />
         <motion.div
-           animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2], x: [0, -70, 0] }}
+           animate={{ opacity: [0.15, 0.3, 0.15] }}
            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
            className="absolute bottom-[20%] right-[10%] w-[700px] h-[700px] smoke-glow bg-blue-500/20 blur-[100px]"
         />
         <motion.div
-           animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.4, 0.2] }}
+           animate={{ opacity: [0.15, 0.3, 0.15] }}
            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
            className="absolute top-[30%] right-[20%] w-[450px] h-[450px] smoke-glow bg-pink-500/15 blur-[90px]"
         />
@@ -196,7 +196,7 @@ const HeroSection = () => {
               
               {/* Profile Glow Area */}
               <motion.div
-                animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.7, 0.5] }}
+                animate={{ opacity: [0.4, 0.6, 0.4] }}
                 transition={{ duration: 6, repeat: Infinity }}
                 className="absolute inset-x-0 top-20 mx-auto rounded-full blur-[100px] pointer-events-none"
                 style={{
