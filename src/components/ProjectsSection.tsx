@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ExternalLink, Brain, Eye, Film, BarChart3, X, Target, Wrench,
   Star, MessageSquare, ChevronLeft, ChevronRight, Gamepad2,
-  ScrollText, Swords, Shield
+  ScrollText, Swords, Shield, Calendar, Layers, Crown, Sparkles, Database, Code2, CheckCircle2, Github
 } from "lucide-react";
 
 type Category = "All" | "Professional" | "NLP" | "Computer Vision" | "Recommendation" | "Prediction" | "Time Series";
@@ -16,6 +16,7 @@ interface Project {
   subcategory?: string;
   icon: typeof Brain;
   image: string;
+  images?: string[];   // optional multi-photo carousel
   github: string;
   bgGradient: string;
   fullDescription: string;
@@ -27,6 +28,28 @@ interface Project {
 }
 
 const projects: Project[] = [
+  {
+    title: "Sisibuk AI: Asisten Jadwal Cerdas",
+    description: "Asisten manajemen jadwal bertenaga Groq AI (LLaMA 3.3)",
+    tech: ["Next.js", "Groq AI", "Supabase"],
+    category: "Professional",
+    subcategory: "LLM",
+    icon: Calendar,
+    image: "/asset_proyek/sisibuk/image1.png",
+    images: [
+      "/asset_proyek/sisibuk/image1.png",
+      "/asset_proyek/sisibuk/image2.png",
+      "/asset_proyek/sisibuk/image3.png",
+    ],
+    github: "https://github.com/erenmenn/Sisibuk-AI-PenjadwalanOtomatis",
+    bgGradient: "linear-gradient(135deg, #f43f5e, #be123c)",
+    fullDescription: "Sisibuk AI adalah asisten manajemen produktivitas berbasis percakapan yang menggabungkan natural language input, gamifikasi, dan sistem klasifikasi cerdas. Dibangun di atas Next.js 15 (App Router) dengan pemrosesan inferensi berkecepatan tinggi Groq (LLaMA 3.3 70B).",
+    problem: "Mahasiswa sering lupa deadline akibat jadwal berserakan, kelelahan setup database manual (Notion Fatigue), dan tidak menyadari adanya jadwal yang saling tumpang tindih.",
+    solution: "Cukup ketik dengan bahasa alami (misal: 'tanggal 2 april ada submit proposal'), AI akan secara otomatis mengenali Intent, mendeteksi konflik waktu, membuat reverse planner, & menyusun notifikasi pintar (Email/Push).",
+    skills: ["Groq API (LLaMA 3.3)", "Next.js 15", "Supabase", "Zustand", "TailwindCSS v4"],
+    highlights: ["Sistem Klasifikasi Intent via chip LPU Groq (< 1 detik)", "Conflict Checker & Reverse Study Planner Pintar", "Gamifikasi Produktivitas (XP, Level & Badge)", "Otomasi System Notifikasi (Email & Push)"],
+    dataset: "Logika Deterministik AI terintegrasi dengan Relational Database via Supabase.",
+  },
   {
     title: "WangkuAI: Asisten Keuangan Pintar",
     description: "Finance tracker dengan NLP pipeline untuk chat sehari-hari",
@@ -177,20 +200,22 @@ const projects: Project[] = [
 
 const categories: Category[] = ["All", "Professional", "NLP", "Computer Vision", "Recommendation", "Prediction", "Time Series"];
 
-const categoryMeta: Record<string, { emoji: string; color: string; grad: string; isSpecial?: boolean }> = {
-  "All":             { emoji: "✦",  color: "#6366f1", grad: "linear-gradient(135deg,#6366f1,#a855f7)" },
-  "Professional":    { emoji: "⚡", color: "#f59e0b", grad: "linear-gradient(135deg,#f59e0b,#ef4444,#a855f7)", isSpecial: true },
-  "NLP":             { emoji: "🧠", color: "#ef4444", grad: "linear-gradient(135deg,#ef4444,#f97316)" },
-  "Computer Vision": { emoji: "👁️", color: "#10b981", grad: "linear-gradient(135deg,#10b981,#06b6d4)" },
-  "Recommendation":  { emoji: "🎬", color: "#ec4899", grad: "linear-gradient(135deg,#ec4899,#f43f5e)" },
-  "Prediction":      { emoji: "📈", color: "#f59e0b", grad: "linear-gradient(135deg,#f59e0b,#ea580c)" },
-  "Time Series":     { emoji: "⏱️", color: "#8b5cf6", grad: "linear-gradient(135deg,#8b5cf6,#6366f1)" },
+const categoryMeta: Record<string, { icon: any; color: string; grad: string; isSpecial?: boolean; textColor?: string }> = {
+  "All":             { icon: Layers,  color: "#6366f1", grad: "linear-gradient(135deg,#6366f1,#a855f7)", textColor: "#fff" },
+  "Professional":    { icon: Crown, color: "#f59e0b", grad: "linear-gradient(135deg,#f43f5e,#a855f7,#3b82f6)", isSpecial: true, textColor: "#fff" },
+  "NLP":             { icon: Brain, color: "#ef4444", grad: "linear-gradient(135deg,#ef4444,#f97316)", textColor: "#fff" },
+  "Computer Vision": { icon: Eye, color: "#10b981", grad: "linear-gradient(135deg,#10b981,#06b6d4)", textColor: "#fff" },
+  "Recommendation":  { icon: Target, color: "#ec4899", grad: "linear-gradient(135deg,#ec4899,#f43f5e)", textColor: "#fff" },
+  "Prediction":      { icon: BarChart3, color: "#f59e0b", grad: "linear-gradient(135deg,#f59e0b,#ea580c)", textColor: "#fff" },
+  "Time Series":     { icon: Calendar, color: "#8b5cf6", grad: "linear-gradient(135deg,#8b5cf6,#6366f1)", textColor: "#fff" },
 };
 
 // ── Project Modal — clean white inside ────────────────────────────────────────
 const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => void }) => {
   const [imgIdx, setImgIdx] = useState(0);
-  const images = [project.image, project.image, project.image];
+  const images = project.images && project.images.length > 1
+    ? project.images
+    : [project.image];
 
   const nextImg = (e: React.MouseEvent) => { e.stopPropagation(); setImgIdx((p) => (p + 1) % images.length); };
   const prevImg = (e: React.MouseEvent) => { e.stopPropagation(); setImgIdx((p) => (p - 1 + images.length) % images.length); };
@@ -231,7 +256,7 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
         </div>
 
         {/* Image Carousel */}
-        <div className="relative h-60 md:h-72 flex-shrink-0 bg-slate-900 overflow-hidden group">
+        <div className="relative w-full flex-shrink-0 bg-slate-50 overflow-hidden group">
           <AnimatePresence mode="wait">
             <motion.img
               key={imgIdx}
@@ -239,12 +264,10 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
               alt={project.title}
               initial={{ x: 80, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -80, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="absolute inset-0 w-full h-full object-cover opacity-80"
+              className="w-full h-auto block"
             />
           </AnimatePresence>
-          {/* Subtle gradient tint from card color */}
-          <div className="absolute inset-0 opacity-15" style={{ background: project.bgGradient }} />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-50 transition-opacity group-hover:opacity-100" />
 
           <button onClick={prevImg} className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 border border-white/20 flex items-center justify-center hover:bg-black/70 opacity-0 group-hover:opacity-100 transition-all">
             <ChevronLeft className="w-5 h-5 text-white" />
@@ -260,83 +283,88 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
           </div>
         </div>
 
-        {/* ── Clean White Body ── */}
-        <div className="p-7 md:p-9 space-y-6">
+        {/* ── Clean Elegant Body ── */}
+        <div className="p-7 md:p-9 space-y-7 relative bg-white overflow-hidden shrink-0">
+          
+          {/* Subtle Ambient Glows */}
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-500/5 blur-[120px] rounded-full pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-pink-500/5 blur-[100px] rounded-full pointer-events-none" />
 
           {/* Title + tech tags */}
-          <div>
-            <h3 className="text-2xl md:text-3xl font-black text-slate-800 leading-tight mb-3">{project.title}</h3>
+          <div className="relative z-10">
+            <h3 className="text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight leading-tight mb-4">{project.title}</h3>
             <div className="flex flex-wrap gap-2">
               {project.tech.map((t) => (
-                <span key={t} className="text-[9px] font-pixel px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50 text-slate-600">{t}</span>
+                <span key={t} className="text-[10px] font-sans font-bold px-3 py-1.5 rounded-full border border-slate-200/60 bg-slate-50/80 backdrop-blur-sm text-slate-600 shadow-sm">{t}</span>
               ))}
             </div>
           </div>
 
           {/* Overview */}
-          <div className="rounded-2xl p-5 bg-slate-50 border border-slate-100">
-            <div className="flex items-center gap-2 text-slate-400 font-pixel text-[9px] mb-3">
-              <ScrollText className="w-4 h-4" /> OVERVIEW
+          <div className="relative z-10 rounded-2xl p-6 bg-gradient-to-br from-slate-50/80 to-white border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,1)]">
+            <div className="flex items-center gap-2 text-slate-500 font-sans font-bold uppercase tracking-widest text-xs mb-3">
+              <ScrollText className="w-4 h-4 text-indigo-500" /> OVERVIEW
             </div>
-            <p className="text-slate-700 text-sm leading-relaxed">{project.fullDescription}</p>
+            <p className="text-slate-600 text-[15px] leading-relaxed font-medium">{project.fullDescription}</p>
           </div>
 
-          {/* Problem / Solution */}
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="rounded-2xl p-5 bg-red-50 border border-red-100 border-l-4" style={{ borderLeftColor: "#ef4444" }}>
-              <div className="flex items-center gap-2 text-red-500 font-pixel text-[9px] mb-2">
+          {/* Problem / Solution - Soft thick gradients */}
+          <div className="grid md:grid-cols-2 gap-5 relative z-10">
+            <div className="rounded-2xl p-6 bg-gradient-to-br from-red-50/80 to-red-50/10 border border-red-100 shadow-[0_4px_20px_-10px_rgba(239,68,68,0.2),inset_0_1px_0_rgba(255,255,255,0.7)]">
+              <div className="flex items-center gap-2 text-red-500 font-sans font-bold uppercase tracking-widest text-xs mb-3">
                 <Swords className="w-4 h-4" /> PROBLEM
               </div>
-              <p className="text-sm text-slate-700 leading-relaxed italic">"{project.problem}"</p>
+              <p className="text-[14.5px] text-slate-700 leading-relaxed font-medium">"{project.problem}"</p>
             </div>
-            <div className="rounded-2xl p-5 bg-emerald-50 border border-emerald-100 border-l-4" style={{ borderLeftColor: "#10b981" }}>
-              <div className="flex items-center gap-2 text-emerald-600 font-pixel text-[9px] mb-2">
-                <Shield className="w-4 h-4" /> SOLUTION
+            <div className="rounded-2xl p-6 bg-gradient-to-br from-emerald-50/80 to-emerald-50/10 border border-emerald-100 shadow-[0_4px_20px_-10px_rgba(16,185,129,0.2),inset_0_1px_0_rgba(255,255,255,0.7)]">
+              <div className="flex items-center gap-2 text-emerald-600 font-sans font-bold uppercase tracking-widest text-xs mb-3">
+                <Sparkles className="w-4 h-4" /> SOLUTION
               </div>
-              <p className="text-sm text-slate-700 leading-relaxed">{project.solution}</p>
+              <p className="text-[14.5px] text-slate-700 leading-relaxed font-medium">{project.solution}</p>
             </div>
           </div>
 
           {/* Dataset */}
           {project.dataset && (
-            <div className="rounded-2xl p-5 bg-indigo-50 border border-indigo-100 border-l-4" style={{ borderLeftColor: "#6366f1" }}>
-              <div className="flex items-center gap-2 text-indigo-600 font-pixel text-[9px] mb-2">
-                <Brain className="w-4 h-4" /> DATASET SOURCE
+            <div className="relative z-10 rounded-2xl p-6 bg-gradient-to-br from-indigo-50/80 to-purple-50/10 border border-indigo-100 shadow-[0_2px_10px_rgba(99,102,241,0.05),inset_0_1px_0_rgba(255,255,255,0.8)]">
+              <div className="flex items-center gap-2 text-indigo-600 font-sans font-bold uppercase tracking-widest text-xs mb-3">
+                <Database className="w-4 h-4" /> DATASET SOURCE
               </div>
-              <p className="text-sm text-slate-700 leading-relaxed font-medium">{project.dataset}</p>
+              <p className="text-[14.5px] text-slate-700 leading-relaxed font-semibold">{project.dataset}</p>
             </div>
           )}
 
           {/* Tech Stack */}
-          <div>
-            <div className="flex items-center gap-2 text-slate-400 font-pixel text-[9px] mb-3">
-              <Wrench className="w-4 h-4" /> TECH STACK
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 text-slate-500 font-sans font-bold uppercase tracking-widest text-xs mb-4">
+              <Code2 className="w-4 h-4 text-slate-400" /> TECH STACK
             </div>
             <div className="flex flex-wrap gap-2">
               {project.skills.map((s) => (
-                <span key={s} className="px-3 py-1.5 rounded-xl text-xs font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 cursor-default transition-colors">
-                  {s}
+                <span key={s} className="relative overflow-hidden px-4 py-2 rounded-xl text-[11px] font-bold text-white shadow-[0_4px_15px_rgba(0,0,0,0.1)] hover:scale-[1.03] hover:shadow-[0_4px_20px_rgba(0,0,0,0.15)] cursor-default transition-all" style={{ background: project.bgGradient }}>
+                  <span className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%)" }} />
+                  <span className="relative z-10">{s}</span>
                 </span>
               ))}
             </div>
           </div>
 
           {/* Key Highlights */}
-          <div>
-            <div className="flex items-center gap-2 text-slate-400 font-pixel text-[9px] mb-3">
-              <Target className="w-4 h-4" /> KEY HIGHLIGHTS
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 text-slate-500 font-sans font-bold uppercase tracking-widest text-xs mb-4">
+              <Target className="w-4 h-4 text-amber-500" /> KEY HIGHLIGHTS
             </div>
             <div className="grid md:grid-cols-1 gap-3">
               {project.highlights.map((h, idx) => (
                 <motion.div 
                   key={idx} 
                   whileHover={{ scale: 1.01, x: 4 }}
-                  className="flex items-start gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all cursor-default group"
+                  className="flex items-start gap-3.5 p-4.5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all cursor-default group"
                 >
-                  <div className="flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-amber-50 text-amber-500 group-hover:bg-amber-400 group-hover:text-white transition-colors">
-                    <Star className="w-4 h-4" />
+                  <div className="flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-amber-100 to-amber-50 text-amber-500 shadow-inner group-hover:from-amber-400 group-hover:to-amber-500 group-hover:text-white transition-all">
+                    <CheckCircle2 className="w-4 h-4" />
                   </div>
-                  <p className="text-sm text-slate-700 font-semibold leading-relaxed pt-1">{h}</p>
+                  <p className="text-[14.5px] text-slate-700 font-semibold leading-relaxed pt-1.5">{h}</p>
                 </motion.div>
               ))}
             </div>
@@ -345,10 +373,17 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
           {/* CTA */}
           <a
             href={project.github}
-            className="flex items-center justify-center gap-3 w-full py-4 rounded-2xl text-white font-pixel text-[10px] uppercase tracking-widest hover:-translate-y-1 transition-all shadow-lg"
-            style={{ background: project.bgGradient }}
+            className="group flex items-center justify-center gap-3 w-full py-4 rounded-2xl text-white font-sans font-bold text-[13px] uppercase tracking-wider hover:-translate-y-1 transition-all shadow-lg overflow-hidden relative z-10"
+            style={{ 
+              background: "linear-gradient(135deg, #a855f7, #7e22ce, #6b21a8)",
+              boxShadow: "0 6px 20px rgba(147, 51, 234, 0.4)"
+            }}
           >
-            View Source Repository <ExternalLink className="w-4 h-4" />
+            {/* Shimmer on hover */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: "linear-gradient(105deg,transparent 30%,rgba(255,255,255,0.2) 50%,transparent 70%)", backgroundSize: "200% 100%", animation: "shimmer 2s infinite" }} />
+            <Github className="w-5 h-5 relative z-10" /> 
+            <span className="relative z-10">View Source Repository</span>
+            <ExternalLink className="w-4 h-4 opacity-70 relative z-10" />
           </a>
         </div>
       </motion.div>
@@ -397,10 +432,10 @@ const ProjectsSection = () => {
               </p>
             </div>
 
-            {/* ── Filter Bar ── */}
+            {/* ── Filter Bar — gradient label chips ── */}
             <div className="flex flex-wrap gap-2 max-w-xl">
               {categories.map((cat) => {
-                const meta = categoryMeta[cat] ?? { emoji: "●", color: "#94a3b8", grad: "linear-gradient(135deg,#94a3b8,#64748b)" };
+                const meta = categoryMeta[cat] ?? { icon: Layers, color: "#94a3b8", grad: "linear-gradient(135deg,#94a3b8,#64748b)", textColor: "#fff", isSpecial: false };
                 const isActive = active === cat;
                 const isSpecial = !!meta.isSpecial;
 
@@ -408,26 +443,39 @@ const ProjectsSection = () => {
                   <motion.button
                     key={cat}
                     onClick={() => setActive(cat)}
-                    whileHover={{ y: -2, scale: 1.04 }}
+                    whileHover={{ y: -3, scale: 1.04 }}
                     whileTap={{ scale: 0.95 }}
-                    className="relative flex items-center gap-1.5 px-4 py-2.5 font-pixel text-[9px] uppercase tracking-widest border-2 transition-all duration-200"
+                    className="relative flex items-center gap-2 px-5 py-2.5 font-sans text-xs uppercase tracking-widest transition-all duration-300 overflow-hidden"
                     style={{
-                      borderRadius: isSpecial ? "999px" : "1rem",
-                      ...(isActive
-                        ? { background: meta.grad, color: "#fff", borderColor: "transparent", boxShadow: `0 4px 16px ${meta.color}50` }
+                      borderRadius: "999px",
+                      background: isActive ? meta.grad : isSpecial ? meta.grad : `${meta.color}15`,
+                      color: isActive ? "#fff" : isSpecial ? "#fff" : meta.color,
+                      border: isActive ? "1px solid transparent" : isSpecial ? "1px solid transparent" : `1px solid ${meta.color}30`,
+                      boxShadow: isActive
+                        ? `0 8px 25px ${meta.color}40, inset 0 1px 0 rgba(255,255,255,0.4)`
                         : isSpecial
-                          ? { background: meta.grad, color: "#fff", borderColor: "transparent", boxShadow: `0 2px 10px ${meta.color}30`, opacity: 0.85 }
-                          : { background: "#fff", color: "#64748b", borderColor: "#e2e8f0", boxShadow: "3px 3px 0px #f1f5f9" }
-                      )
+                          ? `0 4px 15px ${meta.color}30, inset 0 1px 0 rgba(255,255,255,0.4)`
+                          : `0 2px 8px ${meta.color}10`,
+                      fontWeight: 800,
                     }}
                   >
-                    <span className="text-sm leading-none">{meta.emoji}</span>
-                    {cat}
+                    {/* Shimmer for special/active */}
+                    {(isSpecial || isActive) && (
+                      <span
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          background: "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%)",
+                          backgroundSize: "200% 100%",
+                          animation: "shimmer 2.5s infinite",
+                        }}
+                      />
+                    )}
+                    <meta.icon className="w-4 h-4 relative z-10" strokeWidth={2.5} />
+                    <span className="relative z-10 pt-[1px]">{cat}</span>
                     {isActive && (
-                      <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full bg-white border-2 flex items-center justify-center"
-                        style={{ borderColor: meta.color }}>
-                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: meta.color }} />
-                      </span>
+                      <span
+                        className="relative z-10 w-1.5 h-1.5 rounded-full bg-white/90 ml-1 shadow-[0_0_10px_rgba(255,255,255,1)]"
+                      />
                     )}
                   </motion.button>
                 );
@@ -436,7 +484,7 @@ const ProjectsSection = () => {
           </div>
         </motion.div>
 
-        {/* ── Creative Bento Grid — card fronts UNCHANGED ── */}
+        {/* ── Creative Bento Grid — card fronts END UNIFORM ── */}
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
@@ -444,7 +492,7 @@ const ProjectsSection = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px] lg:auto-rows-[320px]"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           >
             {filtered.map((project, i) => {
               const meta = categoryMeta[project.category] || categoryMeta["All"];
@@ -466,17 +514,29 @@ const ProjectsSection = () => {
                     style={{ background: meta.grad }}
                   />
 
-                  {/* Actual Card Body — identical to original */}
+                  {/* Actual Card Body (Creative Colorful) */}
                   <div
-                    className="relative z-10 h-full w-full rounded-3xl overflow-hidden cursor-pointer border-[3px] flex flex-col transition-all duration-300 group-hover:-translate-y-1.5 group-hover:scale-[1.02]"
+                    className="relative z-10 h-full w-full rounded-[2rem] overflow-hidden cursor-pointer flex flex-col transition-all duration-500 group-hover:-translate-y-2 group-hover:scale-[1.02]"
                     style={{
-                      borderColor: meta.color,
-                      backgroundColor: "#fff",
-                      boxShadow: `6px 6px 0px ${meta.color}`,
+                      background: "#ffffff",
+                      border: `1.5px solid ${meta.color}30`,
+                      boxShadow: `0 6px 30px -8px ${meta.color}30, inset 0 1px 0 rgba(255,255,255,1)`,
+                      transition: "box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.boxShadow = `0 16px 50px -10px ${meta.color}50, 0 0 0 1.5px ${meta.color}60, inset 0 1px 0 rgba(255,255,255,1)`;
+                      (e.currentTarget as HTMLDivElement).style.borderColor = `${meta.color}70`;
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.boxShadow = `0 6px 30px -8px ${meta.color}30, inset 0 1px 0 rgba(255,255,255,1)`;
+                      (e.currentTarget as HTMLDivElement).style.borderColor = `${meta.color}30`;
                     }}
                   >
+                    {/* Colored gradient stripe at very top */}
+                    <div className="w-full h-1 shrink-0" style={{ background: meta.grad }} />
+
                     {/* Image area */}
-                    <div className="relative w-full h-[150px] shrink-0 border-b-[3px] bg-slate-50 overflow-hidden" style={{ borderColor: meta.color }}>
+                    <div className="relative w-full h-[160px] md:h-[180px] shrink-0 bg-slate-50 overflow-hidden">
                       <img
                         src={project.image}
                         alt={project.title}
@@ -496,57 +556,77 @@ const ProjectsSection = () => {
                         <div className="absolute -top-10 left-20 w-32 h-32 blur-[30px] rounded-full animate-pulse opacity-40 delay-150" style={{ background: meta.color }} />
                       </div>
 
-                      {/* Dark gradient overlay */}
-                      <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-30 group-hover:opacity-90 transition-opacity duration-500 flex flex-col items-center justify-center backdrop-blur-[1px] group-hover:backdrop-blur-sm z-10">
-                        <div className="opacity-0 group-hover:opacity-100 flex flex-col items-center transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                          <project.icon className="w-8 h-8 text-white drop-shadow-md mb-2" />
-                          <span className="text-white font-pixel text-[9px] px-3 py-1.5 rounded-xl uppercase tracking-widest mt-1 border border-white/40 shadow-sm" style={{ background: meta.color }}>
-                            [ EXPLORE ]
+                      {/* Interactive sleek overlay */}
+                      <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center backdrop-blur-sm z-10">
+                        <div className="opacity-0 group-hover:opacity-100 flex flex-col items-center transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                          <div className="w-12 h-12 rounded-full flex items-center justify-center mb-3 shadow-[0_0_20px_rgba(255,255,255,0.3)]" style={{ background: meta.grad }}>
+                            <project.icon className="w-5 h-5 text-white" />
+                          </div>
+                          <span className="text-white font-sans font-bold text-[10px] px-4 py-1.5 rounded-full uppercase tracking-widest border border-white/20 bg-white/10 backdrop-blur-md shadow-sm">
+                            View Project
                           </span>
                         </div>
                       </div>
 
-                      {/* Top meta bar */}
-                      <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-20">
-                        <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border-2 bg-white/95 backdrop-blur-sm shadow-sm" style={{ borderColor: meta.color }}>
-                          <span className="text-sm leading-none">{meta.emoji}</span>
-                          <span className="text-[8px] font-pixel tracking-widest uppercase font-bold" style={{ color: meta.color }}>
-                            {project.category}
-                          </span>
-                        </div>
-                        <span className="font-pixel text-[10px] bg-white/95 px-2 py-1 rounded-xl shadow-sm border-2" style={{ color: meta.color, borderColor: meta.color }}>
+                      {/* Top meta bar — number only */}
+                      <div className="absolute top-4 right-4 z-20">
+                        <span className="font-sans font-black tracking-tighter text-[11px] bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm" style={{ color: meta.color }}>
                           {String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
                     </div>
 
-                    {/* Bottom white area */}
-                    <div className="p-5 flex flex-col flex-grow justify-between relative bg-white">
-                      <div>
-                        <div className="flex items-center gap-2 mb-2">
-                          <div className="flex gap-1 bg-slate-100 px-2 py-1 rounded-lg border border-slate-200">
-                            <div className="w-2 h-2 rounded-full bg-red-400" />
-                            <div className="w-2 h-2 rounded-full bg-yellow-400" />
-                            <div className="w-2 h-2 rounded-full bg-green-400" />
-                          </div>
-                          <span className="text-[8px] font-pixel px-2 py-1 rounded-lg border uppercase font-bold opacity-80" style={{ color: meta.color, borderColor: meta.color, backgroundColor: `${meta.color}15` }}>
-                            {meta.emoji} PROJECT.EXE
+                    {/* Bottom content area — soft tinted bg */}
+                    <div className="p-5 pb-6 flex flex-col gap-3 relative" style={{ background: `linear-gradient(to bottom, ${meta.color}06 0%, #ffffff 40%)` }}>
+
+                      {/* Thin decorative separator line (colored) */}
+                      <div className="w-10 h-[3px] rounded-full mb-1" style={{ background: meta.grad }} />
+
+                      {/* Category labels */}
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {project.category === "Professional" && (
+                          <span
+                            className="relative overflow-hidden flex items-center gap-1.5 px-3 py-1 rounded-full text-white font-sans text-[10px] uppercase tracking-wider font-extrabold"
+                            style={{
+                              background: "linear-gradient(135deg, #f43f5e, #a855f7, #3b82f6)",
+                              boxShadow: "0 4px 15px rgba(168, 85, 247, 0.35)",
+                            }}
+                          >
+                            <span className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%, rgba(0,0,0,0.1) 100%)" }} />
+                            <Star className="w-3 h-3 fill-white/80 relative z-10" />
+                            <span className="relative z-10">PROFESSIONAL</span>
                           </span>
-                        </div>
-                        <h3 className="font-black text-slate-800 leading-tight mb-2 text-base sm:text-lg">
-                          {project.title}
-                        </h3>
+                        )}
+                        <span
+                          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full font-sans text-[9px] uppercase tracking-wider font-bold border"
+                          style={{
+                            color: meta.color,
+                            backgroundColor: `${meta.color}12`,
+                            borderColor: `${meta.color}35`
+                          }}
+                        >
+                          {project.category === "Professional" && project.subcategory
+                            ? project.subcategory
+                            : project.category}
+                        </span>
                       </div>
 
-                      <div className="mt-auto pt-2">
-                        <p className="text-xs text-slate-500 font-medium line-clamp-2 md:line-clamp-3 mb-3 leading-relaxed">{project.description}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {project.tech.slice(0, 3).map((t) => (
-                            <span key={t} className="text-[9px] font-pixel px-2 py-1 rounded-full border border-slate-200 text-slate-600 bg-slate-50 font-bold tracking-wide">
-                              {t}
-                            </span>
-                          ))}
-                        </div>
+                      {/* Title */}
+                      <h3 className="font-extrabold text-slate-800 leading-snug text-[15px] md:text-base">
+                        {project.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-[12.5px] text-slate-500 font-medium leading-relaxed line-clamp-2">{project.description}</p>
+
+                      {/* Tech tags */}
+                      <div className="flex flex-wrap gap-1.5 mt-1">
+                        {project.tech.slice(0, 3).map((t) => (
+                          <span key={t} className="text-[9px] uppercase tracking-wider font-sans px-2.5 py-1.5 rounded-lg font-bold shadow-sm"
+                            style={{ color: meta.color, backgroundColor: `${meta.color}10`, border: `1px solid ${meta.color}25` }}>
+                            {t}
+                          </span>
+                        ))}
                       </div>
                     </div>
                   </div>
