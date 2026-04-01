@@ -41,18 +41,18 @@ _"Jika Anda tidak pernah berdarah, Anda tidak akan pernah tumbuh." (If you never
 
 Berikut adalah beberapa arsitektur sistem cerdas (AI) yang telah saya kembangkan:
 
-| Proyek                                              |     Kategori      | Deskripsi                                                                                                                                                                                                |
-| --------------------------------------------------- | :---------------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **[Sisibuk AI: Asisten Jadwal Cerdas](https://github.com/erenmenn/Sisibuk-AI-PenjadwalanOtomatis)** |    `LLM / Web`    | Asisten manajemen jadwal berbasis AI (Groq LLaMA 3.3) yang menggabungkan natural language input, gamifikasi produktivitas, dan conflict checker otomatis.                                |
-| **[WangkuAI: Chatbot Finansial Cerdas](#)**         |    `NLP / LLM`    | Chatbot AI untuk keuangan yang memanfaatkan LLM demi memberikan pandangan serta nasihat finansial otomatis langsung kepada pengguna.                                                                     |
-| **[FirstAid.ID: Medical Search RAG](#)**            |    `NLP / RAG`    | Studi komparatif evaluasi 3 teknik ekstraksi: _Fixed-size_, _Semantic Chunk_, dan _Sentence-based_ untuk membedah Buku Panduan Pertolongan Pertama di Indonesia menjadi Database Vektor Tanggap Darurat. |
-| **[YouTube Sentiment: Mass Comment Classifier](#)** |       `NLP`       | Pipeline Deep Learning untuk mengekstrak, membersihkan, dan mengklasifikasikan massal sentimen dari ribuan komentar audiens pada Music Video Taylor Swift.                                               |
-| **[CS Intent: Intelligent Support Routing](#)**     |       `NLP`       | Mesin Klasifikasi Niat (Intent Classification) Chatbot untuk menerjemahkan beragam pertanyaan pengguna di area _Customer Service_ yang kompleks.                                                         |
-| **[MovieRec: Rekomendasi Film Hybrid](#)**          |   `Rekomendasi`   | Sistem ML rekomendasi hibrida (Hybrid) yang memadukan filter Kolaboratif (_Collaborative_) dengan filter berbasis Konten (_Content-based_).                                                              |
-| **[PlantCare: Deteksi Penyakit Daun](#)**           | `Computer Vision` | Klasifikasi pendeteksi gambar modern berbasis struktur CNN mendalam yang dilatih pada ribuan foto daun guna mendeteksi penyakit pertanian secara massal.                                                 |
-| **[EmosiMU: Facial Expression AI](#)**              | `Computer Vision` | Klasifikasi Ekpresi dan Emosi dari tangkapan interaktif wajah pengguna dengan sistem OpenCV terintegrasi Deep Learning.                                                                                  |
-| **[LyricsSearch: Penemu Vektor Semantik](#)**       |  `NLP Semantik`   | Mesin pencari lirik lagu melalui Embeddings (_Sentence Transformers_) yang mencocokkan kata berdasarkan Suasa/Tema ketimbang kesamaan Teks-Kata biasa.                                                   |
-| **[MADUW: Prediktor Pasar Madu](#)**                |  `Prediksi Data`  | Model analisis regresi canggih (Random Forest, Gradient Boosting) untuk meramalkan proyeksi Harga Madu Pasar di masa yang akan datang.                                                                   |
+| Proyek                                                                                              |     Kategori      | Deskripsi                                                                                                                                                                                                |
+| --------------------------------------------------------------------------------------------------- | :---------------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **[Sisibuk AI: Asisten Jadwal Cerdas](https://github.com/erenmenn/Sisibuk-AI-PenjadwalanOtomatis)** |    `LLM / Web`    | Asisten manajemen jadwal berbasis AI (Groq LLaMA 3.3) yang menggabungkan natural language input, gamifikasi produktivitas, dan conflict checker otomatis.                                                |
+| **[WangkuAI: Chatbot Finansial Cerdas](#)**                                                         |    `NLP / LLM`    | Chatbot AI untuk keuangan yang memanfaatkan LLM demi memberikan pandangan serta nasihat finansial otomatis langsung kepada pengguna.                                                                     |
+| **[FirstAid.ID: Medical Search RAG](#)**                                                            |    `NLP / RAG`    | Studi komparatif evaluasi 3 teknik ekstraksi: _Fixed-size_, _Semantic Chunk_, dan _Sentence-based_ untuk membedah Buku Panduan Pertolongan Pertama di Indonesia menjadi Database Vektor Tanggap Darurat. |
+| **[YouTube Sentiment: Mass Comment Classifier](#)**                                                 |       `NLP`       | Pipeline Deep Learning untuk mengekstrak, membersihkan, dan mengklasifikasikan massal sentimen dari ribuan komentar audiens pada Music Video Taylor Swift.                                               |
+| **[CS Intent: Intelligent Support Routing](#)**                                                     |       `NLP`       | Mesin Klasifikasi Niat (Intent Classification) Chatbot untuk menerjemahkan beragam pertanyaan pengguna di area _Customer Service_ yang kompleks.                                                         |
+| **[MovieRec: Rekomendasi Film Hybrid](#)**                                                          |   `Rekomendasi`   | Sistem ML rekomendasi hibrida (Hybrid) yang memadukan filter Kolaboratif (_Collaborative_) dengan filter berbasis Konten (_Content-based_).                                                              |
+| **[PlantCare: Deteksi Penyakit Daun](#)**                                                           | `Computer Vision` | Klasifikasi pendeteksi gambar modern berbasis struktur CNN mendalam yang dilatih pada ribuan foto daun guna mendeteksi penyakit pertanian secara massal.                                                 |
+| **[EmosiMU: Facial Expression AI](#)**                                                              | `Computer Vision` | Klasifikasi Ekpresi dan Emosi dari tangkapan interaktif wajah pengguna dengan sistem OpenCV terintegrasi Deep Learning.                                                                                  |
+| **[LyricsSearch: Penemu Vektor Semantik](#)**                                                       |  `NLP Semantik`   | Mesin pencari lirik lagu melalui Embeddings (_Sentence Transformers_) yang mencocokkan kata berdasarkan Suasa/Tema ketimbang kesamaan Teks-Kata biasa.                                                   |
+| **[MADUW: Prediktor Pasar Madu](#)**                                                                |  `Prediksi Data`  | Model analisis regresi canggih (Random Forest, Gradient Boosting) untuk meramalkan proyeksi Harga Madu Pasar di masa yang akan datang.                                                                   |
 
 > _**Catatan Penting**: Silakan kunjungi tiap repositori proyek untuk melihat struktur kode, rancangan data, serta keseluruhan detail dokumentasi rekayasa arsitekturnya._
 
@@ -60,36 +60,26 @@ Berikut adalah beberapa arsitektur sistem cerdas (AI) yang telah saya kembangkan
 
 ### 🎒 Jejak Perjalanan (My Experience)
 
-<table>
-  <tr>
-    <td align="center" width="130"><img src="https://img.icons8.com/3d-fluency/94/check-all.png" width="55" alt="Notion" /><br/><b>Productivity</b></td>
-    <td>
-      <b>Notion Architect & Time Planner</b> ⏳<br/>
-      Mengerangkakan "Otak Kedua" super lengkap dengan Notion. Menyusun perumusan <i>Timeline</i> riset AI dan melacak rutinitas akademis lewat skema pemetaan belajar yang sangat komprehensif.
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="130"><img src="https://img.icons8.com/3d-fluency/94/artificial-intelligence.png" width="55" alt="AI" /><br/><b>Kampus</b></td>
-    <td>
-      <b>Koordinator Akademik — Sistem Cerdas</b> 🧠 <code>[Sekarang]</code><br/>
-      Mengikuti ritme distribusi perkuliahan secara erat! Bertugas mencatat dan meneruskan seluruh materi Sistem Cerdas ke mahasiswa, serta sukses memimpin jalannya kelas menuju nilai rata-rata yang jauh lebih positif.
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="130"><img src="https://img.icons8.com/3d-fluency/94/leaf.png" width="55" alt="Bio" /><br/><b>High School</b></td>
-    <td>
-      <b>Course Coordinator & Peer Tutor (Biologi)</b> 🧬 <code>[2022 - 2023]</code><br/>
-      Asisten khusus pengampu Biologi! Diberi tingkat kepercayaan ekstra untuk berunding kurikulum, membongkar kisi-kisi teknis sebelum ujian, hingga menggantikan beliau mengajar utuh di depan kelas.
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="130"><img src="https://img.icons8.com/3d-fluency/94/microphone.png" width="55" alt="English" /><br/><b>High School</b></td>
-    <td>
-      <b>Pemateri Inti & Organizer Acara (English Club)</b> 🎤 <code>[2022 - 2023]</code><br/>
-      Membangun kurikulum bahasa dengan atmosfer <i>'Fun'</i> layaknya bermain <i>Game</i> untuk para adik kelas. Total mensukseskan debat inklusif dengan mengelola lebih dari 50+ peserta yang mendaftar dan aktif berlatih.
-    </td>
-  </tr>
-</table>
+## AI Engineer Path Graduate • Dicoding Academy
+Menempuh jalur pembelajaran intensif mulai dari dasar pemrograman Python, analisis data, hingga pengembangan model deep learning tingkat mahir. Saya mendalami berbagai domain utama AI meliputi Natural Language Processing (NLP), Computer Vision, Time Series Forecasting, hingga Recommendation System. Selama program ini, saya berhasil meraih sertifikasi kompetensi untuk Machine Learning Terapan dan Deep Learning Mahir dengan menyelesaikan berbagai proyek teknis berbasis data nyata.
+
+## AI Builder • HACKATHON X Digdaya & PKM
+Berpartisipasi sebagai peserta sekaligus pembangun solusi AI utama dalam pengembangan proyek "Satu Tani". Fokus saya adalah merancang dan mengimplementasikan model AI Demand Forecasting untuk membantu memprediksi kebutuhan pasar di sektor pertanian. Melalui kompetisi ini, saya bereksperimen dengan berbagai arsitektur teknis dan berkolaborasi erat dengan tim untuk menyelaraskan visi inovasi dalam menghadapi tantangan di tingkat nasional.
+
+## Koordinator Akademik — Sistem Cerdas • Universitas
+Bertanggung jawab sebagai jembatan informasi utama dalam mata kuliah Sistem Cerdas. Tugas saya meliputi pengelolaan distribusi silabus, pencatatan intisari materi kuliah untuk dibagikan ke rekan mahasiswa, serta memastikan alur informasi akademik berjalan lancar. Peran ini membantu saya memperdalam pemahaman materi sekaligus berkontribusi pada peningkatan efektivitas belajar rekan-rekan di kelas.
+
+## Tutor Student Community • 2023
+Dipilih secara khusus untuk menjadi tutor sebaya bagi rekan-rekan di sekolah pada mata pelajaran Fisika, Matematika, dan Biologi. Saya bertugas membimbing forum belajar ekstra, menyederhanakan materi yang sulit dipahami, dan membantu persiapan intensif menjelang ujian sekolah agar rekan sekelas bisa mendapatkan hasil yang lebih optimal.
+
+## Course Coordinator & Peer Tutor (Biologi) • High School
+Dipercaya sebagai asisten khusus pengampu mata pelajaran Biologi untuk membantu perumusan teknik simulasi pembelajaran yang lebih interaktif. Saya berperan dalam membongkar kisi-kisi teknis sebelum ujian, memfasilitasi forum belajar antar siswa, dan sesekali diberi kepercayaan untuk menggantikan peran pengajar di depan kelas.
+
+## Pemateri Inti & Organizer Acara (English Club) • High School
+Bertindak sebagai penggerak utama dalam merancang kurikulum Public Speaking yang dikemas secara interaktif dan menyenangkan. Saya bertanggung jawab mengelola sesi latihan debat rutin dan memastikan keberlangsungan program yang diikuti oleh lebih dari 50 peserta aktif untuk meningkatkan kepercayaan diri mereka dalam berbahasa Inggris.
+
+
+
 
 ---
 

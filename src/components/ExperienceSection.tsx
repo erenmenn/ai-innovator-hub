@@ -31,9 +31,10 @@ const experiences = [
     gradFrom: "#10b981",
     gradTo: "#34d399",
     description: [
-      "Membangun proyek 'Satu Tani' yang memanfaatkan AI Demand Forecasting untuk membantu sektor pertanian memprediksi kebutuhan pasar secara akurat.",
-      "Memimpin tim kolaborasi sebagai Lead AI Builder & Tech, menguatkan kerja sama tim (team collaboration) untuk menyelaraskan visi teknis proyek dan inovasi.",
-      "Mengasah kemampuan critical thinking dan problem-solving dalam mendesain arsitektur solusi AI yang solutif serta inovatif untuk kompetisi.",
+      "Aktif mengikuti berbagai kompetisi teknologi dengan fokus sebagai AI Builder, berkontribusi dalam pengembangan solusi dan komunikasi teknis dalam tim",
+      "Mengembangkan solusi “Satu Tani” melalui pendekatan berbasis AI untuk memprediksi kebutuhan pasar secara lebih presisi",
+      "Berkolaborasi dalam tim lintas peran dengan menyelaraskan kebutuhan teknis dan non-teknis, mendukung alur kerja yang efektif dan terarah",
+      "Merancang dan mengimplementasikan arsitektur AI yang relevan dengan permasalahan nyata, menghasilkan solusi yang kompetitif dalam konteks perlombaan tingkat nasional",
     ],
   },
   {
@@ -47,9 +48,9 @@ const experiences = [
     gradFrom: "#0284c7",
     gradTo: "#0ea5e9",
     description: [
-      "Ditunjuk secara khusus oleh guru sebagai perwakilan kelas untuk mengikuti kelas tambahan intensif pada 3 mata pelajaran (Fisika, Matematika, dan Biologi).",
-      "Bertindak sebagai tutor sebaya untuk membantu teman sekelas yang mengalami kesulitan dalam memahami materi rumit dan untuk persiapan ujian sekolah.",
-      "Mendapatkan kepercayaan penuh dari guru dan melatih soft skill certainty, resiliensi, serta kemampuan komunikasi saat mengajar rekan sebaya.",
+      "Terpilih secara selektif dan dipercaya oleh tiga guru mata pelajaran untuk mengikuti program tutor, yaitu program pembelajaran tambahan di mana peserta bertugas membagikan kembali materi kepada siswa lain",
+      "Menyelenggarakan sesi bimbingan belajar bagi teman sebaya sebagai wadah untuk bertanya, berdiskusi, dan memperdalam pemahaman materi yang sulit",
+      "Membangun komunikasi empatik dan lingkungan belajar yang suportif, serta berkontribusi pada peningkatan pemahaman dan performa akademik siswa secara kolektif",
     ],
   },
   {
@@ -79,9 +80,9 @@ const experiences = [
     gradFrom: "#7c3aed",
     gradTo: "#4f46e5",
     description: [
-      "Bertanggung jawab atas penjadwalan rutin kelas dan distribusi silabus untuk mata kuliah Sistem Cerdas.",
-      "Bertindak sebagai jembatan informasi utama yang mencatat dan meneruskan intisari materi kepada seluruh mahasiswa kelas.",
-      "Mendukung progres belajar kelas secara kolaboratif, berkontribusi pada peningkatan median nilai rata-rata rekan sekelas secara positif.",
+      "Bertanggung jawab mengorkestrasi dinamika kelas 'Sistem Cerdas', bertindak sebagai jembatan pembagi tugas dan informasi secara transparan.",
+      "Memastikan setiap kelompok belajar dapat bergerak mandiri secara efisien setelah mendapatkan arahan strategis mengenai modul AI yang kompleks.",
+      "Menjaga konsistensi alur informasi untuk menjamin tidak ada rekan yang kehilangan arah tujuan di tengah kurikulum akademik yang padat.",
     ],
   },
   {
@@ -95,15 +96,16 @@ const experiences = [
     gradFrom: "#16a34a",
     gradTo: "#06b6d4",
     description: [
-      "Berkolaborasi dengan guru untuk merumuskan teknik simulasi pembelajaran Biologi agar lebih mudah dipahami siswa.",
-      "Membangun dan memimpin forum belajar ekstra (Peer Tutoring) sebelum ujian untuk membongkar konsep yang dirasa rumit.",
-      "Diberi kepercayaan untuk menggantikan peran guru mengajar di depan kelas, termasuk membawakan kisi-kisi krusial ujian.",
+      "Menjalankan peran sebagai koordinator kelas dalam mengatur jalannya pembelajaran dan komunikasi antara guru dan siswa",
+      "Dipercaya oleh guru untuk menggantikan sesi pembelajaran saat berhalangan hadir, dengan menyampaikan kembali materi Biologi kepada teman sekelas",
+      "Aktif membantu teman sebaya dalam memahami materi yang sulit melalui diskusi dan penjelasan sederhana",
+      "Berkontribusi dalam menjaga suasana belajar yang kondusif dan saling mendukung di dalam kelas",
     ],
   },
   {
     id: "english-club",
     company: "English Club",
-    role: "Pemateri Inti & Organizer",
+    role: "Pemateri & Organizer",
     date: "2022 – 2023",
     location: "High School",
     image: "/asset/exp_tutor.png",
@@ -111,9 +113,10 @@ const experiences = [
     gradFrom: "#ea580c",
     gradTo: "#ec4899",
     description: [
-      "Menghidupkan ekskul bahasa Inggris dengan mengemas kurikulum Public Speaking layaknya sebuah Game yang seru untuk dieksplorasi.",
-      "Menjadi penggerak utama suksesnya latihan debat antar-sekolah, mengelola dan menjaga retensi 50+ peserta agar tetap aktif.",
-      "Berperan sebagai Core Speaker yang mendorong rasa percaya diri, keberanian public speaking, dan kebersamaan antar siswa.",
+      "Menyusun dan mengembangkan materi pembelajaran bahasa Inggris sebagai panduan utama bagi anggota dalam meningkatkan kemampuan dasar hingga menengah",
+      "Mengelola kegiatan komunitas belajar dengan memastikan sesi berjalan terarah, konsisten, dan nyaman bagi seluruh anggota",
+      "Memfasilitasi beberapa sesi pembelajaran dengan pendekatan interaktif berbasis permainan, menciptakan suasana belajar yang aktif dan menyenangkan",
+      "Mendukung peningkatan kepercayaan diri anggota dalam menggunakan bahasa Inggris melalui lingkungan belajar yang suportif dan partisipatif",
     ],
   },
 ];

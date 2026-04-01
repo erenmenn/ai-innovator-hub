@@ -7,12 +7,27 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+.pnpm-store
+
+# Build Output
 dist
 dist-ssr
+build
+.next/
+out/
+package-lock.json (if using bun)
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 *.local
 
-# Editor directories and files
+# Editor Specifics
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -23,9 +38,23 @@ dist-ssr
 *.sln
 *.sw?
 
-# User specifics to ignore
+# Testing
+coverage
+.nyc_output
+
+# Gemini AI Assist
+.gemini/
+
+# Personal/Assets to Ignore
 Emirsyah_Rafsanjani_CV.pdf
 ringkasan_9proyek.docx
 web design/
 asset_proyek/
 art/
+poster/
+web_design/
+asset/
+public/asset_proyek/ (if applicable)
+
+# Backup READMEs (optional)
+# README.old

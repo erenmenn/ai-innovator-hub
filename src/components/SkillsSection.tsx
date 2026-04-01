@@ -56,9 +56,9 @@ const softSkills = [
     bgGrad: "linear-gradient(135deg, #ec4899 0%, #a855f7 100%)",
     tagline: "Partisipatif, tegas, dan hadir sebagai penggerak tim",
     experience: [
-      "Bukan sekadar tentang posisi, melainkan kesadaran untuk hadir membaca situasi, menggerakkan tim, dan memastikan setiap suara didengar tanpa kehilangan arah tujuan.",
-      "Menerapkan Adaptive Participative Leadership — tahu kapan harus melibatkan tim dalam diskusi dan kapan harus bergerak mandiri secara efisien.",
-      "Berperan sebagai jembatan pembagi tugas berdasarkan kekuatan masing-masing kala tim menghadapi kebuntuan. Kepemimpinan adalah tentang konsistensi dampak nyata."
+      "Bagi saya, kepemimpinan bukan soal posisi, tapi tentang kepekaan membaca situasi dan keberanian untuk bertindak di waktu yang tepat.",
+      "Saya hadir sebagai penggerak yang memastikan setiap ide punya ruang untuk tumbuh, sekaligus menjaga arah tim tetap fokus pada tujuan utama. Dalam dinamika tim, saya terbiasa menyeimbangkan antara mendengar dan mengambil keputusan ,kapan harus membuka ruang diskusi, dan kapan harus melangkah dengan tegas.",
+      "Pendekatan yang saya gunakan bersifat adaptif dan partisipatif: membangun kepercayaan, mendorong kontribusi aktif, dan memastikan setiap anggota merasa memiliki peran dalam hasil akhir. Bagi saya, kepemimpinan yang efektif adalah ketika tim tidak hanya bergerak bersama, tetapi juga berkembang bersama.",
     ],
   },
   {
@@ -66,9 +66,10 @@ const softSkills = [
     bgGrad: "linear-gradient(135deg, #f97316 0%, #eab308 100%)",
     tagline: "Berani mempertanyakan dan tidak puas dengan yang biasa",
     experience: [
-      "Melihat apa yang dilewatkan orang lain dan terus terdorong untuk mencari pendekatan yang lebih cerdas, efisien, serta berdampak.",
-      "Kreativitas bukan tujuan melainkan alat. Setiap inovasi berawal dari pertanyaan fundamental: 'Apakah sistem ini benar-benar menjawab masalahnya?'",
-      "Tidak takut mencoba jalan yang belum lazim dari nol. Ide terbaik seringkali lahir dari keberanian mempertanyakan hal yang sudah dianggap pakem."
+      "Bagi saya, inovasi dimulai dari kepekaan melihat celah yang sering terlewat. Saya terbiasa mengurai masalah hingga ke akar, lalu membangun kembali pendekatan yang lebih sederhana, relevan, dan berdampak nyata.",
+      "Kreativitas bukan sekadar menghasilkan ide baru, tetapi bagaimana memastikan solusi tersebut benar-benar menjawab kebutuhan. Saya selalu menguji setiap gagasan dengan pertanyaan mendasar: apakah ini menyelesaikan masalah, atau hanya terlihat menarik di permukaan?",
+      "Saya terbiasa mengeksplorasi pendekatan yang belum lazim, termasuk membangun solusi dari nol ketika diperlukan. Dalam prosesnya, saya menggabungkan logika, eksperimen, dan keberanian mengambil risiko terukur untuk menemukan cara yang lebih efektif.",
+      "Bagi saya, inovasi yang baik bukan yang paling kompleks, melainkan yang paling tepat guna dan mampu memberikan dampak yang bisa dirasakan.",
     ],
   },
   {
@@ -76,9 +77,9 @@ const softSkills = [
     bgGrad: "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
     tagline: "Wondering by default: Menelusuri masalah hingga ke akar",
     experience: [
-      "Selalu mencari pertanyaan yang tepat sebelum menjawab: tidak mudah menerima asumsi sebelum menelusuri sumber masalah sesungguhnya.",
-      "Terbiasa bertanya 'mengapa' sebelum 'bagaimana' dengan pemikiran yang terbuka, memastikan pendekatan tidak hanya mengobati gejala.",
-      "Memecah masalah menjadi kepingan yang logis lalu merangkainya kembali menjadi solusi utuh. Solusi terbaik adalah buah dari pemahaman terdalam."
+      "Mengutamakan pemahaman akar masalah dengan selalu mengajukan pertanyaan yang tepat sebelum menentukan solusi",
+      "Terbiasa mengeksplorasi “mengapa” sebelum “bagaimana”, memastikan pendekatan yang diambil tidak hanya menyelesaikan gejala",
+      "Memecah masalah kompleks menjadi bagian yang terstruktur, lalu merangkainya kembali menjadi solusi yang logis dan berdampak",
     ],
   },
   {
@@ -86,9 +87,10 @@ const softSkills = [
     bgGrad: "linear-gradient(135deg, #10b981 0%, #14b8a6 100%)",
     tagline: "Membangun kepercayaan sebelum membangun output",
     experience: [
-      "Tim solid lahir dari rasa saling percaya. Hadir dan berperan memastikan aliran komunikasi memadai dan semua peran terbagi secara adil.",
-      "Terbiasa berkomunikasi elegan lintas hierarki (melakukan lobi ide dengan guru/dosen secara profesional) untuk melahirkan keputusan partisipatif bersama.",
-      "Melatih intuisi untuk membaca konteks & memilih perlakuan pendekatan, membuat ide yang diajukan tidak cuma didengar, tapi senantiasa diyakini & diterima."
+      "Aktif membangun hubungan yang positif dalam tim dengan menciptakan suasana komunikasi yang terbuka, nyaman, dan saling menghargai",
+      "Terbiasa berperan sebagai penghubung antara siswa dan pengajar, membantu menyampaikan kebutuhan serta menjembatani perbedaan pemahaman",
+      "Mampu menyampaikan ide dengan cara yang jelas dan mudah diterima, sekaligus terbuka terhadap masukan untuk mencapai hasil terbaik bersama",
+      "Memiliki kepekaan sosial dalam membaca situasi dan dinamika tim, sehingga dapat menyesuaikan pendekatan komunikasi secara efektif",
     ],
   },
 ];
