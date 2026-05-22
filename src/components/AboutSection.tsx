@@ -1,12 +1,16 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Lightbulb, Target, Users, BrainCircuit, Sparkles, LayoutTemplate, X, Quote, Zap } from "lucide-react";
+import { motion } from "framer-motion";
+import { Lightbulb, Target, Users, BrainCircuit, Sparkles, LayoutTemplate, Quote, Zap } from "lucide-react";
 
 const traits = [
   {
     icon: Users,
     title: "Leadership",
     shortDesc: "Empowering teams & driving vision.",
+    features: [
+      "Lead teams with clarity.",
+      "Build vision across stakeholders.",
+      "Drive execution and alignment."
+    ],
     fullDesc: "Saya memimpin dengan empati dan komunikasi yang terstruktur. Fokus saya adalah pada kolaborasi tim, membangun lingkungan yang suportif, serta mengarahkan setiap individu untuk bersinergi mencapai visi bersama secara efektif dan efisien tanpa micromanagement.",
     grad: "linear-gradient(135deg, #6366f1 0%, #3b82f6 50%, #06b6d4 100%)",
     shadow: "#3b82f6",
@@ -19,6 +23,11 @@ const traits = [
     icon: Target,
     title: "Problem Solving",
     shortDesc: "Menyelesaikan tantangan kompleks.",
+    features: [
+      "Analyze complex issues.",
+      "Design clear and practical solutions.",
+      "Deliver reliable impact."
+    ],
     fullDesc: "Saya terbiasa memecah masalah berskala besar menjadi komponen-komponen logis yang dapat dieksekusi. Dengan mencari akar permasalahan (root cause), saya menyusun solusi taktis yang terstruktur, anti-rapuh, dan dapat diukur keberhasilannya di dunia nyata.",
     grad: "linear-gradient(135deg, #f43f5e 0%, #fb7185 40%, #f97316 100%)",
     shadow: "#f43f5e",
@@ -31,6 +40,11 @@ const traits = [
     icon: Lightbulb,
     title: "Creative Thinking",
     shortDesc: "Ideasi out-of-the-box.",
+    features: [
+      "Generate original ideas.",
+      "See fresh perspectives.",
+      "Create memorable solutions."
+    ],
     fullDesc: "Selalu mengeksplorasi sudut pandang dari berbagai multi-disiplin ilmu. Pemikiran kreatif memungkinkan saya untuk merancang inovasi yang tidak konvensional, menembus batas standar industri, dan memberikan 'wow-factor' pada fungsionalitas serta estetika sistem.",
     grad: "linear-gradient(135deg, #f59e0b 0%, #f97316 50%, #fb923c 100%)",
     shadow: "#f59e0b",
@@ -43,6 +57,11 @@ const traits = [
     icon: BrainCircuit,
     title: "Analytical Thinking",
     shortDesc: "Analisa mendalam & logis.",
+    features: [
+      "Interpret data with precision.",
+      "Find patterns that matter.",
+      "Make decisions based on logic."
+    ],
     fullDesc: "Saya tidak menebak-nebak. Saya mengandalkan kumpulan data dan landasan logika first-principles untuk mengambil setiap keputusan. Objektivitas dan kepekaan terhadap pola tersembunyi memastikan setiap langkah arsitektur terhindar dari bias yang berisiko.",
     grad: "linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #d946ef 100%)",
     shadow: "#8b5cf6",
@@ -55,6 +74,11 @@ const traits = [
     icon: LayoutTemplate,
     title: "Project Designer",
     shortDesc: "Merancang fondasi ekosistem.",
+    features: [
+      "Structure systems from concept.",
+      "Design user-centered workflows.",
+      "Align product with execution."
+    ],
     fullDesc: "Lebih dari sekadar coding, saya bertindak sebagai konseptor yang menstrukturkan alur kerja sistem, mendesain cetak biru manajemen proyek, dan merumuskan User Experience agar selaras penuh dengan objektif psikologis pengguna akhir.",
     grad: "linear-gradient(135deg, #10b981 0%, #14b8a6 50%, #06b6d4 100%)",
     shadow: "#10b981",
@@ -67,6 +91,11 @@ const traits = [
     icon: Sparkles,
     title: "AI Solutions",
     shortDesc: "Menjembatani AI & dunia nyata.",
+    features: [
+      "Translate AI into real outcomes.",
+      "Build tech that solves real problems.",
+      "Keep impact measurable and clear."
+    ],
     fullDesc: "Menerjemahkan bottleneck dunia nyata menjadi kapabilitas komputasi buatan. Saya merancang dan mengeksekusi integrasi Pipeline AI (seperti NLP, Vision, dan LLM) yang paling relevan dan cost-effective guna menghasilkan Return on Investment maksimal bagi sistem.",
     grad: "linear-gradient(135deg, #ec4899 0%, #a855f7 50%, #6366f1 100%)",
     shadow: "#ec4899",
@@ -77,38 +106,7 @@ const traits = [
   },
 ];
 
-/* ─── small floating pixel dots ─── */
-const PixelDots = ({ color }: { color: string }) => (
-  <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[2rem]">
-    {[
-      { top: "12%", left: "8%", size: 5 },
-      { top: "18%", right: "10%", size: 4 },
-      { bottom: "20%", left: "14%", size: 6 },
-      { bottom: "14%", right: "8%", size: 4 },
-      { top: "48%", right: "5%", size: 3 },
-    ].map((p, i) => (
-      <motion.div
-        key={i}
-        animate={{ opacity: [0.25, 0.65, 0.25], scale: [1, 1.4, 1] }}
-        transition={{ duration: 3 + i * 0.7, repeat: Infinity, delay: i * 0.5 }}
-        className="absolute rounded-sm"
-        style={{
-          ...p,
-          width: p.size,
-          height: p.size,
-          backgroundColor: color,
-          top: (p as any).top,
-          left: (p as any).left,
-          right: (p as any).right,
-          bottom: (p as any).bottom,
-        }}
-      />
-    ))}
-  </div>
-);
-
 const AboutSection = () => {
-  const [selectedTrait, setSelectedTrait] = useState<typeof traits[0] | null>(null);
 
   return (
     <section id="about" className="py-24 relative overflow-hidden pixel-grid">
@@ -197,182 +195,44 @@ const AboutSection = () => {
           {traits.map((trait, i) => (
             <motion.div
               key={trait.title}
-              initial={{ opacity: 0, scale: 0.85, y: 50, rotate: i % 2 === 0 ? -3 : 3 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: i * 0.08, type: "spring", bounce: 0.45 }}
-              whileHover={{ y: -10, scale: 1.03, rotate: i % 2 === 0 ? -1 : 1 }}
-              whileTap={{ scale: 0.96, y: 2 }}
-              onClick={() => setSelectedTrait(trait)}
-              className="relative rounded-[2rem] p-7 cursor-pointer overflow-hidden flex flex-col group"
+              initial={{ opacity: 0, scale: 0.95, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: i * 0.06, ease: "easeOut" }}
+              className="relative rounded-3xl p-7 cursor-default overflow-hidden flex flex-col"
               style={{
-                background: trait.grad,
-                border: `3px solid rgba(255,255,255,0.35)`,
-                boxShadow: `6px 6px 0px ${trait.hardShadow}, 0 20px 40px ${trait.shadow}40`,
+                background: "#ffffff",
+                border: "1px solid rgba(148,163,184,0.16)",
+                boxShadow: "0 18px 40px rgba(15,23,42,0.08)",
               }}
             >
-              {/* Shine sweep on hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[2rem]"
-                style={{ background: "linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%)" }} />
-
               {/* Top row: icon */}
               <div className="flex items-start mb-5 relative z-10">
-                {/* Icon box — white bg */}
-                <motion.div
-                  whileHover={{ rotate: -12, scale: 1.1 }}
-                  className="w-16 h-16 rounded-[1.2rem] bg-white/25 border-[3px] border-white/50 flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,0.15)] backdrop-blur-sm"
+                {/* Icon box */}
+                <div
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm"
+                  style={{ background: trait.grad }}
                 >
-                  <trait.icon className="w-8 h-8 text-white drop-shadow-md" />
-                </motion.div>
+                  <trait.icon className="w-8 h-8 text-white" />
+                </div>
               </div>
 
               {/* Pill tag */}
-              <span className="self-start text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg bg-white/25 border-[2px] border-white/40 text-white mb-3 relative z-10 backdrop-blur-sm shadow-[2px_2px_0px_rgba(0,0,0,0.1)]">
+              <span className="self-start text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 border border-slate-200 mb-3 relative z-10 shadow-sm">
                 {trait.pill}
               </span>
 
               {/* Title & desc */}
-              <h3 className="font-black text-[22px] text-white mb-2 relative z-10 leading-tight drop-shadow-md">{trait.title}</h3>
-              <p className="text-[14px] text-white/85 font-semibold leading-relaxed relative z-10 flex-1 mb-5">{trait.shortDesc}</p>
-
-              {/* Footer */}
-              <div className="mt-auto pt-4 relative z-10 flex items-center justify-between border-t-2 border-white/20">
-                <span className="text-[11px] font-black uppercase tracking-widest text-white/90 group-hover:text-white transition-colors">
-                  EXPLORE ROLE
-                </span>
-                <motion.div
-                  whileHover={{ rotate: 90, scale: 1.2 }}
-                  transition={{ type: "spring", bounce: 0.6 }}
-                  className="w-9 h-9 rounded-xl bg-white/25 border-[2px] border-white/50 flex items-center justify-center shadow-[2px_2px_0px_rgba(0,0,0,0.15)]"
-                >
-                  <Zap className="w-4 h-4 text-white fill-white" />
-                </motion.div>
-              </div>
+              <h3 className="font-semibold text-[22px] text-slate-900 mb-3 relative z-10 leading-tight">{trait.title}</h3>
+              {trait.features?.map((line, idx) => (
+                <p key={idx} className="text-[14px] text-slate-600 font-medium leading-relaxed relative z-10 mb-2">
+                  {line}
+                </p>
+              ))}
             </motion.div>
           ))}
         </div>
       </div>
 
-      {/* ══════════ COLORFUL MODAL ══════════ */}
-      <AnimatePresence>
-        {selectedTrait && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-8"
-            onClick={() => setSelectedTrait(null)}
-          >
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-slate-900/50 backdrop-blur-xl" />
-
-            {/* Modal */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 60, rotate: -4 }}
-              animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-              exit={{ opacity: 0, scale: 0.85, y: 40, rotate: 3 }}
-              transition={{ type: "spring", bounce: 0.42, duration: 0.5 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-lg overflow-hidden flex flex-col rounded-[2.5rem] border-[4px] border-white/60"
-              style={{
-                background: "#fff",
-                boxShadow: `8px 8px 0px ${selectedTrait.hardShadow}, 0 40px 80px ${selectedTrait.shadow}40`,
-              }}
-            >
-              {/* ── Gradient Header ── */}
-              <div
-                className="relative h-48 w-full overflow-hidden"
-                style={{ background: selectedTrait.grad }}
-              >
-                {/* Pixel dots in header */}
-                <PixelDots color="rgba(255,255,255,0.6)" />
-
-                {/* Shine */}
-                <div className="absolute inset-0 opacity-30"
-                  style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 60%)" }} />
-
-                {/* Big floating emoji */}
-                <motion.div
-                  animate={{ y: [0, -14, 0], rotate: [0, 12, 0] }}
-                  transition={{ duration: 3.5, repeat: Infinity }}
-                  className="absolute -bottom-6 right-6 text-[100px] opacity-25 drop-shadow-2xl select-none"
-                >
-                  {selectedTrait.emoji}
-                </motion.div>
-
-                {/* Close */}
-                <button
-                  onClick={() => setSelectedTrait(null)}
-                  className="absolute top-4 right-4 w-10 h-10 rounded-xl bg-white/25 border-2 border-white/50 flex items-center justify-center text-white hover:bg-white hover:text-slate-800 transition-all z-30 shadow-md hover:scale-110 active:scale-90 backdrop-blur-sm"
-                >
-                  <X className="w-5 h-5" strokeWidth={3} />
-                </button>
-
-                {/* Pill in header */}
-                <div className="absolute top-4 left-5">
-                  <span className="text-[10px] font-black uppercase tracking-widest bg-white/25 border-2 border-white/40 text-white px-3 py-1.5 rounded-xl backdrop-blur-sm">
-                    {selectedTrait.pill}
-                  </span>
-                </div>
-              </div>
-
-              {/* ── Content ── */}
-              <div className="relative px-8 pb-8">
-                {/* Floating icon badge */}
-                <motion.div
-                  initial={{ scale: 0.5, rotate: -15 }}
-                  animate={{ scale: 1, rotate: -6 }}
-                  transition={{ type: "spring", bounce: 0.55, delay: 0.1 }}
-                  className="absolute -top-10 left-8 w-20 h-20 rounded-[1.5rem] flex items-center justify-center border-[4px] border-white shadow-xl"
-                  style={{
-                    background: selectedTrait.grad,
-                    boxShadow: `4px 4px 0px ${selectedTrait.hardShadow}, 0 12px 30px ${selectedTrait.shadow}50`
-                  }}
-                >
-                  <selectedTrait.icon className="w-10 h-10 text-white drop-shadow-lg" />
-                </motion.div>
-
-                <div className="mt-14">
-                  {/* Title gradient */}
-                  <h3
-                    className="text-3xl md:text-4xl font-black mb-1 leading-tight text-transparent bg-clip-text"
-                    style={{ backgroundImage: selectedTrait.grad }}
-                  >
-                    {selectedTrait.title}
-                  </h3>
-                  <p className="text-sm font-semibold text-slate-400 mb-5">{selectedTrait.shortDesc}</p>
-
-                  {/* Description box with gradient left border */}
-                  <div
-                    className="relative rounded-2xl p-6 bg-slate-50 border-[3px] border-slate-100"
-                    style={{ borderLeftColor: selectedTrait.shadow, borderLeftWidth: 4 }}
-                  >
-                    <Quote className="absolute top-3 left-3 w-10 h-10 text-slate-200 fill-slate-100" />
-                    <p className="text-[15px] text-slate-700 leading-relaxed font-semibold relative z-10">
-                      {selectedTrait.fullDesc}
-                    </p>
-                  </div>
-
-                  {/* CTA close button */}
-                  <motion.button
-                    whileHover={{ scale: 1.03, y: -2 }}
-                    whileTap={{ scale: 0.97, y: 1 }}
-                    onClick={() => setSelectedTrait(null)}
-                    className="mt-5 w-full py-4 rounded-2xl font-black text-sm text-white uppercase tracking-widest border-[3px] border-white/30 transition-all"
-                    style={{
-                      background: selectedTrait.grad,
-                      boxShadow: `4px 4px 0px ${selectedTrait.hardShadow}`
-                    }}
-                  >
-                    {selectedTrait.emoji} Got it! ✓
-                  </motion.button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };
