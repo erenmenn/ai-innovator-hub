@@ -6,17 +6,18 @@ import {
   ScrollText, Swords, Shield, Calendar, Layers, Crown, Sparkles, Database, Code2, CheckCircle2, Github
 } from "lucide-react";
 
-type Category = "All" | "Professional" | "NLP" | "Computer Vision" | "Recommendation" | "Prediction" | "Time Series";
+type Concept = "Production" | "ML/DL";
+type Category = "All" | "NLP" | "Computer Vision" | "Recommendation" | "Regression" | "LLM";
 
 interface Project {
   title: string;
   description: string;
   tech: string[];
+  concepts: Concept[];
   category: Category;
-  subcategory?: string;
-  icon: typeof Brain;
+  icon: any;
   image: string;
-  images?: string[];   // optional multi-photo carousel
+  images?: string[];
   github: string;
   bgGradient: string;
   fullDescription: string;
@@ -29,11 +30,45 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "SatuTani - Intelligent Agricultural Agent System",
+    description: "AI Agent untuk sektor pertanian berbasis LangChain dengan multi-tool orchestration",
+    tech: ["LangChain", "RAG", "BMKG API", "Python"],
+    concepts: ["Production", "ML/DL"],
+    category: "LLM",
+    icon: Brain,
+    image: "/asset/poster/logo_satutani.png",
+    github: "https://github.com/erenmenn/SatuTani-AgriAI",
+    bgGradient: "linear-gradient(135deg, #22c55e, #16a34a)",
+    fullDescription: "SatuTani adalah sistem AI Agent terintegrasi untuk sektor pertanian yang menggunakan arsitektur multi-tool orchestration berbasis LangChain. Platform ini menggabungkan data cuaca real-time dari BMKG, data agrikultur dari FAO dan Kementerian Pertanian Indonesia, serta RAG system untuk knowledge base terkait hama, pupuk, dan pestisida.",
+    problem: "Petani Indonesia menghadapi tantangan dalam mengambil keputusan pertanian yang tepat karena terbatasnya akses ke informasi cuaca real-time, harga komoditas, dan rekomendasi pengelolaan hama yang terintegrasi. Keputusan yang salah berakibat pada kerugian panen dan pendapatan yang tidak optimal.",
+    solution: "Mengembangkan AI Pricing & Yield Advisor yang memberikan rekomendasi komoditas berdasarkan lokasi, prediksi cuaca, estimasi hasil panen, dan proyeksi keuntungan. Dibangun Gaussian Scoring Engine sebagai core decision-making system yang mengolah parameter agrikultur menjadi rekomendasi terukur dan data-driven melalui agentic AI workflow.",
+    skills: ["LangChain Agent Orchestration", "RAG Pipeline", "Real-time API Integration", "Gaussian Scoring Model", "Multi-source Data Processing", "Python"],
+    highlights: ["Multi-tool orchestration untuk integrasi data real-time", "AI Yield & Pricing Advisor berbasis machine learning", "Gaussian Scoring Engine untuk decision-making terukur", "Knowledge base terstruktur untuk hama & pestisida", "Workflow agentic AI penuh otomasi"],
+    dataset: "Integrasi data dari BMKG (cuaca), FAO (data agrikultur global), dan Kementerian Pertanian Indonesia (data lokal pertanian nasional).",
+  },
+  {
+    title: "JavaMart AI - Governed Chatbot (LangGraph Hybrid System)",
+    description: "Chatbot berbasis LangGraph dengan governance dan controlled agent workflow",
+    tech: ["LangGraph", "LLM", "Guardrails", "Python"],
+    concepts: ["Production", "ML/DL"],
+    category: "LLM",
+    icon: MessageSquare,
+    image: "/asset/poster/lang.png",
+    github: "https://github.com/erenmenn/JavaMart-GovernedChatbot",
+    bgGradient: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+    fullDescription: "JavaMart AI adalah sistem chatbot enterprise-grade yang dibangun menggunakan LangGraph dengan fokus pada AI governance, controlled agent workflow, dan structured reasoning pipeline. Sistem ini menjamin setiap respons tetap konsisten, aman, dan dapat dievaluasi melalui multiple evaluation layers dan guardrails proteksi data.",
+    problem: "Chatbot tradisional sering menghasilkan output yang tidak konsisten, tidak terkontrol, dan sulit dievaluasi kualitasnya. Dalam konteks enterprise dengan data sensitif, diperlukan mekanisme governance yang ketat untuk memastikan safety, compliance, dan reliability sistem AI.",
+    solution: "Mengimplementasikan LangGraph orchestration dengan state management dan routing decision yang terstruktur. Sistem ini dilengkapi guardrails untuk proteksi data sensitif serta evaluation layer multi-aspek (relevansi, akurasi, safety) untuk menilai kualitas output LLM secara objektif dan measurable.",
+    skills: ["LangGraph Orchestration", "State Management", "AI Guardrails", "Evaluation Framework", "LLM Safety & Compliance", "Python"],
+    highlights: ["Controlled agent workflow dengan LangGraph state machine", "Multi-layer guardrails untuk proteksi data sensitif", "Evaluation layer terstruktur (relevansi, akurasi, safety)", "Hybrid LangChain architecture scalable", "Governance framework enterprise-ready"],
+    dataset: "Custom evaluation dataset untuk testing governance policy, safety compliance, dan response quality metrics di berbagai skenario percakapan.",
+  },
+  {
     title: "Sisibuk AI: Asisten Jadwal Cerdas",
     description: "Asisten manajemen jadwal bertenaga Groq AI (LLaMA 3.3)",
     tech: ["Next.js", "Groq AI", "Supabase"],
-    category: "Professional",
-    subcategory: "LLM",
+    concepts: ["Production", "ML/DL"],
+    category: "LLM",
     icon: Calendar,
     image: "/asset_proyek/sisibuk/image1.png",
     images: [
@@ -54,8 +89,8 @@ const projects: Project[] = [
     title: "WangkuAI: Asisten Keuangan Pintar",
     description: "Finance tracker dengan NLP pipeline untuk chat sehari-hari",
     tech: ["Next.js", "IndoBERT", "Prisma"],
-    category: "Professional",
-    subcategory: "NLP",
+    concepts: ["Production", "ML/DL"],
+    category: "NLP",
     icon: Brain,
     image: "/asset_proyek/wangku.png",
     github: "https://github.com/erenmenn/WangkuAI-FinanceBot",
@@ -71,6 +106,7 @@ const projects: Project[] = [
     title: "MovieRec: Sistem Rekomendasi Film",
     description: "Hybrid recommendation model memakai 25 juta rating",
     tech: ["TensorFlow", "Scikit", "NMF"],
+    concepts: ["ML/DL"],
     category: "Recommendation",
     icon: Film,
     image: "/asset_proyek/recomendation.png",
@@ -87,7 +123,8 @@ const projects: Project[] = [
     title: "MADUW: Prediksi Harga Madu",
     description: "Memprediksi harga madu dengan pemodelan Regresi",
     tech: ["Scikit-Learn", "Regression", "Data Viz"],
-    category: "Prediction",
+    concepts: ["ML/DL"],
+    category: "Regression",
     icon: BarChart3,
     image: "/asset_proyek/honeyprice.png",
     github: "https://github.com/erenmenn/PrediksiHarga-MADUW",
@@ -100,27 +137,11 @@ const projects: Project[] = [
     dataset: "Kaggle: Predict Purity and Price of Honey oleh Stealth Technologies (247.903 baris data, 11 fitur kimia).",
   },
   {
-    title: "TayloR: Semantic Lyrics Search",
-    description: "Temukan lagu Taylor Swift pake sentimen emosimu",
-    tech: ["SBERT", "FAISS", "Flask"],
-    category: "NLP",
-    icon: Brain,
-    image: "/asset_proyek/lyrics.png",
-    github: "https://github.com/erenmenn/SemanticSearch-Lyrics",
-    bgGradient: "linear-gradient(135deg, #3b82f6, #6366f1)",
-    fullDescription: "Mesin pencari semantik canggih yang dirancang mengeksplor diskografi musik dengan konteks perasaan asli manusia ketimbang keyword. Mengandalkan metode Dual-Field Adaptive Hybrid Search yang melewati 9 flow NLP pipeline komprehensif.",
-    problem: "Pendengar sering kesulitan mencari lagu karena tidak tau keyword judul/lirik aslinya. Ketika merasa 'sedih di kamar', keyword 'sad bed' tak membawa makna filosofis lagu.",
-    solution: "Mentransformasikan setiap lirik & mood lagu dalam basis vector. Memungkinkan search via slang ekspresi lokal spt 'galau', 'bucin', lalu disimilaritasi lewat indeks SBERT dan FAISS search ke 164 dataset anotasi mandiri.",
-    skills: ["Sentence Transformers", "Vector FAISS", "Semantic Tuning", "Slang Translator", "React.js"],
-    highlights: ["Bilingual query (Support slang indo + EN native)", "Menampung 50+ variasi kondisi/emosi", "Diversity injection fallback bila filter ketat"],
-    dataset: "164 lagu dari 8 album utama Taylor Swift yang dianotasi secara manual dengan label situasi & intensitas (10+ label/lagu).",
-  },
-  {
     title: "FirstAid.ID: NLP Chunking Strategy",
     description: "Analisis riset strategik RAG di buku Panduan P3K",
     tech: ["RAG", "IndoBERT", "Python"],
-    category: "Professional",
-    subcategory: "NLP",
+    concepts: ["ML/DL"],
+    category: "NLP",
     icon: Brain,
     image: "/asset_proyek/firstaid.png",
     github: "https://github.com/erenmenn/ChungkingStrategy-FirstAIDbook",
@@ -136,6 +157,7 @@ const projects: Project[] = [
     title: "EMIR: Emotion Image Classifier",
     description: "Deteksi ekspresi human dari foto dalam 200 milisekon",
     tech: ["TFLite", "MTCNN", "Flask"],
+    concepts: ["ML/DL"],
     category: "Computer Vision",
     icon: Eye,
     image: "/asset_proyek/emotion.png",
@@ -152,6 +174,7 @@ const projects: Project[] = [
     title: "PlantCare: Scan Penyakit Daun",
     description: "Klasifikasi 35 tipe penyakit tanaman secara akurat",
     tech: ["CNN", "Keras", "Flask"],
+    concepts: ["ML/DL"],
     category: "Computer Vision",
     icon: Eye,
     image: "/asset_proyek/plantdesease.png",
@@ -168,6 +191,7 @@ const projects: Project[] = [
     title: "Taylor Ophelia: Mass Sentiment",
     description: "Membedah emosi belasan ribu komen via API Scraping",
     tech: ["NLP", "SVM", "YouTube API"],
+    concepts: ["ML/DL"],
     category: "NLP",
     icon: MessageSquare,
     image: "/asset_proyek/sentimen.png",
@@ -184,6 +208,7 @@ const projects: Project[] = [
     title: "CS Intent: Intelligent Router",
     description: "Benchmark Intent-Router bot pake 3 paradigma ML",
     tech: ["DistilBERT", "BiLSTM", "Naive Bayes"],
+    concepts: ["ML/DL"],
     category: "NLP",
     icon: Wrench,
     image: "/asset_proyek/customerchatbot.png",
@@ -198,16 +223,16 @@ const projects: Project[] = [
   },
 ];
 
-const categories: Category[] = ["All", "Professional", "NLP", "Computer Vision", "Recommendation", "Prediction", "Time Series"];
+const conceptsList: Concept[] = ["ML/DL", "Production"];
+const categories: Category[] = ["All", "NLP", "Computer Vision", "Recommendation", "Regression", "LLM"];
 
 const categoryMeta: Record<string, { icon: any; color: string; grad: string; isSpecial?: boolean; textColor?: string }> = {
   "All":             { icon: Layers,  color: "#6366f1", grad: "linear-gradient(135deg,#6366f1,#a855f7)", textColor: "#fff" },
-  "Professional":    { icon: Crown, color: "#f59e0b", grad: "linear-gradient(135deg,#f43f5e,#a855f7,#3b82f6)", isSpecial: true, textColor: "#fff" },
   "NLP":             { icon: Brain, color: "#ef4444", grad: "linear-gradient(135deg,#ef4444,#f97316)", textColor: "#fff" },
   "Computer Vision": { icon: Eye, color: "#10b981", grad: "linear-gradient(135deg,#10b981,#06b6d4)", textColor: "#fff" },
   "Recommendation":  { icon: Target, color: "#ec4899", grad: "linear-gradient(135deg,#ec4899,#f43f5e)", textColor: "#fff" },
-  "Prediction":      { icon: BarChart3, color: "#f59e0b", grad: "linear-gradient(135deg,#f59e0b,#ea580c)", textColor: "#fff" },
-  "Time Series":     { icon: Calendar, color: "#8b5cf6", grad: "linear-gradient(135deg,#8b5cf6,#6366f1)", textColor: "#fff" },
+  "Regression":      { icon: BarChart3, color: "#f59e0b", grad: "linear-gradient(135deg,#f59e0b,#ea580c)", textColor: "#fff" },
+  "LLM":             { icon: Crown, color: "#8b5cf6", grad: "linear-gradient(135deg,#8b5cf6,#6366f1)", textColor: "#fff" },
 };
 
 // ── Project Modal — clean white inside ────────────────────────────────────────
@@ -244,7 +269,7 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
           <div className="flex items-center gap-3">
             <project.icon className="w-5 h-5 text-white drop-shadow" />
             <span className="font-pixel text-[9px] tracking-widest text-white uppercase">
-              {project.category}{project.subcategory ? ` · ${project.subcategory}` : ""}
+              {project.category}
             </span>
           </div>
           <button
@@ -393,12 +418,23 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
 
 // ── Main Section ───────────────────────────────────────────────────────────────
 const ProjectsSection = () => {
-  const [active, setActive] = useState<Category>("All");
+  const [activeConcept, setActiveConcept] = useState<Concept>("ML/DL");
+  const [activeCategory, setActiveCategory] = useState<Category>("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const filtered = active === "All"
-    ? projects
-    : projects.filter((p) => p.category === active || p.subcategory === active);
+  // Filter based on concept first, then category
+  const filtered = projects.filter((p) => {
+    // Check if project belongs to active concept
+    const inConcept = p.concepts.includes(activeConcept);
+    if (!inConcept) return false;
+
+    // Check category if in ML/DL concept and category is not "All"
+    if (activeConcept === "ML/DL" && activeCategory !== "All") {
+      return p.category === activeCategory;
+    }
+    
+    return true;
+  });
 
   return (
     <section id="projects" className="py-24 relative pixel-grid overflow-hidden">
@@ -415,7 +451,7 @@ const ProjectsSection = () => {
           viewport={{ once: true }} transition={{ duration: 0.6 }}
           className="mb-14"
         >
-          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
+          <div className="flex flex-col items-center text-center gap-6">
             <div>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border-2 border-indigo-300 shadow-[3px_3px_0px_#6366f1] rounded-xl mb-4">
                 <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
@@ -427,73 +463,114 @@ const ProjectsSection = () => {
                   WORKS
                 </span>
               </h2>
-              <p className="text-muted-foreground text-sm mt-2 font-medium">
-                {filtered.length} project{filtered.length !== 1 ? "s" : ""} — click to explore
-              </p>
             </div>
 
-            {/* ── Filter Bar — gradient label chips ── */}
-            <div className="flex flex-wrap gap-2 max-w-xl">
-              {categories.map((cat) => {
-                const meta = categoryMeta[cat] ?? { icon: Layers, color: "#94a3b8", grad: "linear-gradient(135deg,#94a3b8,#64748b)", textColor: "#fff", isSpecial: false };
-                const isActive = active === cat;
-                const isSpecial = !!meta.isSpecial;
-
+            {/* ── Concept Tabs (Big 3) ── */}
+            <div className="flex bg-slate-100/50 p-1.5 rounded-full border border-slate-200/60 shadow-sm backdrop-blur-sm max-w-full overflow-x-auto">
+              {conceptsList.map((concept) => {
+                const isActive = activeConcept === concept;
                 return (
-                  <motion.button
-                    key={cat}
-                    onClick={() => setActive(cat)}
-                    whileHover={{ y: -3, scale: 1.04 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="relative flex items-center gap-2 px-5 py-2.5 font-sans text-xs uppercase tracking-widest transition-all duration-300 overflow-hidden"
-                    style={{
-                      borderRadius: "999px",
-                      background: isActive ? meta.grad : isSpecial ? meta.grad : `${meta.color}15`,
-                      color: isActive ? "#fff" : isSpecial ? "#fff" : meta.color,
-                      border: isActive ? "1px solid transparent" : isSpecial ? "1px solid transparent" : `1px solid ${meta.color}30`,
-                      boxShadow: isActive
-                        ? `0 8px 25px ${meta.color}40, inset 0 1px 0 rgba(255,255,255,0.4)`
-                        : isSpecial
-                          ? `0 4px 15px ${meta.color}30, inset 0 1px 0 rgba(255,255,255,0.4)`
-                          : `0 2px 8px ${meta.color}10`,
-                      fontWeight: 800,
+                  <button
+                    key={concept}
+                    onClick={() => {
+                      setActiveConcept(concept);
+                      setActiveCategory("All"); // reset category when changing concept
                     }}
+                    className={`relative px-6 py-3 rounded-full text-sm font-black tracking-wide uppercase transition-all duration-300 whitespace-nowrap ${
+                      isActive ? "text-white shadow-md" : "text-slate-500 hover:text-slate-700"
+                    }`}
                   >
-                    {/* Shimmer for special/active */}
-                    {(isSpecial || isActive) && (
-                      <span
-                        className="absolute inset-0 pointer-events-none"
-                        style={{
-                          background: "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%)",
-                          backgroundSize: "200% 100%",
-                          animation: "shimmer 2.5s infinite",
-                        }}
-                      />
-                    )}
-                    <meta.icon className="w-4 h-4 relative z-10" strokeWidth={2.5} />
-                    <span className="relative z-10 pt-[1px]">{cat}</span>
                     {isActive && (
-                      <span
-                        className="relative z-10 w-1.5 h-1.5 rounded-full bg-white/90 ml-1 shadow-[0_0_10px_rgba(255,255,255,1)]"
+                      <motion.div
+                        layoutId="activeConceptBg"
+                        className="absolute inset-0 rounded-full"
+                        style={{ background: "linear-gradient(135deg, #6366f1, #ec4899)" }}
+                        transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                       />
                     )}
-                  </motion.button>
+                    <span className="relative z-10 flex items-center gap-2">
+                      {concept === "Production" && <Crown className="w-4 h-4" />}
+                      {concept === "ML/DL" && <Brain className="w-4 h-4" />}
+                      {concept}
+                    </span>
+                  </button>
                 );
               })}
             </div>
+
+            {/* ── ML/DL Subcategory Filters ── */}
+            <AnimatePresence>
+              {activeConcept === "ML/DL" && (
+                <motion.div 
+                  initial={{ opacity: 0, height: 0, y: -10 }}
+                  animate={{ opacity: 1, height: "auto", y: 0 }}
+                  exit={{ opacity: 0, height: 0, y: -10 }}
+                  className="flex flex-wrap justify-center gap-2 max-w-2xl mt-2"
+                >
+                  {categories.map((cat) => {
+                    const meta = categoryMeta[cat] ?? { icon: Layers, color: "#94a3b8", grad: "linear-gradient(135deg,#94a3b8,#64748b)", textColor: "#fff", isSpecial: false };
+                    const isActive = activeCategory === cat;
+
+                    return (
+                      <motion.button
+                        key={cat}
+                        onClick={() => setActiveCategory(cat)}
+                        whileHover={{ y: -2, scale: 1.04 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="relative flex items-center gap-1.5 px-4 py-2 font-sans text-[10px] sm:text-xs uppercase tracking-widest transition-all duration-300 overflow-hidden"
+                        style={{
+                          borderRadius: "999px",
+                          background: isActive ? meta.grad : `${meta.color}10`,
+                          color: isActive ? "#fff" : meta.color,
+                          border: isActive ? "1px solid transparent" : `1px solid ${meta.color}30`,
+                          boxShadow: isActive
+                            ? `0 6px 20px ${meta.color}40, inset 0 1px 0 rgba(255,255,255,0.4)`
+                            : `0 2px 8px ${meta.color}05`,
+                          fontWeight: 800,
+                        }}
+                      >
+                        <meta.icon className="w-3.5 h-3.5 relative z-10" strokeWidth={2.5} />
+                        <span className="relative z-10 pt-[1px]">{cat}</span>
+                      </motion.button>
+                    );
+                  })}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <p className="text-muted-foreground text-sm mt-4 font-medium">
+              {filtered.length} project{filtered.length !== 1 ? "s" : ""} — click to explore
+            </p>
           </div>
         </motion.div>
 
         {/* ── Creative Bento Grid — card fronts END UNIFORM ── */}
         <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-          >
+          {filtered.length === 0 ? (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="w-full py-20 flex flex-col items-center justify-center text-center"
+            >
+              <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                <Sparkles className="w-10 h-10 text-slate-300" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-700 mb-2">Belum ada inovasi di sini</h3>
+              <p className="text-slate-500 max-w-sm">
+                Ide-ide cemerlang sedang diracik. Kembali lagi nanti untuk melihat inovasi AI terbaru!
+              </p>
+            </motion.div>
+          ) : (
+            <motion.div
+              key={activeConcept + activeCategory}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+            >
             {filtered.map((project, i) => {
               const meta = categoryMeta[project.category] || categoryMeta["All"];
 
@@ -584,7 +661,7 @@ const ProjectsSection = () => {
 
                       {/* Category labels */}
                       <div className="flex items-center gap-2 flex-wrap">
-                        {project.category === "Professional" && (
+                        {project.concepts.includes("Production") && (
                           <span
                             className="relative overflow-hidden flex items-center gap-1.5 px-3 py-1 rounded-full text-white font-sans text-[10px] uppercase tracking-wider font-extrabold"
                             style={{
@@ -594,7 +671,7 @@ const ProjectsSection = () => {
                           >
                             <span className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%, rgba(0,0,0,0.1) 100%)" }} />
                             <Star className="w-3 h-3 fill-white/80 relative z-10" />
-                            <span className="relative z-10">PROFESSIONAL</span>
+                            <span className="relative z-10">PRODUCTION</span>
                           </span>
                         )}
                         <span
@@ -605,9 +682,7 @@ const ProjectsSection = () => {
                             borderColor: `${meta.color}35`
                           }}
                         >
-                          {project.category === "Professional" && project.subcategory
-                            ? project.subcategory
-                            : project.category}
+                          {project.category}
                         </span>
                       </div>
 
@@ -634,6 +709,7 @@ const ProjectsSection = () => {
               );
             })}
           </motion.div>
+          )}
         </AnimatePresence>
       </div>
 
