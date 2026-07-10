@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sparkles, Cpu, Code2, Folder, Phone } from "lucide-react";
+import { Menu, X, Sparkles, Cpu, Code2, Folder, Phone, Home } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
-  { label: "ABOUT", href: "#about", icon: Cpu },
-  { label: "SKILLS", href: "#skills", icon: Code2 },
-  { label: "EXPERIENCE", href: "#experience", icon: Folder },
-  { label: "PROJECTS", href: "#projects", icon: Folder },
-  { label: "CONTACT", href: "#contact", icon: Phone },
+  { label: "HOME", href: "/", icon: Home, grad: "linear-gradient(135deg, #f59e0b, #ef4444)", shadow: "rgba(245,158,11,0.4)" },
+  { label: "SKILLS", href: "/skills", icon: Code2, grad: "linear-gradient(135deg, #8b5cf6, #d946ef)", shadow: "rgba(139,92,246,0.4)" },
+  { label: "EXPERIENCE", href: "/experience", icon: Folder, grad: "linear-gradient(135deg, #6366f1, #a855f7)", shadow: "rgba(99,102,241,0.4)" },
+  { label: "PROJECTS", href: "/projects", icon: Folder, grad: "linear-gradient(135deg, #3b82f6, #06b6d4)", shadow: "rgba(59,130,246,0.4)" },
+  { label: "CONTACT", href: "/contact", icon: Phone, grad: "linear-gradient(135deg, #10b981, #0ea5e9)", shadow: "rgba(16,185,129,0.4)" },
 ];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -33,22 +35,32 @@ const Navbar = () => {
       <div className="container mx-auto px-6 flex items-center justify-center">
         {/* Desktop Menu - Pixel Pill Style */}
         <div className="hidden md:flex items-center gap-2 glass-card px-3 py-2 rounded-full border-white/20 shadow-xl">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-[9px] font-pixel px-4 py-2 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all flex items-center gap-2 group"
-            >
-              <link.icon className="w-3 h-3 transition-transform group-hover:scale-125 group-hover:rotate-12" />
-              {link.label}
-            </a>
-          ))}
-          <a
-            href="#contact"
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                to={link.href}
+                className={`text-[9px] font-pixel px-5 py-2.5 rounded-full transition-all flex items-center gap-2 group text-white hover:scale-105 active:scale-95 ${
+                  isActive ? "ring-2 ring-white/50" : ""
+                }`}
+                style={{
+                  background: link.grad,
+                  boxShadow: `0 4px 15px ${link.shadow}`,
+                  border: "1px solid rgba(255,255,255,0.2)"
+                }}
+              >
+                <link.icon className="w-3 h-3 transition-transform group-hover:scale-125 group-hover:rotate-12" />
+                {link.label}
+              </Link>
+            );
+          })}
+          <Link
+            to="/contact"
             className="px-6 py-2 rounded-full gold-gradient text-white text-[9px] font-pixel shadow-lg hover:brightness-110 transition-all hover:scale-105 ml-2"
           >
             HIRE_ME
-          </a>
+          </Link>
         </div>
 
         <button
@@ -68,24 +80,33 @@ const Navbar = () => {
             className="md:hidden absolute top-full left-4 right-4 mt-4 glass-card rounded-[2rem] p-6 shadow-2xl border-2 border-white/20 overflow-hidden"
           >
             <div className="flex flex-col gap-3 relative z-10">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-[10px] font-pixel text-muted-foreground hover:text-primary py-4 px-6 rounded-2xl hover:bg-primary/5 transition-all flex items-center gap-3"
-                >
-                  <link.icon className="w-4 h-4" />
-                  {link.label}
-                </a>
-              ))}
-              <a
-                href="#contact"
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={`text-[10px] font-pixel py-4 px-6 rounded-2xl transition-all flex items-center gap-3 text-white shadow-lg active:scale-95 ${
+                      isActive ? "ring-2 ring-white/50" : ""
+                    }`}
+                    style={{
+                      background: link.grad,
+                      boxShadow: `0 4px 15px ${link.shadow}`,
+                    }}
+                  >
+                    <link.icon className="w-4 h-4" />
+                    {link.label}
+                  </Link>
+                );
+              })}
+              <Link
+                to="/contact"
                 onClick={() => setMobileOpen(false)}
                 className="mt-2 py-5 rounded-2xl gold-gradient text-white font-pixel text-xs text-center shadow-xl active:scale-95 transition-transform"
               >
                 HIRE_ME_NOW
-              </a>
+              </Link>
             </div>
             {/* Background floating bits for mobile menu */}
             <motion.div animate={{ rotate: 360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute -bottom-10 -right-10 opacity-5 pointer-events-none">

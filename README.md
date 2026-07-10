@@ -37,9 +37,9 @@ _"Jika Anda tidak pernah berdarah, Anda tidak akan pernah tumbuh." (If you never
 
 ---
 
-### 🌟 Proyek Unggulan
+### 🌟 Proyek Unggulan ku
 
-Berikut adalah beberapa arsitektur sistem cerdas (AI) yang telah saya kembangkan:
+Berikut adalah beberapa arsitektur sistem cerdas (AI) yang telah saya kembangkan::
 
 | Proyek                                                                                              |     Kategori      | Deskripsi                                                                                                                                                                                                |
 | --------------------------------------------------------------------------------------------------- | :---------------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

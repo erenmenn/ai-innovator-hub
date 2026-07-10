@@ -1,720 +1,720 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ExternalLink, Brain, Eye, Film, BarChart3, X, Target, Wrench,
-  Star, MessageSquare, ChevronLeft, ChevronRight, Gamepad2,
-  ScrollText, Swords, Shield, Calendar, Layers, Crown, Sparkles, Database, Code2, CheckCircle2, Github
+  ExternalLink, Brain, Eye, Film, BarChart3, Target, Wrench,
+  Star, MessageSquare, Calendar, Layers, Crown, Sparkles, Code2, Github, X, Target as TargetIcon, CheckCircle2
 } from "lucide-react";
 
-type Concept = "Production" | "ML/DL";
-type Category = "All" | "NLP" | "Computer Vision" | "Recommendation" | "Regression" | "LLM";
+type Concept = "Production" | "ML/DL" | "Gen AI" | "Computer Vision" | "NLP" | "Regression" | "Recommendation" | "Workshop";
+type Category = "All" | "Machine Learning" | "Deep Learning" | "Gen AI";
+
+interface NodeDetail {
+  name: string;
+  role: string;
+  description: string;
+  color: string;
+}
 
 interface Project {
   title: string;
   description: string;
+  overview: string;
+  problem: string;
+  solution: string;
   tech: string[];
   concepts: Concept[];
   category: Category;
   icon: any;
   image: string;
-  images?: string[];
   github: string;
-  bgGradient: string;
-  fullDescription: string;
-  problem: string;
-  solution: string;
-  skills: string[];
-  highlights: string[];
-  dataset: string;
+  demoUrl?: string;
+  colabUrl?: string;
+  nodeDetails?: NodeDetail[];
+  whyLanggraph?: string;
 }
 
 const projects: Project[] = [
   {
-    title: "SatuTani - Intelligent Agricultural Agent System",
-    description: "AI Agent untuk sektor pertanian berbasis LangChain dengan multi-tool orchestration",
-    tech: ["LangChain", "RAG", "BMKG API", "Python"],
-    concepts: ["Production", "ML/DL"],
-    category: "LLM",
-    icon: Brain,
-    image: "/asset/poster/logo_satutani.png",
-    github: "https://github.com/erenmenn/SatuTani-AgriAI",
-    bgGradient: "linear-gradient(135deg, #22c55e, #16a34a)",
-    fullDescription: "SatuTani adalah sistem AI Agent terintegrasi untuk sektor pertanian yang menggunakan arsitektur multi-tool orchestration berbasis LangChain. Platform ini menggabungkan data cuaca real-time dari BMKG, data agrikultur dari FAO dan Kementerian Pertanian Indonesia, serta RAG system untuk knowledge base terkait hama, pupuk, dan pestisida.",
-    problem: "Petani Indonesia menghadapi tantangan dalam mengambil keputusan pertanian yang tepat karena terbatasnya akses ke informasi cuaca real-time, harga komoditas, dan rekomendasi pengelolaan hama yang terintegrasi. Keputusan yang salah berakibat pada kerugian panen dan pendapatan yang tidak optimal.",
-    solution: "Mengembangkan AI Pricing & Yield Advisor yang memberikan rekomendasi komoditas berdasarkan lokasi, prediksi cuaca, estimasi hasil panen, dan proyeksi keuntungan. Dibangun Gaussian Scoring Engine sebagai core decision-making system yang mengolah parameter agrikultur menjadi rekomendasi terukur dan data-driven melalui agentic AI workflow.",
-    skills: ["LangChain Agent Orchestration", "RAG Pipeline", "Real-time API Integration", "Gaussian Scoring Model", "Multi-source Data Processing", "Python"],
-    highlights: ["Multi-tool orchestration untuk integrasi data real-time", "AI Yield & Pricing Advisor berbasis machine learning", "Gaussian Scoring Engine untuk decision-making terukur", "Knowledge base terstruktur untuk hama & pestisida", "Workflow agentic AI penuh otomasi"],
-    dataset: "Integrasi data dari BMKG (cuaca), FAO (data agrikultur global), dan Kementerian Pertanian Indonesia (data lokal pertanian nasional).",
+    title: "AI Holiday Planner: Agent vs RAG",
+    description: "Demo ReAct Agent (LangChain + Groq Llama 3.3 70B) dengan 8 tools generik untuk merencanakan liburan lintas negara secara mandiri.",
+    overview: "Materi interaktif untuk sesi mengajar (Session 6) yang mendemonstrasikan secara konkret perbedaan RAG (retrieve-generate-stop) dan Agent (Think → Act → Observe). Agent ini mampu merencanakan liburan ke Jepang, Thailand, atau Amerika Serikat tanpa perlu mengubah instruksi.",
+    problem: "Banyak yang mengira RAG dan Agent adalah hal yang sama. Selain itu, membuat agent perencana liburan sering berujung pada sistem yang di-hardcode untuk satu destinasi dan tidak memiliki perlindungan dari infinite loop.",
+    solution: "Membangun agent dengan pola ReAct yang dibekali 8 tools generik: Tavily (search), Frankfurter (kurs), calculator, geopy (jarak), image search, note (stateful), Open-Meteo (cuaca), dan deep-translator. Agent secara mandiri memilih tool dan urutannya. Ditambah demo failure mode (max_iterations=2) untuk mengajarkan pentingnya safety net.",
+    tech: ["LangChain", "Llama 3.3 70B", "ReAct", "Python"],
+    concepts: ["Workshop", "Gen AI"],
+    category: "Gen AI",
+    icon: Calendar,
+    image: "/asset_proyek/holiday_planner.png",
+    github: "#",
+    colabUrl: "https://colab.research.google.com/drive/1aHQ9ZjvuTSj2v28kYHayHBGPNVlAihyu",
+    whyLanggraph: "Proyek ini mendemonstrasikan jantung dari Agentic Flow: siklus Think → Act → Observe. Lewat 8 tools generik, agent dibiarkan memutuskan sendiri langkahnya (cari destinasi → convert kurs → hitung budget → cek cuaca → translate). Demo failure mode dengan max_iterations yang disengaja kecil menjadi bukti nyata mengapa kita butuh kontrol dan safety net—sebuah pengantar sempurna sebelum siswa melangkah ke pembuatan graph dan state machine yang lebih robust dengan LangGraph."
   },
   {
-    title: "JavaMart AI - Governed Chatbot (LangGraph Hybrid System)",
-    description: "Chatbot berbasis LangGraph dengan governance dan controlled agent workflow",
+    title: "Healthy Food Recommendation Agent",
+    description: "LangGraph agent end-to-end yang mem-parsing teks bebas, memvalidasi data biometrik, mencari referensi dari dua sumber (PDF RAG + Tavily), lalu menghasilkan rekomendasi menu personal yang aman.",
+    overview: "Agent rekomendasi makanan sehat berbasis LangGraph (Session 6/7 Workshop). User cukup mengetik pesan bebas — sistem otomatis mem-parsing, memvalidasi, mencari referensi, dan menghasilkan menu personal yang aman.",
+    problem: "Memberikan rekomendasi diet yang personal dan aman memerlukan validasi data biometrik, referensi dari sumber terpercaya, serta kemampuan menangani dua jenis kebutuhan sekaligus: edukasi gizi umum dan rekomendasi personal — sesuatu yang sulit dilakukan chatbot linear biasa.",
+    solution: "Membangun stateful agent dengan 8 node di LangGraph: input_parser → guardrail (+ clarification loop) → book_search & web_search paralel → validation (loop retry hingga 2x) → recommendation → audit. Agent cukup pintar untuk membedakan intent 'general_info' vs 'personalized_diet' dan melayani keduanya dalam satu bot.",
+    tech: ["LangGraph", "ChromaDB", "Tavily API", "RAG", "Python"],
+    concepts: ["Gen AI", "Workshop"],
+    category: "Gen AI",
+    icon: Brain,
+    image: "/asset_proyek/healthy_food_agent.png",
+    github: "#",
+    colabUrl: "https://colab.research.google.com/drive/1BuQX8iLA4ljgmPRAOCnR-pc0FS5wWA2x",
+    nodeDetails: [
+      { name: "input_parser_node", role: "Processing", description: "Mengubah teks bebas jadi JSON terstruktur plus klasifikasi intent (general_info vs personalized_diet).", color: "#6366f1" },
+      { name: "guardrail_node", role: "Validation", description: "Mengecek kelengkapan dan kewajaran data (TB, BB, usia) serta menghitung BMI. Gagal → lempar ke clarification_node.", color: "#f59e0b" },
+      { name: "clarification_node", role: "Interaction", description: "Menyusun pertanyaan balik yang ramah ke user saat data biometrik tidak lengkap atau tidak masuk akal.", color: "#ec4899" },
+      { name: "book_search_node", role: "Retrieval", description: "Menarik data dari ChromaDB hasil indexing buku gizi PDF via RAG.", color: "#8b5cf6" },
+      { name: "web_search_node", role: "Tool Call", description: "Mencari info terkini lewat Tavily API untuk melengkapi referensi buku.", color: "#0ea5e9" },
+      { name: "validation_node", role: "Logic", description: "Mengekstrak & mencari irisan keyword makanan dari buku+web. Jika irisan <2 atau ada konflik, loop balik ke book_search_node (maks 2x retry).", color: "#10b981" },
+      { name: "recommendation_node", role: "Generation", description: "Menyusun jawaban final secara adaptif sesuai intent user — edukasi umum atau rekomendasi menu personal.", color: "#f97316" },
+      { name: "audit_node", role: "Logging", description: "Mencatat seluruh jejak aktivitas ke audit_log untuk keperluan debugging dan transparansi.", color: "#64748b" }
+    ],
+    whyLanggraph: "LangGraph memungkinkan hal-hal yang sulit dilakukan chain biasa: (1) percabangan berdasarkan kondisi — intent user menentukan node mana yang dieksekusi; (2) loop yang terkontrol — validasi bisa mencoba ulang pencarian tanpa restart dari nol; (3) shared state yang bisa dibaca-tulis semua node tanpa passing manual; dan (4) human-in-the-loop lewat clarification_node. LangGraph mengubah agent dari 'pipa linear satu arah' jadi state machine yang bisa berpikir, mengevaluasi ulang, dan beradaptasi di tengah jalan — persis seperti cara dokter spesialis bekerja dengan satu rekam medis yang sama."
+  },
+  {
+    title: "InvestAI: Platform Edukasi & Simulasi Saham",
+    description: "Mengembangkan platform edukasi investasi berbasis AI yang menggabungkan XGBoost, LangGraph Agent, dan Large Language Models (LLM).",
+    overview: "InvestAI adalah platform edukasi investasi pintar yang membimbing pengguna awam dari 0 hingga mahir dalam memahami pasar saham Indonesia.",
+    problem: "Banyak investor ritel pemula kehilangan uang di pasar modal karena kurangnya literasi finansial, tidak tahu cara membaca sentimen berita, dan salah memilih waktu trading.",
+    solution: "Membangun sistem AI hibrida (XGBoost + LLM + LangGraph). XGBoost memprediksi arah harga berdasarkan data historis, sementara LLM dan LangGraph bertugas sebagai AI Mentor interaktif untuk menjelaskan mengapa sebuah saham diprediksi naik atau turun berdasarkan analisis sentimen berita terkini secara real-time.",
+    tech: ["XGBoost", "LangGraph", "LLM", "Next.js"],
+    concepts: ["Production", "Gen AI", "ML/DL"],
+    category: "Gen AI",
+    icon: Brain,
+    image: "/asset_proyek/investai.png",
+    github: "#",
+    demoUrl: "#",
+    whyLanggraph: "InvestAI memanfaatkan LangGraph untuk mensimulasikan peran sebagai AI Mentor yang adaptif. Berbeda dengan chatbot biasa yang sekadar menjawab pertanyaan, agent berbasis LangGraph ini dapat membagi tugas (seperti menarik data saham real-time, menganalisis sentimen berita, dan merumuskan saran edukatif) ke dalam node-node spesifik. Jika pengguna meminta penjelasan lebih lanjut atau datanya kurang, agent dapat melakukan 'looping' untuk mencari informasi tambahan secara otomatis, menciptakan pengalaman belajar investasi yang benar-benar interaktif dan terarah layaknya mentor manusia."
+  },
+  {
+    title: "Sisibuk AI: Intelligent Scheduling Assistant",
+    description: "Mengembangkan AI Scheduling Assistant berbasis Next.js 15 dengan natural language understanding menggunakan LLaMA 3.3.",
+    overview: "AI asisten penjadwalan otomatis yang bisa memahami instruksi natural lewat teks seperti 'Jadwalkan meeting dengan tim UI/UX besok jam 3 sore'.",
+    problem: "Mengatur jadwal seringkali memakan waktu lama karena proses back-and-forth dan input manual ke kalender yang rentan bentrok.",
+    solution: "Mengimplementasikan LLaMA 3.3 via Groq untuk mengekstraksi entitas (waktu, peserta, topik) dari prompt pengguna dan mengintegrasikannya langsung ke sistem kalender pintar (Supabase) secara seamless, mengurangi waktu penjadwalan hingga 90%.",
+    tech: ["Next.js", "LLaMA 3.3", "Groq", "Supabase"],
+    concepts: ["Production", "Gen AI"],
+    category: "Gen AI",
+    icon: Calendar,
+    image: "/asset_proyek/scentara.png",
+    github: "https://github.com/erenmenn/Sisibuk-AI-PenjadwalanOtomatis",
+    demoUrl: "#",
+    whyLanggraph: "Sisibuk AI mengandalkan kapabilitas agentic reasoning untuk memecah instruksi penjadwalan yang kompleks. Ketika pengguna memberikan input dalam bahasa natural, sistem tidak hanya melakukan Named Entity Recognition (NER), melainkan mengevaluasi kondisi (state) kalender secara dinamis. Arsitektur agentic-nya memungkinkan sistem untuk menangani alur 'back-and-forth'—misalnya menanyakan ulang jika terjadi bentrok jadwal atau informasi peserta kurang lengkap—sebelum akhirnya menyimpan data persisten ke dalam database."
+  },
+  {
+    title: "SatuTani - Intelligent Agricultural Agent System",
+    description: "AI Agent untuk sektor pertanian berbasis LangChain dengan multi-tool orchestration. Sistem prediksi cuaca real-time dan analisis panen.",
+    overview: "Sistem pendukung keputusan bagi petani berbasis AI Agent yang memiliki akses ke berbagai tools seperti cuaca, harga pasar, dan database penyakit tanaman.",
+    problem: "Petani seringkali kesulitan mendapatkan informasi terkini dan komprehensif mengenai cuaca, penanganan hama, dan prediksi pasar dalam satu tempat.",
+    solution: "Membangun agentic workflow menggunakan LangChain yang mampu memanggil tool eksternal (BMKG API) dan melakukan RAG pada dokumen agrikultur. Petani cukup bertanya lewat chat dan Agent akan melakukan observasi, reasoning, dan memberikan jawaban akurat beserta referensi.",
+    tech: ["LangChain", "RAG", "BMKG API", "Python"],
+    concepts: ["Production", "Gen AI", "ML/DL"],
+    category: "Gen AI",
+    icon: Brain,
+    image: "/asset_proyek/satutani.png",
+    github: "https://github.com/erenmenn/SatuTani-AgriAI",
+    demoUrl: "#",
+    whyLanggraph: "SatuTani menggunakan agentic workflow (LangChain/LangGraph) untuk memecahkan masalah pertanian yang dinamis dan kompleks. Alih-alih hanya merangkum dokumen (RAG biasa), agent dapat mengambil keputusan (reasoning) untuk memanggil API eksternal (seperti cuaca BMKG) atau mencari database penyakit tanaman berdasarkan pertanyaan spesifik petani. Kemampuan orkestrasi multi-tools ini memungkinkan SatuTani memberikan rekomendasi cerdas—misalnya, menyarankan penundaan pemupukan karena agen cuaca mendeteksi prediksi hujan lebat keesokan harinya."
+  },
+  {
+    title: "JavaMart AI - Governed Chatbot",
+    description: "Chatbot berbasis LangGraph dengan governance dan controlled agent workflow untuk skala enterprise.",
+    overview: "Chatbot Customer Service untuk retail yang dijamin aman, sopan, dan patuh pada pedoman (SOP) perusahaan.",
+    problem: "LLM konvensional sering berhalusinasi atau memberikan jawaban di luar konteks bisnis yang dapat membahayakan reputasi perusahaan.",
+    solution: "Menerapkan arsitektur LangGraph untuk membuat stateful dan governed agent. Ditambah dengan sistem guardrails untuk mendeteksi dan memblokir output yang mengandung halusinasi, toksisitas, atau kebocoran data sensitif.",
     tech: ["LangGraph", "LLM", "Guardrails", "Python"],
-    concepts: ["Production", "ML/DL"],
-    category: "LLM",
+    concepts: ["Gen AI"],
+    category: "Gen AI",
     icon: MessageSquare,
     image: "/asset/poster/lang.png",
     github: "https://github.com/erenmenn/JavaMart-GovernedChatbot",
-    bgGradient: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-    fullDescription: "JavaMart AI adalah sistem chatbot enterprise-grade yang dibangun menggunakan LangGraph dengan fokus pada AI governance, controlled agent workflow, dan structured reasoning pipeline. Sistem ini menjamin setiap respons tetap konsisten, aman, dan dapat dievaluasi melalui multiple evaluation layers dan guardrails proteksi data.",
-    problem: "Chatbot tradisional sering menghasilkan output yang tidak konsisten, tidak terkontrol, dan sulit dievaluasi kualitasnya. Dalam konteks enterprise dengan data sensitif, diperlukan mekanisme governance yang ketat untuk memastikan safety, compliance, dan reliability sistem AI.",
-    solution: "Mengimplementasikan LangGraph orchestration dengan state management dan routing decision yang terstruktur. Sistem ini dilengkapi guardrails untuk proteksi data sensitif serta evaluation layer multi-aspek (relevansi, akurasi, safety) untuk menilai kualitas output LLM secara objektif dan measurable.",
-    skills: ["LangGraph Orchestration", "State Management", "AI Guardrails", "Evaluation Framework", "LLM Safety & Compliance", "Python"],
-    highlights: ["Controlled agent workflow dengan LangGraph state machine", "Multi-layer guardrails untuk proteksi data sensitif", "Evaluation layer terstruktur (relevansi, akurasi, safety)", "Hybrid LangChain architecture scalable", "Governance framework enterprise-ready"],
-    dataset: "Custom evaluation dataset untuk testing governance policy, safety compliance, dan response quality metrics di berbagai skenario percakapan.",
-  },
-  {
-    title: "Sisibuk AI: Asisten Jadwal Cerdas",
-    description: "Asisten manajemen jadwal bertenaga Groq AI (LLaMA 3.3)",
-    tech: ["Next.js", "Groq AI", "Supabase"],
-    concepts: ["Production", "ML/DL"],
-    category: "LLM",
-    icon: Calendar,
-    image: "/asset_proyek/sisibuk/image1.png",
-    images: [
-      "/asset_proyek/sisibuk/image1.png",
-      "/asset_proyek/sisibuk/image2.png",
-      "/asset_proyek/sisibuk/image3.png",
-    ],
-    github: "https://github.com/erenmenn/Sisibuk-AI-PenjadwalanOtomatis",
-    bgGradient: "linear-gradient(135deg, #f43f5e, #be123c)",
-    fullDescription: "Sisibuk AI adalah asisten manajemen produktivitas berbasis percakapan yang menggabungkan natural language input, gamifikasi, dan sistem klasifikasi cerdas. Dibangun di atas Next.js 15 (App Router) dengan pemrosesan inferensi berkecepatan tinggi Groq (LLaMA 3.3 70B).",
-    problem: "Mahasiswa sering lupa deadline akibat jadwal berserakan, kelelahan setup database manual (Notion Fatigue), dan tidak menyadari adanya jadwal yang saling tumpang tindih.",
-    solution: "Cukup ketik dengan bahasa alami (misal: 'tanggal 2 april ada submit proposal'), AI akan secara otomatis mengenali Intent, mendeteksi konflik waktu, membuat reverse planner, & menyusun notifikasi pintar (Email/Push).",
-    skills: ["Groq API (LLaMA 3.3)", "Next.js 15", "Supabase", "Zustand", "TailwindCSS v4"],
-    highlights: ["Sistem Klasifikasi Intent via chip LPU Groq (< 1 detik)", "Conflict Checker & Reverse Study Planner Pintar", "Gamifikasi Produktivitas (XP, Level & Badge)", "Otomasi System Notifikasi (Email & Push)"],
-    dataset: "Logika Deterministik AI terintegrasi dengan Relational Database via Supabase.",
+    whyLanggraph: "LangGraph sangat penting untuk kasus enterprise seperti JavaMart karena kita membutuhkan workflow yang terkontrol (governed). Dengan LangGraph, kita bisa mengatur state machine di mana setiap jawaban LLM harus melewati node guardrails dan validasi SOP terlebih dahulu sebelum dikembalikan ke pengguna. Hal ini secara efektif mencegah LLM memberikan jawaban halusinasi, toksik, atau membocorkan data sensitif, sebuah kontrol yang sangat sulit dijamin jika hanya menggunakan chain LLM biasa."
   },
   {
     title: "WangkuAI: Asisten Keuangan Pintar",
-    description: "Finance tracker dengan NLP pipeline untuk chat sehari-hari",
+    description: "Finance tracker dengan NLP pipeline untuk chat sehari-hari menggunakan model IndoBERT.",
+    overview: "Aplikasi pelacak keuangan yang memahami bahasa gaul/santai Indonesia (contoh: 'tadi abis jajan boba 25rb').",
+    problem: "Banyak orang malas mencatat pengeluaran karena UX aplikasi tracker konvensional terlalu kaku dan butuh banyak klik.",
+    solution: "Memanfaatkan model IndoBERT yang di-fine-tune untuk Named Entity Recognition (NER) pada bahasa sehari-hari. Model ini dapat mengekstrak nominal, kategori, dan deskripsi hanya dari satu kalimat, lalu mencatatnya otomatis ke dalam database.",
     tech: ["Next.js", "IndoBERT", "Prisma"],
-    concepts: ["Production", "ML/DL"],
-    category: "NLP",
+    concepts: ["Production", "Gen AI"],
+    category: "Gen AI",
     icon: Brain,
     image: "/asset_proyek/wangku.png",
     github: "https://github.com/erenmenn/WangkuAI-FinanceBot",
-    bgGradient: "linear-gradient(135deg, #ef4444, #b91c1c)",
-    fullDescription: "Asisten keuangan pribadi berbasis percakapan yang memungkinkan pencatatan dan pemantauan transaksi hanya dengan mengetik kalimat biasa. Dibangun dengan Next.js dan pipeline NLP dua lapis: IndoBERT (Zero-Shot) dan Regex Fallback.",
-    problem: "Aplikasi konvensional terlalu banyak gesekan (klik tambah, pilih kategori, isi nominal) yang membuat pengguna malas dan tidak konsisten mencatat keuangan.",
-    solution: "Cukup ketik transaksi (misal: 'beli baju 80rb & kopi 15rb'), sistem NLP akan memecah kalimat jadi 2 transaksi, mendeteksi uang, kategori, dan memperbarui saldo seketika tanpa form manual.",
-    skills: ["HuggingFace IndoBERT", "Regex Pipeline", "Next.js", "Prisma", "TypeScript"],
-    highlights: ["Satu pesan untuk multi-transaksi otomatis", "NLP berlapis anti-offline layaknya regex", "Pendeteksi harga & 25+ jenis kategori instan"],
-    dataset: "Custom dataset berisi 106 test case kalimat transaksi keuangan harian orang Indonesia.",
+    whyLanggraph: "Pada WangkuAI, pendekatan terstruktur sangat diperlukan untuk menerjemahkan bahasa gaul (slang) menjadi format data keuangan baku. Dengan alur pemrosesan multi-tahap (agentic pipeline), model AI pertama-tama mengekstrak entitas (nominal, deskripsi), lalu node berikutnya memvalidasi dan memetakan kategori pengeluaran secara logis, sebelum berinteraksi dengan database (Prisma). Pemisahan tugas ke dalam tahapan (state) ini membuat ekstraksi data keuangan menjadi jauh lebih stabil dan tahan terhadap berbagai variasi pengetikan bahasa sehari-hari pengguna."
   },
   {
     title: "MovieRec: Sistem Rekomendasi Film",
-    description: "Hybrid recommendation model memakai 25 juta rating",
+    description: "Hybrid recommendation model memakai 25 juta rating yang mengombinasikan Content-Based dan Collaborative Filtering.",
+    overview: "Mesin rekomendasi film berskala besar yang menyeimbangkan antara personalisasi dan eksplorasi genre baru.",
+    problem: "Model rekomendasi tunggal sering terjebak dalam 'filter bubble' atau kesulitan merekomendasikan film baru (cold start problem).",
+    solution: "Membangun sistem Hybrid. Collaborative Filtering (NMF) menangkap preferensi tersembunyi dari user similar, sementara Content-Based filtering memastikan film-film baru dengan metadata yang relevan tetap direkomendasikan.",
     tech: ["TensorFlow", "Scikit", "NMF"],
-    concepts: ["ML/DL"],
-    category: "Recommendation",
+    concepts: ["ML/DL", "Recommendation"],
+    category: "Machine Learning",
     icon: Film,
     image: "/asset_proyek/recomendation.png",
     github: "https://github.com/erenmenn/RekomendasiFILM-collaborative-content",
-    bgGradient: "linear-gradient(135deg, #ec4899, #f43f5e)",
-    fullDescription: "Sistem rekomendasi berskala besar dengan dua paradigma. Content-Based berbasis cosine-similarity untuk mengatasi cold start, dipadu dengan Collaborative Filtering (Neural Matrix Factorization) untuk mempelajari history dari 25 juta iterasi rating.",
-    problem: "Tanpa personalisasi yang tepat, penonton membuang waktu hanya untuk mencari film (scroll fatigue) yang berdampak negatif pada retensi platform.",
-    solution: "Mengkombinasikan Cosine Similarity (19-dimensi vektor genre) untuk pengguna baru, dengan embedding NMF (64-dimensi) yang menggali pola laten secara presisi optimal untuk pengguna aktif jangka panjang.",
-    skills: ["Neural Matrix Factorization", "Cosine Similarity", "TensorFlow", "Pandas", "Cold-Start Handling"],
-    highlights: ["Memproses 25 Juta dataset secara efisien", "Penyelesaian cold-start problem secara native", "Prediksi NDCG@5 mencapai tingkat akurasi 1.000"],
-    dataset: "Kaggle: Movie Recommendation System (62.423 film, 25 Juta rating dari 162.541 pengguna).",
   },
   {
     title: "MADUW: Prediksi Harga Madu",
-    description: "Memprediksi harga madu dengan pemodelan Regresi",
+    description: "Memprediksi harga madu dengan pemodelan Regresi menggunakan Random Forest, AdaBoost, dan arsitektur regresi linear.",
+    overview: "Sistem analitik cerdas untuk memprediksi fluktuasi harga komoditas madu berdasarkan data multi-variabel.",
+    problem: "Peternak lebah dan distributor sering mengalami kerugian karena ketidakstabilan harga pasar dan sulit memprediksi tren masa depan.",
+    solution: "Mengembangkan ensemble regression model (Random Forest & AdaBoost) yang menganalisis pola historis harga, faktor iklim, dan data produksi untuk memberikan forecast harga yang akurat, lengkap dengan visualisasi dashboard.",
     tech: ["Scikit-Learn", "Regression", "Data Viz"],
-    concepts: ["ML/DL"],
-    category: "Regression",
+    concepts: ["ML/DL", "Regression"],
+    category: "Machine Learning",
     icon: BarChart3,
     image: "/asset_proyek/honeyprice.png",
     github: "https://github.com/erenmenn/PrediksiHarga-MADUW",
-    bgGradient: "linear-gradient(135deg, #eab308, #ea580c)",
-    fullDescription: "Proyek komparatif dari empat skema model regresi untuk memprediksi harga pasar madu berdasarkan variabel fisik & kimia hasil uji lab—seperti viskositas, gula, kemurnian air, hingga konduktivitas elektrik.",
-    problem: "Madu murni seringkali dicampur bahan aditif untuk memperkecil modal produksi. Ini membuat harga jadi subjektif dan sulit diukur transparansinya oleh konsumen maupun peternak.",
-    solution: "Melatih 4 model berbeda (Linear, KNN, AdaBoost, Random Forest). Secara mengejutkan, Linear Regression menjadi sistem terefektif (MAPE 0.93%) setelah diterapkan Inverse Log Scale terhadap prediksi model advanced lainnya.",
-    skills: ["Linear Regression", "AdaBoost", "Random Forest", "Data Inference Analysis", "Pandas"],
-    highlights: ["Kompetisi 4 model evaluasi beda paradigma", "Linear membengkali algortima Ensemble pd skala Inverse", "Model ditraining atas > 240 Ribu data parameter madu"],
-    dataset: "Kaggle: Predict Purity and Price of Honey oleh Stealth Technologies (247.903 baris data, 11 fitur kimia).",
-  },
-  {
-    title: "FirstAid.ID: NLP Chunking Strategy",
-    description: "Analisis riset strategik RAG di buku Panduan P3K",
-    tech: ["RAG", "IndoBERT", "Python"],
-    concepts: ["ML/DL"],
-    category: "NLP",
-    icon: Brain,
-    image: "/asset_proyek/firstaid.png",
-    github: "https://github.com/erenmenn/ChungkingStrategy-FirstAIDbook",
-    bgGradient: "linear-gradient(135deg, #ef4444, #991b1b)",
-    fullDescription: "Proyek R&D krusial yang meninjau algoritma Chunking Text pada teknologi RAG (Retrieval Augmented Generation) di lingkup domain resiko tinggi, yakni dokumen darurat Medis-P3K. Dibangun untuk menganalisa split-pattern mana yang minim halusinasi.",
-    problem: "Pada kecelakaan darurat RAG tak boleh salah memberi instruksi sedikitpun. Jika pemotongan paragraf teks jelek bertengah kalimat (noise / lepas konteks), pengguna bisa bahaya fatal.",
-    solution: "Melakukan head-to-head strategi chunking: Sentence, Semantic, Fixed-Size. Berkat natur instruksional P3K (1 kalimat = 1 aksi), Sentence-based Chunking keluar juara dgn F1 BERTScore fantastis.",
-    skills: ["LangChain", "Text Chunking", "BERTScore Evaluation", "IndoBERT Vector", "R&D Analysis"],
-    highlights: ["Skenario validasi ketat manual ground truth", "Perbandingan Metrik pakai BERTScore semantic", "Mengoptimalisasi chunking domain prosedural medis"],
-    dataset: "Buku PDF 'Panduan Pertolongan Pertama pada Kecelakaan Jalan' (Kemenkes 2019) dengan 20 QnA Ground Truth.",
   },
   {
     title: "EMIR: Emotion Image Classifier",
-    description: "Deteksi ekspresi human dari foto dalam 200 milisekon",
+    description: "Deteksi ekspresi human dari foto dalam 200 milisekon dengan MTCNN crop layer dan TensorFlow Lite inference.",
+    overview: "Sistem deteksi emosi wajah real-time yang sangat ringan dan dapat dijalankan di edge device.",
+    problem: "Model pengenalan emosi seringkali terlalu berat (latency tinggi) untuk berjalan di perangkat dengan spesifikasi rendah atau web browser.",
+    solution: "Menggunakan pipeline dua tahap: MTCNN untuk face cropping presisi tinggi, dilanjutkan dengan model CNN ringan yang di-quantize ke format TensorFlow Lite, mencapai latensi inferensi di bawah 200ms dengan akurasi memuaskan.",
     tech: ["TFLite", "MTCNN", "Flask"],
-    concepts: ["ML/DL"],
-    category: "Computer Vision",
+    concepts: ["Computer Vision"],
+    category: "Deep Learning",
     icon: Eye,
     image: "/asset_proyek/emotion.png",
     github: "https://github.com/erenmenn/ImageClassification-EmosiMU",
-    bgGradient: "linear-gradient(135deg, #f97316, #e11d48)",
-    fullDescription: "Web platform computer-vision dengan Pipeline 5-Tahap interaktif untuk membaca muka & mood partisipan ke dalam kategori Angry, Fear, Happy, Sad, & Surprise bermodalkan upload gambar foto biasa berbackground apapun.",
-    problem: "Analisa emosional subjek butuh validasi visual yang netral tanpa bias perantara. Pengidentifikasian via wajah seringkali meleset dan sistem lamban ketika dibebani resolusi foto.",
-    solution: "Menggabungkan arsitektur Face Crop (MTCNN / Haar Cascade fallback) untuk crop paras detail secara presisi, lalu menjatuhkannya ke sistem TFLite Deep Learning yang terkompresi dari 27mb menjadi 4-Megabyte super cepat.",
-    skills: ["Face Detection MTCNN", "TensorFlow Lite", "Flask REST API", "OpenCV Image Preprocess", "UI Layouting"],
-    highlights: ["Akurasi inferensi < 200ms di CPU standar", "Dual API Endpoints untuk integrasi Front-End", "Terkondisi optimal dalam web interface partikel UX"],
-    dataset: "Kaggle: Emotion Image Dataset (5 Kelas: Angry, Fear, Happy, Sad, Surprise).",
   },
   {
     title: "PlantCare: Scan Penyakit Daun",
-    description: "Klasifikasi 35 tipe penyakit tanaman secara akurat",
+    description: "Klasifikasi 35 tipe penyakit tanaman secara akurat menggunakan CNN MobileNet transfer learning via Keras.",
+    overview: "Aplikasi cerdas bagi petani untuk mendiagnosis penyakit tanaman hanya dengan memfoto daunnya.",
+    problem: "Petani sering terlambat mendiagnosis penyakit tanaman secara visual, mengakibatkan gagal panen dan kerugian masif.",
+    solution: "Menerapkan teknik Transfer Learning menggunakan arsitektur MobileNetV2 yang dilatih ulang (fine-tuning) pada dataset 35+ kelas penyakit daun. Sistem ini digabungkan ke dalam backend Flask untuk API klasifikasi real-time.",
     tech: ["CNN", "Keras", "Flask"],
-    concepts: ["ML/DL"],
-    category: "Computer Vision",
+    concepts: ["Computer Vision"],
+    category: "Deep Learning",
     icon: Eye,
     image: "/asset_proyek/plantdesease.png",
     github: "https://github.com/erenmenn/ImageClassification-PlantCare",
-    bgGradient: "linear-gradient(135deg, #22c55e, #0d9488)",
-    fullDescription: "Sebuah program Computer Vision diagnostik andalan berbasis CNN Sequential. Platform PlantCare membantu petani mengatasi problematika identifikasi hama & defisiensi elemen pada 11 jenis spesies tumbuhan cukup dengan selembar foto dedaunan.",
-    problem: "Sebagian besar petani lokal kekurangan ahli botani profesional. Evaluasi tanaman visual berjam-jam memakan operasional, bahkan sering telat mendiagnosa penyakit merugikan.",
-    solution: "Men-deploy Deep Neural Network 5.3 juta parameter berlapis MaxPooling yang di-train menggunakan augmentasi PlantVillage. Petani difasilitasi return top-3 predictions bersama confidence rating tiap fotonya.",
-    skills: ["Convolutional Neural Networks", "Image Augmentation", "TensorFlow Backend", "Pillow (PIL)", "REST Architecture"],
-    highlights: ["Mencapai Precision > 94% secara stabil", "Model di-export portable dengan size cuma 5.3 MB", "Akomodasi 35 klasifikasi berbeda per sekali deteksi"],
-    dataset: "Kaggle: PlantVillage Dataset (35 kategori penyakit dari 11 jenis tanaman dengan rasio split 80:20).",
-  },
-  {
-    title: "Taylor Ophelia: Mass Sentiment",
-    description: "Membedah emosi belasan ribu komen via API Scraping",
-    tech: ["NLP", "SVM", "YouTube API"],
-    concepts: ["ML/DL"],
-    category: "NLP",
-    icon: MessageSquare,
-    image: "/asset_proyek/sentimen.png",
-    github: "https://github.com/erenmenn/SentimenAnalisis-TaylorOphelia",
-    bgGradient: "linear-gradient(135deg, #10b981, #047857)",
-    fullDescription: "Bot scraper automasi digabung NLP canggih yang berhasil menyedot & mensintesasi impresi terhadap sebuah Music Video secara kuantitatif. Menganalisis total kompilasi 15,000 baris komen youtube utuh menjadi sentimen terstruktur.",
-    problem: "Produksi jutaan komen fans setiap detik merupakan rahim analitik emas, tapi amat sangat noise untuk dipilah baca satu per satu demi mengetes rasio rating positif/negatif perilisan.",
-    solution: "Rancang bangun scraper dari public YouTube API -> Text Cleaning NLP -> Klasifikasi SVM dengan ekstraksi TF-IDF. Mampu menyaring komen berkelas, membantai performa Random Forest maupun representasi semantik Word2Vec.",
-    skills: ["YouTube Data API", "Word2Vec / TF-IDF", "Support Vector Machine", "Tqdm Scraper", "Seaborn Viz"],
-    highlights: ["TF-IDF merebut takhta juara akurasi (>91%)", "Koleksi auto 15rb komentar ter-scrap kilat", "Pengelompokan identitas komentar lokal vs global (langdetect)"],
-    dataset: "Live Scraping via YouTube Data API v3 (15.000 komentar mentah dari video Taylor Swift - The Fate of Ophelia).",
   },
   {
     title: "CS Intent: Intelligent Router",
-    description: "Benchmark Intent-Router bot pake 3 paradigma ML",
+    description: "Benchmark Intent-Router bot menggunakan DistilBERT, BiLSTM, dan Classical ML untuk routing customer service 24/7.",
+    overview: "Sistem triase otomatis untuk mengarahkan tiket keluhan pelanggan ke departemen yang tepat.",
+    problem: "Customer service sering kewalahan dengan volume tiket yang besar, di mana 60% waktu habis hanya untuk membaca dan meneruskan keluhan ke divisi terkait.",
+    solution: "Mengevaluasi dan men-deploy model klasifikasi teks terbaik (DistilBERT) yang mampu memahami intent pelanggan dari keluhan mereka, dan secara otomatis meroute tiket tersebut ke divisi yang sesuai dalam hitungan milidetik.",
     tech: ["DistilBERT", "BiLSTM", "Naive Bayes"],
-    concepts: ["ML/DL"],
-    category: "NLP",
+    concepts: ["ML/DL", "NLP"],
+    category: "Deep Learning",
     icon: Wrench,
     image: "/asset_proyek/customerchatbot.png",
     github: "https://github.com/erenmenn/IntentClass-CustomerServiceBOT",
-    bgGradient: "linear-gradient(135deg, #6366f1, #312e81)",
-    fullDescription: "Evaluator head-to-head terhadap Tiga Zaman AI—Classical ML (Naive Bayes), Deep Learning (BiLSTM), dan Transformer (DistilBERT)—untuk mencari the best architecture memecahkan pola 27 jenis komplain CS berbasis 21rb percakapan real.",
-    problem: "Chatbot pasaran yg serba rule-based langsung blank saat user komplain ngetik panjang dengan typo atau bahasa membingungkan, imbasnya kepuasan merugi & agen manusia tekor beban kerja.",
-    solution: "Mengekstrak model klasifikasi multi-kelas untuk mapping keluhan otomatis. Riset membuktikan gap Naive Bayes & BERT yg terpaut tipis 0.53% membawa revolusioner: 'Pilih Naive Bayes buat kecepatan Edge (2000x lebih cepat) & Bert utk komputasi awan kuat.'",
-    skills: ["Transformer Fine-Tuning", "TF-IDF + Multinomial", "BiLSTM Neural Network", "Intent Mapping", "Comparative ML"],
-    highlights: ["DistilBERT mencapai nilai absolut 99.8% Perfect", "Naive Bayes secepat kilat inference (0.001ms)", "Memiliki insight deployment paling aksi dan efisien"],
-    dataset: "Kaggle: Bitext Customer Support Dataset (21.534 utterance Bahasa Inggris dengan 27 label intent berbeda).",
-  },
+  }
 ];
 
-const conceptsList: Concept[] = ["ML/DL", "Production"];
-const categories: Category[] = ["All", "NLP", "Computer Vision", "Recommendation", "Regression", "LLM"];
+const categories: Category[] = ["All", "Machine Learning", "Deep Learning", "Gen AI"];
 
-const categoryMeta: Record<string, { icon: any; color: string; grad: string; isSpecial?: boolean; textColor?: string }> = {
-  "All":             { icon: Layers,  color: "#6366f1", grad: "linear-gradient(135deg,#6366f1,#a855f7)", textColor: "#fff" },
-  "NLP":             { icon: Brain, color: "#ef4444", grad: "linear-gradient(135deg,#ef4444,#f97316)", textColor: "#fff" },
-  "Computer Vision": { icon: Eye, color: "#10b981", grad: "linear-gradient(135deg,#10b981,#06b6d4)", textColor: "#fff" },
-  "Recommendation":  { icon: Target, color: "#ec4899", grad: "linear-gradient(135deg,#ec4899,#f43f5e)", textColor: "#fff" },
-  "Regression":      { icon: BarChart3, color: "#f59e0b", grad: "linear-gradient(135deg,#f59e0b,#ea580c)", textColor: "#fff" },
-  "LLM":             { icon: Crown, color: "#8b5cf6", grad: "linear-gradient(135deg,#8b5cf6,#6366f1)", textColor: "#fff" },
+// ── Per-category color config ──────────────────────────────────────────
+const categoryConfig: Record<Category, {
+  gradient: string;   // for filter pill active bg
+  glow: string;       // card outer glow shadow
+  borderColor: string;// card border
+  tagBg: string;      // tech tag bg
+  tagText: string;    // tech tag text
+  badgeBg: string;    // category badge background
+  badgeText: string;  // category badge text
+  lightBar: string;   // subtle top bar gradient
+}> = {
+  All: {
+    gradient: "linear-gradient(135deg,#6366f1,#a855f7,#ec4899)",
+    glow: "rgba(139,92,246,0.18)",
+    borderColor: "rgba(139,92,246,0.25)",
+    tagBg: "#f5f3ff",
+    tagText: "#7c3aed",
+    badgeBg: "linear-gradient(135deg,#6366f1,#a855f7)",
+    badgeText: "#fff",
+    lightBar: "linear-gradient(90deg,#6366f1,#a855f7,#ec4899)",
+  },
+  "Gen AI": {
+    gradient: "linear-gradient(135deg,#7c3aed,#a855f7,#c026d3)",
+    glow: "rgba(168,85,247,0.2)",
+    borderColor: "rgba(168,85,247,0.3)",
+    tagBg: "#faf5ff",
+    tagText: "#9333ea",
+    badgeBg: "linear-gradient(135deg,#7c3aed,#c026d3)",
+    badgeText: "#fff",
+    lightBar: "linear-gradient(90deg,#7c3aed,#a855f7,#ec4899)",
+  },
+  "Machine Learning": {
+    gradient: "linear-gradient(135deg,#2563eb,#0ea5e9,#06b6d4)",
+    glow: "rgba(14,165,233,0.18)",
+    borderColor: "rgba(14,165,233,0.28)",
+    tagBg: "#eff6ff",
+    tagText: "#2563eb",
+    badgeBg: "linear-gradient(135deg,#2563eb,#06b6d4)",
+    badgeText: "#fff",
+    lightBar: "linear-gradient(90deg,#2563eb,#0ea5e9,#06b6d4)",
+  },
+  "Deep Learning": {
+    gradient: "linear-gradient(135deg,#059669,#10b981,#34d399)",
+    glow: "rgba(16,185,129,0.18)",
+    borderColor: "rgba(16,185,129,0.28)",
+    tagBg: "#ecfdf5",
+    tagText: "#059669",
+    badgeBg: "linear-gradient(135deg,#059669,#34d399)",
+    badgeText: "#fff",
+    lightBar: "linear-gradient(90deg,#059669,#10b981,#34d399)",
+  }
 };
 
-// ── Project Modal — clean white inside ────────────────────────────────────────
-const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => void }) => {
-  const [imgIdx, setImgIdx] = useState(0);
-  const images = project.images && project.images.length > 1
-    ? project.images
-    : [project.image];
+const getCfg = (cat: Category) => categoryConfig[cat] ?? categoryConfig["All"];
 
-  const nextImg = (e: React.MouseEvent) => { e.stopPropagation(); setImgIdx((p) => (p + 1) % images.length); };
-  const prevImg = (e: React.MouseEvent) => { e.stopPropagation(); setImgIdx((p) => (p - 1 + images.length) % images.length); };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center p-3 md:p-8"
-      onClick={onClose}
-    >
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-xl" />
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9, y: 30 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 30 }}
-        transition={{ duration: 0.4, type: "spring", bounce: 0.4 }}
-        onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-3xl max-h-[95vh] overflow-y-auto rounded-3xl shadow-2xl flex flex-col bg-white"
-      >
-        {/* Gradient top bar — keeps the project's color identity */}
-        <div
-          className="w-full px-6 py-4 flex justify-between items-center sticky top-0 z-50 rounded-t-3xl"
-          style={{ background: project.bgGradient }}
-        >
-          <div className="flex items-center gap-3">
-            <project.icon className="w-5 h-5 text-white drop-shadow" />
-            <span className="font-pixel text-[9px] tracking-widest text-white uppercase">
-              {project.category}
-            </span>
-          </div>
-          <button
-            onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/20 border border-white/40 flex items-center justify-center hover:bg-white/40 transition-colors active:scale-95"
-          >
-            <X className="w-4 h-4 text-white" />
-          </button>
-        </div>
-
-        {/* Image Carousel */}
-        <div className="relative w-full flex-shrink-0 bg-slate-50 overflow-hidden group">
-          <AnimatePresence mode="wait">
-            <motion.img
-              key={imgIdx}
-              src={images[imgIdx]}
-              alt={project.title}
-              initial={{ x: 80, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -80, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="w-full h-auto block"
-            />
-          </AnimatePresence>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-50 transition-opacity group-hover:opacity-100" />
-
-          <button onClick={prevImg} className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 border border-white/20 flex items-center justify-center hover:bg-black/70 opacity-0 group-hover:opacity-100 transition-all">
-            <ChevronLeft className="w-5 h-5 text-white" />
-          </button>
-          <button onClick={nextImg} className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 border border-white/20 flex items-center justify-center hover:bg-black/70 opacity-0 group-hover:opacity-100 transition-all">
-            <ChevronRight className="w-5 h-5 text-white" />
-          </button>
-
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20 bg-black/30 px-3 py-1.5 rounded-full backdrop-blur-md">
-            {images.map((_, i) => (
-              <div key={i} className={`w-2 h-2 rounded-full border border-white/50 transition-all ${imgIdx === i ? "bg-white scale-125" : "bg-transparent"}`} />
-            ))}
-          </div>
-        </div>
-
-        {/* ── Clean Elegant Body ── */}
-        <div className="p-7 md:p-9 space-y-7 relative bg-white overflow-hidden shrink-0">
-          
-          {/* Subtle Ambient Glows */}
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-500/5 blur-[120px] rounded-full pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-pink-500/5 blur-[100px] rounded-full pointer-events-none" />
-
-          {/* Title + tech tags */}
-          <div className="relative z-10">
-            <h3 className="text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight leading-tight mb-4">{project.title}</h3>
-            <div className="flex flex-wrap gap-2">
-              {project.tech.map((t) => (
-                <span key={t} className="text-[10px] font-sans font-bold px-3 py-1.5 rounded-full border border-slate-200/60 bg-slate-50/80 backdrop-blur-sm text-slate-600 shadow-sm">{t}</span>
-              ))}
-            </div>
-          </div>
-
-          {/* Overview */}
-          <div className="relative z-10 rounded-2xl p-6 bg-gradient-to-br from-slate-50/80 to-white border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,1)]">
-            <div className="flex items-center gap-2 text-slate-500 font-sans font-bold uppercase tracking-widest text-xs mb-3">
-              <ScrollText className="w-4 h-4 text-indigo-500" /> OVERVIEW
-            </div>
-            <p className="text-slate-600 text-[15px] leading-relaxed font-medium">{project.fullDescription}</p>
-          </div>
-
-          {/* Problem / Solution - Soft thick gradients */}
-          <div className="grid md:grid-cols-2 gap-5 relative z-10">
-            <div className="rounded-2xl p-6 bg-gradient-to-br from-red-50/80 to-red-50/10 border border-red-100 shadow-[0_4px_20px_-10px_rgba(239,68,68,0.2),inset_0_1px_0_rgba(255,255,255,0.7)]">
-              <div className="flex items-center gap-2 text-red-500 font-sans font-bold uppercase tracking-widest text-xs mb-3">
-                <Swords className="w-4 h-4" /> PROBLEM
-              </div>
-              <p className="text-[14.5px] text-slate-700 leading-relaxed font-medium">"{project.problem}"</p>
-            </div>
-            <div className="rounded-2xl p-6 bg-gradient-to-br from-emerald-50/80 to-emerald-50/10 border border-emerald-100 shadow-[0_4px_20px_-10px_rgba(16,185,129,0.2),inset_0_1px_0_rgba(255,255,255,0.7)]">
-              <div className="flex items-center gap-2 text-emerald-600 font-sans font-bold uppercase tracking-widest text-xs mb-3">
-                <Sparkles className="w-4 h-4" /> SOLUTION
-              </div>
-              <p className="text-[14.5px] text-slate-700 leading-relaxed font-medium">{project.solution}</p>
-            </div>
-          </div>
-
-          {/* Dataset */}
-          {project.dataset && (
-            <div className="relative z-10 rounded-2xl p-6 bg-gradient-to-br from-indigo-50/80 to-purple-50/10 border border-indigo-100 shadow-[0_2px_10px_rgba(99,102,241,0.05),inset_0_1px_0_rgba(255,255,255,0.8)]">
-              <div className="flex items-center gap-2 text-indigo-600 font-sans font-bold uppercase tracking-widest text-xs mb-3">
-                <Database className="w-4 h-4" /> DATASET SOURCE
-              </div>
-              <p className="text-[14.5px] text-slate-700 leading-relaxed font-semibold">{project.dataset}</p>
-            </div>
-          )}
-
-          {/* Tech Stack */}
-          <div className="relative z-10">
-            <div className="flex items-center gap-2 text-slate-500 font-sans font-bold uppercase tracking-widest text-xs mb-4">
-              <Code2 className="w-4 h-4 text-slate-400" /> TECH STACK
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {project.skills.map((s) => (
-                <span key={s} className="relative overflow-hidden px-4 py-2 rounded-xl text-[11px] font-bold text-white shadow-[0_4px_15px_rgba(0,0,0,0.1)] hover:scale-[1.03] hover:shadow-[0_4px_20px_rgba(0,0,0,0.15)] cursor-default transition-all" style={{ background: project.bgGradient }}>
-                  <span className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%)" }} />
-                  <span className="relative z-10">{s}</span>
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Key Highlights */}
-          <div className="relative z-10">
-            <div className="flex items-center gap-2 text-slate-500 font-sans font-bold uppercase tracking-widest text-xs mb-4">
-              <Target className="w-4 h-4 text-amber-500" /> KEY HIGHLIGHTS
-            </div>
-            <div className="grid md:grid-cols-1 gap-3">
-              {project.highlights.map((h, idx) => (
-                <motion.div 
-                  key={idx} 
-                  whileHover={{ scale: 1.01, x: 4 }}
-                  className="flex items-start gap-3.5 p-4.5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all cursor-default group"
-                >
-                  <div className="flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-amber-100 to-amber-50 text-amber-500 shadow-inner group-hover:from-amber-400 group-hover:to-amber-500 group-hover:text-white transition-all">
-                    <CheckCircle2 className="w-4 h-4" />
-                  </div>
-                  <p className="text-[14.5px] text-slate-700 font-semibold leading-relaxed pt-1.5">{h}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* CTA */}
-          <a
-            href={project.github}
-            className="group flex items-center justify-center gap-3 w-full py-4 rounded-2xl text-white font-sans font-bold text-[13px] uppercase tracking-wider hover:-translate-y-1 transition-all shadow-lg overflow-hidden relative z-10"
-            style={{ 
-              background: "linear-gradient(135deg, #a855f7, #7e22ce, #6b21a8)",
-              boxShadow: "0 6px 20px rgba(147, 51, 234, 0.4)"
-            }}
-          >
-            {/* Shimmer on hover */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: "linear-gradient(105deg,transparent 30%,rgba(255,255,255,0.2) 50%,transparent 70%)", backgroundSize: "200% 100%", animation: "shimmer 2s infinite" }} />
-            <Github className="w-5 h-5 relative z-10" /> 
-            <span className="relative z-10">View Source Repository</span>
-            <ExternalLink className="w-4 h-4 opacity-70 relative z-10" />
-          </a>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-};
-
-// ── Main Section ───────────────────────────────────────────────────────────────
 const ProjectsSection = () => {
-  const [activeConcept, setActiveConcept] = useState<Concept>("ML/DL");
   const [activeCategory, setActiveCategory] = useState<Category>("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [fullScreenImage, setFullScreenImage] = useState<string | null>(null);
 
-  // Filter based on concept first, then category
-  const filtered = projects.filter((p) => {
-    // Check if project belongs to active concept
-    const inConcept = p.concepts.includes(activeConcept);
-    if (!inConcept) return false;
-
-    // Check category if in ML/DL concept and category is not "All"
-    if (activeConcept === "ML/DL" && activeCategory !== "All") {
-      return p.category === activeCategory;
+  // Prevent scrolling when modal or fullscreen is open
+  useEffect(() => {
+    if (selectedProject || fullScreenImage) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
     }
-    
-    return true;
-  });
+  }, [selectedProject, fullScreenImage]);
+
+  const filtered = [...projects]
+    .sort((a, b) => {
+      const aIsProd = a.concepts.includes("Production") ? 1 : 0;
+      const bIsProd = b.concepts.includes("Production") ? 1 : 0;
+      return bIsProd - aIsProd;
+    })
+    .filter((p) => {
+      if (activeCategory !== "All") return p.category === activeCategory;
+      return true;
+    });
 
   return (
-    <section id="projects" className="py-24 relative pixel-grid overflow-hidden">
-      {/* Background smokes */}
-      <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full blur-[140px] bg-indigo-400/10" />
-        <div className="absolute bottom-1/3 left-0 w-[500px] h-[500px] rounded-full blur-[140px] bg-pink-300/10" />
+    <section id="projects" className="py-24 relative overflow-hidden pixel-grid" style={{ background: "#f8fafc" }}>
+
+      {/* ── Animated colorful smoke glows ── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div animate={{ x: [0, 40, -20, 0], y: [0, -30, 20, 0], scale: [1, 1.15, 0.92, 1] }} transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }} className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[130px]" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.22) 0%, rgba(168,85,247,0.12) 50%, transparent 80%)" }} />
+        <motion.div animate={{ x: [0, -50, 30, 0], y: [0, 25, -40, 0], scale: [1, 0.88, 1.1, 1] }} transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 3 }} className="absolute top-20 -right-40 w-[450px] h-[450px] rounded-full blur-[120px]" style={{ background: "radial-gradient(circle, rgba(236,72,153,0.18) 0%, rgba(244,114,182,0.1) 50%, transparent 80%)" }} />
+        <motion.div animate={{ x: [0, 60, -20, 0], y: [0, -15, 35, 0], scale: [1, 1.2, 0.95, 1] }} transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 6 }} className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full blur-[110px]" style={{ background: "radial-gradient(circle, rgba(6,182,212,0.15) 0%, rgba(14,165,233,0.08) 50%, transparent 80%)" }} />
+        <motion.div animate={{ x: [0, -30, 50, 0], y: [0, 40, -20, 0], scale: [1, 0.9, 1.08, 1] }} transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 9 }} className="absolute -bottom-20 right-1/4 w-[380px] h-[380px] rounded-full blur-[120px]" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.13) 0%, rgba(251,146,60,0.07) 50%, transparent 80%)" }} />
+        <motion.div animate={{ x: [0, -20, 30, 0], y: [0, -40, 10, 0], scale: [1, 1.1, 0.97, 1] }} transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 4 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full blur-[130px]" style={{ background: "radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%)" }} />
       </div>
 
-      <div className="container max-w-6xl mx-auto px-6 relative z-10">
-        {/* ── Section Header ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }} transition={{ duration: 0.6 }}
-          className="mb-14"
-        >
-          <div className="flex flex-col items-center text-center gap-6">
+      <div className="container max-w-7xl mx-auto px-6 relative z-10">
+
+        {/* ── MAXIMALIST HEADER ── */}
+        <div className="mb-14">
+          <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl border border-blue-400/50 text-white font-extrabold text-xs tracking-widest uppercase shadow-[0_0_30px_rgba(59,130,246,0.5)] mb-6 transition-all cursor-default"
+            style={{ background: "linear-gradient(135deg,#3b82f6,#06b6d4)" }}>
+            <span className="bg-white/20 px-2 py-0.5 rounded-lg text-white">03</span> PROJECTS
+          </div>
+
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border-2 border-indigo-300 shadow-[3px_3px_0px_#6366f1] rounded-xl mb-4">
-                <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-                <span className="text-[9px] font-pixel text-indigo-600 tracking-widest uppercase">PORTFOLIO_EXPLORER_V3</span>
-              </div>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight">
-                FEATURED<br className="hidden xs:inline" />{" "}
-                <span className="text-transparent bg-clip-text italic pr-2" style={{ backgroundImage: "linear-gradient(to right, #6366f1, #ec4899, #f59e0b)" }}>
-                  WORKS
-                </span>
+              {/* big gradient title */}
+              <h2 className="text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tighter leading-[0.85] text-slate-900 uppercase">
+                <span className="block drop-shadow-sm">MY</span>
+                <em className="font-black italic lowercase tracking-tight text-transparent bg-clip-text text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] ml-8 md:ml-16 leading-none block pb-4 pt-2 -mb-4"
+                  style={{ backgroundImage: "linear-gradient(135deg, #fde047, #f97316, #dc2626)", filter: "drop-shadow(0px 0px 15px rgba(249, 115, 22, 0.3)) drop-shadow(2px 2px 0px rgba(220, 38, 38, 0.15))" }}>
+                  projects.
+                </em>
               </h2>
+              {/* subtle shimmer underline */}
+              <div className="mt-3 h-1 w-40 rounded-full"
+                style={{ background: "linear-gradient(90deg,#6366f1,#a855f7,#ec4899)" }} />
+              <div className="flex items-center gap-2 mt-4 text-slate-500 font-semibold text-sm">
+                <motion.div animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 1.5, repeat: Infinity }} className="w-2 h-2 rounded-full bg-violet-500" />
+                Showing <span className="text-slate-800 font-black">{filtered.length}</span> project{filtered.length !== 1 ? "s" : ""}
+              </div>
             </div>
 
-            {/* ── Concept Tabs (Big 3) ── */}
-            <div className="flex bg-slate-100/50 p-1.5 rounded-full border border-slate-200/60 shadow-sm backdrop-blur-sm max-w-full overflow-x-auto">
-              {conceptsList.map((concept) => {
-                const isActive = activeConcept === concept;
+            {/* ── CATEGORY FILTER PILLS ── */}
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat) => {
+                const cfg = getCfg(cat);
+                const isActive = activeCategory === cat;
                 return (
-                  <button
-                    key={concept}
-                    onClick={() => {
-                      setActiveConcept(concept);
-                      setActiveCategory("All"); // reset category when changing concept
+                  <motion.button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    whileHover={{ scale: 1.05, y: -1 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="px-4 py-2 text-xs font-bold rounded-full transition-all duration-200 border"
+                    style={isActive ? {
+                      background: cfg.gradient,
+                      color: "#fff",
+                      borderColor: "transparent",
+                      boxShadow: `0 4px 16px ${cfg.glow}`,
+                    } : {
+                      background: "#fff",
+                      color: "#64748b",
+                      borderColor: "#e2e8f0",
                     }}
-                    className={`relative px-6 py-3 rounded-full text-sm font-black tracking-wide uppercase transition-all duration-300 whitespace-nowrap ${
-                      isActive ? "text-white shadow-md" : "text-slate-500 hover:text-slate-700"
-                    }`}
                   >
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeConceptBg"
-                        className="absolute inset-0 rounded-full"
-                        style={{ background: "linear-gradient(135deg, #6366f1, #ec4899)" }}
-                        transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
-                      />
-                    )}
-                    <span className="relative z-10 flex items-center gap-2">
-                      {concept === "Production" && <Crown className="w-4 h-4" />}
-                      {concept === "ML/DL" && <Brain className="w-4 h-4" />}
-                      {concept}
-                    </span>
-                  </button>
+                    {cat}
+                  </motion.button>
                 );
               })}
             </div>
-
-            {/* ── ML/DL Subcategory Filters ── */}
-            <AnimatePresence>
-              {activeConcept === "ML/DL" && (
-                <motion.div 
-                  initial={{ opacity: 0, height: 0, y: -10 }}
-                  animate={{ opacity: 1, height: "auto", y: 0 }}
-                  exit={{ opacity: 0, height: 0, y: -10 }}
-                  className="flex flex-wrap justify-center gap-2 max-w-2xl mt-2"
-                >
-                  {categories.map((cat) => {
-                    const meta = categoryMeta[cat] ?? { icon: Layers, color: "#94a3b8", grad: "linear-gradient(135deg,#94a3b8,#64748b)", textColor: "#fff", isSpecial: false };
-                    const isActive = activeCategory === cat;
-
-                    return (
-                      <motion.button
-                        key={cat}
-                        onClick={() => setActiveCategory(cat)}
-                        whileHover={{ y: -2, scale: 1.04 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="relative flex items-center gap-1.5 px-4 py-2 font-sans text-[10px] sm:text-xs uppercase tracking-widest transition-all duration-300 overflow-hidden"
-                        style={{
-                          borderRadius: "999px",
-                          background: isActive ? meta.grad : `${meta.color}10`,
-                          color: isActive ? "#fff" : meta.color,
-                          border: isActive ? "1px solid transparent" : `1px solid ${meta.color}30`,
-                          boxShadow: isActive
-                            ? `0 6px 20px ${meta.color}40, inset 0 1px 0 rgba(255,255,255,0.4)`
-                            : `0 2px 8px ${meta.color}05`,
-                          fontWeight: 800,
-                        }}
-                      >
-                        <meta.icon className="w-3.5 h-3.5 relative z-10" strokeWidth={2.5} />
-                        <span className="relative z-10 pt-[1px]">{cat}</span>
-                      </motion.button>
-                    );
-                  })}
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <p className="text-muted-foreground text-sm mt-4 font-medium">
-              {filtered.length} project{filtered.length !== 1 ? "s" : ""} — click to explore
-            </p>
           </div>
-        </motion.div>
+        </div>
 
-        {/* ── Creative Bento Grid — card fronts END UNIFORM ── */}
-        <AnimatePresence mode="wait">
-          {filtered.length === 0 ? (
-            <motion.div
-              key="empty"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="w-full py-20 flex flex-col items-center justify-center text-center"
-            >
-              <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-4">
-                <Sparkles className="w-10 h-10 text-slate-300" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-700 mb-2">Belum ada inovasi di sini</h3>
-              <p className="text-slate-500 max-w-sm">
-                Ide-ide cemerlang sedang diracik. Kembali lagi nanti untuk melihat inovasi AI terbaru!
-              </p>
-            </motion.div>
-          ) : (
-            <motion.div
-              key={activeConcept + activeCategory}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-            >
+        {/* ── CARDS GRID ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+          <AnimatePresence>
             {filtered.map((project, i) => {
-              const meta = categoryMeta[project.category] || categoryMeta["All"];
-
+              const cfg = getCfg(project.category);
               return (
                 <motion.div
                   key={project.title}
                   layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.85 }}
-                  transition={{ duration: 0.35, delay: i * 0.04, type: "spring", bounce: 0.2 }}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.94 }}
+                  transition={{ duration: 0.3, delay: i * 0.05 }}
+                  whileHover={{ y: -4 }}
                   onClick={() => setSelectedProject(project)}
-                  className="relative group col-span-1 row-span-1"
+                  className="flex flex-col rounded-2xl overflow-hidden group relative cursor-pointer"
+                  style={{
+                    background: "#fff",
+                    border: `1.5px solid ${cfg.borderColor}`,
+                    boxShadow: `0 2px 8px rgba(0,0,0,0.04), 0 0 0 1px ${cfg.borderColor}, 0 8px 32px ${cfg.glow}`,
+                    transition: "box-shadow 0.3s, border-color 0.3s",
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 40px ${cfg.glow}, 0 0 0 2px ${cfg.borderColor}`;
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.boxShadow = `0 2px 8px rgba(0,0,0,0.04), 0 0 0 1px ${cfg.borderColor}, 0 8px 32px ${cfg.glow}`;
+                  }}
                 >
-                  {/* Subtle Glow Behind Card */}
-                  <div
-                    className="absolute -inset-1 blur-2xl opacity-20 group-hover:opacity-50 transition-all duration-700 z-0 scale-95 group-hover:scale-100 pointer-events-none"
-                    style={{ background: meta.grad }}
-                  />
+                  <div className="h-[3px] w-full shrink-0" style={{ background: cfg.lightBar }} />
 
-                  {/* Actual Card Body (Creative Colorful) */}
-                  <div
-                    className="relative z-10 h-full w-full rounded-[2rem] overflow-hidden cursor-pointer flex flex-col transition-all duration-500 group-hover:-translate-y-2 group-hover:scale-[1.02]"
-                    style={{
-                      background: "#ffffff",
-                      border: `1.5px solid ${meta.color}30`,
-                      boxShadow: `0 6px 30px -8px ${meta.color}30, inset 0 1px 0 rgba(255,255,255,1)`,
-                      transition: "box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLDivElement).style.boxShadow = `0 16px 50px -10px ${meta.color}50, 0 0 0 1.5px ${meta.color}60, inset 0 1px 0 rgba(255,255,255,1)`;
-                      (e.currentTarget as HTMLDivElement).style.borderColor = `${meta.color}70`;
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLDivElement).style.boxShadow = `0 6px 30px -8px ${meta.color}30, inset 0 1px 0 rgba(255,255,255,1)`;
-                      (e.currentTarget as HTMLDivElement).style.borderColor = `${meta.color}30`;
-                    }}
-                  >
-                    {/* Colored gradient stripe at very top */}
-                    <div className="w-full h-1 shrink-0" style={{ background: meta.grad }} />
+                  <div className="relative w-full h-[210px] bg-slate-100 overflow-hidden shrink-0">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
 
-                    {/* Image area */}
-                    <div className="relative w-full h-[160px] md:h-[180px] shrink-0 bg-slate-50 overflow-hidden">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-90 group-hover:opacity-100"
-                      />
-
-                      {/* Colorful soft overlay */}
-                      <div
-                        className="absolute inset-0 opacity-40 group-hover:opacity-70 transition-opacity duration-300 mix-blend-overlay"
-                        style={{ background: meta.grad }}
-                      />
-
-                      {/* Smoke on hover */}
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none mix-blend-screen overflow-hidden">
-                        <div className="absolute -bottom-10 -left-10 w-40 h-40 blur-[40px] rounded-full animate-pulse opacity-80" style={{ background: meta.color }} />
-                        <div className="absolute top-10 -right-10 w-48 h-48 blur-[50px] rounded-full animate-pulse opacity-60" style={{ background: meta.color }} />
-                        <div className="absolute -top-10 left-20 w-32 h-32 blur-[30px] rounded-full animate-pulse opacity-40 delay-150" style={{ background: meta.color }} />
+                    <div className="absolute top-3 left-3 flex flex-col gap-1.5 items-start z-10">
+                      <div className="text-[10px] font-bold px-3 py-1 rounded-full text-white shadow-sm"
+                        style={{ background: cfg.badgeBg }}>
+                        {project.category}
                       </div>
-
-                      {/* Interactive sleek overlay */}
-                      <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center backdrop-blur-sm z-10">
-                        <div className="opacity-0 group-hover:opacity-100 flex flex-col items-center transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                          <div className="w-12 h-12 rounded-full flex items-center justify-center mb-3 shadow-[0_0_20px_rgba(255,255,255,0.3)]" style={{ background: meta.grad }}>
-                            <project.icon className="w-5 h-5 text-white" />
-                          </div>
-                          <span className="text-white font-sans font-bold text-[10px] px-4 py-1.5 rounded-full uppercase tracking-widest border border-white/20 bg-white/10 backdrop-blur-md shadow-sm">
-                            View Project
-                          </span>
+                      {project.concepts.includes("ML/DL") && project.category !== "Machine Learning" && (
+                        <div className="text-[9px] font-black px-2.5 py-1 rounded-md text-white shadow-sm flex items-center gap-1 uppercase tracking-widest"
+                          style={{ background: categoryConfig["Machine Learning"].badgeBg }}>
+                          MACHINE LEARNING
                         </div>
-                      </div>
-
-                      {/* Top meta bar — number only */}
-                      <div className="absolute top-4 right-4 z-20">
-                        <span className="font-sans font-black tracking-tighter text-[11px] bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm" style={{ color: meta.color }}>
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                      </div>
+                      )}
                     </div>
 
-                    {/* Bottom content area — soft tinted bg */}
-                    <div className="p-5 pb-6 flex flex-col gap-3 relative" style={{ background: `linear-gradient(to bottom, ${meta.color}06 0%, #ffffff 40%)` }}>
+                    <div className="absolute top-3 right-3 flex gap-1.5 flex-wrap justify-end max-w-[70%] z-10">
+                      {project.concepts.includes("Production") && (
+                        <div className="bg-white/95 backdrop-blur text-[9px] font-black px-2.5 py-1 rounded-md flex items-center gap-1 shadow-md border border-slate-100 text-slate-800 uppercase tracking-widest">
+                          <Crown className="w-3 h-3 fill-yellow-400 text-yellow-500" />
+                          PRODUCTION READY
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Overlay on hover indicating clickability */}
+                    <div className="absolute inset-0 bg-indigo-900/0 group-hover:bg-indigo-900/10 transition-colors duration-300 flex items-center justify-center pointer-events-none">
+                       <div className="bg-white/90 text-slate-800 text-xs font-bold px-4 py-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                         Click to View Details
+                       </div>
+                    </div>
+                  </div>
 
-                      {/* Thin decorative separator line (colored) */}
-                      <div className="w-10 h-[3px] rounded-full mb-1" style={{ background: meta.grad }} />
+                  <div className="p-5 flex flex-col flex-grow">
+                    <h3 className="text-[17px] font-bold text-slate-800 leading-tight mb-2 group-hover:text-blue-600 transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-[13px] text-slate-500 leading-relaxed mb-5 line-clamp-2">
+                      {project.overview}
+                    </p>
 
-                      {/* Category labels */}
-                      <div className="flex items-center gap-2 flex-wrap">
-                        {project.concepts.includes("Production") && (
-                          <span
-                            className="relative overflow-hidden flex items-center gap-1.5 px-3 py-1 rounded-full text-white font-sans text-[10px] uppercase tracking-wider font-extrabold"
-                            style={{
-                              background: "linear-gradient(135deg, #f43f5e, #a855f7, #3b82f6)",
-                              boxShadow: "0 4px 15px rgba(168, 85, 247, 0.35)",
-                            }}
-                          >
-                            <span className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%, rgba(0,0,0,0.1) 100%)" }} />
-                            <Star className="w-3 h-3 fill-white/80 relative z-10" />
-                            <span className="relative z-10">PRODUCTION</span>
-                          </span>
-                        )}
-                        <span
-                          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full font-sans text-[9px] uppercase tracking-wider font-bold border"
-                          style={{
-                            color: meta.color,
-                            backgroundColor: `${meta.color}12`,
-                            borderColor: `${meta.color}35`
-                          }}
-                        >
-                          {project.category}
-                        </span>
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="font-extrabold text-slate-800 leading-snug text-[15px] md:text-base">
-                        {project.title}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-[12.5px] text-slate-500 font-medium leading-relaxed line-clamp-2">{project.description}</p>
-
-                      {/* Tech tags */}
-                      <div className="flex flex-wrap gap-1.5 mt-1">
+                    <div className="mt-auto">
+                      <div className="flex flex-wrap gap-1.5 mb-4">
                         {project.tech.slice(0, 3).map((t) => (
-                          <span key={t} className="text-[9px] uppercase tracking-wider font-sans px-2.5 py-1.5 rounded-lg font-bold shadow-sm"
-                            style={{ color: meta.color, backgroundColor: `${meta.color}10`, border: `1px solid ${meta.color}25` }}>
+                          <span key={t} className="px-2.5 py-1 text-[11px] font-bold rounded-full"
+                            style={{ background: cfg.tagBg, color: cfg.tagText }}>
                             {t}
                           </span>
                         ))}
+                        {project.tech.length > 3 && (
+                          <span className="px-2.5 py-1 bg-slate-100 text-slate-500 text-[11px] font-bold rounded-full">
+                            +{project.tech.length - 3}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
                 </motion.div>
               );
             })}
-          </motion.div>
-          )}
-        </AnimatePresence>
+          </AnimatePresence>
+        </div>
       </div>
 
+      {/* ── PROJECT DETAILS MODAL ── */}
       <AnimatePresence>
-        {selectedProject && <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />}
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[500] flex items-center justify-center p-4 sm:p-6"
+          >
+            {/* Backdrop */}
+            <motion.div 
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm cursor-pointer"
+              onClick={() => setSelectedProject(null)}
+            />
+
+            {/* Modal Content */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+              className="relative w-full max-w-3xl max-h-[90vh] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col z-10"
+            >
+              {/* Close Button */}
+              <button 
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 z-20 w-10 h-10 bg-black/40 hover:bg-black/60 text-white rounded-full flex items-center justify-center backdrop-blur-md transition-colors shadow-lg"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Top Side: Image (cropped with smoky fade) — click for fullscreen */}
+              <div
+                className="w-full relative shrink-0 overflow-hidden cursor-zoom-in group"
+                style={{ height: "160px" }}
+                onClick={() => setFullScreenImage(selectedProject.image)}
+              >
+                <img
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                />
+
+                {/* Dark overlay with title & badges */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent" />
+
+                {/* Smoky white fade at the very bottom — blends into modal bg */}
+                <div
+                  className="absolute bottom-0 left-0 w-full h-16 pointer-events-none"
+                  style={{
+                    background:
+                      "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.55) 60%, rgba(255,255,255,0.95) 100%)",
+                    backdropFilter: "blur(2px)",
+                    WebkitBackdropFilter: "blur(2px)",
+                  }}
+                />
+
+                {/* Hover hint */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="bg-white/90 text-slate-800 px-4 py-2 rounded-full font-bold text-xs opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-300 shadow-xl flex items-center gap-2">
+                    <Eye className="w-4 h-4" /> Lihat foto penuh
+                  </div>
+                </div>
+
+                {/* Title & badges */}
+                <div className="absolute top-0 left-0 p-4 w-full">
+                  <h2 className="text-xl font-black text-white leading-tight mb-2 drop-shadow-md">
+                    {selectedProject.title}
+                  </h2>
+                  <div className="flex flex-wrap gap-2">
+                    <span
+                      className="text-[10px] font-bold px-3 py-1 rounded-full text-white shadow-sm border border-white/20"
+                      style={{ background: getCfg(selectedProject.category).badgeBg }}
+                    >
+                      {selectedProject.category}
+                    </span>
+                    {selectedProject.concepts.map(concept => {
+                      if (concept === "Production") {
+                        return (
+                          <span key="prod" className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-md border border-yellow-300/50">
+                            <Crown className="w-3 h-3 fill-white" />
+                            PRODUCTION READY
+                          </span>
+                        );
+                      }
+                      if (concept === "Workshop") return null;
+                      return (
+                        <span key={concept} className="bg-white/20 backdrop-blur-md text-white border border-white/30 text-[10px] font-bold px-3 py-1 rounded-full flex items-center shadow-sm">
+                          {concept}
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Side: Details */}
+              <div className="w-full p-6 sm:p-8 overflow-y-auto custom-scrollbar flex flex-col gap-8 relative bg-white" style={{
+                backgroundImage: `radial-gradient(circle at 100% 0%, ${getCfg(selectedProject.category).glow} 0%, transparent 40%)`
+              }}>
+                
+                {/* Overview */}
+                <div className="shrink-0">
+                  <p className="text-slate-700 text-[16px] leading-relaxed font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-500">
+                    {selectedProject.overview || selectedProject.description}
+                  </p>
+                </div>
+
+                {/* Problem & Solution Blocks */}
+                <div className="grid sm:grid-cols-2 gap-6 shrink-0">
+                  {/* Problem - Vibrant red glow */}
+                  <div className="relative overflow-hidden bg-gradient-to-br from-rose-50 to-white border border-rose-200 rounded-2xl p-6 shadow-[0_10px_40px_rgba(244,63,94,0.15)] hover:shadow-[0_10px_40px_rgba(244,63,94,0.25)] transition-shadow">
+                    <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-rose-400 to-rose-600" />
+                    <div className="flex items-center gap-2 text-rose-600 font-black text-sm mb-3 uppercase tracking-wider">
+                      <TargetIcon className="w-5 h-5" />
+                      The Problem
+                    </div>
+                    <p className="text-slate-700 text-[13.5px] leading-relaxed font-medium">
+                      {selectedProject.problem}
+                    </p>
+                  </div>
+
+                  {/* Solution - Vibrant green glow */}
+                  <div className="relative overflow-hidden bg-gradient-to-br from-emerald-50 to-white border border-emerald-200 rounded-2xl p-6 shadow-[0_10px_40px_rgba(16,185,129,0.15)] hover:shadow-[0_10px_40px_rgba(16,185,129,0.25)] transition-shadow">
+                    <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-emerald-400 to-emerald-600" />
+                    <div className="flex items-center gap-2 text-emerald-600 font-black text-sm mb-3 uppercase tracking-wider">
+                      <CheckCircle2 className="w-5 h-5" />
+                      The Solution
+                    </div>
+                    <p className="text-slate-700 text-[13.5px] leading-relaxed font-medium">
+                      {selectedProject.solution}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Technologies */}
+                <div className="shrink-0">
+                  <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Technologies Used</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProject.tech.map((t) => (
+                      <span key={t} className="px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-600 text-xs font-bold rounded-lg shadow-sm">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Node Details – only for projects that have them */}
+                {selectedProject.nodeDetails && (
+                  <div className="shrink-0">
+                    <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">8 Node Architecture</h4>
+                    <div className="grid sm:grid-cols-2 gap-2">
+                      {selectedProject.nodeDetails.map((node) => (
+                        <div key={node.name} className="flex gap-3 p-3 rounded-xl border border-slate-100 bg-slate-50/80">
+                          <div className="w-2 shrink-0 rounded-full mt-1" style={{ background: node.color, minHeight: '100%' }} />
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="font-mono text-[11px] font-black text-slate-800">{node.name}</span>
+                              <span className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white" style={{ background: node.color }}>{node.role}</span>
+                            </div>
+                            <p className="text-[12px] text-slate-500 leading-snug mt-1">{node.description}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Why LangGraph – only for projects that have it */}
+                {selectedProject.whyLanggraph && (
+                  <div className="relative overflow-hidden bg-gradient-to-br from-violet-50 to-white border border-violet-200 rounded-2xl p-6 shadow-[0_10px_40px_rgba(139,92,246,0.12)] shrink-0">
+                    <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-violet-400 to-purple-600 z-10" />
+                    <div className="flex items-center gap-2 text-violet-700 font-black text-sm mb-3 uppercase tracking-wider relative z-20">
+                      <Sparkles className="w-5 h-5" />
+                      Kenapa LangGraph & Agentic Flow?
+                    </div>
+                    <p className="text-slate-800 text-[13.5px] leading-relaxed font-medium relative z-20">{selectedProject.whyLanggraph}</p>
+                  </div>
+                )}
+
+                {/* Links */}
+                <div className="pt-6 border-t border-slate-100 flex flex-wrap items-center gap-4 mt-auto shrink-0">
+                  {selectedProject.github !== "#" && (
+                    <a 
+                      href={selectedProject.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex-1 min-w-[180px] flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/20"
+                    >
+                      <Github className="w-4 h-4" /> View Source
+                    </a>
+                  )}
+                  {selectedProject.colabUrl && (
+                    <a 
+                      href={selectedProject.colabUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex-1 min-w-[180px] flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-white font-bold text-sm hover:brightness-110 transition-all shadow-[0_8px_20px_rgba(249,115,22,0.25)]"
+                      style={{ background: "linear-gradient(135deg,#f97316,#ea580c)" }}
+                    >
+                      <ExternalLink className="w-4 h-4" /> Open in Colab
+                    </a>
+                  )}
+                  {selectedProject.demoUrl && (
+                    <a 
+                      href={selectedProject.demoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex-1 min-w-[180px] flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-white font-bold text-sm hover:brightness-110 transition-all shadow-[0_8px_20px_rgba(0,0,0,0.12)]"
+                      style={{ background: getCfg(selectedProject.category).badgeBg }}
+                    >
+                      <ExternalLink className="w-4 h-4" /> Live Demo
+                    </a>
+                  )}
+                </div>
+
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── FULL SCREEN IMAGE LIGHTBOX ── */}
+      <AnimatePresence>
+        {fullScreenImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[600] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
+            onClick={() => setFullScreenImage(null)}
+          >
+            <button 
+              className="absolute top-6 right-6 z-20 w-12 h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center backdrop-blur-md transition-colors"
+              onClick={() => setFullScreenImage(null)}
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <motion.img 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              src={fullScreenImage} 
+              alt="Full screen" 
+              className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
       </AnimatePresence>
     </section>
   );

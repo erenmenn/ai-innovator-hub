@@ -1,240 +1,280 @@
-import { motion } from "framer-motion";
-import { Lightbulb, Target, Users, BrainCircuit, Sparkles, LayoutTemplate, Quote, Zap } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Target, Users, Lightbulb, BrainCircuit, LayoutTemplate, Sparkles,
+  Send, Bot, User as UserIcon,
+} from "lucide-react";
 
-const traits = [
+/* ─── Chat Script ─── */
+const chatScript = [
   {
-    icon: Users,
-    title: "Leadership",
-    shortDesc: "Empowering teams & driving vision.",
-    features: [
-      "Lead teams with clarity.",
-      "Build vision across stakeholders.",
-      "Drive execution and alignment."
-    ],
-    fullDesc: "Saya memimpin dengan empati dan komunikasi yang terstruktur. Fokus saya adalah pada kolaborasi tim, membangun lingkungan yang suportif, serta mengarahkan setiap individu untuk bersinergi mencapai visi bersama secara efektif dan efisien tanpa micromanagement.",
-    grad: "linear-gradient(135deg, #6366f1 0%, #3b82f6 50%, #06b6d4 100%)",
-    shadow: "#3b82f6",
-    hardShadow: "#1d4ed8",
-    pill: "🔵 CORE ROLE",
-    emoji: "👑",
-    sparkle: "⭐",
+    user: "Gimana cara kamu kerja kalau ada masalah kompleks?",
+    bot:  "Aku break down masalahnya dulu jadi bagian kecil, cari root cause-nya, lalu rancang solusi yang terukur. Fokus ke impact nyata. 🎯",
   },
   {
-    icon: Target,
-    title: "Problem Solving",
-    shortDesc: "Menyelesaikan tantangan kompleks.",
-    features: [
-      "Analyze complex issues.",
-      "Design clear and practical solutions.",
-      "Deliver reliable impact."
-    ],
-    fullDesc: "Saya terbiasa memecah masalah berskala besar menjadi komponen-komponen logis yang dapat dieksekusi. Dengan mencari akar permasalahan (root cause), saya menyusun solusi taktis yang terstruktur, anti-rapuh, dan dapat diukur keberhasilannya di dunia nyata.",
-    grad: "linear-gradient(135deg, #f43f5e 0%, #fb7185 40%, #f97316 100%)",
-    shadow: "#f43f5e",
-    hardShadow: "#be123c",
-    pill: "🔴 TOP SKILL",
-    emoji: "🧩",
-    sparkle: "✦",
+    user: "Peran kamu di tim biasanya apa?",
+    bot:  "Aku sering jadi Leader & Project Designer — bangun visi tim, atur workflow, dan pastiin semua berjalan dari konsep sampai eksekusi. 👑",
   },
   {
-    icon: Lightbulb,
-    title: "Creative Thinking",
-    shortDesc: "Ideasi out-of-the-box.",
-    features: [
-      "Generate original ideas.",
-      "See fresh perspectives.",
-      "Create memorable solutions."
-    ],
-    fullDesc: "Selalu mengeksplorasi sudut pandang dari berbagai multi-disiplin ilmu. Pemikiran kreatif memungkinkan saya untuk merancang inovasi yang tidak konvensional, menembus batas standar industri, dan memberikan 'wow-factor' pada fungsionalitas serta estetika sistem.",
-    grad: "linear-gradient(135deg, #f59e0b 0%, #f97316 50%, #fb923c 100%)",
-    shadow: "#f59e0b",
-    hardShadow: "#d97706",
-    pill: "🟡 RARE",
-    emoji: "💡",
-    sparkle: "✧",
-  },
-  {
-    icon: BrainCircuit,
-    title: "Analytical Thinking",
-    shortDesc: "Analisa mendalam & logis.",
-    features: [
-      "Interpret data with precision.",
-      "Find patterns that matter.",
-      "Make decisions based on logic."
-    ],
-    fullDesc: "Saya tidak menebak-nebak. Saya mengandalkan kumpulan data dan landasan logika first-principles untuk mengambil setiap keputusan. Objektivitas dan kepekaan terhadap pola tersembunyi memastikan setiap langkah arsitektur terhindar dari bias yang berisiko.",
-    grad: "linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #d946ef 100%)",
-    shadow: "#8b5cf6",
-    hardShadow: "#6d28d9",
-    pill: "🟣 MASTER",
-    emoji: "🔬",
-    sparkle: "★",
-  },
-  {
-    icon: LayoutTemplate,
-    title: "Project Designer",
-    shortDesc: "Merancang fondasi ekosistem.",
-    features: [
-      "Structure systems from concept.",
-      "Design user-centered workflows.",
-      "Align product with execution."
-    ],
-    fullDesc: "Lebih dari sekadar coding, saya bertindak sebagai konseptor yang menstrukturkan alur kerja sistem, mendesain cetak biru manajemen proyek, dan merumuskan User Experience agar selaras penuh dengan objektif psikologis pengguna akhir.",
-    grad: "linear-gradient(135deg, #10b981 0%, #14b8a6 50%, #06b6d4 100%)",
-    shadow: "#10b981",
-    hardShadow: "#065f46",
-    pill: "🟢 PRO",
-    emoji: "🎨",
-    sparkle: "◆",
-  },
-  {
-    icon: Sparkles,
-    title: "AI Solutions",
-    shortDesc: "Menjembatani AI & dunia nyata.",
-    features: [
-      "Translate AI into real outcomes.",
-      "Build tech that solves real problems.",
-      "Keep impact measurable and clear."
-    ],
-    fullDesc: "Menerjemahkan bottleneck dunia nyata menjadi kapabilitas komputasi buatan. Saya merancang dan mengeksekusi integrasi Pipeline AI (seperti NLP, Vision, dan LLM) yang paling relevan dan cost-effective guna menghasilkan Return on Investment maksimal bagi sistem.",
-    grad: "linear-gradient(135deg, #ec4899 0%, #a855f7 50%, #6366f1 100%)",
-    shadow: "#ec4899",
-    hardShadow: "#9d174d",
-    pill: "🩷 RARE",
-    emoji: "🚀",
-    sparkle: "✦",
+    user: "Seberapa dalam kamu paham AI?",
+    bot:  "Aku udah implement NLP, computer vision, dan LLM pipelines. Prinsipku: AI harus solve masalah nyata, bukan hanya terlihat keren. 🚀",
   },
 ];
 
-const AboutSection = () => {
+const traits = [
+  { icon: Target,        label: "Problem Solving",   color: "#f43f5e" },
+  { icon: Users,         label: "Leadership",         color: "#6366f1" },
+  { icon: Lightbulb,     label: "Creative Thinking",  color: "#f59e0b" },
+  { icon: BrainCircuit,  label: "Analytical",         color: "#8b5cf6" },
+  { icon: LayoutTemplate,label: "Project Design",     color: "#10b981" },
+  { icon: Sparkles,      label: "AI Solutions",       color: "#ec4899" },
+];
 
+/* ─── Typing Dots ─── */
+function TypingDots() {
   return (
-    <section id="about" className="py-24 relative overflow-hidden pixel-grid">
-
-      {/* ── Vivid Background Blobs ── */}
-      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-        <motion.div
-          animate={{ opacity: [0.3, 0.55, 0.3], x: [0, 30, 0], y: [0, -20, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-8%] right-[-6%] w-[550px] h-[550px] blur-[130px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(139,92,246,0.4) 0%, rgba(236,72,153,0.25) 60%, transparent 100%)" }}
-        />
-        <motion.div
-          animate={{ opacity: [0.25, 0.45, 0.25], x: [0, -20, 0], y: [0, 25, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-          className="absolute bottom-[-10%] left-[-6%] w-[500px] h-[500px] blur-[130px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(59,130,246,0.35) 0%, rgba(16,185,129,0.2) 60%, transparent 100%)" }}
-        />
-        <motion.div
-          animate={{ opacity: [0.2, 0.38, 0.2] }}
-          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 8 }}
-          className="absolute top-[45%] left-[38%] w-[380px] h-[380px] blur-[120px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(245,158,11,0.25) 0%, transparent 70%)" }}
-        />
+    <div className="flex items-end gap-2 mb-2">
+      <div className="w-7 h-7 rounded-full bg-violet-100 flex items-center justify-center">
+        <Bot className="w-3.5 h-3.5 text-violet-500" />
       </div>
-
-      <div className="container mx-auto px-6 relative z-10">
-
-        {/* ── Header ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          {/* Pixel badge */}
-          <motion.span
-            whileHover={{ scale: 1.07, rotate: -2 }}
-            className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-widest px-5 py-2.5 rounded-2xl border-[3px] border-amber-400 shadow-[4px_4px_0px_#f59e0b] cursor-default"
-            style={{ background: "linear-gradient(135deg, #fef3c7, #fde68a)", color: "#92400e" }}
-          >
-            <motion.span animate={{ rotate: [0, 20, -20, 0] }} transition={{ duration: 2, repeat: Infinity }}>✨</motion.span>
-            SOFTSKILLS &amp; ROLES
-            <motion.span animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 1.5, repeat: Infinity }}>⚡</motion.span>
-          </motion.span>
-
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mt-8 tracking-tight text-slate-800">
-            PASSIONATE ABOUT{" "}
-            <span
-              className="text-transparent bg-clip-text block md:inline pr-2"
-              style={{ backgroundImage: "linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%)" }}
-            >
-              INTELLIGENCE
-            </span>
-          </h2>
-
-          {/* Quote box */}
-          <motion.div
-            whileHover={{ scale: 1.015, rotate: -0.4 }}
-            className="mt-12 max-w-4xl mx-auto relative group overflow-hidden rounded-[2.5rem] border-[3px] border-indigo-200 bg-white transition-all duration-300"
-            style={{ boxShadow: "8px 8px 0px #c7d2fe" }}
-          >
-
-            <div className="p-8 md:p-10 flex flex-col md:flex-row items-center gap-8 relative z-10">
-              <div className="w-20 h-20 shrink-0 rounded-[1.5rem] bg-indigo-100 flex items-center justify-center border-[4px] border-indigo-200 shadow-lg rotate-[-5deg] group-hover:rotate-[5deg] transition-transform duration-300">
-                <Quote className="w-8 h-8 text-indigo-500 fill-indigo-200" />
-              </div>
-              <p className="text-[17px] md:text-xl text-slate-700 leading-relaxed font-bold text-left">
-                <span className="text-transparent bg-clip-text font-black text-2xl"
-                  style={{ backgroundImage: "linear-gradient(135deg, #f43f5e, #a855f7)" }}>
-                  Kita hidup di era AI,
-                </span>{" "}dan kuncinya adalah{" "}
-                <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-xl border-2 border-emerald-300 shadow-sm inline-block rotate-2 my-1">adaptasi</span>.{" "}
-                AI bukanlah alat penghancur karir, melainkan partner kolaborasi. Manusia kini perlu berevolusi menjadi{" "}
-                <span className="underline decoration-wavy decoration-4 decoration-pink-400 text-slate-900 font-black">AI Evaluator</span>{" "}
-                 bukan sekadar eksekutor, tetapi sutradara yang mengarahkan kecerdasan buatan untuk menciptakan dampak nyata yang{" "}
-                <span className="italic text-amber-500 text-2xl">luar biasa!</span> 
-              </p>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* ══════════ COLORFUL PIXEL GRADIENT CARDS ══════════ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7 max-w-6xl mx-auto px-2">
-          {traits.map((trait, i) => (
-            <motion.div
-              key={trait.title}
-              initial={{ opacity: 0, scale: 0.95, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: i * 0.06, ease: "easeOut" }}
-              className="relative rounded-3xl p-7 cursor-default overflow-hidden flex flex-col"
-              style={{
-                background: "#ffffff",
-                border: "1px solid rgba(148,163,184,0.16)",
-                boxShadow: "0 18px 40px rgba(15,23,42,0.08)",
-              }}
-            >
-              {/* Top row: icon */}
-              <div className="flex items-start mb-5 relative z-10">
-                {/* Icon box */}
-                <div
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm"
-                  style={{ background: trait.grad }}
-                >
-                  <trait.icon className="w-8 h-8 text-white" />
-                </div>
-              </div>
-
-              {/* Pill tag */}
-              <span className="self-start text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 border border-slate-200 mb-3 relative z-10 shadow-sm">
-                {trait.pill}
-              </span>
-
-              {/* Title & desc */}
-              <h3 className="font-semibold text-[22px] text-slate-900 mb-3 relative z-10 leading-tight">{trait.title}</h3>
-              {trait.features?.map((line, idx) => (
-                <p key={idx} className="text-[14px] text-slate-600 font-medium leading-relaxed relative z-10 mb-2">
-                  {line}
-                </p>
-              ))}
-            </motion.div>
+      <div className="px-3 py-2.5 rounded-2xl rounded-bl-sm bg-white border border-slate-100 shadow-sm">
+        <div className="flex gap-1 items-center h-4">
+          {[0, 1, 2].map(i => (
+            <motion.div key={i}
+              className="w-1.5 h-1.5 rounded-full bg-violet-400"
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
+            />
           ))}
         </div>
       </div>
-
-    </section>
+    </div>
   );
-};
+}
+
+/* ─── ChatBot ─── */
+function ChatBot() {
+  const [messages, setMessages] = useState<{ role: "user" | "bot"; text: string }[]>([]);
+  const [step, setStep]         = useState(0);
+  const [typing, setTyping]     = useState(false);
+  const [input, setInput]       = useState("");
+  const bottomRef               = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setMessages([{ role: "bot", text: "Hai! 👋 Tanya aku tentang cara kerja, skill, atau pengalaman di AI." }]);
+    }, 600);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 60);
+  }, [messages, typing]);
+
+  const send = () => {
+    if (step >= chatScript.length || typing) return;
+    const q = chatScript[step];
+    setMessages(p => [...p, { role: "user", text: input.trim() || q.user }]);
+    setInput("");
+    setTyping(true);
+    setTimeout(() => {
+      setTyping(false);
+      setMessages(p => [...p, { role: "bot", text: q.bot }]);
+      setStep(s => s + 1);
+    }, 1100 + Math.random() * 500);
+  };
+
+  const suggestion = step < chatScript.length ? chatScript[step].user : null;
+
+  return (
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="flex items-center gap-2.5 px-4 py-3 border-b border-slate-100">
+        <div className="w-8 h-8 rounded-full flex items-center justify-center"
+          style={{ background: "linear-gradient(135deg,#6366f1,#a855f7)" }}>
+          <Bot className="w-4 h-4 text-white" />
+        </div>
+        <div>
+          <p className="text-sm font-bold text-slate-800 leading-none">Chat with Emir</p>
+          <div className="flex items-center gap-1 mt-0.5">
+            <motion.span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"
+              animate={{ opacity: [1, 0.4, 1] }} transition={{ duration: 1.5, repeat: Infinity }} />
+            <span className="text-[10px] text-slate-400 font-medium">online</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto px-3 py-3 space-y-0 min-h-0 bg-slate-50/60">
+        <AnimatePresence>
+          {messages.map((msg, i) => (
+            <motion.div key={i}
+              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+              className={`flex items-end gap-2 mb-2 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
+            >
+              <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
+                msg.role === "bot" ? "bg-violet-100" : "bg-slate-100"
+              }`}>
+                {msg.role === "bot"
+                  ? <Bot className="w-3.5 h-3.5 text-violet-500" />
+                  : <UserIcon className="w-3.5 h-3.5 text-slate-500" />}
+              </div>
+              <div className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-[13px] leading-relaxed font-medium
+                ${msg.role === "user"
+                  ? "text-white rounded-br-sm"
+                  : "text-slate-700 bg-white border border-slate-100 rounded-bl-sm shadow-sm"
+                }`}
+                style={msg.role === "user" ? {
+                  background: "linear-gradient(135deg,#6366f1,#a855f7)",
+                } : {}}
+              >
+                {msg.text}
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+        {typing && <TypingDots />}
+        <div ref={bottomRef} />
+      </div>
+
+      {/* Suggestion */}
+      <AnimatePresence>
+        {suggestion && !typing && (
+          <motion.div key={step}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="px-3 pt-2 pb-1 bg-white border-t border-slate-100"
+          >
+            <p className="text-[9px] font-semibold text-violet-400 uppercase tracking-widest mb-1.5">Saran pertanyaan</p>
+            <button onClick={send}
+              className="w-full text-left text-[12px] text-slate-600 font-medium px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 hover:border-violet-300 hover:bg-violet-50 transition-all"
+            >
+              {suggestion}
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Input */}
+      <div className="flex gap-2 px-3 py-3 bg-white border-t border-slate-100">
+        <input
+          type="text"
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && send()}
+          placeholder={step < chatScript.length ? "Ketik pesan..." : "Selesai 🎉"}
+          disabled={step >= chatScript.length}
+          className="flex-1 text-[13px] px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:border-violet-300 placeholder:text-slate-300 font-medium transition-colors"
+        />
+        <motion.button whileTap={{ scale: 0.9 }} onClick={send}
+          disabled={step >= chatScript.length || typing}
+          className="w-9 h-9 rounded-xl flex items-center justify-center text-white disabled:opacity-30"
+          style={{ background: "linear-gradient(135deg,#6366f1,#a855f7)" }}
+        >
+          <Send className="w-3.5 h-3.5" />
+        </motion.button>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Main Section ─── */
+const AboutSection = () => (
+  <section id="about" className="py-24 relative overflow-hidden pixel-grid">
+
+    {/* Subtle bg blobs */}
+    <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+      <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-[120px] opacity-20"
+        style={{ background: "radial-gradient(circle,#8b5cf6,transparent)" }} />
+      <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full blur-[100px] opacity-15"
+        style={{ background: "radial-gradient(circle,#3b82f6,transparent)" }} />
+    </div>
+
+    <div className="container mx-auto px-6 relative z-10">
+
+      {/* Badge */}
+      <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }} className="text-center mb-16"
+      >
+        <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl border border-amber-300/50 text-white font-extrabold text-xs tracking-widest uppercase shadow-[0_0_30px_rgba(245,158,11,0.5)] transition-all cursor-default"
+          style={{ background: "linear-gradient(135deg,#f59e0b,#ef4444)" }}>
+          <span className="bg-white/20 px-2 py-0.5 rounded-lg text-white">01</span> ABOUT ME
+        </div>
+      </motion.div>
+
+      {/* Grid */}
+      <div className="grid lg:grid-cols-[1fr_360px] gap-16 items-start max-w-6xl mx-auto">
+
+        {/* ── LEFT ── */}
+        <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.6 }} className="space-y-10"
+        >
+          {/* Heading */}
+          <div>
+            <h2 className="text-5xl md:text-6xl font-black tracking-tight leading-[1.1] text-slate-900">
+              Passionate<br />
+              <em className="not-italic bg-clip-text text-transparent"
+                style={{ backgroundImage: "linear-gradient(90deg,#6366f1,#a855f7,#ec4899)" }}>
+                about
+              </em><br />
+              <span className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "linear-gradient(90deg,#0ea5e9,#6366f1)" }}>
+                intelligence.
+              </span>
+            </h2>
+          </div>
+
+          {/* Quote */}
+          <motion.div whileHover={{ y: -3 }}
+            className="border-l-4 pl-5 py-1"
+            style={{ borderColor: "#8b5cf6" }}
+          >
+            <p className="text-slate-600 text-base md:text-lg leading-relaxed font-medium">
+              Kita hidup di era AI, dan kuncinya adalah{" "}
+              <span className="font-bold text-emerald-600">adaptasi</span>.
+              AI bukan penghancur karir — melainkan{" "}
+              <span className="font-bold text-slate-900">partner kolaborasi</span>.
+              Manusia perlu menjadi{" "}
+              <span className="font-bold bg-clip-text text-transparent"
+                style={{ backgroundImage: "linear-gradient(90deg,#6366f1,#ec4899)" }}>
+                AI Evaluator
+              </span>{" "}
+              — sutradara yang mengarahkan kecerdasan buatan untuk dampak nyata.
+            </p>
+          </motion.div>
+
+          {/* Trait list */}
+          <div className="grid grid-cols-2 gap-3">
+            {traits.map((t, i) => (
+              <motion.div key={t.label}
+                initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }} transition={{ delay: i * 0.07 }}
+                whileHover={{ x: 4 }}
+                className="flex items-center gap-3 py-3 px-4 rounded-2xl bg-white border border-slate-100 shadow-sm cursor-default"
+              >
+                <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: `${t.color}15` }}>
+                  <t.icon className="w-4 h-4" style={{ color: t.color }} />
+                </div>
+                <span className="text-[13px] font-semibold text-slate-700">{t.label}</span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* ── RIGHT: Chat ── */}
+        <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
+          className="relative"
+        >
+          <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-xl"
+            style={{ height: 480 }}>
+            <ChatBot />
+          </div>
+        </motion.div>
+
+      </div>
+    </div>
+  </section>
+);
 
 export default AboutSection;

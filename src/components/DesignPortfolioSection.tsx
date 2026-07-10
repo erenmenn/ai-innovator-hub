@@ -265,18 +265,16 @@ const DesignPortfolioSection = () => {
 
         {/* ── Header — cute style ── */}
         <motion.div initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-          {/* Cute pill badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-5 border-2 border-white shadow-[4px_4px_0px_rgba(99,102,241,0.2)] bg-white/90">
-            <span className="text-lg">✨</span>
-            <span className="text-[9px] font-pixel text-indigo-500 tracking-widest uppercase">creative works</span>
-            <span className="text-lg">🎨</span>
+          <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl border border-pink-400/50 text-white font-extrabold text-xs tracking-widest uppercase shadow-[0_0_30px_rgba(236,72,153,0.5)] mb-6 transition-all cursor-default"
+            style={{ background: "linear-gradient(135deg,#ec4899,#f43f5e)" }}>
+            <span className="bg-white/20 px-2 py-0.5 rounded-lg text-white">04</span> DESIGN
           </div>
-          <h2 className="text-5xl md:text-6xl font-black tracking-tight leading-none">
-            Design{" "}
-            <span className="text-transparent bg-clip-text italic pr-3"
+          <h2 className="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tighter leading-[0.85] text-slate-900 uppercase">
+            <span className="block drop-shadow-sm">DESIGN</span>
+            <em className="font-playfair italic font-medium lowercase tracking-normal text-transparent bg-clip-text text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] ml-8 md:ml-16 leading-none block pb-6 pt-2 -mb-6"
               style={{ backgroundImage: "linear-gradient(to right, #6366f1, #d946ef, #fb7185)" }}>
-              Portfolio
-            </span>
+              portfolio.
+            </em>
           </h2>
           <p className="text-slate-500 text-sm mt-4 max-w-sm mx-auto leading-relaxed">
             Where code meets fine art ✦ branding, UI systems & hand-crafted illustrations

@@ -22,7 +22,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden" ref={ref}>
+    <section id="contact" className="py-24 relative overflow-hidden pixel-grid" ref={ref}>
       {/* Smoke */}
       <motion.div
         animate={{ x: [0, 25, -15, 0], y: [0, -20, 25, 0], scale: [1, 1.1, 0.95, 1] }}
@@ -52,9 +52,16 @@ const ContactSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-[10px] font-pixel text-primary tracking-widest bg-primary/10 px-4 py-2 rounded-full border border-primary/20">LET'S_TALK</span>
-          <h2 className="text-4xl md:text-6xl font-black mt-6 tracking-tight">
-            LET'S <span className="gold-text italic">CONNECT!</span> 💌
+          <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl border border-emerald-400/50 text-white font-extrabold text-xs tracking-widest uppercase shadow-[0_0_30px_rgba(16,185,129,0.5)] mb-6 transition-all cursor-default"
+            style={{ background: "linear-gradient(135deg,#10b981,#0ea5e9)" }}>
+            <span className="bg-white/20 px-2 py-0.5 rounded-lg text-white">06</span> CONTACT
+          </div>
+          <h2 className="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-black mt-6 tracking-tighter leading-[0.85] text-slate-900 uppercase">
+            <span className="block drop-shadow-sm">LET'S</span>
+            <em className="font-playfair italic font-medium lowercase tracking-normal text-transparent bg-clip-text text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] ml-8 md:ml-16 leading-none block pb-6 pt-2 -mb-6"
+              style={{ backgroundImage: "linear-gradient(to right, #10b981, #0ea5e9)" }}>
+              connect!
+            </em>
           </h2>
         </motion.div>
 
@@ -78,7 +85,7 @@ const ContactSection = () => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 p-4 rounded-xl glass-card hover:border-primary/30 transition-all group hover:-translate-y-1"
                 >
-                  <div 
+                  <div
                     className="w-10 h-10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg"
                     style={{ background: item.bgGrad }}
                   >
@@ -110,6 +117,7 @@ const ContactSection = () => {
             </div>
             <div>
               <label className="text-sm font-medium mb-1.5 block">Message</label>
+
               <textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required maxLength={1000} rows={4} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors text-sm resize-none" placeholder="Tell me about your project..." />
             </div>
             <button type="submit" className="w-full py-3 rounded-xl gold-gradient text-primary-foreground font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98]">
