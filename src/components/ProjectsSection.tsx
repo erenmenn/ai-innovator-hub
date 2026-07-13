@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ExternalLink, Brain, Eye, Film, BarChart3, Target, Wrench,
-  Star, MessageSquare, Calendar, Layers, Crown, Sparkles, Code2, Github, X, Target as TargetIcon, CheckCircle2
+  Star, MessageSquare, Calendar, Layers, Crown, Sparkles, Code2, Github, X, Target as TargetIcon, CheckCircle2, ChevronLeft, ChevronRight
 } from "lucide-react";
 
 type Concept = "Production" | "ML/DL" | "Gen AI" | "Computer Vision" | "NLP" | "Regression" | "Recommendation" | "Workshop";
@@ -31,6 +31,7 @@ interface Project {
   colabUrl?: string;
   nodeDetails?: NodeDetail[];
   whyLanggraph?: string;
+  gallery?: string[];
 }
 
 const projects: Project[] = [
@@ -85,8 +86,8 @@ const projects: Project[] = [
     category: "Gen AI",
     icon: Brain,
     image: "/asset_proyek/investai.png",
-    github: "#",
-    demoUrl: "#",
+    github: "https://github.com/Couraa0/Invest",
+    demoUrl: "https://drive.google.com/drive/folders/12HcoUcLk38naMAfwFkbC5dEw5LNU_Cb6?usp=sharing",
     whyLanggraph: "InvestAI memanfaatkan LangGraph untuk mensimulasikan peran sebagai AI Mentor yang adaptif. Berbeda dengan chatbot biasa yang sekadar menjawab pertanyaan, agent berbasis LangGraph ini dapat membagi tugas (seperti menarik data saham real-time, menganalisis sentimen berita, dan merumuskan saran edukatif) ke dalam node-node spesifik. Jika pengguna meminta penjelasan lebih lanjut atau datanya kurang, agent dapat melakukan 'looping' untuk mencari informasi tambahan secara otomatis, menciptakan pengalaman belajar investasi yang benar-benar interaktif dan terarah layaknya mentor manusia."
   },
   {
@@ -99,9 +100,10 @@ const projects: Project[] = [
     concepts: ["Production", "Gen AI"],
     category: "Gen AI",
     icon: Calendar,
-    image: "/asset_proyek/scentara.png",
+    image: "/asset_proyek/sisibuk/image0_thumbnail.png",
+    gallery: ["/asset_proyek/sisibuk/image1.png", "/asset_proyek/sisibuk/image2.png", "/asset_proyek/sisibuk/image3.png"],
     github: "https://github.com/erenmenn/Sisibuk-AI-PenjadwalanOtomatis",
-    demoUrl: "#",
+    demoUrl: "https://drive.google.com/file/d/1Ilgi9sx2lY6Gh79NyWcLYg2lHgg8Sx_U/view?usp=sharing",
     whyLanggraph: "Sisibuk AI mengandalkan kapabilitas agentic reasoning untuk memecah instruksi penjadwalan yang kompleks. Ketika pengguna memberikan input dalam bahasa natural, sistem tidak hanya melakukan Named Entity Recognition (NER), melainkan mengevaluasi kondisi (state) kalender secara dinamis. Arsitektur agentic-nya memungkinkan sistem untuk menangani alur 'back-and-forth'—misalnya menanyakan ulang jika terjadi bentrok jadwal atau informasi peserta kurang lengkap—sebelum akhirnya menyimpan data persisten ke dalam database."
   },
   {
@@ -115,8 +117,8 @@ const projects: Project[] = [
     category: "Gen AI",
     icon: Brain,
     image: "/asset_proyek/satutani.png",
-    github: "https://github.com/erenmenn/SatuTani-AgriAI",
-    demoUrl: "#",
+    github: "https://github.com/Couraa0/satutani-mobile",
+    colabUrl: "https://colab.research.google.com/drive/1bFPdFLbP4vQCeqWU9Bjsxa-CNEN954Hh#scrollTo=cm4b_uIKZyQ8",
     whyLanggraph: "SatuTani menggunakan agentic workflow (LangChain/LangGraph) untuk memecahkan masalah pertanian yang dinamis dan kompleks. Alih-alih hanya merangkum dokumen (RAG biasa), agent dapat mengambil keputusan (reasoning) untuk memanggil API eksternal (seperti cuaca BMKG) atau mencari database penyakit tanaman berdasarkan pertanyaan spesifik petani. Kemampuan orkestrasi multi-tools ini memungkinkan SatuTani memberikan rekomendasi cerdas—misalnya, menyarankan penundaan pemupukan karena agen cuaca mendeteksi prediksi hujan lebat keesokan harinya."
   },
   {
@@ -275,6 +277,7 @@ const ProjectsSection = () => {
   const [activeCategory, setActiveCategory] = useState<Category>("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [fullScreenImage, setFullScreenImage] = useState<string | null>(null);
+  const [galleryIndex, setGalleryIndex] = useState(0);
 
   // Prevent scrolling when modal or fullscreen is open
   useEffect(() => {
@@ -284,6 +287,12 @@ const ProjectsSection = () => {
       document.body.style.overflow = "auto";
     }
   }, [selectedProject, fullScreenImage]);
+
+  useEffect(() => {
+    if (selectedProject) {
+      setGalleryIndex(0);
+    }
+  }, [selectedProject]);
 
   const filtered = [...projects]
     .sort((a, b) => {
@@ -499,15 +508,50 @@ const ProjectsSection = () => {
 
               {/* Top Side: Image (cropped with smoky fade) — click for fullscreen */}
               <div
-                className="w-full relative shrink-0 overflow-hidden cursor-zoom-in group"
+                className="w-full relative shrink-0 overflow-hidden group"
                 style={{ height: "160px" }}
-                onClick={() => setFullScreenImage(selectedProject.image)}
               >
-                <img
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                />
+                {selectedProject.gallery ? (
+                  <>
+                    <div className="w-full h-full relative" onClick={() => setFullScreenImage(selectedProject.gallery![galleryIndex])}>
+                      <img
+                        src={selectedProject.gallery[galleryIndex]}
+                        alt={selectedProject.title}
+                        className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 cursor-zoom-in"
+                      />
+                    </div>
+                    {selectedProject.gallery.length > 1 && (
+                      <div className="absolute inset-0 flex items-center justify-between px-2 pointer-events-none z-20">
+                         <button 
+                            className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center pointer-events-auto backdrop-blur-sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setGalleryIndex((prev) => prev === 0 ? selectedProject.gallery!.length - 1 : prev - 1);
+                            }}
+                         >
+                           <ChevronLeft className="w-5 h-5" />
+                         </button>
+                         <button 
+                            className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center pointer-events-auto backdrop-blur-sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setGalleryIndex((prev) => prev === selectedProject.gallery!.length - 1 ? 0 : prev + 1);
+                            }}
+                         >
+                           <ChevronRight className="w-5 h-5" />
+                         </button>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="w-full h-full relative cursor-zoom-in" onClick={() => setFullScreenImage(selectedProject.image)}>
+                    <img
+                      src={selectedProject.image}
+                      alt={selectedProject.title}
+                      className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                )}
 
                 {/* Dark overlay with title & badges */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent" />
