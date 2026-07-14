@@ -36,6 +36,19 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "Scentara: E-Commerce Parfum RAG Dual System",
+    description: "Platform e-commerce khusus parfum yang menerapkan arsitektur RAG Dual System untuk rekomendasi dan Q&A spesifik.",
+    overview: "Scentara adalah e-commerce cerdas khusus parfum yang menggunakan RAG Dual System. Sistem ini dapat menjawab secara akurat mengenai detail produk maupun informasi umum toko.",
+    problem: "Dalam e-commerce, chatbot sering kesulitan membedakan antara pertanyaan spesifik produk (harga, aroma) dengan pertanyaan umum toko (kontak, jam buka), sehingga jawabannya kurang relevan.",
+    solution: "Menerapkan RAG (Retrieval-Augmented Generation) Dual System. Sistem memisahkan data terstruktur (JSON) untuk deskripsi detail parfum seperti harga dan notes, serta data tidak terstruktur (TXT) untuk informasi general toko seperti kontak. Agent kemudian menavigasi pertanyaan ke sumber yang tepat.",
+    tech: ["RAG", "LLM", "Next.js", "Python"],
+    concepts: ["Production", "Gen AI"],
+    category: "Gen AI",
+    icon: Sparkles,
+    image: "/asset_proyek/scentara.png",
+    github: "https://github.com/Couraa0/Perfume-Lab",
+  },
+  {
     title: "AI Holiday Planner: Agent vs RAG",
     description: "Demo ReAct Agent (LangChain + Groq Llama 3.3 70B) dengan 8 tools generik untuk merencanakan liburan lintas negara secara mandiri.",
     overview: "Materi interaktif untuk sesi mengajar (Session 6) yang mendemonstrasikan secara konkret perbedaan RAG (retrieve-generate-stop) dan Agent (Think → Act → Observe). Agent ini mampu merencanakan liburan ke Jepang, Thailand, atau Amerika Serikat tanpa perlu mengubah instruksi.",

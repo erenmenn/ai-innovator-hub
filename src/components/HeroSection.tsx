@@ -62,12 +62,12 @@ const chatScript = [
 ];
 
 const traits = [
-  { icon: Target,       label: "Problem Solving",  bg: "linear-gradient(135deg,#f43f5e,#fb7185)",  shadow: "rgba(244,63,94,0.35)" },
-  { icon: Users,        label: "Leadership",        bg: "linear-gradient(135deg,#6366f1,#818cf8)",  shadow: "rgba(99,102,241,0.35)" },
-  { icon: Lightbulb,    label: "Creative Thinking", bg: "linear-gradient(135deg,#f59e0b,#fbbf24)",  shadow: "rgba(245,158,11,0.35)" },
-  { icon: BrainCircuit, label: "Analytical",        bg: "linear-gradient(135deg,#8b5cf6,#a78bfa)",  shadow: "rgba(139,92,246,0.35)" },
-  { icon: LayoutTemplate,label: "Project Design",  bg: "linear-gradient(135deg,#10b981,#34d399)",  shadow: "rgba(16,185,129,0.35)" },
-  { icon: Sparkles,     label: "AI Solutions",      bg: "linear-gradient(135deg,#ec4899,#f472b6)",  shadow: "rgba(236,72,153,0.35)" },
+  { icon: Target,       label: "Problem Solving",  query: "Gimana kemampuan problem solving Emir?", bg: "linear-gradient(135deg,#f43f5e,#fb7185)",  shadow: "rgba(244,63,94,0.35)" },
+  { icon: Users,        label: "Leadership",        query: "Ka emir ada jiwa leadership ga?", bg: "linear-gradient(135deg,#6366f1,#818cf8)",  shadow: "rgba(99,102,241,0.35)" },
+  { icon: Lightbulb,    label: "Creative Thinking", query: "Bisa ceritakan kemampuan creative thinking Emir?", bg: "linear-gradient(135deg,#f59e0b,#fbbf24)",  shadow: "rgba(245,158,11,0.35)" },
+  { icon: BrainCircuit, label: "Analytical",        query: "Seberapa kuat kemampuan analytical Emir?", bg: "linear-gradient(135deg,#8b5cf6,#a78bfa)",  shadow: "rgba(139,92,246,0.35)" },
+  { icon: LayoutTemplate,label: "Project Design",  query: "Apakah Emir punya pengalaman dalam project design?", bg: "linear-gradient(135deg,#10b981,#34d399)",  shadow: "rgba(16,185,129,0.35)" },
+  { icon: Sparkles,     label: "AI Solutions",      query: "Apa saja AI Solutions yang pernah dibuat Emir?", bg: "linear-gradient(135deg,#ec4899,#f472b6)",  shadow: "rgba(236,72,153,0.35)" },
 ];
 
 const stickers = [
@@ -454,18 +454,20 @@ const HeroSection = () => (
           <div className="grid grid-cols-2 gap-3">
             {traits.map((t, i) => (
               <motion.div key={t.label}
+                onClick={() => window.dispatchEvent(new CustomEvent("open-hrd-chat", { detail: t.query }))}
                 initial={{ opacity: 0, y: 12, scale: 0.92 }} whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }} transition={{ delay: i * 0.07, type: "spring", bounce: 0.4 }}
                 whileHover={{ y: -3, scale: 1.03 }}
-                className="flex items-center gap-3 py-3.5 px-4 rounded-2xl cursor-default text-white"
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-3 py-3.5 px-4 rounded-2xl cursor-pointer text-white"
                 style={{
                   background: t.bg,
                   boxShadow: `0 6px 20px ${t.shadow}, inset 0 1px 0 rgba(255,255,255,0.25)`,
                 }}>
-                <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center shrink-0 backdrop-blur-sm">
+                <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center shrink-0 backdrop-blur-sm pointer-events-none">
                   <t.icon className="w-4 h-4 text-white" />
                 </div>
-                <span className="text-[13px] font-bold text-white drop-shadow-sm">{t.label}</span>
+                <span className="text-[13px] font-bold text-white drop-shadow-sm pointer-events-none">{t.label}</span>
               </motion.div>
             ))}
           </div>
@@ -474,19 +476,32 @@ const HeroSection = () => (
         {/* Right: Chatbot — phone shape */}
         <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex justify-center">
+          className="flex justify-center group cursor-pointer"
+          onClick={() => window.dispatchEvent(new CustomEvent("open-hrd-chat"))}>
           <div
-            className="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white"
+            className="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transition-transform duration-500 group-hover:scale-105 group-hover:shadow-[0_40px_100px_rgba(99,102,241,0.35)]"
             style={{
               width: 320,
               height: 580,
               boxShadow: "0 30px 80px rgba(99,102,241,0.25), 0 0 0 6px rgba(139,92,246,0.12), inset 0 1px 0 rgba(255,255,255,0.6)",
             }}>
             {/* Phone notch */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 z-30 flex items-center justify-center" style={{ background: "linear-gradient(135deg,#6366f1,#a855f7)", borderRadius: "0 0 1rem 1rem" }}>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 z-30 flex items-center justify-center pointer-events-none" style={{ background: "linear-gradient(135deg,#6366f1,#a855f7)", borderRadius: "0 0 1rem 1rem" }}>
               <div className="w-8 h-1 rounded-full bg-white/30" />
             </div>
-            <div className="h-full pt-5">
+            
+            {/* Overlay for clicking */}
+            <div className="absolute inset-0 z-40 bg-white/0 group-hover:bg-white/5 transition-colors flex items-center justify-center backdrop-blur-[0px]">
+               <motion.div 
+                 initial={{ opacity: 0, scale: 0.8 }}
+                 whileHover={{ scale: 1.1 }}
+                 className="opacity-0 group-hover:opacity-100 px-4 py-2 bg-slate-900/80 backdrop-blur-md text-white font-bold text-sm rounded-full pointer-events-none transition-all duration-300"
+               >
+                 Buka Chat 💬
+               </motion.div>
+            </div>
+
+            <div className="h-full pt-5 pointer-events-none">
               <ChatBot />
             </div>
           </div>

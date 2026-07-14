@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import HRDChatbot from "@/components/HRDChatbot";
 
 import Index from "./pages/Index.tsx";
 import Skills from "./pages/Skills.tsx";
@@ -35,6 +36,7 @@ const App = () => (
           </main>
           <Footer />
         </div>
+        <HRDChatbot />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
