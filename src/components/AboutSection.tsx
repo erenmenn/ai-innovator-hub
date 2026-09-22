@@ -58,7 +58,7 @@ function ChatBot() {
   const [step, setStep]         = useState(0);
   const [typing, setTyping]     = useState(false);
   const [input, setInput]       = useState("");
-  const bottomRef               = useRef<HTMLDivElement>(null);
+  const messagesContainerRef    = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -68,7 +68,9 @@ function ChatBot() {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 60);
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
   }, [messages, typing]);
 
   const send = () => {
@@ -105,7 +107,7 @@ function ChatBot() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-3 py-3 space-y-0 min-h-0 bg-slate-50/60">
+      <div ref={messagesContainerRef} className="flex-1 overflow-y-auto px-3 py-3 space-y-0 min-h-0 bg-slate-50/60">
         <AnimatePresence>
           {messages.map((msg, i) => (
             <motion.div key={i}

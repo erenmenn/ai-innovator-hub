@@ -62,12 +62,12 @@ const chatScript = [
 ];
 
 const traits = [
-  { icon: Target,       label: "Problem Solving",  query: "Gimana kemampuan problem solving Emir?", bg: "linear-gradient(135deg,#f43f5e,#fb7185)",  shadow: "rgba(244,63,94,0.35)" },
-  { icon: Users,        label: "Leadership",        query: "Ka emir ada jiwa leadership ga?", bg: "linear-gradient(135deg,#6366f1,#818cf8)",  shadow: "rgba(99,102,241,0.35)" },
-  { icon: Lightbulb,    label: "Creative Thinking", query: "Bisa ceritakan kemampuan creative thinking Emir?", bg: "linear-gradient(135deg,#f59e0b,#fbbf24)",  shadow: "rgba(245,158,11,0.35)" },
-  { icon: BrainCircuit, label: "Analytical",        query: "Seberapa kuat kemampuan analytical Emir?", bg: "linear-gradient(135deg,#8b5cf6,#a78bfa)",  shadow: "rgba(139,92,246,0.35)" },
-  { icon: LayoutTemplate,label: "Project Design",  query: "Apakah Emir punya pengalaman dalam project design?", bg: "linear-gradient(135deg,#10b981,#34d399)",  shadow: "rgba(16,185,129,0.35)" },
-  { icon: Sparkles,     label: "AI Solutions",      query: "Apa saja AI Solutions yang pernah dibuat Emir?", bg: "linear-gradient(135deg,#ec4899,#f472b6)",  shadow: "rgba(236,72,153,0.35)" },
+  { icon: Target,       label: "Problem Solving",  query: "Gimana kemampuan problem solving Emir?", bg: "linear-gradient(135deg, #0052D4, #4364F7, #6FB1FC)", shadow: "rgba(67,100,247,0.5)" },
+  { icon: Users,        label: "Leadership",        query: "Ka emir ada jiwa leadership ga?", bg: "linear-gradient(135deg, #00B4DB, #00F2FE)", shadow: "rgba(0,180,219,0.5)" },
+  { icon: Lightbulb,    label: "Creative Thinking", query: "Bisa ceritakan kemampuan creative thinking Emir?", bg: "linear-gradient(135deg, #FF416C, #FF4B2B)", shadow: "rgba(255,65,108,0.5)" },
+  { icon: BrainCircuit, label: "Analytical",        query: "Seberapa kuat kemampuan analytical Emir?", bg: "linear-gradient(135deg, #7F00FF, #E100FF)", shadow: "rgba(127,0,255,0.5)" },
+  { icon: LayoutTemplate,label: "Project Design",  query: "Apakah Emir punya pengalaman dalam project design?", bg: "linear-gradient(135deg, #11998E, #38EF7D)", shadow: "rgba(17,153,142,0.5)" },
+  { icon: Sparkles,     label: "AI Solutions",      query: "Apa saja AI Solutions yang pernah dibuat Emir?", bg: "linear-gradient(135deg, #FF007F, #FF758C)", shadow: "rgba(255,0,127,0.5)" },
 ];
 
 const stickers = [
@@ -111,13 +111,13 @@ const stickers = [
 function TypingDots() {
   return (
     <div className="flex items-end gap-2 mb-2">
-      <div className="w-7 h-7 rounded-full bg-violet-100 flex items-center justify-center">
-        <Bot className="w-3.5 h-3.5 text-violet-500" />
+      <div className="w-7 h-7 rounded-full bg-cyan-100 flex items-center justify-center">
+        <Bot className="w-3.5 h-3.5 text-cyan-600" />
       </div>
       <div className="px-3 py-2.5 rounded-2xl rounded-bl-sm bg-white border border-slate-100 shadow-sm">
         <div className="flex gap-1 items-center h-4">
           {[0, 1, 2].map(i => (
-            <motion.div key={i} className="w-1.5 h-1.5 rounded-full bg-violet-400"
+            <motion.div key={i} className="w-1.5 h-1.5 rounded-full bg-cyan-500"
               animate={{ y: [0, -4, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }} />
           ))}
         </div>
@@ -127,7 +127,6 @@ function TypingDots() {
 }
 
 function ChatBot() {
-  // Pre-load all 3 dummy Q&A so the chat looks alive on first render
   const [messages, setMessages] = useState<{ role: "user" | "bot"; text: string }[]>(() => {
     const seed: { role: "user" | "bot"; text: string }[] = [
       { role: "bot", text: "Hai! 👋 Tanya aku tentang cara kerja, skill, atau pengalaman di AI." },
@@ -138,13 +137,14 @@ function ChatBot() {
     });
     return seed;
   });
-  const [step, setStep]     = useState(chatScript.length); // already done
   const [typing, setTyping] = useState(false);
   const [input, setInput]   = useState("");
-  const bottomRef           = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 80);
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
   }, [messages, typing]);
 
   const send = () => {
@@ -162,69 +162,77 @@ function ChatBot() {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center gap-2.5 px-4 py-3 border-b border-slate-100"
-        style={{ background: "linear-gradient(135deg,#6366f1,#a855f7)" }}>
-        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-          <Bot className="w-4 h-4 text-white" />
+      <div
+        className="flex items-center gap-3 px-4 py-3 shrink-0"
+        style={{ background: "linear-gradient(135deg, #00c6ff 0%, #0072ff 100%)" }}
+      >
+        <div className="w-9 h-9 rounded-full bg-white/25 backdrop-blur-md flex items-center justify-center border border-white/40 shrink-0 shadow-md">
+          <Bot className="w-4.5 h-4.5 text-white" />
         </div>
-        <div className="flex-1">
-          <p className="text-sm font-bold text-white leading-none">Chat with Emir</p>
-          <div className="flex items-center gap-1 mt-0.5">
+        <div className="flex-1 min-w-0">
+          <p className="text-[13px] font-black text-white leading-none tracking-wide">Chat with Emir</p>
+          <div className="flex items-center gap-1.5 mt-1">
             <motion.span className="w-1.5 h-1.5 rounded-full bg-emerald-300 inline-block"
-              animate={{ opacity: [1, 0.4, 1] }} transition={{ duration: 1.5, repeat: Infinity }} />
-            <span className="text-[10px] text-white/70 font-medium">online</span>
+              animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.5, repeat: Infinity }} />
+            <span className="text-[10px] text-white/90 font-bold">online · AI Assistant</span>
           </div>
         </div>
-        <div className="flex gap-1.5">
-          {["bg-red-400","bg-yellow-400","bg-green-400"].map(c => (
-            <div key={c} className={`w-2.5 h-2.5 rounded-full ${c} opacity-80`} />
+        <div className="flex gap-1.5 shrink-0">
+          {["bg-red-400", "bg-yellow-400", "bg-green-400"].map(c => (
+            <div key={c} className={`w-2.5 h-2.5 rounded-full ${c} shadow-sm`} />
           ))}
         </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-3 py-3 min-h-0 space-y-2"
-        style={{ background: "linear-gradient(180deg,#f5f3ff 0%,#fdf4ff 100%)" }}>
+      <div
+        ref={messagesContainerRef}
+        className="flex-1 overflow-y-auto px-3 py-3 min-h-0 space-y-2.5"
+        style={{ background: "linear-gradient(180deg, #f0fdf4 0%, #e0f2fe 100%)" }}
+      >
         <AnimatePresence>
           {messages.map((msg, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.25, delay: i * 0.03 }}
-              className={`flex items-end gap-1.5 ${ msg.role === "user" ? "flex-row-reverse" : "" }`}>
-              {/* Avatar */}
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${
+              className={`flex items-end gap-1.5 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
+              <div className={`w-6.5 h-6.5 rounded-full flex items-center justify-center shrink-0 shadow-md ${
                 msg.role === "bot"
-                  ? "bg-gradient-to-br from-violet-500 to-fuchsia-500"
-                  : "bg-gradient-to-br from-slate-400 to-slate-500"
+                  ? "bg-gradient-to-br from-cyan-500 to-blue-600"
+                  : "bg-gradient-to-br from-slate-700 to-slate-900"
               }`}>
                 {msg.role === "bot"
-                  ? <Bot className="w-3 h-3 text-white" />
-                  : <UserIcon className="w-3 h-3 text-white" />}
+                  ? <Bot className="w-3.5 h-3.5 text-white" />
+                  : <UserIcon className="w-3.5 h-3.5 text-white" />}
               </div>
-              {/* Bubble */}
-              <div className={`max-w-[78%] px-3 py-2 rounded-2xl text-[12.5px] leading-relaxed font-medium shadow-sm ${
-                msg.role === "user"
-                  ? "text-white rounded-br-none"
-                  : "text-slate-700 bg-white border border-slate-100 rounded-bl-none"
-              }`}
-                style={msg.role === "user" ? { background: "linear-gradient(135deg,#6366f1,#a855f7)" } : {}}>
+              <div
+                className={`max-w-[78%] px-3.5 py-2.5 rounded-2xl text-[12px] leading-relaxed font-semibold shadow-md ${
+                  msg.role === "user"
+                    ? "text-white rounded-br-none"
+                    : "text-slate-800 bg-white border border-cyan-100 rounded-bl-none"
+                }`}
+                style={msg.role === "user" ? { background: "linear-gradient(135deg, #0072ff, #00c6ff)" } : {}}
+              >
                 {msg.text}
               </div>
             </motion.div>
           ))}
         </AnimatePresence>
         {typing && <TypingDots />}
-        <div ref={bottomRef} />
       </div>
 
       {/* Input */}
-      <div className="flex gap-2 px-3 py-2.5 bg-white border-t border-slate-100">
-        <input type="text" value={input} onChange={e => setInput(e.target.value)}
+      <div className="flex gap-2 px-3 py-2.5 bg-white border-t border-slate-100 shrink-0">
+        <input
+          type="text"
+          value={input}
+          onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === "Enter" && send()}
           placeholder="Ketik pertanyaanmu..."
-          className="flex-1 text-[12.5px] px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:border-violet-400 placeholder:text-slate-300 font-medium transition-colors" />
+          className="flex-1 text-[12px] px-3.5 py-2 rounded-xl border border-cyan-200 bg-cyan-50/30 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 placeholder:text-slate-400 font-medium transition-all"
+        />
         <motion.button whileTap={{ scale: 0.9 }} onClick={send} disabled={typing}
-          className="w-9 h-9 rounded-xl flex items-center justify-center text-white disabled:opacity-40"
-          style={{ background: "linear-gradient(135deg,#6366f1,#a855f7)" }}>
+          className="w-9 h-9 rounded-xl flex items-center justify-center text-white disabled:opacity-40 shrink-0 shadow-md"
+          style={{ background: "linear-gradient(135deg, #0072ff, #00c6ff)" }}>
           <Send className="w-3.5 h-3.5" />
         </motion.button>
       </div>
@@ -240,10 +248,10 @@ const HeroSection = () => (
 
     {/* ── Background clouds ── */}
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-      <motion.div animate={{ opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 15, repeat: Infinity }}
-        className="absolute top-[10%] left-[15%] w-[600px] h-[600px] bg-purple-500/30 blur-[100px] rounded-full" />
-      <motion.div animate={{ opacity: [0.15, 0.3, 0.15] }} transition={{ duration: 20, repeat: Infinity, delay: 2 }}
-        className="absolute bottom-[20%] right-[10%] w-[700px] h-[700px] bg-blue-500/20 blur-[100px] rounded-full" />
+      <motion.div animate={{ opacity: [0.12, 0.25, 0.12] }} transition={{ duration: 15, repeat: Infinity }}
+        className="absolute top-[10%] left-[15%] w-[600px] h-[600px] bg-purple-400/20 blur-[120px] rounded-full" />
+      <motion.div animate={{ opacity: [0.08, 0.18, 0.08] }} transition={{ duration: 20, repeat: Infinity, delay: 2 }}
+        className="absolute bottom-[20%] right-[10%] w-[700px] h-[700px] bg-blue-400/15 blur-[120px] rounded-full" />
     </div>
 
     <div className="container mx-auto px-6 relative z-10">
@@ -282,16 +290,16 @@ const HeroSection = () => (
             <span className="text-slate-300">|</span>
             <span>Sistem Informasi</span>
             <span className="text-slate-300">|</span>
-            <span className="text-indigo-500 font-bold bg-indigo-50 px-2 py-0.5 rounded-md">Active Student</span>
+            <span className="text-indigo-600 font-bold bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-100">Active Student</span>
           </motion.div>
 
           {/* Role tags */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             className="flex flex-wrap gap-3">
             {[
-              { name: "AI Engineer", icon: <Cpu className="w-4 h-4" />, color: "text-blue-600", border: "border-blue-300", shadow: "shadow-[3px_3px_0px_#93c5fd]" },
-              { name: "AI Consultant", icon: <Briefcase className="w-4 h-4" />, color: "text-violet-600", border: "border-violet-300", shadow: "shadow-[3px_3px_0px_#c4b5fd]" },
-              { name: "Tech Lover", icon: <Heart className="w-4 h-4" />, color: "text-pink-600", border: "border-pink-300", shadow: "shadow-[3px_3px_0px_#f9a8d4]" },
+              { name: "AI Engineer", icon: <Cpu className="w-4 h-4" />, color: "text-blue-700", border: "border-blue-300", shadow: "shadow-[3px_3px_0px_#93c5fd]" },
+              { name: "AI Consultant", icon: <Briefcase className="w-4 h-4" />, color: "text-violet-700", border: "border-violet-300", shadow: "shadow-[3px_3px_0px_#c4b5fd]" },
+              { name: "Tech Lover", icon: <Heart className="w-4 h-4" />, color: "text-pink-700", border: "border-pink-300", shadow: "shadow-[3px_3px_0px_#f9a8d4]" },
             ].map(tag => (
               <motion.div key={tag.name} whileHover={{ scale: 1.05, y: -2 }}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl bg-white border-2 ${tag.border} ${tag.shadow} cursor-default`}>
@@ -305,12 +313,12 @@ const HeroSection = () => (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
             className="flex flex-wrap gap-4">
             <a href="#contact"
-              className="inline-flex items-center gap-3 px-7 py-3.5 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white rounded-2xl font-pixel text-xs uppercase tracking-widest border-2 border-violet-800 shadow-[5px_5px_0px_#4c1d95] hover:shadow-[2px_2px_0px_#4c1d95] hover:translate-x-1 hover:translate-y-1 transition-all">
+              className="inline-flex items-center gap-3 px-7 py-3.5 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-2xl font-pixel text-xs uppercase tracking-widest border-2 border-violet-800 shadow-[5px_5px_0px_#3b0764] hover:shadow-[2px_2px_0px_#3b0764] hover:translate-x-1 hover:translate-y-1 transition-all">
               <Zap className="w-4 h-4" /> Hire Me
             </a>
             <a href="/asset/Emirsyah_Rafsanjani_CV.pdf" download
-              className="inline-flex items-center gap-3 px-7 py-3.5 rounded-2xl border-2 border-orange-500 text-white font-extrabold text-sm tracking-widest uppercase shadow-[5px_5px_0px_#ea580c] hover:shadow-[2px_2px_0px_#ea580c] hover:translate-x-1 hover:translate-y-1 transition-all"
-              style={{ background: "linear-gradient(90deg,#f97316,#eab308)" }}>
+              className="inline-flex items-center gap-3 px-7 py-3.5 rounded-2xl border-2 border-orange-500 text-white font-extrabold text-sm tracking-widest uppercase shadow-[5px_5px_0px_#c2410c] hover:shadow-[2px_2px_0px_#c2410c] hover:translate-x-1 hover:translate-y-1 transition-all"
+              style={{ background: "linear-gradient(90deg,#ea580c,#ca8a04)" }}>
               <Download className="w-4 h-4" /> Download CV
             </a>
           </motion.div>
@@ -338,7 +346,7 @@ const HeroSection = () => (
                   <h3 className="text-white font-black text-base flex items-center gap-1.5">
                     <Sparkles className="w-4 h-4 text-yellow-300" /> Emirsyah Rafsanjani
                   </h3>
-                  <span className="text-[9px] text-white font-black bg-gradient-to-r from-violet-500 to-fuchsia-500 px-3 py-1 rounded-full border border-white/30 uppercase tracking-widest flex items-center gap-1 mt-1">
+                  <span className="text-[9px] text-white font-black bg-gradient-to-r from-violet-600 to-fuchsia-600 px-3 py-1 rounded-full border border-white/30 uppercase tracking-widest flex items-center gap-1 mt-1">
                     <Cpu className="w-2.5 h-2.5" /> AI ENGINEER
                   </span>
                 </div>
@@ -361,11 +369,11 @@ const HeroSection = () => (
               className="absolute z-20 glass-card px-6 py-4 rounded-[2rem] shadow-2xl border-2 border-white/50 backdrop-blur-2xl flex flex-col items-center gap-1 group"
               style={{ bottom: 100, left: -20 }}>
               <div className="p-3 rounded-full shadow-lg group-hover:-rotate-12 transition-transform"
-                style={{ background: "linear-gradient(to bottom right,#a855f7,#ec4899)" }}>
+                style={{ background: "linear-gradient(to bottom right,#7c3aed,#db2777)" }}>
                 <Trophy className="w-6 h-6 text-white" />
               </div>
               <div className="text-sm font-pixel text-foreground mt-2 leading-none">LEADER</div>
-              <div className="text-[9px] font-bold text-blue-500 uppercase tracking-widest mt-1">INNOVATION</div>
+              <div className="text-[9px] font-bold text-blue-600 uppercase tracking-widest mt-1">INNOVATION</div>
             </motion.div>
 
             {/* ── Raw PNG Stickers ── */}
@@ -404,7 +412,7 @@ const HeroSection = () => (
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.4, delay: 0.9 + i * 0.1, type: "spring", bounce: 0.5 }}
                   whileHover={{ scale: 1.2, y: -6 }} whileTap={{ scale: 0.9 }}
-                  className="w-13 h-13 w-12 h-12 rounded-full flex items-center justify-center"
+                  className="w-12 h-12 rounded-full flex items-center justify-center"
                   style={{ background: s.gradient, boxShadow: `0 8px 20px ${s.shadow}` }}>
                   {s.icon}
                 </motion.a>
@@ -433,12 +441,12 @@ const HeroSection = () => (
             <em className="font-playfair italic font-medium lowercase tracking-normal text-transparent bg-clip-text text-[2.8rem] md:text-[4rem] lg:text-[5.2rem] ml-6 md:ml-12 leading-none block pb-4 pt-1 -mb-4"
               style={{ backgroundImage: "linear-gradient(to right, #ec4899, #8b5cf6, #0ea5e9)" }}>about</em>
             <span className="block text-transparent bg-clip-text mt-2"
-              style={{ backgroundImage: "linear-gradient(to right, #0f172a, #312e81, #4338ca)" }}>INTELLIGENCE.</span>
+              style={{ backgroundImage: "linear-gradient(to right, #0a0a0f, #312e81, #4338ca)" }}>INTELLIGENCE.</span>
           </h2>
 
           {/* Quote */}
-          <motion.div whileHover={{ y: -3 }} className="border-l-4 pl-5 py-1" style={{ borderColor: "#8b5cf6" }}>
-            <p className="text-slate-600 text-base md:text-lg leading-relaxed font-medium">
+          <motion.div whileHover={{ y: -3 }} className="border-l-4 pl-5 py-1" style={{ borderColor: "#7c3aed" }}>
+            <p className="text-slate-700 text-base md:text-lg leading-relaxed font-medium">
               Kita hidup di era AI, dan kuncinya adalah{" "}
               <span className="font-bold text-emerald-600">adaptasi</span>.
               AI bukan penghancur karir — melainkan{" "}
@@ -450,60 +458,104 @@ const HeroSection = () => (
             </p>
           </motion.div>
 
-          {/* Trait grid — candy colors */}
-          <div className="grid grid-cols-2 gap-3">
+          {/* Trait grid — ultra bright vibrant gradients with pure white text */}
+          <div className="grid grid-cols-2 gap-3.5">
             {traits.map((t, i) => (
               <motion.div key={t.label}
                 onClick={() => window.dispatchEvent(new CustomEvent("open-hrd-chat", { detail: t.query }))}
                 initial={{ opacity: 0, y: 12, scale: 0.92 }} whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }} transition={{ delay: i * 0.07, type: "spring", bounce: 0.4 }}
-                whileHover={{ y: -3, scale: 1.03 }}
+                whileHover={{ y: -3, scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-3 py-3.5 px-4 rounded-2xl cursor-pointer text-white"
+                className="flex items-center gap-3 py-3.5 px-4 rounded-2xl cursor-pointer border-2 border-white/40 transition-all duration-200"
                 style={{
                   background: t.bg,
-                  boxShadow: `0 6px 20px ${t.shadow}, inset 0 1px 0 rgba(255,255,255,0.25)`,
+                  boxShadow: `0 10px 25px ${t.shadow}, inset 0 1px 0 rgba(255,255,255,0.4)`,
                 }}>
-                <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center shrink-0 backdrop-blur-sm pointer-events-none">
-                  <t.icon className="w-4 h-4 text-white" />
+                <div className="w-8 h-8 rounded-xl bg-white/25 border border-white/40 flex items-center justify-center shrink-0 backdrop-blur-md pointer-events-none shadow-sm">
+                  <t.icon className="w-4 h-4 text-white pointer-events-none" />
                 </div>
-                <span className="text-[13px] font-bold text-white drop-shadow-sm pointer-events-none">{t.label}</span>
+                <span className="text-[13px] font-black text-white tracking-wide pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.4)]">
+                  {t.label}
+                </span>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Right: Chatbot — phone shape */}
+        {/* Right: Chatbot — premium phone shape */}
         <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
           className="flex justify-center group cursor-pointer"
           onClick={() => window.dispatchEvent(new CustomEvent("open-hrd-chat"))}>
-          <div
-            className="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transition-transform duration-500 group-hover:scale-105 group-hover:shadow-[0_40px_100px_rgba(99,102,241,0.35)]"
-            style={{
-              width: 320,
-              height: 580,
-              boxShadow: "0 30px 80px rgba(99,102,241,0.25), 0 0 0 6px rgba(139,92,246,0.12), inset 0 1px 0 rgba(255,255,255,0.6)",
-            }}>
-            {/* Phone notch */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 z-30 flex items-center justify-center pointer-events-none" style={{ background: "linear-gradient(135deg,#6366f1,#a855f7)", borderRadius: "0 0 1rem 1rem" }}>
-              <div className="w-8 h-1 rounded-full bg-white/30" />
-            </div>
-            
-            {/* Overlay for clicking */}
-            <div className="absolute inset-0 z-40 bg-white/0 group-hover:bg-white/5 transition-colors flex items-center justify-center backdrop-blur-[0px]">
-               <motion.div 
-                 initial={{ opacity: 0, scale: 0.8 }}
-                 whileHover={{ scale: 1.1 }}
-                 className="opacity-0 group-hover:opacity-100 px-4 py-2 bg-slate-900/80 backdrop-blur-md text-white font-bold text-sm rounded-full pointer-events-none transition-all duration-300"
-               >
-                 Buka Chat 💬
-               </motion.div>
+
+          <div className="relative" style={{ width: 340 }}>
+            {/* Decorative glow behind phone */}
+            <div
+              className="absolute inset-0 rounded-[3rem] blur-3xl opacity-25 -z-10"
+              style={{ background: "linear-gradient(135deg,#6366f1,#a855f7,#ec4899)", transform: "scale(1.1) translateY(10px)" }}
+            />
+
+            {/* Phone frame */}
+            <div
+              className="relative rounded-[2.5rem] overflow-hidden border-[5px] transition-all duration-500 group-hover:scale-[1.03]"
+              style={{
+                height: 600,
+                borderColor: "#1e1b4b",
+                background: "#0f0c29",
+                boxShadow: [
+                  "0 40px 100px rgba(99,102,241,0.3)",
+                  "0 0 0 1px rgba(139,92,246,0.15)",
+                  "inset 0 1px 0 rgba(255,255,255,0.08)",
+                ].join(", "),
+              }}
+            >
+              {/* Phone notch */}
+              <div
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 z-30 flex items-center justify-center pointer-events-none"
+                style={{ background: "#1e1b4b", borderRadius: "0 0 1.2rem 1.2rem" }}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-violet-400/60" />
+                  <div className="w-10 h-1 rounded-full bg-white/20" />
+                </div>
+              </div>
+
+              {/* Side buttons */}
+              <div className="absolute left-[-7px] top-28 w-1.5 h-8 rounded-l bg-slate-700" />
+              <div className="absolute left-[-7px] top-40 w-1.5 h-12 rounded-l bg-slate-700" />
+              <div className="absolute right-[-7px] top-32 w-1.5 h-16 rounded-r bg-slate-700" />
+
+              {/* Hover overlay */}
+              <div className="absolute inset-0 z-40 bg-transparent group-hover:bg-violet-900/10 transition-colors flex items-center justify-center">
+                <motion.div
+                  className="opacity-0 group-hover:opacity-100 px-5 py-2.5 bg-slate-900/90 backdrop-blur-md text-white font-black text-sm rounded-2xl pointer-events-none transition-all duration-300 border border-violet-500/30"
+                  style={{ boxShadow: "0 8px 32px rgba(99,102,241,0.4)" }}
+                >
+                  💬 Buka Chat Lengkap
+                </motion.div>
+              </div>
+
+              {/* Chat content */}
+              <div className="h-full pt-6 pointer-events-none">
+                <ChatBot />
+              </div>
+
+              {/* Bottom bar */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-24 h-1 rounded-full bg-white/20 pointer-events-none" />
             </div>
 
-            <div className="h-full pt-5 pointer-events-none">
-              <ChatBot />
-            </div>
+            {/* AI Live badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, type: "spring", bounce: 0.6 }}
+              className="absolute -top-4 -right-6 z-20 px-3 py-2 rounded-2xl text-white text-[10px] font-black uppercase tracking-widest border border-white/20"
+              style={{ background: "linear-gradient(135deg,#f43f5e,#fb923c)", boxShadow: "0 8px 24px rgba(244,63,94,0.5)" }}
+            >
+              🤖 AI Live
+            </motion.div>
           </div>
         </motion.div>
       </div>

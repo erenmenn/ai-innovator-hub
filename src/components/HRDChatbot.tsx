@@ -52,7 +52,13 @@ const SYSTEM_PROMPT = `You are Emir's AI Assistant — a smart, friendly, and hi
 
 ## AI PROJECTS (Production-Ready Highlighted)
 
-### 1. Scentara — E-Commerce Parfum RAG Dual System (PRODUCTION)
+### 1. Flantara — AI Export Copilot for Indonesia's Spice Economy
+- Smart B2B E-Commerce platform yang menghubungkan petani rempah premium Indonesia (Kakao & Vanili) dengan buyer internasional (executive chef, boutique hotel, premium bar)
+- AI Features: Menu-to-Ingredient Matcher, Farmer Story Generator, Trust Score, Computer Vision quality check, Negotiable Price Assistant, RAG System
+- Business Model: Boutique B2B subscription + transaction fee + premium listing
+- Tech: Next.js, TypeScript, RAG, Computer Vision, Supabase, OpenAI API, Tailwind CSS
+
+### 2. Scentara — E-Commerce Parfum RAG Dual System (PRODUCTION)
 - E-commerce platform khusus parfum dengan RAG Dual System
 - JSON untuk spesifikasi produk (harga, notes, deskripsi), TXT untuk info toko
 - Tech: RAG, LLM, Next.js, Python | GitHub: https://github.com/Couraa0/Perfume-Lab
@@ -97,18 +103,31 @@ const SYSTEM_PROMPT = `You are Emir's AI Assistant — a smart, friendly, and hi
 
 ## EXPERIENCE
 
-### 1. BLOCKDEV Builder Program (2026 — Present)
+### 1. PT Jakarta Industrial Estate Pulogadung (JIEP) — Intern 4 Bulan
+**Role:** Generative AI Specialist & AI Engineer Intern
+- **AI Solution Development:** Merancang & menguji Retrieval-Augmented Generation (RAG) system untuk mengelola dan menjawab query Standard Operating Procedures (SOPs) departemen IT.
+- **Operational Efficiency:** Meminimalisir pencarian dokumen manual & memangkas bottleneck IT support, meningkatkan efisiensi dan employee experience.
+- **Technology Implementation:** Menggunakan LLM & RAG agar chatbot memberikan jawaban yang akurat dan berbasis dokumen internal perusahaan secara ketat.
+- **Odoo ERP Integration:** Mengembangkan modul Odoo sistem ERP manajemen chatbot AI untuk integrasi bisnis otomatis.
+
+### 2. BEM Hai Desa (4 Bulan Proker)
+**Role:** Perencana & Penggerak Utama, Speaker/Pemateri & MC
+- **Perencana & Penggerak:** Merancang seluruh konsep acara dari nol hingga eksekusi dan menggerakkan partisipasi masyarakat & anak-anak SD.
+- **3 Proker Unggulan:** (1) Edukasi pembuatan Pupuk Organik Cair (POC), (2) Inisiasi Pojok Literasi anak, dan (3) Workshop Pemilahan Sampah organik & anorganik khusus siswa Sekolah Dasar (SD).
+- **Public Speaking:** Bertindak sebagai pemateri (speaker) utama dan Master of Ceremonies (MC) selama rangkaian proker.
+
+### 3. BLOCKDEV Builder Program (2026 — Present)
 **Role:** AI Representative & Generative AI Mentor (Bekasi Region)
 - Memimpin 8 sesi workshop: LLM, Transformer, RAG, LangChain, LangGraph, Agentic AI
 - Project Manager tim peserta dari ideation → deployment
 - Assessor dalam screening & wawancara kandidat
 
-### 2. National Edufair 2026
+### 4. National Edufair 2026
 **Role:** Workshop Speaker — Generative AI for Digital Business
 - Keynote speaker di hadapan ±200 peserta tingkat nasional (UNSIKA)
 - Hands-on: peserta build chatbot fungsional dengan n8n dari nol
 
-### 3. National Competitions (2026)
+### 5. National Competitions (2026)
 - **Top 20% Nasional** — Hackathon X Digdaya (Bank Indonesia): Solusi AI untuk ekosistem QRIS
 - **Juara 1 Nasional** — Nexora Business Society: Strategi Bisnis Syariah Modern
 
@@ -233,10 +252,12 @@ function ChatWindow({ initialQuery }: { initialQuery?: string }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showSuggestions, setShowSuggestions] = useState(true);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 80);
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
   }, [messages, loading]);
 
   const send = async (text: string) => {
@@ -281,7 +302,7 @@ function ChatWindow({ initialQuery }: { initialQuery?: string }) {
       {/* Header */}
       <div
         className="flex items-center gap-3 px-4 py-3 shrink-0"
-        style={{ background: "linear-gradient(135deg,#7c3aed,#a855f7,#c026d3)" }}
+        style={{ background: "linear-gradient(135deg, #00c6ff 0%, #0072ff 50%, #7f00ff 100%)" }}
       >
         <div className="w-9 h-9 shrink-0">
           <img src="/asset/bot.png" alt="Emir AI" className="w-full h-full object-contain drop-shadow-md" />
@@ -294,7 +315,7 @@ function ChatWindow({ initialQuery }: { initialQuery?: string }) {
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             />
-            <span className="text-[10px] text-white/70 font-medium">
+            <span className="text-[10px] text-white/90 font-bold">
               Powered by Llama 3.3 · 70B
             </span>
           </div>
@@ -302,7 +323,7 @@ function ChatWindow({ initialQuery }: { initialQuery?: string }) {
         <button
           onClick={handleReset}
           title="Reset chat"
-          className="w-7 h-7 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
+          className="w-7 h-7 rounded-full bg-white/20 hover:bg-white/35 flex items-center justify-center transition-colors"
         >
           <RotateCcw className="w-3.5 h-3.5 text-white" />
         </button>
@@ -310,8 +331,9 @@ function ChatWindow({ initialQuery }: { initialQuery?: string }) {
 
       {/* Messages */}
       <div
+        ref={messagesContainerRef}
         className="flex-1 overflow-y-auto px-3 py-3 min-h-0 space-y-3"
-        style={{ background: "linear-gradient(180deg,#f5f3ff 0%,#fdf4ff 100%)" }}
+        style={{ background: "linear-gradient(180deg, #f0fdf4 0%, #e0f2fe 100%)" }}
       >
         <AnimatePresence>
           {messages.map((msg, i) => (
@@ -327,18 +349,18 @@ function ChatWindow({ initialQuery }: { initialQuery?: string }) {
                   <img src="/asset/bot.png" alt="bot" className="w-full h-full object-cover" />
                 </div>
               ) : (
-                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-slate-500 to-slate-700 flex items-center justify-center shrink-0 shadow-md">
+                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center shrink-0 shadow-md">
                   <UserIcon className="w-3.5 h-3.5 text-white" />
                 </div>
               )}
               <div
-                className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-[12.5px] leading-relaxed font-medium shadow-sm whitespace-pre-wrap ${msg.role === "user"
+                className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-[12.5px] leading-relaxed font-semibold shadow-sm whitespace-pre-wrap ${msg.role === "user"
                     ? "text-white rounded-br-none"
-                    : "text-slate-700 bg-white border border-slate-100 rounded-bl-none"
+                    : "text-slate-800 bg-white border border-cyan-100 rounded-bl-none shadow-sm"
                   }`}
                 style={
                   msg.role === "user"
-                    ? { background: "linear-gradient(135deg,#7c3aed,#a855f7)" }
+                    ? { background: "linear-gradient(135deg, #0072ff, #00c6ff)" }
                     : {}
                 }
               >
@@ -369,15 +391,13 @@ function ChatWindow({ initialQuery }: { initialQuery?: string }) {
               <button
                 key={q}
                 onClick={() => send(q)}
-                className="text-left px-3 py-2 bg-white border border-violet-100 hover:border-violet-300 hover:bg-violet-50 rounded-xl text-[11.5px] font-medium text-slate-600 hover:text-violet-700 transition-all duration-150 shadow-sm"
+                className="text-left px-3 py-2 bg-white border border-cyan-200 hover:border-cyan-400 hover:bg-cyan-50 rounded-xl text-[11.5px] font-semibold text-slate-700 hover:text-cyan-700 transition-all duration-150 shadow-sm"
               >
                 {q}
               </button>
             ))}
           </motion.div>
         )}
-
-        <div ref={bottomRef} />
       </div>
 
       {/* Input */}
@@ -389,14 +409,14 @@ function ChatWindow({ initialQuery }: { initialQuery?: string }) {
           onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && send(input)}
           placeholder="Tanya tentang Emir..."
           disabled={loading}
-          className="flex-1 text-[12.5px] px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 placeholder:text-slate-300 font-medium transition-all disabled:opacity-50"
+          className="flex-1 text-[12.5px] px-3 py-2 rounded-xl border border-cyan-200 bg-cyan-50/40 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 placeholder:text-slate-400 font-medium transition-all disabled:opacity-50"
         />
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => send(input)}
           disabled={loading || !input.trim()}
-          className="w-9 h-9 rounded-xl flex items-center justify-center text-white disabled:opacity-40 shrink-0"
-          style={{ background: "linear-gradient(135deg,#7c3aed,#a855f7)" }}
+          className="w-9 h-9 rounded-xl flex items-center justify-center text-white disabled:opacity-40 shrink-0 shadow-md"
+          style={{ background: "linear-gradient(135deg, #0072ff, #00c6ff)" }}
         >
           <Send className="w-3.5 h-3.5" />
         </motion.button>

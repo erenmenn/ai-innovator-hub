@@ -8,8 +8,8 @@
 
 @layer base {
   :root {
-    --background: 250 30% 98%;
-    --foreground: 250 30% 8%;
+    --background: 0 0% 100%;
+    --foreground: 240 25% 4%;
 
     --card: 0 0% 100%;
     --card-foreground: 250 30% 8%;
@@ -17,7 +17,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 250 30% 8%;
 
-    --primary: 260 85% 60%;
+    --primary: 260 95% 55%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 190 80% 92%;
@@ -44,12 +44,12 @@
     --glass: 0 0% 100% / 0.55;
     --glass-border: 0 0% 100% / 0.3;
 
-    --color-pink: 330 80% 60%;
-    --color-blue: 210 95% 58%;
-    --color-cyan: 185 85% 50%;
-    --color-green: 155 70% 48%;
-    --color-orange: 25 95% 58%;
-    --color-purple: 270 80% 65%;
+    --color-pink: 330 100% 55%;
+    --color-blue: 210 100% 52%;
+    --color-cyan: 185 100% 45%;
+    --color-green: 155 90% 42%;
+    --color-orange: 25 100% 52%;
+    --color-purple: 270 100% 60%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -158,11 +158,11 @@
   }
 
   .pixel-grid {
-    background-size: 80px 80px;
+    background-color: #ffffff;
+    background-size: 60px 60px;
     background-image: 
-      linear-gradient(to right, hsl(var(--foreground) / 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--foreground) / 0.05) 1px, transparent 1px);
-    background-color: transparent;
+      linear-gradient(to right, rgba(0,0,0,0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,0,0,0.07) 1px, transparent 1px);
     background-position: center;
   }
 

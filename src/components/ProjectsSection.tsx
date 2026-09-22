@@ -36,6 +36,19 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "Flantara: AI Export Copilot for Indonesia's Spice Economy",
+    description: "Platform Smart E-Commerce yang menghubungkan petani rempah premium Indonesia dengan buyer internasional secara langsung, transparan, dan berbasis data AI.",
+    overview: "Flantara adalah platform Smart B2B E-Commerce yang menghubungkan petani rempah premium Indonesia (Kakao Nusantara & Vanili) langsung ke buyer internasional — executive chef, boutique hotel, premium bar, dan produsen artisanal — dengan cara yang transparan dan terverifikasi.",
+    problem: "Petani rempah Indonesia kesulitan mengakses pasar premium global, sementara buyer internasional sulit menemukan rempah berkualitas tinggi dengan asal-usul (origin) dan kredibilitas yang terverifikasi. Gap ini menyebabkan nilai tambah rempah Indonesia tidak optimal.",
+    solution: "Flantara mengintegrasikan: (1) Menu-to-Ingredient Matcher — AI yang mencocokkan kebutuhan resep buyer dengan rempah & petani yang sesuai, (2) Farmer Story Generator — membangun narasi asal-usul produk berbasis dokumen terverifikasi, (3) Trust Score & Computer Vision — untuk verifikasi kualitas, (4) Negotiable Price Assistant — asisten negosiasi harga berbasis data, dan (5) RAG System — retrieval informasi produk & regulasi ekspor. Business model: Boutique B2B subscription + transaction fee + premium listing.",
+    tech: ["Next.js", "TypeScript", "RAG", "Computer Vision", "Supabase", "OpenAI API", "Tailwind CSS"],
+    concepts: ["Gen AI", "Computer Vision", "Production"],
+    category: "Gen AI",
+    icon: Sparkles,
+    image: "/asset_proyek/flantara.jpg",
+    github: "#",
+  },
+  {
     title: "Scentara: E-Commerce Parfum RAG Dual System",
     description: "Platform e-commerce khusus parfum yang menerapkan arsitektur RAG Dual System untuk rekomendasi dan Q&A spesifik.",
     overview: "Scentara adalah e-commerce cerdas khusus parfum yang menggunakan RAG Dual System. Sistem ini dapat menjawab secara akurat mengenai detail produk maupun informasi umum toko.",

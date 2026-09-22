@@ -31,9 +31,93 @@ type Chapter = {
 
 const chapters: Chapter[] = [
   {
-    id: "blockdev",
+    id: "jiep-internship",
     year: "2026",
     chapterNum: "01",
+    title: "PT Jakarta Industrial Estate Pulogadung (JIEP)",
+    role: "Generative AI Specialist & AI Engineer Intern",
+    date: "4 Bulan (Internship)",
+    location: "Jakarta / Pulogadung",
+    description:
+      "Magang 4 bulan di PT Jakarta Industrial Estate Pulogadung (JIEP) sebagai Generative AI Specialist. Mengembangkan RAG System untuk SOP Departemen IT dan modul Odoo ERP AI Chatbot Management untuk mengeliminasi bottleneck IT support dan meningkatkan efisiensi operasional perusahaan.",
+    image: "/asset/story/jiep-intern.jpg",
+    color: "#00c6ff",
+    gradFrom: "#0072ff",
+    gradTo: "#00c6ff",
+    branchTitle: "MAIN -> AI INTERNSHIP",
+    branches: [
+      {
+        title: "AI Solution Development — SOP RAG System",
+        tags: ["RAG System", "LLM", "SOP Management", "Python", "Vector DB"],
+        whatWasBuilt:
+          "Merancang dan menguji Retrieval-Augmented Generation (RAG) system yang disesuaikan secara spesifik untuk mengelola dan menjawab query Standard Operating Procedures (SOPs) departemen IT.",
+        impact:
+          "Sistem memberikan jawaban yang sangat akurat, relevan, dan berbasis konteks dokumen internal perusahaan secara strik tanpa risiko halusinasi.",
+      },
+      {
+        title: "Operational Efficiency & Bottleneck Reduction",
+        tags: ["Operational Efficiency", "IT Support", "Workplace Productivity"],
+        whatWasBuilt:
+          "Meminimalisir pencarian dokumen secara manual oleh tim IT dan mengeliminasi antrean (bottlenecks) pada tiket IT support internal.",
+        impact:
+          "Secara signifikan meningkatkan produktivitas tempat kerja dan pengalaman kerja karyawan (employee experience).",
+      },
+      {
+        title: "Odoo ERP AI Chatbot Management Module",
+        tags: ["Odoo ERP", "Generative AI", "ERP Module", "LLM Integration"],
+        whatWasBuilt:
+          "Mengembangkan modul sistem ERP Odoo khusus untuk manajemen chatbot AI dan integrasi workflow otomatisasi operasional perusahaan.",
+        impact:
+          "Menghubungkan kecerdasan buatan LLM secara langsung ke dalam ekosistem sistem ERP perusahaan untuk otomatisasi manajemen bisnis.",
+      },
+    ],
+  },
+  {
+    id: "bem-haidesa",
+    year: "2025 - 2026",
+    chapterNum: "02",
+    title: "BEM Hai Desa — Perencana & Penggerak Program",
+    role: "Perencana & Penggerak Utama, Speaker & MC",
+    date: "4 Bulan (Proker BEM)",
+    location: "Masyarakat Desa & Sekolah Dasar",
+    description:
+      "Menjadi perencana dan penggerak utama program kerja BEM Hai Desa selama 4 bulan. Memimpin pembuatan konsep acara, bertindak sebagai pemateri utama (speaker), dan MC dalam mengeksekusi 3 program unggulan: pembuatan Pupuk Organik Cair (POC), inisiasi Pojok Literasi anak, serta workshop pemilahan sampah untuk siswa Sekolah Dasar.",
+    image: "/asset/story/bem-haidesa.jpg",
+    color: "#10b981",
+    gradFrom: "#10b981",
+    gradTo: "#0575e6",
+    branchTitle: "MAIN -> COMMUNITY OUTREACH",
+    branches: [
+      {
+        title: "Perencana & Penggerak Utama (Event Conceptor & MC/Speaker)",
+        tags: ["Event Planning", "Initiator", "Public Speaking", "MC"],
+        whatWasBuilt:
+          "Merancang alur konsep acara dari ideation hingga eksekusi selama 4 bulan serta menjadi penggerak utama, Master of Ceremonies (MC), dan pemateri di hadapan warga & anak-anak SD.",
+        impact:
+          "Menggerakkan partisipasi aktif masyarakat dan memastikan seluruh rangkaian proker berjalan terstruktur dan berdampak luas.",
+      },
+      {
+        title: "Workshop Pemilahan Sampah SD & Pembuatan POC",
+        tags: ["Pemilahan Sampah", "POC", "Edukasi Lingkungan", "Sekolah Dasar"],
+        whatWasBuilt:
+          "Menyampaikan materi praktis pemilahan sampah organik & anorganik khusus siswa SD serta menginisiasi edukasi pembuatan Pupuk Organik Cair (POC) bagi warga.",
+        impact:
+          "Menanamkan kepedulian lingkungan sejak dini pada anak-anak SD dan memberikan solusi praktis pengolahan sampah bagi masyarakat.",
+      },
+      {
+        title: "Inisiasi Program Pojok Literasi Anak",
+        tags: ["Pojok Literasi", "Edukasi Anak", "Literacy Outreach", "Social Impact"],
+        whatWasBuilt:
+          "Merancang dan menggerakkan pembuatan Pojok Literasi sebagai sarana membaca dan belajar interaktif bagi anak-anak di daerah sasaran.",
+        impact:
+          "Meningkatkan minat baca dan membuka akses bahan bacaan yang edukatif bagi anak-anak lingkungan desa.",
+      },
+    ],
+  },
+  {
+    id: "blockdev",
+    year: "2026",
+    chapterNum: "03",
     title: "BLOCKDEV - Builder Program",
     role: "AI Representative & Generative AI Leader",
     date: "2026 — Sekarang",
@@ -83,7 +167,7 @@ const chapters: Chapter[] = [
   {
     id: "edufair-2026",
     year: "2026",
-    chapterNum: "02",
+    chapterNum: "04",
     title: "National Edufair 2026",
     role: "Workshop Speaker — Generative AI for Digital Business",
     date: "2026",
@@ -117,7 +201,7 @@ const chapters: Chapter[] = [
   {
     id: "competitions",
     year: "2026",
-    chapterNum: "03",
+    chapterNum: "05",
     title: "National Competitions",
     role: "Generative AI Engineer & Innovation Strategist",
     date: "2026",
