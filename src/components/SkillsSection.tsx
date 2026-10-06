@@ -213,7 +213,7 @@ const SkillsSection = () => {
                 <Sparkles className="w-4 h-4 text-yellow-300 animate-spin" />
               </div>
               
-              <h1 className="text-[3.2rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tight leading-[0.9] text-slate-900 uppercase">
+              <h1 className="text-[2.2rem] sm:text-[3.2rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tight leading-[0.95] text-slate-900 uppercase">
                 <span className="block drop-shadow-sm text-slate-900">SOFT &amp; TECHNICAL</span>
                 <span
                   className="block text-transparent bg-clip-text mt-1"
@@ -429,7 +429,7 @@ const SkillsSection = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.35, delay: i * 0.05 }}
-                  className="p-7 md:p-9 rounded-[2.5rem] border-2 border-slate-100 bg-white shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
+                  className="p-5 sm:p-7 md:p-9 rounded-[2rem] sm:rounded-[2.5rem] border-2 border-slate-100 bg-white shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
                 >
                   {/* Card Header */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">

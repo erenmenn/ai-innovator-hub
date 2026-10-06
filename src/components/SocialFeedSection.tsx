@@ -181,7 +181,7 @@ const SocialFeedSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight uppercase"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight uppercase"
           >
             <span className="text-slate-900 dark:text-white">CREATIVE</span>{" "}
             <span
@@ -200,7 +200,7 @@ const SocialFeedSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-slate-600 dark:text-slate-300 text-sm md:text-base max-w-xl mx-auto mt-4 font-medium"
+            className="text-slate-600 dark:text-slate-300 text-sm md:text-base max-w-xl mx-auto mt-4 font-medium px-2"
           >
             Aktivitas harian, eksplorasi Gemini AI, machine learning, dan momen kreatif langsung terhubung dari <strong className="text-pink-600 dark:text-pink-400 font-black">@emirzyah</strong>.
           </motion.p>
@@ -211,7 +211,7 @@ const SocialFeedSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-14 rounded-[2.5rem] border-2 border-white/60 dark:border-slate-700/60 p-6 md:p-9 shadow-2xl relative overflow-hidden backdrop-blur-2xl"
+          className="mb-14 rounded-[2rem] sm:rounded-[2.5rem] border-2 border-white/60 dark:border-slate-700/60 p-5 sm:p-6 md:p-9 shadow-2xl relative overflow-hidden backdrop-blur-2xl"
           style={{
             background: "linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(255,245,252,0.95) 50%, rgba(255,251,235,0.93) 100%)",
             boxShadow: "0 8px 32px -8px rgba(220,39,67,0.10), inset 0 1px 0 rgba(255,255,255,0.9)",

@@ -355,7 +355,7 @@ const ExperienceSection = () => {
         />
       </div>
 
-      {/* ── Floating PNG Assets ── */}
+      {/* ── Floating PNG Assets (hidden on mobile to prevent overflow) ── */}
       {floatingAssets.map((asset, i) => (
         <motion.img
           key={i}
@@ -364,27 +364,27 @@ const ExperienceSection = () => {
           aria-hidden="true"
           animate={asset.animation}
           transition={{ duration: asset.duration, repeat: Infinity, ease: "easeInOut" }}
-          className={`absolute ${asset.className} opacity-20 pointer-events-none select-none drop-shadow-lg`}
+          className={`hidden sm:block absolute ${asset.className} opacity-20 pointer-events-none select-none drop-shadow-lg`}
           style={{ width: asset.size, height: asset.size }}
         />
       ))}
 
-      <div className="container mx-auto px-6 relative z-10 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-5xl">
 
         {/* ── Section Header ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-16 md:mb-20"
         >
           <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl border border-indigo-400/50 text-white font-extrabold text-xs tracking-widest uppercase shadow-[0_0_30px_rgba(99,102,241,0.5)] mb-6 transition-all cursor-default"
             style={{ background: "linear-gradient(135deg,#6366f1,#a855f7)" }}>
             <span className="bg-white/20 px-2 py-0.5 rounded-lg text-white">05</span> EXPERIENCE
           </div>
-          <h2 className="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tighter leading-[0.85] text-slate-900 uppercase">
+          <h2 className="text-[2.2rem] sm:text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tighter leading-[0.9] text-slate-900 uppercase">
             <span className="block drop-shadow-sm">MY</span>
-            <em className="font-black italic lowercase tracking-tight text-transparent bg-clip-text text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] ml-8 md:ml-16 leading-none block pb-4 pt-2 -mb-4"
+            <em className="font-black italic lowercase tracking-tight text-transparent bg-clip-text text-[2.6rem] sm:text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] ml-2 sm:ml-8 md:ml-16 leading-none block pb-3 pt-1 -mb-2"
               style={{ backgroundImage: "linear-gradient(135deg, #fde047, #f97316, #dc2626)", filter: "drop-shadow(0px 0px 15px rgba(249, 115, 22, 0.3)) drop-shadow(2px 2px 0px rgba(220, 38, 38, 0.15))" }}>
               experience.
             </em>

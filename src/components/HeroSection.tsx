@@ -161,13 +161,13 @@ const HeroSection = () => {
     <div className="container mx-auto px-6 relative z-10">
 
       {/* ══ PART 1: HERO ══ */}
-      <div className="grid lg:grid-cols-2 gap-12 items-center py-24">
+      <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center pt-20 lg:py-24 pb-16">
 
         {/* Left: Text + badges */}
-        <div className="space-y-6">
+        <div className="space-y-5 text-center lg:text-left">
           {/* Badge */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl border border-violet-400/50 text-white font-extrabold text-xs tracking-widest uppercase shadow-[0_0_30px_rgba(139,92,246,0.5)] cursor-default"
+            className="inline-flex items-center gap-3 px-5 py-2 rounded-2xl border border-violet-400/50 text-white font-extrabold text-xs tracking-widest uppercase shadow-[0_0_30px_rgba(139,92,246,0.5)] cursor-default"
             style={{ background: "linear-gradient(135deg,#8b5cf6,#ec4899)" }}>
             <span className="bg-white/20 px-2 py-0.5 rounded-lg text-white">01</span>
             <span>AI Innovator &amp; Engineer</span>
@@ -176,7 +176,7 @@ const HeroSection = () => {
 
           {/* Heading */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-            <h1 className="text-[3.2rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tight leading-[0.92] text-slate-900 uppercase">
+            <h1 className="text-[2.4rem] sm:text-[3.2rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tight leading-[0.92] text-slate-900 uppercase">
               <span className="block drop-shadow-sm text-slate-900">HELLO, I'M</span>
 
               {/* EMIRSYAH — neon glow blink */}
@@ -228,7 +228,7 @@ const HeroSection = () => {
                   animate={{ y: 0, opacity: 1, scale: 1 }}
                   exit={{ y: -36, opacity: 0, scale: 0.92 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute inset-0 flex items-center gap-3"
+                  className="absolute inset-0 flex items-center gap-3 justify-center lg:justify-start"
                 >
                   {/* Icon badge */}
                   <motion.span
@@ -241,11 +241,11 @@ const HeroSection = () => {
 
                   {/* Prefix + Suffix text */}
                   <div className="flex items-baseline gap-2 flex-wrap">
-                    <span className="text-slate-500 font-black text-xl md:text-2xl uppercase tracking-tight">
+                    <span className="text-slate-500 font-black text-lg sm:text-xl md:text-2xl uppercase tracking-tight">
                       {role.prefix}
                     </span>
                     <motion.span
-                      className="text-2xl md:text-3xl font-black uppercase tracking-tight"
+                      className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight"
                       style={{
                         backgroundImage: role.gradient,
                         WebkitBackgroundClip: "text",
@@ -263,7 +263,7 @@ const HeroSection = () => {
 
             {/* Animated underline bar */}
             <motion.div
-              className="h-[3px] rounded-full w-full max-w-xs"
+              className="h-[3px] rounded-full mx-auto lg:mx-0 w-full max-w-[200px] sm:max-w-xs"
               style={{ background: role.bar, boxShadow: `0 0 12px ${role.glow}` }}
               key={`bar-${roleIdx}`}
               initial={{ scaleX: 0, originX: 0 }}
@@ -274,13 +274,13 @@ const HeroSection = () => {
 
           {/* Subtitle */}
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            className="text-slate-600 font-medium text-base md:text-lg max-w-lg leading-relaxed">
+            className="text-slate-600 font-medium text-sm sm:text-base md:text-lg max-w-lg mx-auto lg:mx-0 leading-relaxed">
             Membangun sistem cerdas bukan hanya soal menulis kode, tapi tentang <span className="text-slate-900 font-bold">menerjemahkan masalah nyata</span> menjadi arsitektur AI yang bekerja mandiri.
           </motion.p>
 
           {/* Tags */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
-            className="flex flex-wrap gap-2.5">
+            className="flex flex-wrap gap-2.5 justify-center lg:justify-start">
             {[
               { name: "AI Engineer", icon: <Cpu className="w-4 h-4" />, color: "text-blue-700", border: "border-blue-300", shadow: "shadow-[3px_3px_0px_#93c5fd]" },
               { name: "AI Consultant", icon: <Briefcase className="w-4 h-4" />, color: "text-violet-700", border: "border-violet-300", shadow: "shadow-[3px_3px_0px_#c4b5fd]" },
@@ -296,7 +296,7 @@ const HeroSection = () => {
 
           {/* Buttons */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-            className="flex flex-wrap gap-4">
+            className="flex flex-wrap gap-4 justify-center lg:justify-start">
             <button
               onClick={() => window.dispatchEvent(new CustomEvent("open-hrd-chat"))}
               className="inline-flex items-center gap-3 px-7 py-3.5 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-2xl font-pixel text-xs uppercase tracking-widest border-2 border-violet-800 shadow-[5px_5px_0px_#3b0764] hover:shadow-[2px_2px_0px_#3b0764] hover:translate-x-1 hover:translate-y-1 transition-all"
@@ -312,19 +312,19 @@ const HeroSection = () => {
         </div>
 
         {/* Right: Photo + badges + socials */}
-        <div className="relative flex justify-center items-center w-full min-h-[620px] z-10 pb-20">
-          <div className="relative" style={{ width: 520, height: 580 }}>
+        <div className="relative flex justify-center items-center w-full mt-4 lg:mt-0 pb-14 sm:pb-20">
+          <div className="relative w-[260px] h-[350px] sm:w-[340px] sm:h-[460px] md:w-[420px] md:h-[540px] lg:w-[520px] lg:h-[580px]">
 
             {/* Glow */}
             <motion.div animate={{ opacity: [0.4, 0.6, 0.4] }} transition={{ duration: 6, repeat: Infinity }}
-              className="absolute inset-x-0 top-20 mx-auto rounded-full blur-[100px] pointer-events-none"
-              style={{ width: 360, height: 360, background: "conic-gradient(from 0deg,#8B5CF6,#3B82F6,#EC4899,#8B5CF6)" }} />
+              className="absolute inset-x-0 top-10 mx-auto rounded-full blur-[80px] pointer-events-none"
+              style={{ width: "65%", height: "65%", background: "conic-gradient(from 0deg,#8B5CF6,#3B82F6,#EC4899,#8B5CF6)" }} />
 
             {/* Photo */}
             <motion.div initial={{ opacity: 0, scale: 0.8, rotate: -5 }} animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
-              className="absolute rounded-[3.5rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] border-4 border-white/40 z-10 group"
-              style={{ width: 330, height: 480, top: 90, left: 95 }}>
+              className="absolute rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.4)] border-4 border-white/40 z-10 group"
+              style={{ width: "63%", height: "83%", top: "10%", left: "18%" }}>
               <img src="/asset/profile_baru.jpg" alt="Emir Profile"
                 className="w-full h-full object-cover scale-125 transition-all duration-1000 group-hover:scale-140"
                 style={{ objectPosition: "center 56%" }} />
@@ -342,19 +342,19 @@ const HeroSection = () => {
 
             {/* IPK badge */}
             <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6, type: "spring" }}
-              className="absolute z-20 glass-card px-5 py-4 rounded-[2rem] shadow-2xl border-2 border-white/50 backdrop-blur-2xl flex flex-col items-center gap-1 group"
-              style={{ top: 40, right: 10 }}>
-              <div className="p-3 bg-gradient-to-br from-yellow-300 to-amber-500 rounded-full shadow-lg group-hover:rotate-12 transition-transform">
-                <GraduationCap className="w-6 h-6 text-white" />
+              className="absolute z-20 glass-card px-3 py-3 sm:px-5 sm:py-4 rounded-[1.5rem] sm:rounded-[2rem] shadow-2xl border-2 border-white/50 backdrop-blur-2xl flex flex-col items-center gap-1 group"
+              style={{ top: "4%", right: "2%" }}>
+              <div className="p-2 sm:p-3 bg-gradient-to-br from-yellow-300 to-amber-500 rounded-full shadow-lg group-hover:rotate-12 transition-transform">
+                <GraduationCap className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
               </div>
-              <div className="text-xl font-black text-foreground mt-2 leading-none">3.90+</div>
-              <div className="text-[9px] font-pixel text-primary uppercase tracking-tight">IPK_Score</div>
+              <div className="text-base sm:text-xl font-black text-foreground mt-1 sm:mt-2 leading-none">3.90+</div>
+              <div className="text-[8px] sm:text-[9px] font-pixel text-primary uppercase tracking-tight">IPK_Score</div>
             </motion.div>
 
             {/* Leader badge */}
             <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8, type: "spring" }}
-              className="absolute z-20 glass-card px-6 py-4 rounded-[2rem] shadow-2xl border-2 border-white/50 backdrop-blur-2xl flex flex-col items-center gap-1 group"
-              style={{ bottom: 100, left: -20 }}>
+              className="absolute z-20 glass-card px-4 py-3 sm:px-6 sm:py-4 rounded-[1.5rem] sm:rounded-[2rem] shadow-2xl border-2 border-white/50 backdrop-blur-2xl flex flex-col items-center gap-1 group"
+              style={{ bottom: "18%", left: "-2%" }}>
               <div className="p-3 rounded-full shadow-lg group-hover:-rotate-12 transition-transform"
                 style={{ background: "linear-gradient(to bottom right,#7c3aed,#db2777)" }}>
                 <Trophy className="w-6 h-6 text-white" />
@@ -363,33 +363,35 @@ const HeroSection = () => {
               <div className="text-[9px] font-bold text-blue-600 uppercase tracking-widest mt-1">INNOVATION</div>
             </motion.div>
 
-            {/* ── Raw PNG Stickers ── */}
-            {stickers.map((s, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1, ...s.animation }}
-                transition={{
-                  opacity: { delay: 0.3 + i * 0.1, duration: 0.5 },
-                  scale: { delay: 0.3 + i * 0.1, type: "spring", stiffness: 200 },
-                  y: { duration: s.duration, repeat: Infinity, ease: "easeInOut", delay: i * 0.1 },
-                  rotate: (s.animation as any).rotate ? { duration: s.duration * 1.5, repeat: Infinity, ease: "easeInOut" } : undefined,
-                }}
-                className="absolute z-30 pointer-events-none select-none flex items-center justify-center p-2"
-                style={{ ...s.pos }}
-              >
-                <div
-                  className="absolute inset-0 rounded-full blur-2xl opacity-50"
-                  style={{ backgroundColor: s.glow, transform: "scale(0.8)" }}
-                />
-                <img src={s.src} alt="Sticker" width={s.size} height={s.size} className="relative z-10 object-contain drop-shadow-2xl" />
-              </motion.div>
-            ))}
+            {/* ── Raw PNG Stickers — hidden on mobile ── */}
+            <div className="hidden sm:block">
+              {stickers.map((s, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1, ...s.animation }}
+                  transition={{
+                    opacity: { delay: 0.3 + i * 0.1, duration: 0.5 },
+                    scale: { delay: 0.3 + i * 0.1, type: "spring", stiffness: 200 },
+                    y: { duration: s.duration, repeat: Infinity, ease: "easeInOut", delay: i * 0.1 },
+                    rotate: (s.animation as any).rotate ? { duration: s.duration * 1.5, repeat: Infinity, ease: "easeInOut" } : undefined,
+                  }}
+                  className="absolute z-30 pointer-events-none select-none flex items-center justify-center p-2"
+                  style={{ ...s.pos }}
+                >
+                  <div
+                    className="absolute inset-0 rounded-full blur-2xl opacity-50"
+                    style={{ backgroundColor: s.glow, transform: "scale(0.8)" }}
+                  />
+                  <img src={s.src} alt="Sticker" width={s.size} height={s.size} className="relative z-10 object-contain drop-shadow-2xl" />
+                </motion.div>
+              ))}
+            </div>
 
             {/* Social icons below photo */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }}
-              className="absolute flex items-center gap-3 justify-center w-full"
-              style={{ bottom: -55 }}>
+              className="absolute flex items-center gap-2 sm:gap-3 justify-center w-full"
+              style={{ bottom: -48 }}>
               {socials.map((s, i) => (
                 <motion.a key={s.label} href={s.href}
                   target={s.label !== "Email" ? "_blank" : undefined}
@@ -399,7 +401,7 @@ const HeroSection = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.4, delay: 0.9 + i * 0.1, type: "spring", bounce: 0.5 }}
                   whileHover={{ scale: 1.2, y: -6 }} whileTap={{ scale: 0.9 }}
-                  className="w-12 h-12 rounded-full flex items-center justify-center"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center"
                   style={{ background: s.gradient, boxShadow: s.shadow }}>
                   {s.icon}
                 </motion.a>

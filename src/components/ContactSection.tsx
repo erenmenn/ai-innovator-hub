@@ -56,9 +56,9 @@ const ContactSection = () => {
             style={{ background: "linear-gradient(135deg,#10b981,#0ea5e9)" }}>
             <span className="bg-white/20 px-2 py-0.5 rounded-lg text-white">06</span> CONTACT
           </div>
-          <h2 className="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-black mt-6 tracking-tighter leading-[0.85] text-slate-900 uppercase">
+          <h2 className="text-[2.2rem] sm:text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-black mt-6 tracking-tighter leading-[0.9] text-slate-900 uppercase">
             <span className="block drop-shadow-sm">LET'S</span>
-            <em className="font-playfair italic font-medium lowercase tracking-normal text-transparent bg-clip-text text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] ml-8 md:ml-16 leading-none block pb-6 pt-2 -mb-6"
+            <em className="font-playfair italic font-medium lowercase tracking-normal text-transparent bg-clip-text text-[2.6rem] sm:text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] ml-2 sm:ml-8 md:ml-16 leading-none block pb-4 pt-1 -mb-3"
               style={{ backgroundImage: "linear-gradient(to right, #10b981, #0ea5e9)" }}>
               connect!
             </em>

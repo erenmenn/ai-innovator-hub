@@ -355,9 +355,9 @@ const ProjectsSection = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               {/* big gradient title */}
-              <h2 className="text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tighter leading-[0.85] text-slate-900 uppercase">
+              <h2 className="text-[2.2rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tighter leading-[0.9] text-slate-900 uppercase">
                 <span className="block drop-shadow-sm">MY</span>
-                <em className="font-black italic lowercase tracking-tight text-transparent bg-clip-text text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] ml-8 md:ml-16 leading-none block pb-4 pt-2 -mb-4"
+                <em className="font-black italic lowercase tracking-tight text-transparent bg-clip-text text-[2.6rem] sm:text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] ml-2 sm:ml-8 md:ml-16 leading-none block pb-3 pt-1 -mb-2"
                   style={{ backgroundImage: "linear-gradient(135deg, #fde047, #f97316, #dc2626)", filter: "drop-shadow(0px 0px 15px rgba(249, 115, 22, 0.3)) drop-shadow(2px 2px 0px rgba(220, 38, 38, 0.15))" }}>
                   projects.
                 </em>

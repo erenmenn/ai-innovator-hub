@@ -204,15 +204,15 @@ const AboutSection = () => (
       </motion.div>
 
       {/* Grid */}
-      <div className="grid lg:grid-cols-[1fr_360px] gap-16 items-start max-w-6xl mx-auto">
+      <div className="grid lg:grid-cols-[1fr_360px] gap-10 lg:gap-16 items-start max-w-6xl mx-auto">
 
         {/* ── LEFT ── */}
         <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }} transition={{ duration: 0.6 }} className="space-y-10"
+          viewport={{ once: true }} transition={{ duration: 0.6 }} className="space-y-8 md:space-y-10"
         >
           {/* Heading */}
           <div>
-            <h2 className="text-5xl md:text-6xl font-black tracking-tight leading-[1.1] text-slate-900">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.1] text-slate-900">
               Passionate<br />
               <em className="not-italic bg-clip-text text-transparent"
                 style={{ backgroundImage: "linear-gradient(90deg,#6366f1,#a855f7,#ec4899)" }}>
@@ -227,10 +227,10 @@ const AboutSection = () => (
 
           {/* Quote */}
           <motion.div whileHover={{ y: -3 }}
-            className="border-l-4 pl-5 py-1"
+            className="border-l-4 pl-4 sm:pl-5 py-1"
             style={{ borderColor: "#8b5cf6" }}
           >
-            <p className="text-slate-600 text-base md:text-lg leading-relaxed font-medium">
+            <p className="text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed font-medium">
               Kita hidup di era AI, dan kuncinya adalah{" "}
               <span className="font-bold text-emerald-600">adaptasi</span>.
               AI bukan penghancur karir — melainkan{" "}
@@ -245,7 +245,7 @@ const AboutSection = () => (
           </motion.div>
 
           {/* Trait list */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {traits.map((t, i) => (
               <motion.div key={t.label}
                 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
