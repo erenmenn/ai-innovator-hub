@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sparkles, Cpu, Code2, Folder, Phone, Home } from "lucide-react";
+import { Menu, X, Sparkles, Cpu, Code2, Folder, Award, Home } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
@@ -8,7 +8,7 @@ const navLinks = [
   { label: "SKILLS", href: "/skills", icon: Code2, grad: "linear-gradient(135deg, #8b5cf6, #d946ef)", shadow: "rgba(139,92,246,0.4)" },
   { label: "EXPERIENCE", href: "/experience", icon: Folder, grad: "linear-gradient(135deg, #6366f1, #a855f7)", shadow: "rgba(99,102,241,0.4)" },
   { label: "PROJECTS", href: "/projects", icon: Folder, grad: "linear-gradient(135deg, #3b82f6, #06b6d4)", shadow: "rgba(59,130,246,0.4)" },
-  { label: "CONTACT", href: "/contact", icon: Phone, grad: "linear-gradient(135deg, #10b981, #0ea5e9)", shadow: "rgba(16,185,129,0.4)" },
+  { label: "CERTIFICATES", href: "/certificates", icon: Award, grad: "linear-gradient(135deg, #10b981, #0ea5e9)", shadow: "rgba(16,185,129,0.4)" },
 ];
 
 const Navbar = () => {

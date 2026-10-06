@@ -1,11 +1,13 @@
-import ContactSection from "@/components/ContactSection";
+import CertificatesSection from "@/components/CertificatesSection";
 
 const Contact = () => {
   return (
     <div className="pt-24 min-h-screen">
-      <ContactSection />
+      <CertificatesSection />
     </div>
   );
 };
 
 export default Contact;
+
+

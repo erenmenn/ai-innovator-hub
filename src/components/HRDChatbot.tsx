@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, X, RotateCcw, User as UserIcon } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 /* ── API Key from Environment ── */
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY || "";
@@ -295,17 +296,40 @@ function ChatWindow({ initialQuery }: { initialQuery?: string }) {
                 </div>
               )}
               <div
-                className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-[12.5px] leading-relaxed font-semibold shadow-sm whitespace-pre-wrap ${msg.role === "user"
-                    ? "text-white rounded-br-none"
+                className={`max-w-[84%] px-3.5 py-2.5 rounded-2xl text-[12.5px] leading-relaxed font-medium shadow-sm ${
+                  msg.role === "user"
+                    ? "text-white rounded-br-none font-semibold"
                     : "text-slate-800 bg-white border border-cyan-100 rounded-bl-none shadow-sm"
-                  }`}
+                }`}
                 style={
                   msg.role === "user"
                     ? { background: "linear-gradient(135deg, #0072ff, #00c6ff)" }
                     : {}
                 }
               >
-                {msg.content}
+                {msg.role === "user" ? (
+                  <p className="whitespace-pre-wrap">{msg.content}</p>
+                ) : (
+                  <div className="space-y-2 text-[12px] leading-relaxed">
+                    <ReactMarkdown
+                      components={{
+                        p: ({ node, ...props }) => <p className="mb-1.5 last:mb-0" {...props} />,
+                        ul: ({ node, ...props }) => <ul className="list-disc pl-4 space-y-1 my-1.5" {...props} />,
+                        ol: ({ node, ...props }) => <ol className="list-decimal pl-4 space-y-1 my-1.5" {...props} />,
+                        li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
+                        strong: ({ node, ...props }) => <strong className="font-bold text-slate-950" {...props} />,
+                        code: ({ node, ...props }) => (
+                          <code className="px-1.5 py-0.5 rounded bg-slate-100 text-purple-700 font-mono text-[11px]" {...props} />
+                        ),
+                        a: ({ node, ...props }) => (
+                          <a className="text-cyan-600 underline font-semibold hover:text-cyan-700" target="_blank" rel="noopener noreferrer" {...props} />
+                        ),
+                      }}
+                    >
+                      {msg.content}
+                    </ReactMarkdown>
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}
@@ -419,60 +443,116 @@ export default function HRDChatbot() {
       </AnimatePresence>
 
       {/* Floating Trigger Button */}
-      <motion.div 
-        className="relative"
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+      <motion.div
+        className="relative flex items-center justify-center"
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       >
+        {/* Rainbow pulse glow ring */}
         {!open && (
-          <motion.div
-            className="absolute inset-0 rounded-full pointer-events-none"
-            style={{ 
-              background: "radial-gradient(circle, rgba(168,85,247,0.7) 0%, rgba(99,102,241,0.4) 40%, transparent 70%)",
-              filter: "blur(8px)"
-            }}
-            animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0.9, 0.6] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          />
-        )}
-
-        <motion.button
-          id="hrd-chatbot-trigger"
-          onClick={() => {
-            setOpen((v) => !v);
-            if (open) setInitialQuery(undefined);
-          }}
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.93 }}
-          className="relative w-20 h-20"
-          title="Chat dengan Emir's AI Assistant"
-        >
-          <img
-            src="/asset/bot.png"
-            alt="Emir AI Chatbot"
-            className="w-full h-full object-contain drop-shadow-2xl"
-          />
-          {/* Online dot */}
-          <div className="absolute bottom-0.5 right-0.5 w-4 h-4 bg-emerald-400 rounded-full border-2 border-white shadow-sm">
+          <>
             <motion.div
-              className="w-full h-full rounded-full bg-emerald-300"
-              animate={{ scale: [1, 1.5, 1], opacity: [1, 0, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              className="absolute rounded-full pointer-events-none"
+              style={{
+                width: 96, height: 96,
+                background: "conic-gradient(from 0deg, #6366f1, #8b5cf6, #a855f7, #f97316, #fb923c, #6366f1)",
+                filter: "blur(4px)",
+              }}
+              animate={{ rotate: 360, scale: [1, 1.15, 1], opacity: [0.7, 1, 0.7] }}
+              transition={{ rotate: { duration: 3, repeat: Infinity, ease: "linear" }, scale: { duration: 2, repeat: Infinity }, opacity: { duration: 2, repeat: Infinity } }}
             />
-          </div>
-        </motion.button>
+            {/* Outer halo */}
+            <motion.div
+              className="absolute rounded-full pointer-events-none"
+              style={{ width: 120, height: 120, background: "radial-gradient(circle, rgba(139,92,246,0.35) 0%, transparent 70%)" }}
+              animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0.85, 0.5] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            />
 
-        {/* Tooltip */}
-        {!open && (
-          <motion.div
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="absolute right-[92px] top-1/2 -translate-y-1/2 whitespace-nowrap bg-slate-900 text-white text-[12px] font-bold px-3 py-1.5 rounded-xl shadow-lg pointer-events-none"
-          >
-            Chat dengan Emir! ✨
-            <div className="absolute right-[-6px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-b-[6px] border-l-[7px] border-t-transparent border-b-transparent border-l-slate-900" />
-          </motion.div>
+            {/* Orbiting particles */}
+            {[
+              { color: "#f472b6", delay: 0, orbitW: 70, orbitH: 55 },
+              { color: "#38bdf8", delay: 1.1, orbitW: 65, orbitH: 65 },
+              { color: "#facc15", delay: 2.2, orbitW: 55, orbitH: 70 },
+            ].map((p, i) => (
+              <motion.div
+                key={i}
+                className="absolute rounded-full pointer-events-none"
+                style={{ width: 9, height: 9, backgroundColor: p.color, boxShadow: `0 0 8px 3px ${p.color}` }}
+                animate={{
+                  x: [p.orbitW, 0, -p.orbitW, 0, p.orbitW],
+                  y: [0, -p.orbitH, 0, p.orbitH, 0],
+                  scale: [1, 1.4, 1, 1.4, 1],
+                }}
+                transition={{ duration: 3 + i * 0.4, repeat: Infinity, ease: "linear", delay: p.delay }}
+              />
+            ))}
+          </>
         )}
+
+        {/* White background circle behind bot image */}
+        <div className="relative w-[80px] h-[80px] flex items-center justify-center">
+          <div className="absolute inset-[3px] rounded-full bg-white z-10" />
+
+          <motion.button
+            id="hrd-chatbot-trigger"
+            onClick={() => {
+              setOpen((v) => !v);
+              if (open) setInitialQuery(undefined);
+            }}
+            whileHover={{ scale: 1.12, rotate: [0, -6, 6, -4, 4, 0] }}
+            whileTap={{ scale: 0.88 }}
+            className="relative z-20 w-[72px] h-[72px] rounded-full"
+            title="Chat dengan Emir's AI Assistant"
+          >
+            <motion.img
+              src="/asset/bot.png"
+              alt="Emir AI Chatbot"
+              className="w-full h-full object-contain drop-shadow-2xl"
+              animate={open ? { rotate: [0, 10, -10, 0] } : { rotate: 0 }}
+              transition={{ duration: 0.5 }}
+            />
+
+            {/* Online indicator */}
+            <div className="absolute bottom-0.5 right-0.5 w-4 h-4 bg-emerald-400 rounded-full border-2 border-white shadow-sm z-30">
+              <motion.div
+                className="w-full h-full rounded-full bg-emerald-300"
+                animate={{ scale: [1, 1.8, 1], opacity: [1, 0, 1] }}
+                transition={{ duration: 1.8, repeat: Infinity }}
+              />
+            </div>
+          </motion.button>
+        </div>
+
+        {/* Animated tooltip with emoji */}
+        <AnimatePresence>
+          {!open && (
+            <motion.div
+              key="tooltip"
+              initial={{ opacity: 0, x: 16, scale: 0.85 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 10, scale: 0.9 }}
+              transition={{ type: "spring", bounce: 0.5, duration: 0.5 }}
+              className="absolute right-[90px] top-1/2 -translate-y-1/2 whitespace-nowrap pointer-events-none"
+            >
+              <div
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl text-white text-[12px] font-black tracking-wide shadow-xl border border-white/20"
+                style={{ background: "linear-gradient(135deg, #7c3aed, #ec4899)" }}
+              >
+                <span>Hi!</span>
+              </div>
+              {/* Arrow pointer */}
+              <div
+                className="absolute right-[-7px] top-1/2 -translate-y-1/2 w-0 h-0"
+                style={{
+                  borderTop: "7px solid transparent",
+                  borderBottom: "7px solid transparent",
+                  borderLeft: "8px solid #ec4899",
+                }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </div>
   );
