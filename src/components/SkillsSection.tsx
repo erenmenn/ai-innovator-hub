@@ -189,10 +189,10 @@ const SkillsSection = () => {
   });
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden pixel-grid">
+    <section id="skills" className="py-16 sm:py-24 relative overflow-hidden pixel-grid">
       {/* Background ambient lighting orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-gradient-to-r from-violet-500/15 via-pink-500/15 to-sky-500/15 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute top-10 right-10 w-[450px] h-[450px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[800px] h-[350px] sm:h-[500px] bg-gradient-to-r from-violet-500/15 via-pink-500/15 to-sky-500/15 rounded-full blur-[110px] sm:blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-10 right-10 w-[280px] sm:w-[450px] h-[280px] sm:h-[450px] bg-indigo-500/10 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none -z-10" />
 
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
         {/* ── Unified Section Header ── */}
@@ -200,20 +200,20 @@ const SkillsSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-10 sm:mb-16"
         >
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 sm:gap-6">
             <div>
               <div
-                className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full text-white font-black text-xs tracking-widest uppercase shadow-[0_8px_25px_rgba(139,92,246,0.35)] mb-6 transition-all border-2 border-white/40 cursor-default"
+                className="inline-flex items-center gap-2.5 sm:gap-3 px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-white font-black text-[10px] sm:text-xs tracking-widest uppercase shadow-[0_8px_25px_rgba(139,92,246,0.35)] mb-4 sm:mb-6 transition-all border-2 border-white/40 cursor-default"
                 style={{ background: "linear-gradient(135deg, #8b5cf6, #ec4899, #f97316)" }}
               >
                 <span className="bg-white/25 px-2 py-0.5 rounded-lg text-white font-mono">02</span>
                 <span>SKILLS &amp; ARSENAL</span>
-                <Sparkles className="w-4 h-4 text-yellow-300 animate-spin" />
+                <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-300 animate-spin" />
               </div>
               
-              <h1 className="text-[2.2rem] sm:text-[3.2rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tight leading-[0.95] text-slate-900 uppercase">
+              <h1 className="text-[2rem] sm:text-[3.2rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tight leading-[0.95] text-slate-900 uppercase">
                 <span className="block drop-shadow-sm text-slate-900">SOFT &amp; TECHNICAL</span>
                 <span
                   className="block text-transparent bg-clip-text mt-1"
@@ -230,16 +230,16 @@ const SkillsSection = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="flex items-center gap-4 p-5 px-7 rounded-[2rem] bg-white/90 backdrop-blur-xl border-2 border-slate-100 shadow-xl self-start md:self-auto hover:-translate-y-1 transition-transform"
+              className="flex items-center gap-3.5 sm:gap-4 p-4 sm:p-5 px-5 sm:px-7 rounded-2xl sm:rounded-[2rem] bg-white/90 backdrop-blur-xl border-2 border-slate-100 shadow-xl self-start md:self-auto hover:-translate-y-1 transition-transform"
             >
               <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg font-black text-2xl"
+                className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center text-white shadow-lg font-black text-xl sm:text-2xl shrink-0"
                 style={{ background: "linear-gradient(135deg, #ec4899, #8b5cf6)" }}
               >
                 {totalTechSkills}
               </div>
               <div>
-                <span className="text-xs font-black uppercase tracking-wider text-slate-900 block flex items-center gap-1.5">
+                <span className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
                   <span>Tech Arsenal</span>
                   <Flame className="w-3.5 h-3.5 text-amber-500" />
                 </span>
@@ -254,22 +254,22 @@ const SkillsSection = () => {
         {/* ══════════════════════════════════════════════════════════
             BAGIAN 1 (ATAS): SOFT SKILLS & PHILOSOPHY
         ══════════════════════════════════════════════════════════ */}
-        <div className="mb-20 space-y-8">
+        <div className="mb-14 sm:mb-20 space-y-6 sm:space-y-8">
           {/* Section Sub-header */}
           <div className="flex items-center justify-between flex-wrap gap-4">
-            <div className="flex items-center gap-3.5">
+            <div className="flex items-center gap-3 sm:gap-3.5">
               <div
-                className="w-10 h-10 rounded-2xl flex items-center justify-center text-white shadow-md font-black"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl flex items-center justify-center text-white shadow-md font-black shrink-0"
                 style={{ background: "linear-gradient(135deg, #8b5cf6, #3b82f6)" }}
               >
-                <Compass className="w-5 h-5" />
+                <Compass className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <h2 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tight flex items-center gap-2">
+                <h2 className="text-base sm:text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tight flex items-center gap-2">
                   <span>1. Soft Skills &amp; Cognitive Mindset</span>
-                  <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                  <Star className="w-4 h-4 text-amber-500 fill-amber-500 shrink-0" />
                 </h2>
-                <p className="text-xs text-muted-foreground font-medium">
+                <p className="text-[11px] sm:text-xs text-muted-foreground font-medium">
                   Prinsip kepemimpinan, adaptasi cerdas, dan filosofi problem-solving dalam merancang sistem AI.
                 </p>
               </div>
@@ -281,13 +281,13 @@ const SkillsSection = () => {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="p-7 md:p-9 rounded-[2.5rem] border-2 border-white/80 bg-gradient-to-br from-white via-indigo-50/40 to-pink-50/30 shadow-xl relative overflow-hidden backdrop-blur-md"
+            className="p-5 sm:p-7 md:p-9 rounded-3xl sm:rounded-[2.5rem] border-2 border-white/80 bg-gradient-to-br from-white via-indigo-50/40 to-pink-50/30 shadow-xl relative overflow-hidden backdrop-blur-md"
             style={{
               boxShadow: "0 20px 50px -15px rgba(99,102,241,0.12), inset 0 1px 0 rgba(255,255,255,0.9)",
             }}
           >
-            <div className="border-l-4 pl-6 py-1" style={{ borderColor: "#8b5cf6" }}>
-              <p className="text-slate-800 text-base md:text-lg leading-relaxed font-semibold">
+            <div className="border-l-4 pl-4 sm:pl-6 py-1" style={{ borderColor: "#8b5cf6" }}>
+              <p className="text-slate-800 text-sm sm:text-base md:text-lg leading-relaxed font-semibold">
                 "Kita hidup di era transformasi AI, dan kuncinya adalah{" "}
                 <span className="text-emerald-600 font-black underline decoration-emerald-300 underline-offset-4">adaptasi terarah</span>.
                 AI bukanlah pengganti manusia — melainkan{" "}
@@ -305,7 +305,7 @@ const SkillsSection = () => {
           </motion.div>
 
           {/* Soft Skills Interactive Traits Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {softTraits.map((t, i) => (
               <motion.div
                 key={t.label}
@@ -316,16 +316,16 @@ const SkillsSection = () => {
                 transition={{ delay: i * 0.05, type: "spring", bounce: 0.4 }}
                 whileHover={{ y: -5, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="flex flex-col justify-between p-6 rounded-[2rem] cursor-pointer border-2 border-white/50 transition-all duration-300 shadow-xl group select-none relative overflow-hidden"
+                className="flex flex-col justify-between p-5 sm:p-6 rounded-3xl sm:rounded-[2rem] cursor-pointer border-2 border-white/50 transition-all duration-300 shadow-xl group select-none relative overflow-hidden"
                 style={{
                   background: t.bg,
                   boxShadow: `0 12px 30px ${t.shadow}, inset 0 1px 0 rgba(255,255,255,0.4)`,
                 }}
               >
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-2xl bg-white/25 border border-white/40 flex items-center justify-center shrink-0 backdrop-blur-md shadow-md group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                      <t.icon className="w-6 h-6 text-white pointer-events-none" />
+                  <div className="flex items-center justify-between mb-3.5 sm:mb-4">
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/25 border border-white/40 flex items-center justify-center shrink-0 backdrop-blur-md shadow-md group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                      <t.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white pointer-events-none" />
                     </div>
                     <span className="text-[10px] font-mono font-bold text-white/90 bg-white/20 px-2.5 py-1 rounded-full uppercase tracking-wider">
                       Klik untuk Tanya
@@ -343,7 +343,7 @@ const SkillsSection = () => {
                   </p>
                 </div>
 
-                <div className="pt-4 mt-2 border-t border-white/20 flex items-center justify-between text-[11px] font-extrabold text-white/90">
+                <div className="pt-3.5 sm:pt-4 mt-2 border-t border-white/20 flex items-center justify-between text-[11px] font-extrabold text-white/90">
                   <span>Chat dengan AI Bot 💬</span>
                   <span className="group-hover:translate-x-1 transition-transform">➔</span>
                 </div>
@@ -353,10 +353,10 @@ const SkillsSection = () => {
         </div>
 
         {/* ══ DIVIDER SECTION ══ */}
-        <div className="flex items-center gap-4 py-8 mb-12">
+        <div className="flex items-center gap-3 sm:gap-4 py-4 sm:py-8 mb-8 sm:mb-12">
           <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
-          <span className="text-xs font-black uppercase tracking-widest text-slate-600 px-5 bg-white py-2 rounded-full border-2 border-slate-100 shadow-sm flex items-center gap-2">
-            <Code2 className="w-4 h-4 text-purple-600" />
+          <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600 px-3.5 sm:px-5 bg-white py-2 rounded-full border-2 border-slate-100 shadow-sm flex items-center gap-1.5 sm:gap-2">
+            <Code2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-600 shrink-0" />
             <span>Technical Frameworks &amp; Stack</span>
           </span>
           <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
@@ -365,33 +365,33 @@ const SkillsSection = () => {
         {/* ══════════════════════════════════════════════════════════
             BAGIAN 2 (BAWAH): TECHNICAL ARSENAL
         ══════════════════════════════════════════════════════════ */}
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {/* Controls Bar (Filter Tabs + Live Search) */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3.5 sm:gap-4">
             {/* Category Filter Tabs */}
-            <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-white border-2 border-slate-100 shadow-sm">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-1.5 sm:gap-2 p-1.5 rounded-2xl bg-white border-2 border-slate-100 shadow-sm w-full md:w-auto">
               <button
                 onClick={() => setActiveTab("all")}
-                className={`px-4 py-2 rounded-xl text-xs font-black transition-all ${
+                className={`px-3 sm:px-4 py-2 rounded-xl text-[11px] sm:text-xs font-black transition-all ${
                   activeTab === "all"
                     ? "bg-slate-900 text-white shadow-sm"
                     : "text-slate-600 hover:text-slate-900"
                 }`}
               >
-                Semua Kategori ({totalTechSkills})
+                Semua ({totalTechSkills})
               </button>
               {categories.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveTab(cat.id)}
-                  className={`px-4 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
+                  className={`px-3 sm:px-4 py-2 rounded-xl text-[11px] sm:text-xs font-black transition-all flex items-center gap-1.5 ${
                     activeTab === cat.id
                       ? "text-white shadow-sm"
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                   style={activeTab === cat.id ? { background: cat.grad } : {}}
                 >
-                  <cat.Icon className="w-3.5 h-3.5" />
+                  <cat.Icon className="w-3.5 h-3.5 shrink-0" />
                   <span>{cat.shortLabel}</span>
                 </button>
               ))}
@@ -419,7 +419,7 @@ const SkillsSection = () => {
           </div>
 
           {/* Technical Categories Cards Grid */}
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             <AnimatePresence>
               {filteredCategories.map((cat, i) => (
                 <motion.div
@@ -429,50 +429,50 @@ const SkillsSection = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.35, delay: i * 0.05 }}
-                  className="p-5 sm:p-7 md:p-9 rounded-[2rem] sm:rounded-[2.5rem] border-2 border-slate-100 bg-white shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
+                  className="p-4 sm:p-7 md:p-9 rounded-3xl sm:rounded-[2.5rem] border-2 border-slate-100 bg-white shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
                 >
                   {/* Card Header */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
-                    <div className="flex items-center gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-4 sm:pb-6 border-b border-slate-100">
+                    <div className="flex items-start sm:items-center gap-3 sm:gap-4">
                       <div
-                        className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg shrink-0 group-hover:scale-105 group-hover:rotate-3 transition-transform"
+                        className="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center text-white shadow-lg shrink-0 group-hover:scale-105 group-hover:rotate-3 transition-transform"
                         style={{ background: cat.grad, boxShadow: `0 8px 20px ${cat.glow}` }}
                       >
-                        <cat.Icon className="w-7 h-7" />
+                        <cat.Icon className="w-5 h-5 sm:w-7 sm:h-7" />
                       </div>
                       <div>
-                        <div className="flex items-center gap-2.5 flex-wrap">
-                          <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h3 className="text-base sm:text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-snug">
                             {cat.label}
                           </h3>
                           <span
-                            className="px-3 py-0.5 rounded-full text-[10px] font-black text-white uppercase tracking-wider"
+                            className="px-2.5 sm:px-3 py-0.5 rounded-full text-[9px] sm:text-[10px] font-black text-white uppercase tracking-wider"
                             style={{ background: cat.grad }}
                           >
                             {cat.badge}
                           </span>
                         </div>
-                        <p className="text-xs text-slate-500 font-medium mt-1">
+                        <p className="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 leading-relaxed">
                           {cat.description}
                         </p>
                       </div>
                     </div>
 
-                    <span className="text-xs font-mono font-bold text-slate-500 px-3 py-1 bg-slate-50 rounded-xl self-start sm:self-auto border border-slate-100">
+                    <span className="text-[11px] sm:text-xs font-mono font-bold text-slate-500 px-3 py-1 bg-slate-50 rounded-xl self-start sm:self-auto border border-slate-100 shrink-0">
                       {cat.skills.length} Tools
                     </span>
                   </div>
 
                   {/* Skills Grid */}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 pt-6">
-                    {cat.skills.map((skill, idx) => (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3.5 pt-4 sm:pt-6">
+                    {cat.skills.map((skill) => (
                       <motion.div
                         key={skill.name}
-                        whileHover={{ scale: 1.04, y: -3 }}
-                        className="flex items-center justify-between p-3.5 px-4 rounded-2xl bg-slate-50/80 hover:bg-white border-2 border-slate-100 hover:border-purple-300 shadow-2xs hover:shadow-md transition-all group/skill cursor-default"
+                        whileHover={{ scale: 1.03, y: -2 }}
+                        className="flex items-center justify-between p-2.5 sm:p-3.5 sm:px-4 rounded-xl sm:rounded-2xl bg-slate-50/80 hover:bg-white border sm:border-2 border-slate-100 hover:border-purple-300 shadow-2xs hover:shadow-md transition-all group/skill cursor-default"
                       >
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-8 h-8 rounded-xl bg-white border border-slate-200/80 flex items-center justify-center shrink-0 p-1.5 shadow-2xs group-hover/skill:scale-110 transition-transform">
+                        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-white border border-slate-200/80 flex items-center justify-center shrink-0 p-1 sm:p-1.5 shadow-2xs group-hover/skill:scale-110 transition-transform">
                             <img
                               src={skill.icon}
                               alt={skill.name}
@@ -483,16 +483,16 @@ const SkillsSection = () => {
                             />
                           </div>
                           <div className="min-w-0">
-                            <span className="text-xs font-extrabold text-slate-900 block truncate">
+                            <span className="text-[11px] sm:text-xs font-extrabold text-slate-900 block truncate">
                               {skill.name}
                             </span>
-                            <span className="text-[10px] font-semibold text-slate-400 block truncate">
+                            <span className="text-[9px] sm:text-[10px] font-semibold text-slate-400 block truncate">
                               {skill.level}
                             </span>
                           </div>
                         </div>
 
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 opacity-0 group-hover/skill:opacity-100 transition-opacity ml-1" />
+                        <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-500 shrink-0 opacity-0 group-hover/skill:opacity-100 transition-opacity ml-1 hidden sm:block" />
                       </motion.div>
                     ))}
                   </div>

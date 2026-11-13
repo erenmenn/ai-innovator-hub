@@ -332,7 +332,7 @@ const ProjectsSection = () => {
     });
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden pixel-grid" style={{ background: "#f8fafc" }}>
+    <section id="projects" className="py-16 sm:py-24 relative overflow-hidden pixel-grid" style={{ background: "#f8fafc" }}>
 
       {/* ── Animated colorful smoke glows ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -343,10 +343,10 @@ const ProjectsSection = () => {
         <motion.div animate={{ x: [0, -20, 30, 0], y: [0, -40, 10, 0], scale: [1, 1.1, 0.97, 1] }} transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 4 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full blur-[130px]" style={{ background: "radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%)" }} />
       </div>
 
-      <div className="container max-w-7xl mx-auto px-6 relative z-10">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
         {/* ── MAXIMALIST HEADER ── */}
-        <div className="mb-14">
+        <div className="mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl border border-blue-400/50 text-white font-extrabold text-xs tracking-widest uppercase shadow-[0_0_30px_rgba(59,130,246,0.5)] mb-6 transition-all cursor-default"
             style={{ background: "linear-gradient(135deg,#3b82f6,#06b6d4)" }}>
             <span className="bg-white/20 px-2 py-0.5 rounded-lg text-white">03</span> PROJECTS
@@ -508,7 +508,7 @@ const ProjectsSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[500] flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 z-[500] flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6"
           >
             {/* Backdrop */}
             <motion.div 
@@ -522,14 +522,14 @@ const ProjectsSection = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-              className="relative w-full max-w-3xl max-h-[90vh] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col z-10"
+              className="relative w-full max-w-3xl max-h-[92vh] sm:max-h-[90vh] bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col z-10"
             >
               {/* Close Button */}
               <button 
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-20 w-10 h-10 bg-black/40 hover:bg-black/60 text-white rounded-full flex items-center justify-center backdrop-blur-md transition-colors shadow-lg"
+                className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-20 w-9 h-9 sm:w-10 sm:h-10 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center backdrop-blur-md transition-colors shadow-lg"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
               {/* Top Side: Image (cropped with smoky fade) — click for fullscreen */}
@@ -601,11 +601,11 @@ const ProjectsSection = () => {
                 </div>
 
                 {/* Title & badges */}
-                <div className="absolute top-0 left-0 p-4 w-full">
-                  <h2 className="text-xl font-black text-white leading-tight mb-2 drop-shadow-md">
+                <div className="absolute top-0 left-0 p-4 pr-14 w-full">
+                  <h2 className="text-base sm:text-xl font-black text-white leading-tight mb-2 drop-shadow-md line-clamp-2">
                     {selectedProject.title}
                   </h2>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     <span
                       className="text-[10px] font-bold px-3 py-1 rounded-full text-white shadow-sm border border-white/20"
                       style={{ background: getCfg(selectedProject.category).badgeBg }}
@@ -633,39 +633,39 @@ const ProjectsSection = () => {
               </div>
 
               {/* Bottom Side: Details */}
-              <div className="w-full p-6 sm:p-8 overflow-y-auto custom-scrollbar flex flex-col gap-8 relative bg-white" style={{
+              <div className="w-full p-4 sm:p-6 md:p-8 overflow-y-auto custom-scrollbar flex flex-col gap-5 sm:gap-7 relative bg-white" style={{
                 backgroundImage: `radial-gradient(circle at 100% 0%, ${getCfg(selectedProject.category).glow} 0%, transparent 40%)`
               }}>
                 
                 {/* Overview */}
                 <div className="shrink-0">
-                  <p className="text-slate-700 text-[16px] leading-relaxed font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-500">
+                  <p className="text-slate-700 text-sm sm:text-[16px] leading-relaxed font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-500">
                     {selectedProject.overview || selectedProject.description}
                   </p>
                 </div>
 
                 {/* Problem & Solution Blocks */}
-                <div className="grid sm:grid-cols-2 gap-6 shrink-0">
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 shrink-0">
                   {/* Problem - Vibrant red glow */}
-                  <div className="relative overflow-hidden bg-gradient-to-br from-rose-50 to-white border border-rose-200 rounded-2xl p-6 shadow-[0_10px_40px_rgba(244,63,94,0.15)] hover:shadow-[0_10px_40px_rgba(244,63,94,0.25)] transition-shadow">
+                  <div className="relative overflow-hidden bg-gradient-to-br from-rose-50 to-white border border-rose-200 rounded-2xl p-4 sm:p-6 shadow-[0_10px_40px_rgba(244,63,94,0.15)] hover:shadow-[0_10px_40px_rgba(244,63,94,0.25)] transition-shadow">
                     <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-rose-400 to-rose-600" />
-                    <div className="flex items-center gap-2 text-rose-600 font-black text-sm mb-3 uppercase tracking-wider">
-                      <TargetIcon className="w-5 h-5" />
+                    <div className="flex items-center gap-2 text-rose-600 font-black text-xs sm:text-sm mb-2 sm:mb-3 uppercase tracking-wider">
+                      <TargetIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                       The Problem
                     </div>
-                    <p className="text-slate-700 text-[13.5px] leading-relaxed font-medium">
+                    <p className="text-slate-700 text-xs sm:text-[13.5px] leading-relaxed font-medium">
                       {selectedProject.problem}
                     </p>
                   </div>
 
                   {/* Solution - Vibrant green glow */}
-                  <div className="relative overflow-hidden bg-gradient-to-br from-emerald-50 to-white border border-emerald-200 rounded-2xl p-6 shadow-[0_10px_40px_rgba(16,185,129,0.15)] hover:shadow-[0_10px_40px_rgba(16,185,129,0.25)] transition-shadow">
+                  <div className="relative overflow-hidden bg-gradient-to-br from-emerald-50 to-white border border-emerald-200 rounded-2xl p-4 sm:p-6 shadow-[0_10px_40px_rgba(16,185,129,0.15)] hover:shadow-[0_10px_40px_rgba(16,185,129,0.25)] transition-shadow">
                     <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-emerald-400 to-emerald-600" />
-                    <div className="flex items-center gap-2 text-emerald-600 font-black text-sm mb-3 uppercase tracking-wider">
-                      <CheckCircle2 className="w-5 h-5" />
+                    <div className="flex items-center gap-2 text-emerald-600 font-black text-xs sm:text-sm mb-2 sm:mb-3 uppercase tracking-wider">
+                      <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
                       The Solution
                     </div>
-                    <p className="text-slate-700 text-[13.5px] leading-relaxed font-medium">
+                    <p className="text-slate-700 text-xs sm:text-[13.5px] leading-relaxed font-medium">
                       {selectedProject.solution}
                     </p>
                   </div>

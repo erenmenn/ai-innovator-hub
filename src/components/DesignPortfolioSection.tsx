@@ -122,27 +122,27 @@ const DesignModal = ({ work, onClose }: { work: DesignWork; onClose: () => void 
           className="relative w-full max-w-5xl bg-white rounded-[2.5rem] md:rounded-[3rem] shadow-2xl border border-white/60 flex flex-col overflow-hidden max-h-[90vh] z-10"
         >
           {/* Header Strip */}
-          <div className="relative flex items-center justify-between px-6 py-4 md:px-8 md:py-5 border-b border-slate-100 bg-white">
+          <div className="relative flex items-center justify-between px-4 py-3.5 sm:px-6 sm:py-4 md:px-8 md:py-5 border-b border-slate-100 bg-white">
             <div className="absolute inset-0 opacity-[0.05]" style={{ background: `linear-gradient(90deg, ${work.gradFrom}, transparent)` }} />
-            <div className="relative flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-white text-2xl shadow-sm"
+            <div className="relative flex items-center gap-3 sm:gap-4 min-w-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center text-white text-2xl shadow-sm shrink-0"
                 style={{ background: `linear-gradient(135deg, ${work.gradFrom}, ${work.gradTo})` }}>
-                <work.icon className="w-6 h-6" />
+                <work.icon className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <div>
-                <h3 className="font-extrabold text-slate-800 text-lg leading-tight">{work.title}</h3>
-                <p className="text-[10px] font-pixel text-slate-500 uppercase tracking-widest mt-1">
+              <div className="min-w-0">
+                <h3 className="font-extrabold text-slate-800 text-sm sm:text-lg leading-tight truncate">{work.title}</h3>
+                <p className="text-[9px] sm:text-[10px] font-pixel text-slate-500 uppercase tracking-widest mt-1">
                   {idx + 1} of {work.images.length} • {work.badge}
                 </p>
               </div>
             </div>
-            <button onClick={onClose} className="relative w-11 h-11 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors">
-              <X className="w-5 h-5" />
+            <button onClick={onClose} className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors shrink-0 ml-2">
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
 
           {/* Fixed Height Image Display — Lightweight Static Background */}
-          <div className="relative flex-1 min-h-[350px] md:min-h-[450px] group flex items-center justify-center overflow-hidden"
+          <div className="relative flex-1 min-h-[250px] sm:min-h-[350px] md:min-h-[450px] group flex items-center justify-center overflow-hidden"
                style={{ background: `linear-gradient(135deg, ${work.gradFrom}10, ${work.gradTo}10)` }}>
                
              {/* Static subtle glow instead of animated orbs */}
@@ -150,7 +150,7 @@ const DesignModal = ({ work, onClose }: { work: DesignWork; onClose: () => void 
                 style={{ background: `radial-gradient(circle at center, ${work.accent}40, transparent 70%)` }}
              />
 
-             <div className="relative w-full h-full flex items-center justify-center p-4 md:p-10 pointer-events-none z-10">
+             <div className="relative w-full h-full flex items-center justify-center p-3 sm:p-6 md:p-10 pointer-events-none z-10">
                <AnimatePresence mode="wait">
                  <motion.div
                    key={idx}
@@ -168,8 +168,8 @@ const DesignModal = ({ work, onClose }: { work: DesignWork; onClose: () => void 
                    />
                    {/* Hint for fullscreen */}
                    <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
-                     <div className="bg-white/95 text-slate-800 px-6 py-3 rounded-2xl text-[10px] font-pixel uppercase tracking-widest flex items-center gap-2 shadow-xl border border-slate-100 scale-95 hover:scale-100 transition-transform">
-                       <ImageIcon className="w-5 h-5" style={{ color: work.accent }} /> Click to Enlarge
+                     <div className="bg-white/95 text-slate-800 px-4 py-2 sm:px-6 sm:py-3 rounded-2xl text-[9px] sm:text-[10px] font-pixel uppercase tracking-widest flex items-center gap-2 shadow-xl border border-slate-100 scale-95 hover:scale-100 transition-transform">
+                       <ImageIcon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: work.accent }} /> Click to Enlarge
                      </div>
                    </div>
                  </motion.div>
@@ -177,28 +177,28 @@ const DesignModal = ({ work, onClose }: { work: DesignWork; onClose: () => void 
              </div>
 
              {/* Nav Arrows */}
-             <button onClick={prev} className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform border border-slate-100 z-20 text-slate-800">
-               <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
+             <button onClick={prev} className="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-white shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform border border-slate-100 z-20 text-slate-800">
+               <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" />
              </button>
-             <button onClick={next} className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform border border-slate-100 z-20 text-slate-800">
-               <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
+             <button onClick={next} className="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-white shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform border border-slate-100 z-20 text-slate-800">
+               <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" />
              </button>
           </div>
 
           {/* Footer Info & Progress */}
-          <div className="relative z-20 px-6 py-5 md:px-8 md:py-6 bg-white border-t border-slate-100 flex flex-col md:flex-row gap-6 items-center">
+          <div className="relative z-20 px-4 py-4 sm:px-6 sm:py-5 md:px-8 md:py-6 bg-white border-t border-slate-100 flex flex-col md:flex-row gap-4 sm:gap-6 items-center">
              <div className="flex-1 text-center md:text-left">
-               <p className="text-slate-600 text-sm md:text-base font-medium leading-relaxed max-w-2xl">
+               <p className="text-slate-600 text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl">
                  {work.description}
                </p>
              </div>
              {/* Simple Progress Dots */}
-             <div className="flex gap-2.5 bg-slate-50 p-2.5 rounded-full border border-slate-100">
+             <div className="flex gap-2 bg-slate-50 p-2 rounded-full border border-slate-100 flex-wrap justify-center">
                {work.images.map((_, i) => (
                  <button key={i} onClick={(e) => { e.stopPropagation(); setIdx(i); }}
                    className="transition-all duration-300 rounded-full h-2"
                    style={{ 
-                     width: i === idx ? 32 : 8, 
+                     width: i === idx ? 24 : 8, 
                      backgroundColor: i === idx ? work.accent : "#cbd5e1" 
                    }}
                  />
@@ -247,21 +247,21 @@ const DesignPortfolioSection = () => {
   const [selected, setSelected] = useState<DesignWork | null>(null);
 
   return (
-    <section id="design" className="py-28 relative overflow-hidden pixel-grid">
+    <section id="design" className="py-16 sm:py-24 relative overflow-hidden pixel-grid">
       {/* Ambient blobs (Static for performance) */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute top-[10%] left-[-5%] w-[400px] h-[400px] rounded-full blur-[120px] bg-indigo-300/10" />
         <div className="absolute bottom-[5%] right-[-8%] w-[450px] h-[450px] rounded-full blur-[130px] bg-rose-300/08" />
         {/* Static cute stickers */}
         <img src="/asset/love.png" alt="" aria-hidden
-          className="absolute top-28 right-[14%] w-11 h-11 opacity-20 select-none pointer-events-none drop-shadow-lg" />
+          className="hidden sm:block absolute top-28 right-[14%] w-11 h-11 opacity-20 select-none pointer-events-none drop-shadow-lg" />
         <img src="/asset/sparkle.png" alt="" aria-hidden
-          className="absolute bottom-32 left-[8%] w-10 h-10 opacity-15 select-none pointer-events-none drop-shadow-lg" />
+          className="hidden sm:block absolute bottom-32 left-[8%] w-10 h-10 opacity-15 select-none pointer-events-none drop-shadow-lg" />
         <img src="/asset/bintang.png" alt="" aria-hidden
-          className="absolute top-1/2 right-[5%] w-8 h-8 opacity-15 select-none pointer-events-none drop-shadow-lg" />
+          className="hidden sm:block absolute top-1/2 right-[5%] w-8 h-8 opacity-15 select-none pointer-events-none drop-shadow-lg" />
       </div>
 
-      <div className="container mx-auto px-6 relative">
+      <div className="container mx-auto px-4 sm:px-6 relative">
 
         {/* ── Header — cute style ── */}
         <motion.div initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">

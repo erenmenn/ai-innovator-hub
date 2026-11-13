@@ -45,18 +45,18 @@ const ContactSection = () => {
 
       <div className="absolute inset-0 grid-pattern opacity-20" />
 
-      <div className="container mx-auto px-6 relative">
+      <div className="container mx-auto px-4 sm:px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl border border-emerald-400/50 text-white font-extrabold text-xs tracking-widest uppercase shadow-[0_0_30px_rgba(16,185,129,0.5)] mb-6 transition-all cursor-default"
+          <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl border border-emerald-400/50 text-white font-extrabold text-xs tracking-widest uppercase shadow-[0_0_30px_rgba(16,185,129,0.5)] mb-4 sm:mb-6 transition-all cursor-default"
             style={{ background: "linear-gradient(135deg,#10b981,#0ea5e9)" }}>
             <span className="bg-white/20 px-2 py-0.5 rounded-lg text-white">06</span> CONTACT
           </div>
-          <h2 className="text-[2.2rem] sm:text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-black mt-6 tracking-tighter leading-[0.9] text-slate-900 uppercase">
+          <h2 className="text-[2.2rem] sm:text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-black mt-4 sm:mt-6 tracking-tighter leading-[0.9] text-slate-900 uppercase">
             <span className="block drop-shadow-sm">LET'S</span>
             <em className="font-playfair italic font-medium lowercase tracking-normal text-transparent bg-clip-text text-[2.6rem] sm:text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] ml-2 sm:ml-8 md:ml-16 leading-none block pb-4 pt-1 -mb-3"
               style={{ backgroundImage: "linear-gradient(to right, #10b981, #0ea5e9)" }}>
@@ -65,35 +65,35 @@ const ContactSection = () => {
           </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-6"
+            className="space-y-5 sm:space-y-6"
           >
-            <p className="text-muted-foreground leading-relaxed text-lg font-medium">
+            <p className="text-muted-foreground leading-relaxed text-sm sm:text-base md:text-lg font-medium">
               Saya sangat terbuka untuk berdiskusi seputar literasi AI, rekayasa data, berkolaborasi inovasi, atau sekadar berbagi koneksi IT. Kirim pesan sekarang! 🚀
             </p>
 
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4">
               {socials.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-xl glass-card hover:border-primary/30 transition-all group hover:-translate-y-1"
+                  className="flex items-center gap-3.5 sm:gap-4 p-3.5 sm:p-4 rounded-xl glass-card hover:border-primary/30 transition-all group hover:-translate-y-1"
                 >
                   <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg"
+                    className="w-10 h-10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shrink-0"
                     style={{ background: item.bgGrad }}
                   >
                     <item.icon className="w-5 h-5 text-white" />
                   </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{item.label}</p>
-                    <p className="font-medium text-sm">{item.value}</p>
+                  <div className="min-w-0">
+                    <p className="text-xs sm:text-sm text-muted-foreground">{item.label}</p>
+                    <p className="font-medium text-xs sm:text-sm truncate">{item.value}</p>
                   </div>
                 </a>
               ))}
@@ -105,7 +105,7 @@ const ContactSection = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="glass-card rounded-2xl p-8 space-y-5"
+            className="glass-card rounded-2xl p-5 sm:p-8 space-y-4 sm:space-y-5"
           >
             <div>
               <label className="text-sm font-medium mb-1.5 block">Name</label>

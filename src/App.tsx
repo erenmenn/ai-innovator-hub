@@ -12,6 +12,7 @@ import Skills from "./pages/Skills.tsx";
 import Experience from "./pages/Experience.tsx";
 import Projects from "./pages/Projects.tsx";
 import Contact from "./pages/Contact.tsx";
+import Social from "./pages/Social.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -33,8 +34,8 @@ const App = () => (
               <Route path="/contact" element={<Contact />} />
               <Route path="/certificates" element={<Contact />} />
               <Route path="/awards" element={<Contact />} />
-              <Route path="/social" element={<Contact />} />
-              <Route path="/social-feed" element={<Contact />} />
+              <Route path="/social" element={<Social />} />
+              <Route path="/social-feed" element={<Social />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
