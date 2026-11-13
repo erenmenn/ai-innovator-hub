@@ -147,7 +147,8 @@ const stickers = [
   {
     src: "/asset/love.png",
     size: 100,
-    pos: { top: 80, left: 30 },
+    mobileClass: "w-14 h-14 sm:w-[100px] sm:h-[100px]",
+    pos: { top: "11%", left: "-2%" },
     glow: "rgba(255, 107, 138, 0.5)",
     animation: { y: [0, -15, 0], rotate: [-8, 8, -8] },
     duration: 4.5,
@@ -155,7 +156,8 @@ const stickers = [
   {
     src: "/asset/sparkle.png",
     size: 65,
-    pos: { top: 210, left: 35 },
+    mobileClass: "w-10 h-10 sm:w-[65px] sm:h-[65px]",
+    pos: { top: "36%", left: "1%" },
     glow: "rgba(255, 215, 71, 0.5)",
     animation: { scale: [1, 1.2, 1], rotate: [0, 20, 0] },
     duration: 4,
@@ -163,7 +165,8 @@ const stickers = [
   {
     src: "/asset/smile emoji.png",
     size: 85,
-    pos: { top: 185, right: 30 },
+    mobileClass: "w-12 h-12 sm:w-[85px] sm:h-[85px]",
+    pos: { top: "31%", right: "-1%" },
     glow: "rgba(64, 201, 127, 0.4)",
     animation: { rotate: [-15, 15, -15], y: [0, -10, 0] },
     duration: 5.5,
@@ -171,7 +174,8 @@ const stickers = [
   {
     src: "/asset/api.png",
     size: 115,
-    pos: { bottom: 85, right: 30 },
+    mobileClass: "w-16 h-16 sm:w-[115px] sm:h-[115px]",
+    pos: { bottom: "14%", right: "-1%" },
     glow: "rgba(247, 103, 7, 0.5)",
     animation: { scale: [1, 1.15, 1], y: [0, -12, 0] },
     duration: 3.5,
@@ -179,7 +183,8 @@ const stickers = [
   {
     src: "/asset/rocket.png",
     size: 75,
-    pos: { bottom: 165, left: 30 },
+    mobileClass: "w-11 h-11 sm:w-[75px] sm:h-[75px]",
+    pos: { bottom: "30%", left: "1%" },
     glow: "rgba(116, 143, 252, 0.5)",
     animation: { x: [0, -10, 0], y: [0, -20, 0] },
     duration: 6,
@@ -499,8 +504,8 @@ const HeroSection = () => {
                 </div>
               </motion.div>
 
-              {/* ── Raw PNG Stickers — visible on tablet/desktop ── */}
-              <div className="hidden sm:block">
+              {/* ── Raw PNG Stickers — visible on BOTH mobile & desktop ── */}
+              <div>
                 {stickers.map((s, i) => (
                   <motion.div
                     key={i}
@@ -519,11 +524,11 @@ const HeroSection = () => {
                         ? { duration: s.duration * 1.5, repeat: Infinity, ease: "easeInOut" }
                         : undefined,
                     }}
-                    className="absolute z-30 pointer-events-none select-none flex items-center justify-center p-2"
+                    className="absolute z-30 pointer-events-none select-none flex items-center justify-center p-1 sm:p-2"
                     style={{ ...s.pos }}
                   >
                     <div
-                      className="absolute inset-0 rounded-full blur-2xl opacity-50"
+                      className="absolute inset-0 rounded-full blur-xl sm:blur-2xl opacity-50"
                       style={{ backgroundColor: s.glow, transform: "scale(0.8)" }}
                     />
                     <img
@@ -531,7 +536,7 @@ const HeroSection = () => {
                       alt="Sticker"
                       width={s.size}
                       height={s.size}
-                      className="relative z-10 object-contain drop-shadow-2xl"
+                      className={`relative z-10 object-contain drop-shadow-2xl ${s.mobileClass}`}
                     />
                   </motion.div>
                 ))}

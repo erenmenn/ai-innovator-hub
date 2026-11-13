@@ -557,8 +557,8 @@ const ExperienceSection = () => {
             </div>
           </div>
 
-          {/* Layout Switcher: Editorial Magazine vs Compact Bento Grid */}
-          <div className="inline-flex items-center gap-1 p-1.5 rounded-2xl bg-white/90 backdrop-blur-xl border-2 border-slate-200/80 shadow-md shrink-0">
+          {/* Layout Switcher: Editorial Magazine vs Compact Bento Grid (Desktop/Tablet) */}
+          <div className="hidden md:inline-flex items-center gap-1 p-1.5 rounded-2xl bg-white/90 backdrop-blur-xl border-2 border-slate-200/80 shadow-md shrink-0">
             <button
               onClick={() => setViewMode("editorial")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-extrabold transition-all ${
@@ -585,8 +585,91 @@ const ExperienceSection = () => {
         </div>
 
         {/* ══════════════════════════════════════════════════════════════
-            MODE 1: LUXURY EDITORIAL SHOWCASE VIEW (DEFAULT)
+            MOBILE COMPACT 2-COLUMN GRID (2-BY-2 ON ANDROID & IPHONE)
         ══════════════════════════════════════════════════════════════ */}
+        <motion.div layout className="grid grid-cols-2 gap-3 sm:gap-4 md:hidden">
+          <AnimatePresence mode="popLayout">
+            {filteredChapters.map((chapter, idx) => (
+              <motion.div
+                layout
+                key={`mob-${chapter.id}`}
+                initial={{ opacity: 0, scale: 0.95, y: 14 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.25, delay: idx * 0.03 }}
+                onClick={() => setSelectedChapterModal(chapter)}
+                className="group rounded-2xl bg-white border border-slate-200/90 shadow-md overflow-hidden flex flex-col justify-between cursor-pointer active:scale-[0.98] transition-all"
+              >
+                <div>
+                  <div
+                    className="h-1 w-full"
+                    style={{
+                      background: `linear-gradient(90deg, ${chapter.gradFrom}, ${chapter.gradTo})`,
+                    }}
+                  />
+
+                  <div className="relative h-28 sm:h-36 w-full overflow-hidden bg-slate-900">
+                    <img
+                      src={chapter.image}
+                      alt={chapter.title}
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: chapter.imagePosition || "center center" }}
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent" />
+
+                    <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1">
+                      <span
+                        className="px-2 py-0.5 rounded-full text-[8px] font-black text-white uppercase tracking-wider shadow-xs truncate"
+                        style={{
+                          background: `linear-gradient(135deg, ${chapter.gradFrom}, ${chapter.gradTo})`,
+                        }}
+                      >
+                        {chapter.chapterNum} • {chapter.year}
+                      </span>
+                    </div>
+
+                    <div className="absolute bottom-1.5 inset-x-2">
+                      <span className="text-[8.5px] font-extrabold text-amber-300 truncate block">
+                        ★ {chapter.highlightMetric}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-2.5 sm:p-3.5">
+                    <span
+                      className="text-[8px] font-black uppercase tracking-wider block truncate mb-0.5"
+                      style={{ color: chapter.color }}
+                    >
+                      {chapter.categoryLabel}
+                    </span>
+                    <h3 className="font-black text-[11.5px] sm:text-sm text-slate-900 leading-tight line-clamp-2">
+                      {chapter.title}
+                    </h3>
+                    <p className="text-[9.5px] font-bold text-slate-500 mt-0.5 line-clamp-1">
+                      {chapter.role}
+                    </p>
+                    <p className="text-[10px] text-slate-600 line-clamp-2 leading-snug mt-1">
+                      {chapter.description}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="px-2.5 py-2 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-[9.5px] font-extrabold text-violet-600">
+                  <span>{chapter.branches.length} Fokus</span>
+                  <span className="inline-flex items-center gap-0.5">
+                    Detail <ArrowUpRight className="w-3 h-3" />
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* ══════════════════════════════════════════════════════════════
+            DESKTOP / TABLET VIEW (SHOWCASE OR BENTO GRID)
+        ══════════════════════════════════════════════════════════════ */}
+        <div className="hidden md:block">
         {viewMode === "editorial" ? (
           <div className="space-y-8 sm:space-y-12">
             <AnimatePresence mode="popLayout">
@@ -955,6 +1038,7 @@ const ExperienceSection = () => {
             </AnimatePresence>
           </motion.div>
         )}
+        </div>
       </div>
 
       {/* ══ MODAL 1: FULL CHAPTER DETAIL DRAWER / MODAL ══ */}

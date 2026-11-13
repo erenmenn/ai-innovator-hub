@@ -498,7 +498,7 @@ const CertificatesSection = () => {
               </div>
             </div>
 
-            <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            <motion.div layout className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
               <AnimatePresence mode="popLayout">
                 {filteredMain.map((cert, index) => (
                   <motion.div
@@ -507,39 +507,39 @@ const CertificatesSection = () => {
                     initial={{ opacity: 0, scale: 0.96, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: -15 }}
-                    transition={{ duration: 0.35, delay: index * 0.05 }}
+                    transition={{ duration: 0.35, delay: index * 0.04 }}
                     onClick={() => setSelectedCert(cert)}
-                    className="flex flex-col justify-between rounded-3xl border-2 border-slate-100 bg-white hover:border-violet-300 transition-all duration-300 shadow-lg hover:shadow-2xl group overflow-hidden cursor-pointer hover:-translate-y-1"
+                    className="flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-slate-200/90 sm:border-2 sm:border-slate-100 bg-white hover:border-violet-300 transition-all duration-300 shadow-md sm:shadow-lg hover:shadow-2xl group overflow-hidden cursor-pointer hover:-translate-y-1"
                   >
                     <div>
                       <div
-                        className="h-1.5 w-full"
+                        className="h-1 sm:h-1.5 w-full"
                         style={{
                           background: `linear-gradient(90deg, ${cert.accentFrom}, ${cert.accentTo})`,
                         }}
                       />
 
-                      <div className="relative aspect-[16/10] w-full bg-slate-900/5 overflow-hidden border-b border-slate-100 flex items-center justify-center p-2 sm:p-3">
+                      <div className="relative aspect-[16/10] w-full bg-slate-900/5 overflow-hidden border-b border-slate-100 flex items-center justify-center p-1.5 sm:p-3">
                         <img
                           src={cert.image}
                           alt={cert.title}
-                          className="w-full h-full object-contain rounded-xl shadow-sm transition-transform duration-500 group-hover:scale-[1.03]"
+                          className="w-full h-full object-contain rounded-lg sm:rounded-xl shadow-xs transition-transform duration-500 group-hover:scale-[1.03]"
                           loading="lazy"
                         />
 
-                        <div className="absolute top-3 left-3 z-10">
+                        <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
                           <span
-                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9.5px] font-black text-white uppercase tracking-wider shadow-md"
+                            className="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[8px] sm:text-[9.5px] font-black text-white uppercase tracking-wider shadow-md"
                             style={{
                               background: `linear-gradient(135deg, ${cert.accentFrom}, ${cert.accentTo})`,
                             }}
                           >
-                            <ShieldCheck className="w-3 h-3" />
-                            <span>{cert.badgeText}</span>
+                            <ShieldCheck className="w-2.5 h-2.5 sm:w-3 sm:h-3 shrink-0" />
+                            <span className="truncate max-w-[105px] sm:max-w-none">{cert.badgeText}</span>
                           </span>
                         </div>
 
-                        <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 transition-colors duration-300 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 transition-colors duration-300 hidden sm:flex items-center justify-center">
                           <div className="opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 bg-white/95 text-slate-900 px-3.5 py-2 rounded-full text-xs font-extrabold shadow-xl flex items-center gap-1.5">
                             <ZoomIn className="w-3.5 h-3.5 text-violet-600" />
                             <span>Lihat Sertifikat Penuh</span>
@@ -547,10 +547,10 @@ const CertificatesSection = () => {
                         </div>
                       </div>
 
-                      <div className="p-4 sm:p-5 pb-3.5">
-                        <div className="flex items-start gap-2.5 mb-2">
+                      <div className="p-2.5 sm:p-5 pb-2.5 sm:pb-3.5">
+                        <div className="flex items-start gap-2 sm:gap-2.5 mb-1.5 sm:mb-2">
                           <div
-                            className="w-8 h-8 rounded-xl flex items-center justify-center text-white shrink-0 shadow-sm mt-0.5"
+                            className="hidden sm:flex w-8 h-8 rounded-xl items-center justify-center text-white shrink-0 shadow-sm mt-0.5"
                             style={{
                               background: `linear-gradient(135deg, ${cert.accentFrom}, ${cert.accentTo})`,
                             }}
@@ -558,17 +558,17 @@ const CertificatesSection = () => {
                             <Award className="w-4 h-4" />
                           </div>
                           <div className="min-w-0">
-                            <span className="text-[9.5px] font-extrabold text-slate-400 uppercase tracking-widest block truncate">
+                            <span className="text-[8px] sm:text-[9.5px] font-extrabold text-slate-400 uppercase tracking-wider sm:tracking-widest block truncate">
                               {cert.issuer}
                             </span>
-                            <h3 className="font-black text-sm sm:text-[15px] text-slate-900 leading-snug line-clamp-2 group-hover:text-violet-600 transition-colors">
+                            <h3 className="font-black text-[11px] sm:text-[15px] text-slate-900 leading-tight sm:leading-snug line-clamp-2 group-hover:text-violet-600 transition-colors">
                               {cert.title}
                             </h3>
                           </div>
                         </div>
 
                         {cert.metaBadges && cert.metaBadges.length > 0 && (
-                          <div className="flex flex-wrap gap-1 mb-2">
+                          <div className="hidden sm:flex flex-wrap gap-1 mb-2">
                             {cert.metaBadges.map((badge, bIdx) => (
                               <span
                                 key={bIdx}
@@ -581,19 +581,33 @@ const CertificatesSection = () => {
                           </div>
                         )}
 
-                        <p className="text-[11.5px] text-slate-600 leading-relaxed mb-3 line-clamp-2">
+                        <p className="text-[10px] sm:text-[11.5px] text-slate-600 leading-snug sm:leading-relaxed mb-2 sm:mb-3 line-clamp-2">
                           {cert.description}
                         </p>
 
+                        {/* Mobile: Top 2 Skills | Desktop: All 6 Skills */}
                         <div className="space-y-1">
-                          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">
+                          <span className="hidden sm:block text-[9px] font-black uppercase tracking-wider text-slate-400">
                             Skills &amp; Kompetensi ({cert.skills.length})
                           </span>
                           <div className="flex flex-wrap gap-1">
+                            {cert.skills.slice(0, 2).map((skill, sIdx) => (
+                              <span
+                                key={`m-${sIdx}`}
+                                className="sm:hidden text-[8.5px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 truncate max-w-full"
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                            {cert.skills.length > 2 && (
+                              <span className="sm:hidden text-[8.5px] font-extrabold px-1.5 py-0.5 rounded bg-violet-50 text-violet-600">
+                                +{cert.skills.length - 2}
+                              </span>
+                            )}
                             {cert.skills.map((skill, sIdx) => (
                               <span
-                                key={sIdx}
-                                className="text-[9.5px] font-bold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 leading-snug"
+                                key={`d-${sIdx}`}
+                                className="hidden sm:inline-block text-[9.5px] font-bold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 leading-snug"
                               >
                                 {skill}
                               </span>
@@ -603,14 +617,14 @@ const CertificatesSection = () => {
                       </div>
                     </div>
 
-                    <div className="p-3.5 px-4 sm:px-6 border-t border-slate-100 bg-slate-50/60 flex items-center justify-between gap-2 text-xs text-slate-500">
-                      <div className="flex items-center gap-1.5 text-[11px] font-semibold shrink-0">
-                        <Calendar className="w-3.5 h-3.5 text-violet-500" />
-                        <span>{cert.date}</span>
+                    <div className="p-2 px-2.5 sm:p-3.5 sm:px-6 border-t border-slate-100 bg-slate-50/60 flex items-center justify-between gap-1 text-[9.5px] sm:text-xs text-slate-500">
+                      <div className="flex items-center gap-1 text-[9px] sm:text-[11px] font-semibold truncate">
+                        <Calendar className="w-3 h-3 text-violet-500 shrink-0" />
+                        <span className="truncate">{cert.date}</span>
                       </div>
 
                       {cert.credentialId && (
-                        <span className="text-[10px] font-mono font-bold text-slate-500 bg-white border border-slate-200/80 px-2 py-0.5 rounded-md truncate max-w-[180px] sm:max-w-[220px]">
+                        <span className="hidden sm:inline-block text-[10px] font-mono font-bold text-slate-500 bg-white border border-slate-200/80 px-2 py-0.5 rounded-md truncate max-w-[180px]">
                           ID: {cert.credentialId}
                         </span>
                       )}
@@ -675,7 +689,7 @@ const CertificatesSection = () => {
             {/* Dicoding Certificates Grid */}
             <motion.div
               layout
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"
+              className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6"
             >
               <AnimatePresence mode="popLayout">
                 {dicodingCertificates.map((cert, index) => (
@@ -687,38 +701,38 @@ const CertificatesSection = () => {
                     exit={{ opacity: 0, scale: 0.95, y: -15 }}
                     transition={{ duration: 0.35, delay: index * 0.05 }}
                     onClick={() => setSelectedCert(cert)}
-                    className="flex flex-col justify-between rounded-3xl border-2 border-slate-100 bg-white hover:border-sky-300 transition-all duration-300 shadow-md hover:shadow-2xl group overflow-hidden cursor-pointer hover:-translate-y-1"
+                    className="flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-slate-200/90 sm:border-2 sm:border-slate-100 bg-white hover:border-sky-300 transition-all duration-300 shadow-md hover:shadow-2xl group overflow-hidden cursor-pointer hover:-translate-y-1"
                   >
                     <div>
                       <div
-                        className="h-1.5 w-full"
+                        className="h-1 sm:h-1.5 w-full"
                         style={{
                           background: `linear-gradient(90deg, ${cert.accentFrom}, ${cert.accentTo})`,
                         }}
                       />
 
                       {/* Certificate Image */}
-                      <div className="relative aspect-[16/11] w-full bg-slate-900/5 overflow-hidden border-b border-slate-100 flex items-center justify-center p-2">
+                      <div className="relative aspect-[16/11] w-full bg-slate-900/5 overflow-hidden border-b border-slate-100 flex items-center justify-center p-1.5 sm:p-2">
                         <img
                           src={cert.image}
                           alt={cert.title}
-                          className="w-full h-full object-contain rounded-xl shadow-xs transition-transform duration-500 group-hover:scale-[1.03]"
+                          className="w-full h-full object-contain rounded-lg sm:rounded-xl shadow-xs transition-transform duration-500 group-hover:scale-[1.03]"
                           loading="lazy"
                         />
 
-                        <div className="absolute top-2.5 left-2.5 z-10">
+                        <div className="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 z-10">
                           <span
-                            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] font-black text-white uppercase tracking-wider shadow-sm"
+                            className="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 rounded-full text-[7.5px] sm:text-[9px] font-black text-white uppercase tracking-wider shadow-sm"
                             style={{
                               background: `linear-gradient(135deg, ${cert.accentFrom}, ${cert.accentTo})`,
                             }}
                           >
-                            <ShieldCheck className="w-2.5 h-2.5" />
-                            <span>{cert.badgeText}</span>
+                            <ShieldCheck className="w-2.5 h-2.5 shrink-0" />
+                            <span className="truncate max-w-[100px] sm:max-w-none">{cert.badgeText}</span>
                           </span>
                         </div>
 
-                        <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 transition-colors duration-300 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 transition-colors duration-300 hidden sm:flex items-center justify-center">
                           <div className="opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 bg-white/95 text-slate-900 px-3 py-1.5 rounded-full text-[11px] font-extrabold shadow-xl flex items-center gap-1.5">
                             <ZoomIn className="w-3.5 h-3.5 text-sky-600" />
                             <span>Perbesar</span>
@@ -727,22 +741,30 @@ const CertificatesSection = () => {
                       </div>
 
                       {/* Card Body */}
-                      <div className="p-4 sm:p-5 pb-3">
-                        <span className="text-[9px] font-extrabold text-sky-600 uppercase tracking-widest block mb-1">
+                      <div className="p-2.5 sm:p-5 pb-2.5 sm:pb-3">
+                        <span className="text-[8px] sm:text-[9px] font-extrabold text-sky-600 uppercase tracking-wider sm:tracking-widest block truncate mb-0.5 sm:mb-1">
                           {cert.issuer}
                         </span>
-                        <h4 className="font-black text-sm sm:text-[15px] text-slate-900 leading-snug mb-2 group-hover:text-sky-600 transition-colors">
+                        <h4 className="font-black text-[11px] sm:text-[15px] text-slate-900 leading-tight sm:leading-snug mb-1.5 sm:mb-2 line-clamp-2 group-hover:text-sky-600 transition-colors">
                           {cert.title}
                         </h4>
-                        <p className="text-[11.5px] text-slate-600 leading-relaxed mb-3">
+                        <p className="text-[10px] sm:text-[11.5px] text-slate-600 leading-snug sm:leading-relaxed mb-2 sm:mb-3 line-clamp-2">
                           {cert.description}
                         </p>
 
                         <div className="flex flex-wrap gap-1">
+                          {cert.skills.slice(0, 2).map((skill, sIdx) => (
+                            <span
+                              key={`m-${sIdx}`}
+                              className="sm:hidden text-[8.5px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 truncate"
+                            >
+                              {skill}
+                            </span>
+                          ))}
                           {cert.skills.map((skill, sIdx) => (
                             <span
-                              key={sIdx}
-                              className="text-[9px] font-bold px-2 py-0.5 rounded-md bg-slate-100 text-slate-600"
+                              key={`d-${sIdx}`}
+                              className="hidden sm:inline-block text-[9px] font-bold px-2 py-0.5 rounded-md bg-slate-100 text-slate-600"
                             >
                               {skill}
                             </span>
@@ -752,8 +774,8 @@ const CertificatesSection = () => {
                     </div>
 
                     {/* Footer */}
-                    <div className="p-3 px-4 sm:px-5 border-t border-slate-100 bg-slate-50/70 flex items-center justify-between gap-2 text-[11px] text-slate-500">
-                      <span className="font-mono font-bold text-[10px] text-slate-600 bg-white border border-slate-200/80 px-2 py-0.5 rounded">
+                    <div className="p-2 px-2.5 sm:p-3 sm:px-5 border-t border-slate-100 bg-slate-50/70 flex items-center justify-between gap-1.5 text-[10px] sm:text-[11px] text-slate-500">
+                      <span className="font-mono font-bold text-[8.5px] sm:text-[10px] text-slate-600 bg-white border border-slate-200/80 px-1.5 sm:px-2 py-0.5 rounded truncate">
                         {cert.credentialId}
                       </span>
 
@@ -763,11 +785,11 @@ const CertificatesSection = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1 text-[10px] font-extrabold text-sky-600 hover:text-sky-700"
+                          className="inline-flex items-center gap-0.5 sm:gap-1 text-[9px] sm:text-[10px] font-extrabold text-sky-600 hover:text-sky-700 shrink-0"
                           title="Verifikasi di Dicoding"
                         >
                           <span>Verifikasi</span>
-                          <ExternalLink className="w-3 h-3" />
+                          <ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                         </a>
                       )}
                     </div>

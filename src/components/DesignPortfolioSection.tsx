@@ -281,8 +281,8 @@ const DesignPortfolioSection = () => {
           </p>
         </motion.div>
 
-        {/* ── Cards — cute sticker style ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {/* ── Cards — cute sticker style (2-by-2 on mobile, 3-col on desktop) ── */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-8 max-w-5xl mx-auto">
           {designWorks.map((work, i) => (
             <motion.div
               key={work.title}
@@ -296,21 +296,21 @@ const DesignPortfolioSection = () => {
             >
               {/* Card */}
               <div
-                className="relative rounded-3xl overflow-hidden bg-white"
+                className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-white h-full flex flex-col justify-between"
                 style={{
-                  border: `3px solid ${work.accent}25`,
-                  boxShadow: `6px 8px 0px ${work.accent}30, 0 2px 20px ${work.accent}12`
+                  border: `2.5px solid ${work.accent}25`,
+                  boxShadow: `4px 6px 0px ${work.accent}30, 0 2px 20px ${work.accent}12`
                 }}
               >
                 {/* Image — uniform height */}
-                <div className="relative w-full h-52 overflow-hidden">
+                <div className="relative w-full h-32 sm:h-52 overflow-hidden shrink-0">
                   <img src={work.asset} alt={work.title}
                     className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-700" />
                   {/* Soft color tint */}
                   <div className="absolute inset-0 opacity-15 group-hover:opacity-30 transition-opacity duration-400"
                     style={{ background: `linear-gradient(135deg, ${work.gradFrom}, ${work.gradTo})`, mixBlendMode: "multiply" }} />
                   {/* "Click to view" on hover */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-all duration-300">
+                  <div className="absolute inset-0 hidden sm:flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-all duration-300">
                     <div className="opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 bg-white/90 backdrop-blur-sm rounded-2xl px-4 py-2.5 flex items-center gap-2 shadow-lg">
                       <ImageIcon className="w-4 h-4" style={{ color: work.accent }} />
                       <span className="font-pixel text-[9px] uppercase tracking-widest" style={{ color: work.accent }}>
@@ -321,32 +321,34 @@ const DesignPortfolioSection = () => {
                 </div>
 
                 {/* Card body */}
-                <div className="p-5">
-                  {/* Badge row — cute sticker style */}
-                  <div className="flex items-center justify-between mb-3">
-                    <span
-                      className="text-[8px] font-pixel px-3 py-1.5 rounded-full border-2 font-bold tracking-widest"
-                      style={{ color: work.accent, borderColor: `${work.accent}30`, backgroundColor: work.badgeBg }}
-                    >
-                      {work.sticker} {work.badge}
-                    </span>
-                    <span className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-black"
-                      style={{ background: `linear-gradient(135deg, ${work.gradFrom}, ${work.gradTo})` }}>
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
+                <div className="p-3 sm:p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    {/* Badge row — cute sticker style */}
+                    <div className="flex items-center justify-between mb-2 sm:mb-3 gap-1">
+                      <span
+                        className="text-[7px] sm:text-[8px] font-pixel px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border sm:border-2 font-bold tracking-wider sm:tracking-widest truncate"
+                        style={{ color: work.accent, borderColor: `${work.accent}30`, backgroundColor: work.badgeBg }}
+                      >
+                        {work.sticker} {work.badge}
+                      </span>
+                      <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-white text-[9px] sm:text-xs font-black shrink-0"
+                        style={{ background: `linear-gradient(135deg, ${work.gradFrom}, ${work.gradTo})` }}>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+
+                    {/* Gradient accent line */}
+                    <div className="w-6 sm:w-8 h-1 rounded-full mb-2 sm:mb-3" style={{ background: `linear-gradient(90deg, ${work.gradFrom}, ${work.gradTo})` }} />
+
+                    <h3 className="font-black text-slate-800 text-xs sm:text-base leading-snug mb-0.5 sm:mb-1 line-clamp-2">{work.title}</h3>
+                    <p className="text-[8px] sm:text-[10px] font-pixel text-slate-400 uppercase tracking-wider sm:tracking-widest mb-1.5 sm:mb-3 truncate">{work.subtitle}</p>
+                    <p className="text-[10px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed line-clamp-2">{work.description}</p>
                   </div>
 
-                  {/* Gradient accent line */}
-                  <div className="w-8 h-1 rounded-full mb-3" style={{ background: `linear-gradient(90deg, ${work.gradFrom}, ${work.gradTo})` }} />
-
-                  <h3 className="font-black text-slate-800 text-base leading-snug mb-1">{work.title}</h3>
-                  <p className="text-[10px] font-pixel text-slate-400 uppercase tracking-widest mb-3">{work.subtitle}</p>
-                  <p className="text-xs text-slate-500 leading-relaxed line-clamp-2">{work.description}</p>
-
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-1.5 mt-3">
-                    {work.tags.map((tag) => (
-                      <span key={tag} className="text-[9px] font-pixel px-2.5 py-1 rounded-lg text-white tracking-widest"
+                  <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-2 sm:mt-3">
+                    {work.tags.slice(0, 2).map((tag) => (
+                      <span key={tag} className="text-[7.5px] sm:text-[9px] font-pixel px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md sm:rounded-lg text-white tracking-wider sm:tracking-widest"
                         style={{ background: `linear-gradient(135deg, ${work.gradFrom}cc, ${work.gradTo}cc)` }}>
                         {tag}
                       </span>
