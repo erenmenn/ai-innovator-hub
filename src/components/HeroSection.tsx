@@ -65,10 +65,10 @@ const keychainHeroAssets = [
     src: "/asset/keychain/keychain_star.png",
     alt: "Gemini Rainbow Star Keychain",
     className:
-      "w-16 h-16 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 -left-4 sm:-left-12 md:-left-20 lg:-left-28 top-1 sm:top-2",
+      "w-12 h-12 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 -left-1 sm:-left-12 md:-left-20 lg:-left-28 -top-3 sm:top-2",
     initialRotate: -14,
     animate: {
-      y: [0, -14, 0],
+      y: [0, -12, 0],
       rotate: [-14, -6, -14],
       scale: [1, 1.05, 1],
     },
@@ -78,10 +78,10 @@ const keychainHeroAssets = [
     src: "/asset/keychain/keychain_bulb.png",
     alt: "Voxel Lightbulb Gemini Keychain",
     className:
-      "w-16 h-20 sm:w-24 sm:h-28 md:w-28 md:h-32 lg:w-32 lg:h-36 -right-3 sm:-right-12 md:-right-20 lg:-right-28 top-6 sm:top-8",
+      "w-12 h-15 sm:w-24 sm:h-28 md:w-28 md:h-32 lg:w-32 lg:h-36 -right-1 sm:-right-12 md:-right-20 lg:-right-28 top-4 sm:top-8",
     initialRotate: 12,
     animate: {
-      y: [0, -16, 0],
+      y: [0, -14, 0],
       rotate: [12, 4, 12],
       scale: [1, 1.06, 1],
     },
@@ -91,10 +91,10 @@ const keychainHeroAssets = [
     src: "/asset/keychain/keychain_pc.png",
     alt: "Orange Retro AI Computer Keychain",
     className:
-      "w-16 h-16 sm:w-22 sm:h-22 md:w-24 md:h-24 lg:w-28 lg:h-28 -left-2 sm:-left-10 md:-left-16 lg:-left-22 -bottom-5 sm:-bottom-4",
+      "w-12 h-12 sm:w-22 sm:h-22 md:w-24 md:h-24 lg:w-28 lg:h-28 left-0 sm:-left-10 md:-left-16 lg:-left-22 -bottom-6 sm:-bottom-4",
     initialRotate: -8,
     animate: {
-      y: [0, -12, 0],
+      y: [0, -10, 0],
       rotate: [-8, 5, -8],
       scale: [1, 1.05, 1],
     },
@@ -282,7 +282,7 @@ const HeroSection = () => {
       {/* ══════════════════════════════════════════════════════════════════
           PART 0: GOOGLE-STYLE OPENING SPLASH (SMOOTH BLUE-TO-WHITE GRADIENT + CONFETTI)
       ══════════════════════════════════════════════════════════════════ */}
-      <div className="relative w-full min-h-[90vh] sm:min-h-[94vh] flex flex-col items-center justify-center pt-28 sm:pt-32 pb-28 sm:pb-36 px-4 overflow-hidden">
+      <div className="relative w-full min-h-[82vh] sm:min-h-[94vh] flex flex-col items-center justify-center pt-24 sm:pt-32 pb-20 sm:pb-36 px-3 sm:px-4 overflow-hidden">
         {/* ── Ultra-Smooth Blue-to-Light-Blue-to-White Gradient (Never Dark at Bottom) ── */}
         <div
           className="absolute inset-0 pointer-events-none z-0"
@@ -344,7 +344,7 @@ const HeroSection = () => {
         {/* ── Main Centered Typography + Floating 3D Keychain Assets (No Glow) ── */}
         <div className="relative z-20 max-w-4xl mx-auto text-center flex flex-col items-center">
           {/* Headline Wrapper with Floating 3D Keychains */}
-          <div className="relative inline-block px-6 sm:px-12 md:px-16 py-2">
+          <div className="relative inline-block px-10 sm:px-14 md:px-16 py-2 max-w-full">
             {/* Floating 3D Keychain Assets from Google Drive — Crisp without Glow */}
             {keychainHeroAssets.map((item, idx) => (
               <motion.div
@@ -389,7 +389,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-extrabold uppercase tracking-[-0.03em] leading-[1.04] text-[2.35rem] sm:text-[4rem] md:text-[5.1rem] lg:text-[5.9rem] drop-shadow-[0_4px_16px_rgba(15,52,130,0.22)] select-none"
+              className="font-display font-extrabold uppercase tracking-[-0.03em] leading-[1.05] text-[2.05rem] sm:text-[4rem] md:text-[5.1rem] lg:text-[5.9rem] drop-shadow-[0_4px_16px_rgba(15,52,130,0.22)] select-none"
             >
               <span className="block text-white">
                 HELLO,{" "}

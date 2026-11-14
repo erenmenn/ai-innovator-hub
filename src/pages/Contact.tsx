@@ -8,7 +8,7 @@ const Contact = () => {
   }, []);
 
   return (
-    <div className="pt-16 sm:pt-24 min-h-screen">
+    <div className="pt-16 sm:pt-24 min-h-screen pixel-grid">
       <CertificatesSection />
       <ContactSection />
     </div>

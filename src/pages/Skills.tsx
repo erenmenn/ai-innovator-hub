@@ -7,7 +7,7 @@ const Skills = () => {
   }, []);
 
   return (
-    <div className="pt-16 sm:pt-24 min-h-screen">
+    <div className="pt-16 sm:pt-24 min-h-screen pixel-grid">
       <SkillsSection />
     </div>
   );

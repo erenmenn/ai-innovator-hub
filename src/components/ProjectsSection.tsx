@@ -332,7 +332,7 @@ const ProjectsSection = () => {
     });
 
   return (
-    <section id="projects" className="py-16 sm:py-24 relative overflow-hidden pixel-grid" style={{ background: "#f8fafc" }}>
+    <section id="projects" className="py-14 sm:py-24 relative overflow-hidden pixel-grid">
 
       {/* ── Animated colorful smoke glows ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
