@@ -59,7 +59,7 @@ const ROLES = [
   },
 ];
 
-/* ─── Keychain Floating Assets for the Top Blue Splash ─── */
+/* ─── Keychain Floating Assets for the Top Blue Splash (No Glow) ─── */
 const keychainHeroAssets = [
   {
     src: "/asset/keychain/keychain_star.png",
@@ -73,7 +73,6 @@ const keychainHeroAssets = [
       scale: [1, 1.05, 1],
     },
     duration: 4.2,
-    glow: "rgba(251, 191, 36, 0.45)",
   },
   {
     src: "/asset/keychain/keychain_bulb.png",
@@ -87,7 +86,6 @@ const keychainHeroAssets = [
       scale: [1, 1.06, 1],
     },
     duration: 4.8,
-    glow: "rgba(56, 189, 248, 0.5)",
   },
   {
     src: "/asset/keychain/keychain_pc.png",
@@ -101,8 +99,31 @@ const keychainHeroAssets = [
       scale: [1, 1.05, 1],
     },
     duration: 5.1,
-    glow: "rgba(249, 115, 22, 0.45)",
   },
+];
+
+/* ─── Festive Confetti Pieces for the Opening Hero ─── */
+const confettiPieces = [
+  { left: "4%", top: "14%", color: "#fde047", shape: "rect", w: 12, h: 6, rot: 25, dur: 5.2, delay: 0.1 },
+  { left: "9%", top: "34%", color: "#f472b6", shape: "circle", w: 9, h: 9, rot: 0, dur: 6.1, delay: 0.5 },
+  { left: "14%", top: "18%", color: "#34d399", shape: "rect", w: 14, h: 6, rot: -32, dur: 4.8, delay: 0.2 },
+  { left: "18%", top: "58%", color: "#fb923c", shape: "diamond", w: 10, h: 10, rot: 45, dur: 5.6, delay: 0.9 },
+  { left: "23%", top: "12%", color: "#ffffff", shape: "circle", w: 8, h: 8, rot: 0, dur: 4.5, delay: 0.4 },
+  { left: "28%", top: "72%", color: "#fde047", shape: "rect", w: 13, h: 5, rot: 18, dur: 5.9, delay: 1.1 },
+  { left: "33%", top: "15%", color: "#38bdf8", shape: "rect", w: 12, h: 5, rot: -22, dur: 5.3, delay: 0.7 },
+  { left: "39%", top: "10%", color: "#fb7185", shape: "diamond", w: 9, h: 9, rot: 45, dur: 4.9, delay: 0.3 },
+  { left: "46%", top: "13%", color: "#fde047", shape: "circle", w: 8, h: 8, rot: 0, dur: 5.7, delay: 0.8 },
+  { left: "54%", top: "11%", color: "#4ade80", shape: "rect", w: 13, h: 5, rot: 35, dur: 5.0, delay: 0.2 },
+  { left: "61%", top: "14%", color: "#f472b6", shape: "rect", w: 11, h: 5, rot: -28, dur: 6.2, delay: 0.6 },
+  { left: "68%", top: "12%", color: "#fde047", shape: "diamond", w: 10, h: 10, rot: 45, dur: 4.7, delay: 0.4 },
+  { left: "74%", top: "20%", color: "#ffffff", shape: "circle", w: 9, h: 9, rot: 0, dur: 5.4, delay: 1.0 },
+  { left: "79%", top: "62%", color: "#34d399", shape: "rect", w: 14, h: 6, rot: 22, dur: 5.8, delay: 0.3 },
+  { left: "84%", top: "16%", color: "#fb923c", shape: "rect", w: 12, h: 6, rot: -40, dur: 4.6, delay: 0.5 },
+  { left: "89%", top: "38%", color: "#fde047", shape: "circle", w: 10, h: 10, rot: 0, dur: 6.0, delay: 0.9 },
+  { left: "93%", top: "22%", color: "#f472b6", shape: "diamond", w: 11, h: 11, rot: 45, dur: 5.1, delay: 0.2 },
+  { left: "95%", top: "54%", color: "#38bdf8", shape: "rect", w: 13, h: 5, rot: 28, dur: 5.5, delay: 0.7 },
+  { left: "7%", top: "68%", color: "#a78bfa", shape: "rect", w: 12, h: 5, rot: -18, dur: 5.3, delay: 0.6 },
+  { left: "91%", top: "70%", color: "#4ade80", shape: "rect", w: 12, h: 5, rot: 15, dur: 5.7, delay: 0.4 },
 ];
 
 /* ─── Social Links ─── */
@@ -259,49 +280,72 @@ const HeroSection = () => {
   return (
     <section id="home" className="relative overflow-hidden pixel-grid">
       {/* ══════════════════════════════════════════════════════════════════
-          PART 0: GOOGLE-STYLE OPENING SPLASH (BLUE MASKED & BLENDED INTO WHITE)
+          PART 0: GOOGLE-STYLE OPENING SPLASH (SMOOTH BLUE-TO-WHITE GRADIENT + CONFETTI)
       ══════════════════════════════════════════════════════════════════ */}
-      <div className="relative w-full min-h-[92vh] sm:min-h-[96vh] flex flex-col items-center justify-center pt-28 sm:pt-32 pb-28 sm:pb-36 px-4 overflow-hidden">
-        {/* ── Masked Blue Background that Blends Smoothly into the White Background ── */}
+      <div className="relative w-full min-h-[90vh] sm:min-h-[94vh] flex flex-col items-center justify-center pt-28 sm:pt-32 pb-28 sm:pb-36 px-4 overflow-hidden">
+        {/* ── Ultra-Smooth Blue-to-Light-Blue-to-White Gradient (Never Dark at Bottom) ── */}
         <div
           className="absolute inset-0 pointer-events-none z-0"
           style={{
             background:
-              "linear-gradient(180deg, #1b74e8 0%, #1659c7 38%, #0c347a 68%, #1e4ea8 84%, rgba(255,255,255,0) 100%)",
+              "linear-gradient(180deg, #1358d4 0%, #1a6ce8 26%, #2b82f6 48%, #5ba4fc 68%, #9fd0ff 82%, #ddf0ff 92%, rgba(255,255,255,0) 100%)",
             WebkitMaskImage:
-              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0.55) 86%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 54%, rgba(0,0,0,0.78) 72%, rgba(0,0,0,0.35) 88%, rgba(0,0,0,0) 100%)",
             maskImage:
-              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0.55) 86%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 54%, rgba(0,0,0,0.78) 72%, rgba(0,0,0,0.35) 88%, rgba(0,0,0,0) 100%)",
           }}
         />
 
-        {/* Soft Center Radial Highlight (matching GSA reference glow) */}
+        {/* Soft Bright Sky Center Highlight */}
         <div
           className="absolute inset-0 pointer-events-none z-0"
           style={{
             background:
-              "radial-gradient(ellipse 68% 50% at 50% 38%, rgba(56, 189, 248, 0.28) 0%, rgba(29, 78, 216, 0.12) 52%, transparent 80%)",
+              "radial-gradient(ellipse 70% 45% at 50% 34%, rgba(125, 211, 252, 0.25) 0%, rgba(59, 130, 246, 0.08) 55%, transparent 80%)",
           }}
         />
 
-        {/* Subtle Dark Navy Vignette Behind Subtitle & Button before fading to White */}
-        <div
-          className="absolute inset-x-0 bottom-12 h-[46%] pointer-events-none z-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 85% 65% at 50% 45%, rgba(6, 20, 52, 0.72) 0%, rgba(10, 37, 92, 0.35) 55%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, transparent 0%, black 30%, black 65%, transparent 100%)",
-            maskImage:
-              "linear-gradient(to bottom, transparent 0%, black 30%, black 65%, transparent 100%)",
-          }}
-        />
+        {/* ── Festive Floating Confetti Layer ── */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-10" aria-hidden="true">
+          {confettiPieces.map((c, idx) => (
+            <motion.span
+              key={idx}
+              initial={{ opacity: 0, y: -20, rotate: c.rot }}
+              animate={{
+                opacity: [0.55, 0.95, 0.55],
+                y: [0, 26, 0],
+                x: [0, idx % 2 === 0 ? 12 : -12, 0],
+                rotate: [c.rot, c.rot + (idx % 2 === 0 ? 140 : -140), c.rot],
+              }}
+              transition={{
+                duration: c.dur,
+                delay: c.delay,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute shadow-2xs"
+              style={{
+                left: c.left,
+                top: c.top,
+                width: `${c.w}px`,
+                height: `${c.h}px`,
+                backgroundColor: c.color,
+                borderRadius:
+                  c.shape === "circle"
+                    ? "9999px"
+                    : c.shape === "diamond"
+                    ? "2px"
+                    : "3px",
+              }}
+            />
+          ))}
+        </div>
 
-        {/* ── Main Centered Typography + Floating 3D Keychain Assets ── */}
-        <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
+        {/* ── Main Centered Typography + Floating 3D Keychain Assets (No Glow) ── */}
+        <div className="relative z-20 max-w-4xl mx-auto text-center flex flex-col items-center">
           {/* Headline Wrapper with Floating 3D Keychains */}
           <div className="relative inline-block px-6 sm:px-12 md:px-16 py-2">
-            {/* Floating 3D Keychain Assets from Google Drive */}
+            {/* Floating 3D Keychain Assets from Google Drive — Crisp without Glow */}
             {keychainHeroAssets.map((item, idx) => (
               <motion.div
                 key={idx}
@@ -332,70 +376,62 @@ const HeroSection = () => {
                 }}
                 className={`absolute z-20 pointer-events-none select-none ${item.className}`}
               >
-                <div
-                  className="absolute inset-1 rounded-full blur-xl opacity-60"
-                  style={{ backgroundColor: item.glow }}
-                />
                 <img
                   src={item.src}
                   alt={item.alt}
-                  className="relative z-10 w-full h-full object-contain drop-shadow-[0_14px_28px_rgba(0,0,0,0.45)]"
+                  className="relative z-10 w-full h-full object-contain drop-shadow-[0_10px_18px_rgba(15,23,42,0.22)]"
                 />
               </motion.div>
             ))}
 
-            {/* Clean Geometric Headline (Google Sans / Outfit style) */}
+            {/* Clean & Playfully Colored Geometric Headline (No Eyes) */}
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-extrabold text-white uppercase tracking-[-0.03em] leading-[1.03] text-[2.35rem] sm:text-[4rem] md:text-[5.1rem] lg:text-[5.9rem] drop-shadow-[0_6px_24px_rgba(6,24,68,0.38)] select-none"
+              className="font-display font-extrabold uppercase tracking-[-0.03em] leading-[1.04] text-[2.35rem] sm:text-[4rem] md:text-[5.1rem] lg:text-[5.9rem] drop-shadow-[0_4px_16px_rgba(15,52,130,0.22)] select-none"
             >
-              <span className="block">HELLO, IT&apos;S ME</span>
-              <span className="block">EMIRSYAH</span>
-              <span className="inline-flex items-center justify-center gap-2 sm:gap-3">
-                <span>RAFSANJANI</span>
-                {/* Animated Googly Eyes (matching GSA Batch 2 reference) */}
+              <span className="block text-white">
+                HELLO,{" "}
                 <span
-                  className="inline-flex items-center gap-0.5 sm:gap-1 align-middle translate-y-[2px] sm:translate-y-[4px]"
-                  aria-hidden="true"
+                  className="text-transparent bg-clip-text"
+                  style={{
+                    backgroundImage: "linear-gradient(135deg, #fef08a 0%, #fde047 50%, #facc15 100%)",
+                  }}
                 >
-                  {[0, 1].map((eye) => (
-                    <span
-                      key={eye}
-                      className="w-5 h-6 sm:w-8 sm:h-10 md:w-9 md:h-11 rounded-full bg-white flex items-center justify-center shadow-md border border-slate-200/80 overflow-hidden"
-                    >
-                      <motion.span
-                        animate={{
-                          x: [-2, 3, -1, -2],
-                          y: [1, -2, 2, 1],
-                        }}
-                        transition={{
-                          duration: 3.6,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                        }}
-                        className="w-2.5 h-3 sm:w-4 sm:h-5 rounded-full bg-slate-950"
-                      />
-                    </span>
-                  ))}
+                  IT&apos;S ME
                 </span>
+              </span>
+              <span className="block text-white">EMIRSYAH</span>
+              <span
+                className="block text-transparent bg-clip-text"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(90deg, #ffffff 0%, #fef08a 38%, #bae6fd 72%, #ffffff 100%)",
+                }}
+              >
+                RAFSANJANI
               </span>
             </motion.h1>
           </div>
 
-          {/* Subtitle Section — Clean White Geometric Typography */}
+          {/* Subtitle Section — Colorful Accents & High Readability */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-6 sm:mt-8 max-w-2xl mx-auto space-y-2.5 sm:space-y-3 px-2"
           >
-            <h2 className="font-display font-bold text-white text-xl sm:text-2xl md:text-3xl tracking-tight drop-shadow-sm">
-              Lead, Innovate, Inspire
+            <h2 className="font-display font-extrabold text-xl sm:text-2xl md:text-3xl tracking-tight drop-shadow-[0_2px_10px_rgba(15,52,130,0.2)]">
+              <span className="text-white">Lead, </span>
+              <span className="text-[#fde047]">Innovate, </span>
+              <span className="text-[#e0f2fe]">Inspire</span>
             </h2>
-            <p className="font-body text-white/95 text-xs sm:text-base md:text-lg font-medium leading-relaxed drop-shadow-xs">
-              Membangun inovasi berbasis Generative AI, Agentic RAG &amp; Machine Learning.
+            <p className="font-body text-white text-xs sm:text-base md:text-lg font-semibold leading-relaxed drop-shadow-[0_2px_8px_rgba(15,52,130,0.22)]">
+              Membangun inovasi berbasis{" "}
+              <span className="text-[#fef08a] font-extrabold">Generative AI</span>,{" "}
+              <span className="text-[#e0f2fe] font-extrabold">Agentic RAG</span> &amp;{" "}
+              <span className="text-[#fde68a] font-extrabold">Machine Learning</span>.
               <br className="hidden sm:block" /> Shape the future of tech, dari riset kampus hingga dampak nyata di industri.
             </p>
           </motion.div>
@@ -410,7 +446,10 @@ const HeroSection = () => {
             <button
               type="button"
               onClick={scrollToProfile}
-              className="group inline-flex items-center gap-2.5 px-7 py-3 rounded-full bg-slate-950/65 hover:bg-slate-950/85 text-white font-display font-semibold text-sm sm:text-base border border-white/25 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              className="group inline-flex items-center gap-2.5 px-7 py-3 rounded-full text-white font-display font-bold text-sm sm:text-base border-2 border-white/60 shadow-[0_10px_25px_rgba(29,110,231,0.35)] transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              style={{
+                background: "linear-gradient(135deg, #1557c0 0%, #1d76f2 55%, #0ea5e9 100%)",
+              }}
             >
               <span>Detail</span>
               <motion.span
@@ -448,24 +487,41 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-2.5 sm:gap-3 px-4 sm:px-5 py-2 rounded-full border border-blue-500/30 text-white font-display font-bold text-[10px] sm:text-xs tracking-wider uppercase shadow-[0_8px_24px_rgba(29,78,216,0.3)] cursor-default"
-              style={{ background: "linear-gradient(135deg,#1d6ee7,#1e40af)" }}
+              className="inline-flex items-center gap-2.5 sm:gap-3 px-4 sm:px-5 py-2 rounded-full border border-sky-400/40 text-white font-display font-bold text-[10px] sm:text-xs tracking-wider uppercase shadow-[0_8px_24px_rgba(14,165,233,0.3)] cursor-default"
+              style={{ background: "linear-gradient(135deg,#0284c7,#2563eb)" }}
             >
               <span className="bg-white/20 px-2 py-0.5 rounded-full text-white">01</span>
               <span>PROFILE • AI INNOVATOR &amp; ENGINEER</span>
               <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-300" />
             </motion.div>
 
-            {/* Clean Geometric Section Heading */}
+            {/* Clean Geometric Section Heading with Bright Blue Gradient Name */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.08 }}
             >
-              <h2 className="font-display font-extrabold text-[2.1rem] sm:text-[3.1rem] md:text-[4rem] lg:text-[4.6rem] tracking-[-0.03em] leading-[1.02] text-slate-900 uppercase">
-                <span className="block text-slate-900">EMIRSYAH</span>
-                <span className="block text-[#1967d2]">RAFSANJANI</span>
+              <h2 className="font-display font-extrabold text-[2.1rem] sm:text-[3.1rem] md:text-[4rem] lg:text-[4.6rem] tracking-[-0.03em] leading-[1.03] uppercase">
+                <span className="block text-slate-900">HELLO, I&apos;M</span>
+                <span
+                  className="block text-transparent bg-clip-text"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(135deg, #0055ff 0%, #0ea5e9 45%, #38bdf8 78%, #2563eb 100%)",
+                  }}
+                >
+                  EMIRSYAH
+                </span>
+                <span
+                  className="block text-transparent bg-clip-text"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(135deg, #1d4ed8 0%, #0284c7 50%, #06b6d4 100%)",
+                  }}
+                >
+                  RAFSANJANI.
+                </span>
               </h2>
             </motion.div>
 
@@ -718,16 +774,12 @@ const HeroSection = () => {
                     className="absolute z-30 pointer-events-none select-none flex items-center justify-center p-1 sm:p-2"
                     style={{ ...s.pos }}
                   >
-                    <div
-                      className="absolute inset-0 rounded-full blur-xl sm:blur-2xl opacity-50"
-                      style={{ backgroundColor: s.glow, transform: "scale(0.8)" }}
-                    />
                     <img
                       src={s.src}
                       alt="Sticker"
                       width={s.size}
                       height={s.size}
-                      className={`relative z-10 object-contain drop-shadow-2xl ${s.mobileClass}`}
+                      className={`relative z-10 object-contain drop-shadow-xl ${s.mobileClass}`}
                     />
                   </motion.div>
                 ))}
