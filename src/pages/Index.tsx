@@ -7,7 +7,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="pt-16 sm:pt-24 min-h-screen">
+    <div className="min-h-screen">
       <HeroSection />
     </div>
   );

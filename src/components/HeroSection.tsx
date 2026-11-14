@@ -11,6 +11,7 @@ import {
   Zap,
   BookOpen,
   ArrowRight,
+  ArrowDown,
   Quote,
 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -20,16 +21,16 @@ const ROLES = [
     prefix: "Generative AI",
     suffix: "Engineer",
     icon: "⚡",
-    gradient: "linear-gradient(135deg, #8b5cf6, #6366f1)",
-    glow: "rgba(139,92,246,0.8)",
-    bar: "#8b5cf6",
+    gradient: "linear-gradient(135deg, #2563eb, #4f46e5)",
+    glow: "rgba(37,99,235,0.45)",
+    bar: "#2563eb",
   },
   {
     prefix: "AI",
     suffix: "Consultant",
     icon: "💡",
     gradient: "linear-gradient(135deg, #0ea5e9, #06b6d4)",
-    glow: "rgba(14,165,233,0.8)",
+    glow: "rgba(14,165,233,0.45)",
     bar: "#0ea5e9",
   },
   {
@@ -37,7 +38,7 @@ const ROLES = [
     suffix: "Content Creator",
     icon: "🎬",
     gradient: "linear-gradient(135deg, #f97316, #eab308)",
-    glow: "rgba(249,115,22,0.8)",
+    glow: "rgba(249,115,22,0.45)",
     bar: "#f97316",
   },
   {
@@ -45,7 +46,7 @@ const ROLES = [
     suffix: "Educator",
     icon: "🎓",
     gradient: "linear-gradient(135deg, #ec4899, #f43f5e)",
-    glow: "rgba(236,72,153,0.8)",
+    glow: "rgba(236,72,153,0.45)",
     bar: "#ec4899",
   },
   {
@@ -53,8 +54,54 @@ const ROLES = [
     suffix: "Engineer",
     icon: "🧠",
     gradient: "linear-gradient(135deg, #10b981, #06b6d4)",
-    glow: "rgba(16,185,129,0.8)",
+    glow: "rgba(16,185,129,0.45)",
     bar: "#10b981",
+  },
+];
+
+/* ─── Keychain Floating Assets for the Top Blue Splash ─── */
+const keychainHeroAssets = [
+  {
+    src: "/asset/keychain/keychain_star.png",
+    alt: "Gemini Rainbow Star Keychain",
+    className:
+      "w-16 h-16 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 -left-4 sm:-left-12 md:-left-20 lg:-left-28 top-1 sm:top-2",
+    initialRotate: -14,
+    animate: {
+      y: [0, -14, 0],
+      rotate: [-14, -6, -14],
+      scale: [1, 1.05, 1],
+    },
+    duration: 4.2,
+    glow: "rgba(251, 191, 36, 0.45)",
+  },
+  {
+    src: "/asset/keychain/keychain_bulb.png",
+    alt: "Voxel Lightbulb Gemini Keychain",
+    className:
+      "w-16 h-20 sm:w-24 sm:h-28 md:w-28 md:h-32 lg:w-32 lg:h-36 -right-3 sm:-right-12 md:-right-20 lg:-right-28 top-6 sm:top-8",
+    initialRotate: 12,
+    animate: {
+      y: [0, -16, 0],
+      rotate: [12, 4, 12],
+      scale: [1, 1.06, 1],
+    },
+    duration: 4.8,
+    glow: "rgba(56, 189, 248, 0.5)",
+  },
+  {
+    src: "/asset/keychain/keychain_pc.png",
+    alt: "Orange Retro AI Computer Keychain",
+    className:
+      "w-16 h-16 sm:w-22 sm:h-22 md:w-24 md:h-24 lg:w-28 lg:h-28 -left-2 sm:-left-10 md:-left-16 lg:-left-22 -bottom-5 sm:-bottom-4",
+    initialRotate: -8,
+    animate: {
+      y: [0, -12, 0],
+      rotate: [-8, 5, -8],
+      scale: [1, 1.05, 1],
+    },
+    duration: 5.1,
+    glow: "rgba(249, 115, 22, 0.45)",
   },
 ];
 
@@ -202,80 +249,224 @@ const HeroSection = () => {
   }, []);
   const role = ROLES[roleIdx];
 
+  const scrollToProfile = () => {
+    const el = document.getElementById("profile-section");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section id="home" className="relative overflow-hidden pixel-grid">
-      {/* ── Background clouds ── */}
+      {/* ══════════════════════════════════════════════════════════════════
+          PART 0: GOOGLE-STYLE OPENING SPLASH (BLUE MASKED & BLENDED INTO WHITE)
+      ══════════════════════════════════════════════════════════════════ */}
+      <div className="relative w-full min-h-[92vh] sm:min-h-[96vh] flex flex-col items-center justify-center pt-28 sm:pt-32 pb-28 sm:pb-36 px-4 overflow-hidden">
+        {/* ── Masked Blue Background that Blends Smoothly into the White Background ── */}
+        <div
+          className="absolute inset-0 pointer-events-none z-0"
+          style={{
+            background:
+              "linear-gradient(180deg, #1b74e8 0%, #1659c7 38%, #0c347a 68%, #1e4ea8 84%, rgba(255,255,255,0) 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0.55) 86%, rgba(0,0,0,0) 100%)",
+            maskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0.55) 86%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+
+        {/* Soft Center Radial Highlight (matching GSA reference glow) */}
+        <div
+          className="absolute inset-0 pointer-events-none z-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 68% 50% at 50% 38%, rgba(56, 189, 248, 0.28) 0%, rgba(29, 78, 216, 0.12) 52%, transparent 80%)",
+          }}
+        />
+
+        {/* Subtle Dark Navy Vignette Behind Subtitle & Button before fading to White */}
+        <div
+          className="absolute inset-x-0 bottom-12 h-[46%] pointer-events-none z-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 85% 65% at 50% 45%, rgba(6, 20, 52, 0.72) 0%, rgba(10, 37, 92, 0.35) 55%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent 0%, black 30%, black 65%, transparent 100%)",
+            maskImage:
+              "linear-gradient(to bottom, transparent 0%, black 30%, black 65%, transparent 100%)",
+          }}
+        />
+
+        {/* ── Main Centered Typography + Floating 3D Keychain Assets ── */}
+        <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
+          {/* Headline Wrapper with Floating 3D Keychains */}
+          <div className="relative inline-block px-6 sm:px-12 md:px-16 py-2">
+            {/* Floating 3D Keychain Assets from Google Drive */}
+            {keychainHeroAssets.map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.4, rotate: item.initialRotate }}
+                animate={{
+                  opacity: 1,
+                  scale: item.animate.scale,
+                  y: item.animate.y,
+                  rotate: item.animate.rotate,
+                }}
+                transition={{
+                  opacity: { duration: 0.5, delay: 0.15 + idx * 0.12 },
+                  y: {
+                    duration: item.duration,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                  rotate: {
+                    duration: item.duration * 1.2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                  scale: {
+                    duration: item.duration,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                }}
+                className={`absolute z-20 pointer-events-none select-none ${item.className}`}
+              >
+                <div
+                  className="absolute inset-1 rounded-full blur-xl opacity-60"
+                  style={{ backgroundColor: item.glow }}
+                />
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  className="relative z-10 w-full h-full object-contain drop-shadow-[0_14px_28px_rgba(0,0,0,0.45)]"
+                />
+              </motion.div>
+            ))}
+
+            {/* Clean Geometric Headline (Google Sans / Outfit style) */}
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display font-extrabold text-white uppercase tracking-[-0.03em] leading-[1.03] text-[2.35rem] sm:text-[4rem] md:text-[5.1rem] lg:text-[5.9rem] drop-shadow-[0_6px_24px_rgba(6,24,68,0.38)] select-none"
+            >
+              <span className="block">HELLO, IT&apos;S ME</span>
+              <span className="block">EMIRSYAH</span>
+              <span className="inline-flex items-center justify-center gap-2 sm:gap-3">
+                <span>RAFSANJANI</span>
+                {/* Animated Googly Eyes (matching GSA Batch 2 reference) */}
+                <span
+                  className="inline-flex items-center gap-0.5 sm:gap-1 align-middle translate-y-[2px] sm:translate-y-[4px]"
+                  aria-hidden="true"
+                >
+                  {[0, 1].map((eye) => (
+                    <span
+                      key={eye}
+                      className="w-5 h-6 sm:w-8 sm:h-10 md:w-9 md:h-11 rounded-full bg-white flex items-center justify-center shadow-md border border-slate-200/80 overflow-hidden"
+                    >
+                      <motion.span
+                        animate={{
+                          x: [-2, 3, -1, -2],
+                          y: [1, -2, 2, 1],
+                        }}
+                        transition={{
+                          duration: 3.6,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        className="w-2.5 h-3 sm:w-4 sm:h-5 rounded-full bg-slate-950"
+                      />
+                    </span>
+                  ))}
+                </span>
+              </span>
+            </motion.h1>
+          </div>
+
+          {/* Subtitle Section — Clean White Geometric Typography */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-6 sm:mt-8 max-w-2xl mx-auto space-y-2.5 sm:space-y-3 px-2"
+          >
+            <h2 className="font-display font-bold text-white text-xl sm:text-2xl md:text-3xl tracking-tight drop-shadow-sm">
+              Lead, Innovate, Inspire
+            </h2>
+            <p className="font-body text-white/95 text-xs sm:text-base md:text-lg font-medium leading-relaxed drop-shadow-xs">
+              Membangun inovasi berbasis Generative AI, Agentic RAG &amp; Machine Learning.
+              <br className="hidden sm:block" /> Shape the future of tech, dari riset kampus hingga dampak nyata di industri.
+            </p>
+          </motion.div>
+
+          {/* "Detail ↓" Pill Button to Smooth-Scroll into Profile */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-8 sm:mt-10"
+          >
+            <button
+              type="button"
+              onClick={scrollToProfile}
+              className="group inline-flex items-center gap-2.5 px-7 py-3 rounded-full bg-slate-950/65 hover:bg-slate-950/85 text-white font-display font-semibold text-sm sm:text-base border border-white/25 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            >
+              <span>Detail</span>
+              <motion.span
+                animate={{ y: [0, 4, 0] }}
+                transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <ArrowDown className="w-4 h-4 text-white" />
+              </motion.span>
+            </button>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* ── Background clouds for the White Profile & Story Area ── */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <motion.div
-          animate={{ opacity: [0.22, 0.4, 0.22] }}
+          animate={{ opacity: [0.16, 0.3, 0.16] }}
           transition={{ duration: 15, repeat: Infinity }}
-          className="absolute top-[10%] left-[10%] w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-purple-400/30 blur-[100px] sm:blur-[120px] rounded-full"
+          className="absolute top-[38%] left-[10%] w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-blue-400/20 blur-[100px] sm:blur-[120px] rounded-full"
         />
         <motion.div
-          animate={{ opacity: [0.15, 0.3, 0.15] }}
+          animate={{ opacity: [0.12, 0.25, 0.12] }}
           transition={{ duration: 20, repeat: Infinity, delay: 2 }}
-          className="absolute bottom-[20%] right-[10%] w-[400px] sm:w-[700px] h-[400px] sm:h-[700px] bg-blue-400/25 blur-[100px] sm:blur-[120px] rounded-full"
-        />
-        <motion.div
-          animate={{ opacity: [0.12, 0.22, 0.12] }}
-          transition={{ duration: 18, repeat: Infinity, delay: 4 }}
-          className="absolute top-[50%] right-[20%] w-[280px] sm:w-[400px] h-[280px] sm:h-[400px] bg-pink-400/20 blur-[90px] sm:blur-[100px] rounded-full"
+          className="absolute bottom-[20%] right-[10%] w-[400px] sm:w-[700px] h-[400px] sm:h-[700px] bg-indigo-400/20 blur-[100px] sm:blur-[120px] rounded-full"
         />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        {/* ══ PART 1: HERO ══ */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center pt-8 sm:pt-16 lg:py-20 pb-10 sm:pb-16">
+      <div id="profile-section" className="container mx-auto px-4 sm:px-6 relative z-10 scroll-mt-20">
+        {/* ══ PART 1: PROFILE SECTION (REVEALED ON SCROLL) ══ */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center pt-6 sm:pt-12 lg:py-16 pb-10 sm:pb-16">
           {/* Left: Text + badges */}
           <div className="space-y-4 sm:space-y-5 text-center lg:text-left">
             {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2.5 sm:gap-3 px-4 sm:px-5 py-2 rounded-2xl border border-violet-400/50 text-white font-extrabold text-[10px] sm:text-xs tracking-widest uppercase shadow-[0_0_30px_rgba(139,92,246,0.5)] cursor-default"
-              style={{ background: "linear-gradient(135deg,#8b5cf6,#ec4899)" }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2.5 sm:gap-3 px-4 sm:px-5 py-2 rounded-full border border-blue-500/30 text-white font-display font-bold text-[10px] sm:text-xs tracking-wider uppercase shadow-[0_8px_24px_rgba(29,78,216,0.3)] cursor-default"
+              style={{ background: "linear-gradient(135deg,#1d6ee7,#1e40af)" }}
             >
-              <span className="bg-white/20 px-2 py-0.5 rounded-lg text-white">01</span>
-              <span>AI Innovator &amp; Engineer</span>
-              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-300 animate-spin" />
+              <span className="bg-white/20 px-2 py-0.5 rounded-full text-white">01</span>
+              <span>PROFILE • AI INNOVATOR &amp; ENGINEER</span>
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-300" />
             </motion.div>
 
-            {/* Heading */}
+            {/* Clean Geometric Section Heading */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.08 }}
             >
-              <h1 className="text-[2.15rem] sm:text-[3.2rem] md:text-[4.5rem] lg:text-[5.2rem] font-black tracking-tight leading-[0.94] text-slate-900 uppercase">
-                <span className="block drop-shadow-sm text-slate-900">HELLO, I&apos;M</span>
-
-                {/* EMIRSYAH — neon glow blink */}
-                <motion.span
-                  className="block font-black my-1 relative"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #0ea5e9 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    filter: "drop-shadow(0 0 18px rgba(139,92,246,0.7))",
-                  }}
-                  animate={{
-                    filter: [
-                      "drop-shadow(0 0 14px rgba(139,92,246,0.6))",
-                      "drop-shadow(0 0 32px rgba(236,72,153,0.95))",
-                      "drop-shadow(0 0 14px rgba(14,165,233,0.7))",
-                      "drop-shadow(0 0 32px rgba(139,92,246,0.95))",
-                      "drop-shadow(0 0 14px rgba(139,92,246,0.6))",
-                    ],
-                  }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  EMIRSYAH
-                </motion.span>
-
-                <span className="block text-slate-900 font-black">RAFSANJANI.</span>
-              </h1>
+              <h2 className="font-display font-extrabold text-[2.1rem] sm:text-[3.1rem] md:text-[4rem] lg:text-[4.6rem] tracking-[-0.03em] leading-[1.02] text-slate-900 uppercase">
+                <span className="block text-slate-900">EMIRSYAH</span>
+                <span className="block text-[#1967d2]">RAFSANJANI</span>
+              </h2>
             </motion.div>
 
             {/* Animated Role Ticker — Big & Bold */}

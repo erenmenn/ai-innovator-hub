@@ -495,17 +495,10 @@ const ExperienceSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
-            className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 uppercase leading-[1.04]"
+            className="font-display font-extrabold text-[2.1rem] sm:text-[3.4rem] md:text-[4.4rem] lg:text-[5rem] tracking-[-0.03em] text-slate-900 uppercase leading-[1.03]"
           >
-            CAREER &amp;{" "}
-            <span
-              className="text-transparent bg-clip-text"
-              style={{
-                backgroundImage: "linear-gradient(135deg, #4f46e5 0%, #ec4899 50%, #0ea5e9 100%)",
-              }}
-            >
-              IMPACT JOURNEY
-            </span>
+            <span className="block text-slate-900">CAREER &amp; IMPACT</span>
+            <span className="block text-[#1967d2]">JOURNEY</span>
           </motion.h2>
 
           <motion.p

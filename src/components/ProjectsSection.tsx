@@ -354,19 +354,13 @@ const ProjectsSection = () => {
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              {/* big gradient title */}
-              <h2 className="text-[2.2rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tighter leading-[0.9] text-slate-900 uppercase">
-                <span className="block drop-shadow-sm">MY</span>
-                <em className="font-black italic lowercase tracking-tight text-transparent bg-clip-text text-[2.6rem] sm:text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] ml-2 sm:ml-8 md:ml-16 leading-none block pb-3 pt-1 -mb-2"
-                  style={{ backgroundImage: "linear-gradient(135deg, #fde047, #f97316, #dc2626)", filter: "drop-shadow(0px 0px 15px rgba(249, 115, 22, 0.3)) drop-shadow(2px 2px 0px rgba(220, 38, 38, 0.15))" }}>
-                  projects.
-                </em>
+              {/* Clean Geometric Section Title */}
+              <h2 className="font-display font-extrabold text-[2.1rem] sm:text-[3.3rem] md:text-[4.3rem] lg:text-[4.9rem] tracking-[-0.03em] leading-[1.03] text-slate-900 uppercase">
+                <span className="block text-slate-900">FEATURED AI &amp; TECH</span>
+                <span className="block text-[#1967d2]">PROJECTS</span>
               </h2>
-              {/* subtle shimmer underline */}
-              <div className="mt-3 h-1 w-40 rounded-full"
-                style={{ background: "linear-gradient(90deg,#6366f1,#a855f7,#ec4899)" }} />
-              <div className="flex items-center gap-2 mt-4 text-slate-500 font-semibold text-sm">
-                <motion.div animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 1.5, repeat: Infinity }} className="w-2 h-2 rounded-full bg-violet-500" />
+              <div className="flex items-center gap-2 mt-3 text-slate-500 font-semibold text-sm">
+                <motion.div animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 1.5, repeat: Infinity }} className="w-2 h-2 rounded-full bg-blue-600" />
                 Showing <span className="text-slate-800 font-black">{filtered.length}</span> project{filtered.length !== 1 ? "s" : ""}
               </div>
             </div>

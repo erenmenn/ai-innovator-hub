@@ -177,18 +177,10 @@ const SocialFeedSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight uppercase"
+            className="font-display font-extrabold text-[2.1rem] sm:text-[3.4rem] md:text-[4.4rem] lg:text-[5rem] tracking-[-0.03em] leading-[1.03] uppercase"
           >
-            <span className="text-slate-900 dark:text-white">CREATIVE</span>{" "}
-            <span
-              className="text-transparent bg-clip-text drop-shadow-sm"
-              style={{
-                backgroundImage:
-                  "linear-gradient(135deg, #f09433 0%, #dc2743 45%, #bc1888 75%, #8b5cf6 100%)",
-              }}
-            >
-              SOCIAL FEED
-            </span>
+            <span className="block text-slate-900 dark:text-white">CREATIVE SOCIAL</span>
+            <span className="block text-[#1967d2]">MEDIA FEED</span>
           </motion.h2>
 
           {/* Subtitle */}

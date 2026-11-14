@@ -395,15 +395,10 @@ const CertificatesSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white uppercase"
+            className="font-display font-extrabold text-[2.1rem] sm:text-[3.4rem] md:text-[4.4rem] lg:text-[5rem] tracking-[-0.03em] leading-[1.03] text-slate-900 dark:text-white uppercase"
           >
-            CERTIFICATES &amp;{" "}
-            <span
-              className="text-transparent bg-clip-text"
-              style={{ backgroundImage: "linear-gradient(to right, #8b5cf6, #06b6d4, #10b981)" }}
-            >
-              AWARDS
-            </span>
+            <span className="block text-slate-900 dark:text-white">CERTIFICATES &amp;</span>
+            <span className="block text-[#1967d2]">AWARDS</span>
           </motion.h2>
 
           <motion.p

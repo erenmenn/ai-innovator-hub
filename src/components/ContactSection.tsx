@@ -56,12 +56,9 @@ const ContactSection = () => {
             style={{ background: "linear-gradient(135deg,#10b981,#0ea5e9)" }}>
             <span className="bg-white/20 px-2 py-0.5 rounded-lg text-white">06</span> CONTACT
           </div>
-          <h2 className="text-[2.2rem] sm:text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-black mt-4 sm:mt-6 tracking-tighter leading-[0.9] text-slate-900 uppercase">
-            <span className="block drop-shadow-sm">LET'S</span>
-            <em className="font-playfair italic font-medium lowercase tracking-normal text-transparent bg-clip-text text-[2.6rem] sm:text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] ml-2 sm:ml-8 md:ml-16 leading-none block pb-4 pt-1 -mb-3"
-              style={{ backgroundImage: "linear-gradient(to right, #10b981, #0ea5e9)" }}>
-              connect!
-            </em>
+          <h2 className="font-display font-extrabold text-[2.1rem] sm:text-[3.3rem] md:text-[4.3rem] lg:text-[4.9rem] mt-4 sm:mt-6 tracking-[-0.03em] leading-[1.03] text-slate-900 uppercase">
+            <span className="block text-slate-900">LET&apos;S CONNECT &amp;</span>
+            <span className="block text-[#1967d2]">COLLABORATE</span>
           </h2>
         </motion.div>
 

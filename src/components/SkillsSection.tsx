@@ -213,14 +213,9 @@ const SkillsSection = () => {
                 <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-300 animate-spin" />
               </div>
               
-              <h1 className="text-[2rem] sm:text-[3.2rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tight leading-[0.95] text-slate-900 uppercase">
-                <span className="block drop-shadow-sm text-slate-900">SOFT &amp; TECHNICAL</span>
-                <span
-                  className="block text-transparent bg-clip-text mt-1"
-                  style={{ backgroundImage: "linear-gradient(135deg, #ec4899 0%, #8b5cf6 45%, #06b6d4 100%)" }}
-                >
-                  EXPERTISE.
-                </span>
+              <h1 className="font-display font-extrabold text-[2.1rem] sm:text-[3.3rem] md:text-[4.3rem] lg:text-[4.9rem] tracking-[-0.03em] leading-[1.03] text-slate-900 uppercase">
+                <span className="block text-slate-900">SOFT &amp; TECHNICAL</span>
+                <span className="block text-[#1967d2]">EXPERTISE</span>
               </h1>
             </div>
 

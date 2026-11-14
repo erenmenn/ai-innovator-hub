@@ -269,15 +269,12 @@ const DesignPortfolioSection = () => {
             style={{ background: "linear-gradient(135deg,#ec4899,#f43f5e)" }}>
             <span className="bg-white/20 px-2 py-0.5 rounded-lg text-white">04</span> DESIGN
           </div>
-          <h2 className="text-[2.2rem] sm:text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-black tracking-tighter leading-[0.9] text-slate-900 uppercase">
-            <span className="block drop-shadow-sm">DESIGN</span>
-            <em className="font-playfair italic font-medium lowercase tracking-normal text-transparent bg-clip-text text-[2.6rem] sm:text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] ml-2 sm:ml-8 md:ml-16 leading-none block pb-4 pt-1 -mb-3"
-              style={{ backgroundImage: "linear-gradient(to right, #6366f1, #d946ef, #fb7185)" }}>
-              portfolio.
-            </em>
+          <h2 className="font-display font-extrabold text-[2.1rem] sm:text-[3.2rem] md:text-[4.2rem] lg:text-[4.8rem] tracking-[-0.03em] leading-[1.03] text-slate-900 uppercase">
+            <span className="block text-slate-900">CREATIVE DESIGN</span>
+            <span className="block text-[#1967d2]">PORTFOLIO</span>
           </h2>
-          <p className="text-slate-500 text-sm mt-4 max-w-sm mx-auto leading-relaxed">
-            Where code meets fine art ✦ branding, UI systems & hand-crafted illustrations
+          <p className="text-slate-500 text-sm sm:text-base mt-3 max-w-md mx-auto leading-relaxed font-medium">
+            Where code meets fine art — branding, UI systems &amp; hand-crafted illustrations.
           </p>
         </motion.div>
 
